@@ -1278,3 +1278,124 @@ button { cursor: pointer; font-family: inherit; }
   .cta-final__actions { flex-direction: column; align-items: center; }
   .cta-final__actions .btn { width: 100%; max-width: 320px; }
 }
+
+/* ============================================================
+   SUBPAGES — Servicios / Portfolio / Proceso
+   ============================================================ */
+
+/* Active nav link */
+.nav__link--active {
+  font-weight: 700;
+  border-bottom: 2px solid var(--color-accent);
+}
+
+/* Subpage hero */
+.subpage-hero {
+  padding: calc(var(--header-h) + 80px) 0 80px;
+  text-align: center;
+}
+
+.subpage-hero__title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1.15;
+  margin: 1rem 0 1.25rem;
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.subpage-hero__sub {
+  font-size: 1.15rem;
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+/* Service detail sections */
+.service-detail {
+  padding: var(--section-gap) 0;
+}
+
+.service-detail--alt {
+  background: var(--color-surface);
+}
+
+.service-detail__inner {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 64px;
+  align-items: start;
+}
+
+.service-detail__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  margin-top: 1rem;
+}
+
+.service-detail__list li {
+  padding-left: 1.5rem;
+  position: relative;
+  color: var(--color-text-muted);
+}
+
+.service-detail__list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.service-detail__card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+}
+
+.service-detail__checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.service-detail__checklist li {
+  padding-left: 1.5rem;
+  position: relative;
+  font-size: .95rem;
+}
+
+.service-detail__checklist li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.service-detail__price-box {
+  display: inline-flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.75rem;
+}
+
+@media (max-width: 900px) {
+  .service-detail__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .service-detail__card {
+    position: static;
+  }
+}
