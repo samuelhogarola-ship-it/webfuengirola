@@ -375,7 +375,7 @@ button { cursor: pointer; font-family: inherit; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top;
+  object-position: top left;
   display: block;
 }
 .imac__chin {
@@ -410,7 +410,7 @@ button { cursor: pointer; font-family: inherit; }
   -webkit-backdrop-filter: blur(8px);
 }
 .imac-tag--time {
-  top: 20px;
+  top: -14px;
   right: -22px;
   display: flex;
   align-items: center;
@@ -428,7 +428,7 @@ button { cursor: pointer; font-family: inherit; }
   line-height: 1.45;
 }
 .imac-tag--price {
-  bottom: 74px;
+  bottom: 46px;
   left: -18px;
   padding: 8px 12px;
 }
