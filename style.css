@@ -314,8 +314,15 @@ button { cursor: pointer; font-family: inherit; }
   text-wrap: balance;
 }
 .hero__accent {
-  font-style: italic;
+  display: inline;
+  background: var(--color-text);
+  color: #fff;
+  padding: .06em .22em .1em;
+  border-radius: .22em;
+  font-style: normal;
   font-weight: 800;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 .hero__subtitle {
   font-size: 1.08rem;
@@ -323,23 +330,6 @@ button { cursor: pointer; font-family: inherit; }
   line-height: 1.7;
   margin-bottom: 12px;
   max-width: 460px;
-}
-.hero__price {
-  font-size: .9rem;
-  color: var(--color-text-muted);
-  margin-bottom: 28px;
-  letter-spacing: .01em;
-}
-.hero__price strong {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-pill);
-  padding: 5px 13px 5px 10px;
-  font-size: .82rem;
-  font-weight: 700;
-  font-size: .96rem;
 }
 .hero__actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
 
