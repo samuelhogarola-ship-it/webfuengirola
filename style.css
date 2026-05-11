@@ -1277,10 +1277,10 @@ button { cursor: pointer; font-family: inherit; }
   }
 
   /* Hero */
-  .hero { padding: 56px 0 64px; }
-  .hero__inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero { padding: 48px 0 56px; }
+  .hero__inner { grid-template-columns: 1fr; gap: 36px; }
   .hero__content { max-width: 100%; }
-  .hero__title { font-size: clamp(2rem, 8vw, 2.8rem); }
+  .hero__title { font-size: clamp(1.85rem, 7.5vw, 2.6rem); }
   .mockup__frame { transform: none; max-width: 100%; }
 
   /* Trust */
@@ -1317,8 +1317,8 @@ button { cursor: pointer; font-family: inherit; }
   :root { --section-gap: 72px; }
 
   .container { padding-inline: 20px; }
-  .hero { padding: 48px 0 56px; }
-  .hero__title { font-size: clamp(1.9rem, 9vw, 2.4rem); }
+  .hero { padding: 40px 0 48px; }
+  .hero__title { font-size: clamp(1.75rem, 8vw, 2.2rem); }
   .hero__actions { flex-direction: column; }
   .hero__actions .btn { width: 100%; justify-content: center; }
   .cta-final__actions { flex-direction: column; align-items: center; }
