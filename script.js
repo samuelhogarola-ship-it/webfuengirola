@@ -174,7 +174,7 @@
       footerPrivacy: 'Política de privacidad',
       footerCookies: 'Política de cookies',
       footerWhatsapp: 'WhatsApp',
-      footerRights: 'Web Fuengirola. Todos los derechos reservados.'
+      footerRights: 'WF Studio — Diseño web en Fuengirola. Todos los derechos reservados.'
     },
     en: {
       title: 'Web Fuengirola · Websites for local businesses in 48h',
@@ -344,7 +344,7 @@
       footerPrivacy: 'Privacy policy',
       footerCookies: 'Cookie policy',
       footerWhatsapp: 'WhatsApp',
-      footerRights: 'Web Fuengirola. All rights reserved.'
+      footerRights: 'WF Studio — Web design in Fuengirola. All rights reserved.'
     },
     de: {
       title: 'Web Fuengirola · Webseiten für lokale Unternehmen in 48h',
@@ -514,7 +514,7 @@
       footerPrivacy: 'Datenschutz',
       footerCookies: 'Cookie-Richtlinie',
       footerWhatsapp: 'WhatsApp',
-      footerRights: 'Web Fuengirola. Alle Rechte vorbehalten.'
+      footerRights: 'WF Studio — Webdesign in Fuengirola. Alle Rechte vorbehalten.'
     },
     fi: {
       title: 'Web Fuengirola · Verkkosivut paikallisille yrityksille 48 tunnissa',
@@ -684,7 +684,7 @@
       footerPrivacy: 'Tietosuojakäytäntö',
       footerCookies: 'Evästekäytäntö',
       footerWhatsapp: 'WhatsApp',
-      footerRights: 'Web Fuengirola. Kaikki oikeudet pidätetään.'
+      footerRights: 'WF Studio — Verkkosuunnittelu Fuengirolassa. Kaikki oikeudet pidätetään.'
     }
   };
 
