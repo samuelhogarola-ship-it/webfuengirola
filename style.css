@@ -6,16 +6,17 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --color-bg:         #f9f8f6;
-  --color-surface:    #ffffff;
-  --color-border:     #e8e4df;
-  --color-text:       #1a1a1a;
-  --color-text-muted: #6b6560;
-  --color-accent:     #1a1a1a;
-  --color-accent-alt: #2d5016;
-  --color-cta:        #1a1a1a;
-  --color-whatsapp:   #25d366;
-  --color-whatsapp-h: #1ebe5d;
+  --color-bg:           #f9f8f6;
+  --color-surface:      #ffffff;
+  --color-surface-warm: #f0ece6;
+  --color-border:       #e8e4df;
+  --color-text:         #1a1a1a;
+  --color-text-muted:   #6b6560;
+  --color-accent:       #1a1a1a;
+  --color-accent-alt:   #2d5016;
+  --color-cta:          #1a1a1a;
+  --color-whatsapp:     #25d366;
+  --color-whatsapp-h:   #1ebe5d;
   --radius-sm:        6px;
   --radius-md:        12px;
   --radius-lg:        20px;
@@ -112,6 +113,8 @@ button { cursor: pointer; font-family: inherit; }
   text-transform: uppercase;
   color: var(--color-text-muted);
   margin-bottom: 16px;
+  padding-left: 12px;
+  border-left: 3px solid var(--color-text);
 }
 .section-title {
   font-size: clamp(1.9rem, 3.5vw, 2.8rem);
@@ -405,6 +408,12 @@ button { cursor: pointer; font-family: inherit; }
   background: var(--color-bg);
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s, transform .2s;
+}
+.trust__block:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 .trust__icon {
   width: 48px;
@@ -430,6 +439,9 @@ button { cursor: pointer; font-family: inherit; }
 ============================================================ */
 .problem {
   padding: var(--section-gap) 0;
+  background: var(--color-surface-warm);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 .problem__inner {
   display: grid;
@@ -466,9 +478,10 @@ button { cursor: pointer; font-family: inherit; }
 .problem__stat-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
+  border-top: 3px solid var(--color-text);
   border-radius: var(--radius-md);
   padding: 28px 32px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
 }
 .problem__stat-num {
   display: block;
@@ -833,6 +846,9 @@ button { cursor: pointer; font-family: inherit; }
 ============================================================ */
 .process {
   padding: var(--section-gap) 0;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 .process__steps {
   display: grid;
@@ -855,9 +871,9 @@ button { cursor: pointer; font-family: inherit; }
   z-index: 1;
 }
 .process__step-num {
-  font-size: 2.4rem;
-  font-weight: 800;
-  letter-spacing: -.05em;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
   color: var(--color-text);
   background: var(--color-bg);
   width: 52px;
@@ -868,8 +884,7 @@ button { cursor: pointer; font-family: inherit; }
   border: 2px solid var(--color-border);
   border-radius: 50%;
   margin-bottom: 24px;
-  font-size: 1rem;
-  font-weight: 700;
+  flex-shrink: 0;
 }
 .process__step-title {
   font-size: 1rem;
@@ -888,7 +903,7 @@ button { cursor: pointer; font-family: inherit; }
 ============================================================ */
 .pricing {
   padding: var(--section-gap) 0;
-  background: var(--color-surface);
+  background: var(--color-bg);
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
 }
@@ -987,6 +1002,7 @@ button { cursor: pointer; font-family: inherit; }
 ============================================================ */
 .maintenance {
   padding: var(--section-gap) 0;
+  background: var(--color-bg);
 }
 .maintenance__grid {
   display: grid;
@@ -1055,7 +1071,7 @@ button { cursor: pointer; font-family: inherit; }
 ============================================================ */
 .blog-teaser {
   padding: var(--section-gap) 0;
-  background: var(--color-surface);
+  background: var(--color-surface-warm);
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
 }
@@ -1064,10 +1080,11 @@ button { cursor: pointer; font-family: inherit; }
   align-items: center;
   justify-content: space-between;
   gap: 40px;
-  background: var(--color-bg);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 40px 48px;
+  box-shadow: var(--shadow-md);
 }
 .blog-teaser__desc {
   font-size: 1rem;
