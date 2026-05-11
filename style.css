@@ -1318,8 +1318,21 @@ button { cursor: pointer; font-family: inherit; }
   .hero__inner { grid-template-columns: 1fr; gap: 36px; }
   .hero__content { max-width: 100%; }
   .hero__title { font-size: clamp(1.85rem, 7.5vw, 2.6rem); }
-  .imac-wrap { transform: none; max-width: 100%; }
-  .imac-tag { display: none; }
+  .imac-wrap {
+    transform: none;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .imac { order: 1; width: 100%; }
+  .imac-tag {
+    position: static;
+    flex: 1 1 auto;
+    box-shadow: var(--shadow-sm);
+  }
+  .imac-tag--time { order: 2; display: flex; }
+  .imac-tag--price { order: 2; display: block; }
 
   /* Trust */
   .trust__blocks { grid-template-columns: 1fr; gap: 16px; }
