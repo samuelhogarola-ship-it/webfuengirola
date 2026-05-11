@@ -783,7 +783,7 @@
 
   /* ---- Fade-in on scroll ---- */
   var fadeEls = document.querySelectorAll(
-    '.trust__block, .benefit__item, .service-card, .portfolio-card, .process__step, .maintenance__plan, .problem__stat-card'
+    '.trust__block, .benefit__item, .service-card, .portfolio-card, .process__step, .maintenance__plan, .problem__stat-card, .pricing__card, .blog-teaser__cta-block'
   );
 
   if ('IntersectionObserver' in window) {
@@ -796,13 +796,15 @@
           }
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.08, rootMargin: '0px 0px -32px 0px' }
     );
 
+    var ease = 'cubic-bezier(.4, 0, .2, 1)';
     fadeEls.forEach(function (el, i) {
       el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'opacity .5s ease ' + (i % 4) * 0.07 + 's, transform .5s ease ' + (i % 4) * 0.07 + 's';
+      el.style.transform = 'translateY(16px)';
+      var delay = (i % 4) * 0.08;
+      el.style.transition = 'opacity .55s ' + ease + ' ' + delay + 's, transform .55s ' + ease + ' ' + delay + 's';
       observer.observe(el);
     });
   }
