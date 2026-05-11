@@ -19,11 +19,13 @@
       navContact: 'Contacto',
       headerCta: 'Pedir presupuesto',
       heroBadge: 'Disponible en 48 horas',
-      heroTitle: 'Diseño web y SEO en Fuengirola para comercios locales',
-      heroSubtitle: 'Creamos webs sencillas, claras y profesionales para que tus clientes entiendan qué haces, dónde estás y cómo contactar contigo.',
+      heroTitle: 'La web que tu negocio se merece.',
+      heroSubtitle: 'Webs rápidas y profesionales con todo lo que necesitas para llegar a más clientes.',
       heroPrice: 'Precio cerrado',
       heroPrimaryCta: 'Pedir presupuesto',
       heroSecondaryCta: 'Ver trabajos',
+      imacTagTime: 'para hacer<br>tu web realidad',
+      imacTagPrice: 'Precio cerrado',
       trustHeadline: 'Una web no tiene que ser complicada.<br>Tiene que explicar bien tu negocio.',
       trust1Title: 'Claridad',
       trust1Text: 'Tus clientes entienden en segundos qué ofreces y por qué deberían elegirte a ti.',
@@ -172,7 +174,7 @@
       footerPrivacy: 'Política de privacidad',
       footerCookies: 'Política de cookies',
       footerWhatsapp: 'WhatsApp',
-      footerRights: 'Web Fuengirola. Todos los derechos reservados.'
+      footerRights: 'WF Studio — Diseño web en Fuengirola. Todos los derechos reservados.'
     },
     en: {
       title: 'Web Fuengirola · Websites for local businesses in 48h',
@@ -187,11 +189,13 @@
       navContact: 'Contact',
       headerCta: 'Request a quote',
       heroBadge: 'Available in 48 hours',
-      heroTitle: 'Websites for local businesses in 48h',
-      heroSubtitle: 'We create simple, clear and professional websites so your customers instantly understand what you do, where you are and how to contact you.',
+      heroTitle: 'The website your business deserves.',
+      heroSubtitle: 'Fast, professional websites with everything you need to reach more customers.',
       heroPrice: 'Fixed price',
       heroPrimaryCta: 'Request a quote',
       heroSecondaryCta: 'See projects',
+      imacTagTime: 'to get your<br>website live',
+      imacTagPrice: 'Fixed price',
       trustHeadline: 'A website does not have to be complicated.<br>It has to explain your business well.',
       trust1Title: 'Clarity',
       trust1Text: 'Your customers understand in seconds what you offer and why they should choose you.',
@@ -340,7 +344,7 @@
       footerPrivacy: 'Privacy policy',
       footerCookies: 'Cookie policy',
       footerWhatsapp: 'WhatsApp',
-      footerRights: 'Web Fuengirola. All rights reserved.'
+      footerRights: 'WF Studio — Web design in Fuengirola. All rights reserved.'
     },
     de: {
       title: 'Web Fuengirola · Webseiten für lokale Unternehmen in 48h',
@@ -355,11 +359,13 @@
       navContact: 'Kontakt',
       headerCta: 'Angebot anfragen',
       heroBadge: 'In 48 Stunden verfügbar',
-      heroTitle: 'Webseiten für lokale Unternehmen in 48h',
-      heroSubtitle: 'Wir erstellen einfache, klare und professionelle Webseiten, damit Ihre Kunden sofort verstehen, was Sie tun, wo Sie sind und wie sie Sie kontaktieren können.',
+      heroTitle: 'Die Website, die Ihr Unternehmen verdient.',
+      heroSubtitle: 'Schnelle, professionelle Websites mit allem, was Sie brauchen, um mehr Kunden zu erreichen.',
       heroPrice: 'Festpreis',
       heroPrimaryCta: 'Angebot anfragen',
       heroSecondaryCta: 'Projekte ansehen',
+      imacTagTime: 'bis zur<br>fertigen Website',
+      imacTagPrice: 'Festpreis',
       trustHeadline: 'Eine Webseite muss nicht kompliziert sein.<br>Sie muss Ihr Unternehmen gut erklären.',
       trust1Title: 'Klarheit',
       trust1Text: 'Ihre Kunden verstehen in Sekunden, was Sie anbieten und warum sie Sie wählen sollten.',
@@ -508,7 +514,7 @@
       footerPrivacy: 'Datenschutz',
       footerCookies: 'Cookie-Richtlinie',
       footerWhatsapp: 'WhatsApp',
-      footerRights: 'Web Fuengirola. Alle Rechte vorbehalten.'
+      footerRights: 'WF Studio — Webdesign in Fuengirola. Alle Rechte vorbehalten.'
     },
     fi: {
       title: 'Web Fuengirola · Verkkosivut paikallisille yrityksille 48 tunnissa',
@@ -523,11 +529,13 @@
       navContact: 'Yhteys',
       headerCta: 'Pyydä tarjous',
       heroBadge: 'Valmis 48 tunnissa',
-      heroTitle: 'Verkkosivut paikallisille yrityksille 48 tunnissa',
-      heroSubtitle: 'Teemme yksinkertaiset, selkeät ja ammattimaiset verkkosivut, jotta asiakkaasi ymmärtävät heti mitä teet, missä olet ja miten sinuun saa yhteyden.',
+      heroTitle: 'Verkkosivusto, jonka yrityksesi ansaitsee.',
+      heroSubtitle: 'Nopeat, ammattimaiset verkkosivut kaikella mitä tarvitset tavoittaaksesi enemmän asiakkaita.',
       heroPrice: 'Kiinteä hinta',
       heroPrimaryCta: 'Pyydä tarjous',
       heroSecondaryCta: 'Katso työt',
+      imacTagTime: 'verkkosivustosi<br>valmiiksi',
+      imacTagPrice: 'Kiinteä hinta',
       trustHeadline: 'Verkkosivujen ei tarvitse olla monimutkaiset.<br>Niiden pitää selittää yrityksesi hyvin.',
       trust1Title: 'Selkeys',
       trust1Text: 'Asiakkaasi ymmärtävät sekunneissa, mitä tarjoat ja miksi heidän kannattaa valita juuri sinut.',
@@ -676,7 +684,7 @@
       footerPrivacy: 'Tietosuojakäytäntö',
       footerCookies: 'Evästekäytäntö',
       footerWhatsapp: 'WhatsApp',
-      footerRights: 'Web Fuengirola. Kaikki oikeudet pidätetään.'
+      footerRights: 'WF Studio — Verkkosuunnittelu Fuengirolassa. Kaikki oikeudet pidätetään.'
     }
   };
 
