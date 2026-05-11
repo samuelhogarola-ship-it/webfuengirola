@@ -103,8 +103,9 @@ button { cursor: pointer; font-family: inherit; }
 
 .btn--ghost {
   background: var(--color-surface);
-  color: var(--color-text);
-  border-color: var(--color-border);
+  color: var(--color-text-muted);
+  border: 1px solid rgba(26,26,26,.15);
+  font-weight: 500;
 }
 .btn--ghost:hover {
   border-color: rgba(26,26,26,.4);
@@ -119,7 +120,7 @@ button { cursor: pointer; font-family: inherit; }
 .btn--whatsapp:hover { background: var(--color-whatsapp-h); border-color: var(--color-whatsapp-h); }
 .btn--whatsapp svg { width: 20px; height: 20px; }
 
-.btn--lg { padding: 15px 36px; font-size: .97rem; }
+.btn--lg { padding: 11px 28px; font-size: .88rem; }
 .btn--sm { padding: 9px 20px; font-size: .82rem; }
 .btn--full { width: 100%; justify-content: center; }
 
@@ -240,21 +241,21 @@ button { cursor: pointer; font-family: inherit; }
 .lang-switcher {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px;
+  gap: 4px;
+  padding: 4px;
   background: rgba(255,255,255,.78);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
 }
 .lang-switcher__btn {
   border: none;
   background: transparent;
   color: var(--color-text-muted);
-  font-size: .78rem;
+  font-size: .66rem;
   font-weight: 700;
   letter-spacing: .02em;
-  padding: 8px 10px;
+  padding: 5px 8px;
   border-radius: var(--radius-pill);
   transition: background .2s ease, color .2s ease, transform .2s ease;
 }
@@ -331,7 +332,7 @@ button { cursor: pointer; font-family: inherit; }
   margin-bottom: 12px;
   max-width: 460px;
 }
-.hero__actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.hero__actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 
 /* ---- iMac/Studio Display mockup ---- */
 .hero__mockup {
@@ -430,13 +431,14 @@ button { cursor: pointer; font-family: inherit; }
 .imac-tag--price {
   bottom: 46px;
   left: -18px;
-  padding: 8px 12px;
+  padding: 9px 16px;
+  text-align: center;
 }
 .imac-tag__cerrado {
-  font-size: .84rem;
+  font-size: .9rem;
   font-weight: 700;
   background: linear-gradient(transparent 56%, rgba(255, 214, 0, .6) 56%);
-  padding-bottom: 1px;
+  padding-bottom: 2px;
 }
 
 /* ============================================================
