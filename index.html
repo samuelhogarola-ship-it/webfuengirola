@@ -13,7 +13,7 @@
 
   <!-- Open Graph -->
   <meta property="og:title" data-i18n-meta-content="ogTitle" content="WF-Studio · La página web que tu negocio se merece" />
-  <meta property="og:description" data-i18n-meta-content="ogDescription" content="WF-Studio — \"La página web que tu negocio se merece\"" />
+  <meta property="og:description" data-i18n-meta-content="ogDescription" content="WF-Studio — &quot;La página web que tu negocio se merece&quot;" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://webfuengirola.es" />
   <meta property="og:locale" content="es_ES" />
@@ -36,6 +36,37 @@
     gtag('config', 'G-XXXXXXXXXX');
   </script>
   -->
+
+  <!-- Structured data — JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "WF-Studio",
+    "url": "https://webfuengirola.es",
+    "description": "Estudio de diseño web para negocios locales en Fuengirola y la Costa del Sol. Páginas web profesionales en 48 horas desde 300 € + IVA: diseño responsivo, SEO básico, botón WhatsApp y formulario de contacto incluidos.",
+    "serviceType": "Diseño web para negocios locales",
+    "areaServed": [
+      { "@type": "City", "name": "Fuengirola" },
+      { "@type": "AdministrativeArea", "name": "Costa del Sol" },
+      { "@type": "Country", "name": "España" }
+    ],
+    "offers": {
+      "@type": "Offer",
+      "name": "Página web profesional en 48 horas",
+      "price": "300",
+      "priceCurrency": "EUR",
+      "description": "Diseño web completo con SEO básico, adaptación móvil, botón de WhatsApp y formulario de contacto. Entrega en 48 horas. Precio cerrado desde 300 € + IVA."
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "sales",
+      "email": "webfuengirola@pm.me",
+      "telephone": "+34644220965",
+      "availableLanguage": ["Spanish", "English"]
+    }
+  }
+  </script>
 
   <link rel="stylesheet" href="style.css?v=5" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
