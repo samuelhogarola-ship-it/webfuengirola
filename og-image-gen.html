@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; }
+  body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #f0ede8;
+    font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    padding: 0 72px;
+    gap: 48px;
+  }
+
+  /* LEFT */
+  .left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    background: #fff;
+    border: 1.5px solid #d0cdc8;
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #222;
+    width: fit-content;
+    text-transform: uppercase;
+  }
+  h1 {
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1.08;
+    color: #111;
+    letter-spacing: -0.02em;
+  }
+  .sub {
+    font-size: 17px;
+    color: #555;
+    line-height: 1.5;
+    max-width: 380px;
+  }
+  .btns {
+    display: flex;
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .btn-primary {
+    background: #111;
+    color: #fff;
+    border-radius: 50px;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+  }
+  .btn-secondary {
+    background: transparent;
+    color: #111;
+    border-radius: 50px;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    border: 1.5px solid #bbb;
+  }
+
+  /* RIGHT */
+  .right {
+    position: relative;
+    width: 500px;
+    flex-shrink: 0;
+  }
+
+  /* iMac mockup */
+  .imac {
+    width: 500px;
+  }
+  .screen-wrap {
+    background: #1a1a1a;
+    border-radius: 14px 14px 0 0;
+    padding: 8px 8px 0;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  }
+  .screen-inner {
+    background: #111;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 290px;
+  }
+  /* mini site inside screen */
+  .site-nav {
+    background: #111;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #222;
+  }
+  .site-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo-box {
+    width: 26px; height: 26px;
+    background: #d4a017;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 800; color: #111;
+  }
+  .logo-text { color: #fff; font-size: 9px; font-weight: 600; line-height: 1.2; }
+  .site-links { display: flex; gap: 16px; }
+  .site-link { color: #aaa; font-size: 8px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+  .site-hero {
+    padding: 28px 20px 20px;
+    background: #111;
+  }
+  .site-eyebrow {
+    color: #d4a017;
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .site-eyebrow::before {
+    content: '';
+    display: block;
+    width: 24px; height: 1.5px;
+    background: #d4a017;
+  }
+  .site-h1 {
+    font-size: 38px;
+    font-weight: 900;
+    line-height: 1;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+  .site-h1 span { color: #d4a017; }
+  .site-body {
+    margin-top: 12px;
+    font-size: 8px;
+    color: #888;
+    line-height: 1.5;
+    max-width: 220px;
+  }
+
+  /* Stand */
+  .stand-neck {
+    width: 60px;
+    height: 28px;
+    background: #c8c5c0;
+    margin: 0 auto;
+  }
+  .stand-base {
+    width: 140px;
+    height: 10px;
+    background: #c0bdb8;
+    border-radius: 0 0 8px 8px;
+    margin: 0 auto;
+  }
+
+  /* Floating badges */
+  .badge-48 {
+    position: absolute;
+    top: -18px;
+    right: -10px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 10px 16px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .badge-48 .num {
+    font-size: 28px;
+    font-weight: 900;
+    color: #111;
+    line-height: 1;
+  }
+  .badge-48 .label {
+    font-size: 12px;
+    color: #444;
+    line-height: 1.3;
+    font-weight: 500;
+  }
+
+  .badge-precio {
+    position: absolute;
+    bottom: 60px;
+    left: -10px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 10px 18px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+    font-size: 15px;
+    font-weight: 800;
+    color: #111;
+    border-left: 4px solid #d4a017;
+  }
+
+  /* Studio watermark bottom right */
+  .watermark {
+    position: absolute;
+    bottom: 24px;
+    right: 72px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #aaa;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+
+  <div class="left">
+    <div class="badge">Disponible en 48 horas</div>
+    <h1>La web que tu<br>negocio se merece.</h1>
+    <p class="sub">Webs rápidas y profesionales con todo lo que necesitas para llegar a más clientes.</p>
+    <div class="btns">
+      <div class="btn-primary">Pedir presupuesto</div>
+      <div class="btn-secondary">Ver trabajos</div>
+    </div>
+  </div>
+
+  <div class="right">
+    <!-- Floating 48h badge -->
+    <div class="badge-48">
+      <span class="num">48h</span>
+      <span class="label">para hacer<br>tu web realidad</span>
+    </div>
+
+    <!-- iMac -->
+    <div class="imac">
+      <div class="screen-wrap">
+        <div class="screen-inner">
+          <!-- mini nav -->
+          <div class="site-nav">
+            <div class="site-logo">
+              <div class="logo-box">PT</div>
+              <div class="logo-text">PERSONAL TRAINER<br>FUENGIROLA · SORVALI</div>
+            </div>
+            <div class="site-links">
+              <span class="site-link">Servicios</span>
+              <span class="site-link">Sobre mí</span>
+              <span class="site-link">Contacto</span>
+            </div>
+          </div>
+          <!-- mini hero -->
+          <div class="site-hero">
+            <div class="site-eyebrow">Personal Trainer · Fuengirola</div>
+            <div class="site-h1">TRANSFORMA<br><span>TU CUERPO.</span></div>
+            <div class="site-body">Sorvali — entrenador personal certificado. Programas de entrenamiento personalizados para resultados reales.</div>
+          </div>
+        </div>
+      </div>
+      <div class="stand-neck"></div>
+      <div class="stand-base"></div>
+    </div>
+
+    <!-- Floating precio badge -->
+    <div class="badge-precio">Precio cerrado</div>
+  </div>
+
+  <div class="watermark">WF-Studio</div>
+
+</body>
+</html>
