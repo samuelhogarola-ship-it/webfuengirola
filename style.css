@@ -201,8 +201,9 @@ button { cursor: pointer; font-family: inherit; }
   text-decoration: none;
 }
 .logo__img {
-  height: 44px;
-  width: auto;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
   border-radius: var(--radius-sm);
   display: block;
 }
