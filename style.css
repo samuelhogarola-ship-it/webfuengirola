@@ -200,6 +200,12 @@ button { cursor: pointer; font-family: inherit; }
   flex-shrink: 0;
   text-decoration: none;
 }
+.logo__img {
+  height: 44px;
+  width: auto;
+  border-radius: var(--radius-sm);
+  display: block;
+}
 .logo__mark {
   width: 36px;
   height: 36px;
