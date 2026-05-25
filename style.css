@@ -1300,6 +1300,120 @@ button { cursor: pointer; font-family: inherit; }
 }
 
 /* ============================================================
+   COOKIE BANNER
+============================================================ */
+.cookie-banner-wrapper {
+  font-family: var(--font);
+}
+
+.cookie-banner-card {
+  background: rgba(255,255,255,.96);
+  border: 1px solid var(--color-border);
+  border-radius: 22px;
+  box-shadow: 0 24px 64px rgba(0,0,0,.14), 0 8px 22px rgba(0,0,0,.08);
+  text-align: left;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.cookie-banner-img-container {
+  display: flex;
+  justify-content: center;
+}
+
+.cookie-banner-img {
+  width: 88px;
+  height: 88px;
+  max-height: none;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 10px 26px rgba(0,0,0,.14);
+}
+
+.cookie-banner-card h2 {
+  font-size: 1.05rem;
+  letter-spacing: -.02em;
+  margin-bottom: 10px;
+}
+
+.cookie-banner-notice {
+  color: var(--color-text-muted);
+  font-size: .88rem;
+}
+
+.btn-cookie-secondary {
+  background: transparent;
+  color: var(--color-text);
+  border: 1.5px solid rgba(26,26,26,.14);
+}
+
+.btn-cookie-secondary:hover {
+  background: var(--color-surface-warm);
+}
+
+.btn-cookie-primary,
+.cookie-switch input:checked + span {
+  background: var(--color-cta);
+}
+
+.btn-cookie-primary:hover {
+  background: #2a2a2a;
+}
+
+.cookie-config-link {
+  color: var(--color-text);
+}
+
+.cookie-config-dialog {
+  font-family: var(--font);
+  border-radius: 24px;
+  border: 1px solid var(--color-border);
+}
+
+.cookie-config-intro,
+.cookie-config-copy p {
+  color: var(--color-text-muted);
+}
+
+.cookie-config-option {
+  border-color: var(--color-border);
+}
+
+.cookie-config-option-title {
+  letter-spacing: -.02em;
+}
+
+.cookie-config-badge {
+  background: var(--color-surface-warm);
+  color: var(--color-text);
+}
+
+/* ============================================================
+   LEGAL PAGE
+============================================================ */
+.legal-wrap {
+  --primary: var(--color-text);
+  --ink: var(--color-text);
+  --ink-light: var(--color-text-muted);
+  --muted: var(--color-text-muted);
+  --border: var(--color-border);
+  --border-light: rgba(26,26,26,.08);
+  --surface: var(--color-surface);
+  --radius: var(--radius-md);
+  --shadow: var(--shadow-sm);
+  --font-display: var(--font);
+  --vl-blue: var(--color-text);
+}
+
+.legal-page .subpage-hero {
+  padding-bottom: 40px;
+}
+
+.legal-page .legal-index {
+  background: var(--color-surface);
+}
+
+/* ============================================================
    RESPONSIVE
 ============================================================ */
 @media (max-width: 1024px) {
@@ -1402,6 +1516,10 @@ button { cursor: pointer; font-family: inherit; }
 
   /* Footer */
   .footer__inner { grid-template-columns: 1fr; gap: 32px; }
+
+  .cookie-banner-wrapper {
+    max-width: none;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1415,6 +1533,11 @@ button { cursor: pointer; font-family: inherit; }
   .cta-final__actions { flex-direction: column; align-items: center; }
   .cta-final__actions .btn { width: 100%; max-width: 320px; }
   .section-header { margin-bottom: 52px; }
+
+  .cookie-banner-card,
+  .cookie-config-dialog {
+    border-radius: 18px;
+  }
 }
 
 /* ============================================================
