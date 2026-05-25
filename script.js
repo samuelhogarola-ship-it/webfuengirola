@@ -688,11 +688,124 @@
     }
   };
 
+  var cookieBannerCopy = {
+    es: {
+      title: 'Usamos cookies',
+      noticeHtml: '<p>Utilizamos cookies necesarias para que la web funcione correctamente y, si lo aceptas, cookies analíticas para entender qué partes de la página interesan más.</p>',
+      rejectLabel: 'Rechazar',
+      acceptLabel: 'Aceptar',
+      configLabel: 'Configurar cookies',
+      configModalTitle: 'Configuración de cookies',
+      configModalIntro: 'Puedes mantener solo las cookies necesarias o activar también las analíticas. Tu elección se guarda en este navegador.',
+      necessaryTitle: 'Cookies necesarias',
+      necessaryDescription: 'Permiten el funcionamiento básico del sitio y guardar tu decisión de consentimiento.',
+      necessaryBadge: 'Siempre activas',
+      analyticsTitle: 'Cookies analíticas',
+      analyticsDescription: 'Nos ayudan a medir visitas y mejorar la web sin cambiar la experiencia básica.',
+      saveConfigLabel: 'Guardar configuración'
+    },
+    en: {
+      title: 'We use cookies',
+      noticeHtml: '<p>We use necessary cookies so the site works properly and, if you accept them, analytics cookies to understand which parts of the page attract the most interest.</p>',
+      rejectLabel: 'Reject',
+      acceptLabel: 'Accept',
+      configLabel: 'Cookie settings',
+      configModalTitle: 'Cookie settings',
+      configModalIntro: 'You can keep only the necessary cookies or also enable analytics. Your choice is stored in this browser.',
+      necessaryTitle: 'Necessary cookies',
+      necessaryDescription: 'They allow the site to work properly and store your consent choice.',
+      necessaryBadge: 'Always active',
+      analyticsTitle: 'Analytics cookies',
+      analyticsDescription: 'They help us measure visits and improve the site without changing the basic experience.',
+      saveConfigLabel: 'Save settings'
+    },
+    de: {
+      title: 'Wir verwenden Cookies',
+      noticeHtml: '<p>Wir verwenden notwendige Cookies, damit die Website korrekt funktioniert, und mit Ihrer Zustimmung analytische Cookies, um zu verstehen, welche Bereiche der Seite am meisten Interesse wecken.</p>',
+      rejectLabel: 'Ablehnen',
+      acceptLabel: 'Akzeptieren',
+      configLabel: 'Cookies einstellen',
+      configModalTitle: 'Cookie-Einstellungen',
+      configModalIntro: 'Sie können nur die notwendigen Cookies behalten oder zusätzlich analytische Cookies aktivieren. Ihre Auswahl wird in diesem Browser gespeichert.',
+      necessaryTitle: 'Notwendige Cookies',
+      necessaryDescription: 'Sie ermöglichen die Grundfunktionen der Website und speichern Ihre Einwilligungsentscheidung.',
+      necessaryBadge: 'Immer aktiv',
+      analyticsTitle: 'Analytische Cookies',
+      analyticsDescription: 'Sie helfen uns, Besuche zu messen und die Website zu verbessern, ohne die Grundfunktion zu verändern.',
+      saveConfigLabel: 'Einstellungen speichern'
+    },
+    fi: {
+      title: 'Käytämme evästeitä',
+      noticeHtml: '<p>Käytämme välttämättömiä evästeitä, jotta sivusto toimii oikein, ja halutessasi analytiikkaevästeitä, jotta ymmärrämme mitkä sivun osat kiinnostavat eniten.</p>',
+      rejectLabel: 'Hylkää',
+      acceptLabel: 'Hyväksy',
+      configLabel: 'Evästeasetukset',
+      configModalTitle: 'Evästeasetukset',
+      configModalIntro: 'Voit pitää vain välttämättömät evästeet tai ottaa myös analytiikan käyttöön. Valintasi tallennetaan tähän selaimeen.',
+      necessaryTitle: 'Välttämättömät evästeet',
+      necessaryDescription: 'Ne mahdollistavat sivuston perustoiminnan ja tallentavat suostumusvalintasi.',
+      necessaryBadge: 'Aina käytössä',
+      analyticsTitle: 'Analytiikkaevästeet',
+      analyticsDescription: 'Ne auttavat meitä mittaamaan käyntejä ja parantamaan sivustoa muuttamatta peruskokemusta.',
+      saveConfigLabel: 'Tallenna asetukset'
+    }
+  };
+
   var defaultLang = 'es';
   var header = document.getElementById('header');
   var hamburger = document.getElementById('hamburger');
   var nav = document.getElementById('nav');
   var langButtons = document.querySelectorAll('.lang-switcher__btn');
+  var cookieBannerInstance = null;
+  var cookieDecisionKey = 'webfuengirola_cookie_consent';
+  var cookiePreferencesKey = 'webfuengirola_cookie_preferences';
+
+  function applyCookiePreferenceState(preferences) {
+    var hasAnalytics = !!(preferences && preferences.analiticas);
+    document.documentElement.dataset.analyticsConsent = hasAnalytics ? 'granted' : 'denied';
+  }
+
+  function buildCookieBannerConfig(lang) {
+    var copy = cookieBannerCopy[lang] || cookieBannerCopy[defaultLang];
+
+    return {
+      decisionStorageKey: cookieDecisionKey,
+      preferencesStorageKey: cookiePreferencesKey,
+      imageSrc: 'img/cookie-funny.webp',
+      imageAlt: 'Funny cookie illustration',
+      title: copy.title,
+      noticeHtml: copy.noticeHtml,
+      rejectLabel: copy.rejectLabel,
+      acceptLabel: copy.acceptLabel,
+      configLabel: copy.configLabel,
+      configModalTitle: copy.configModalTitle,
+      configModalIntro: copy.configModalIntro,
+      necessaryTitle: copy.necessaryTitle,
+      necessaryDescription: copy.necessaryDescription,
+      necessaryBadge: copy.necessaryBadge,
+      analyticsTitle: copy.analyticsTitle,
+      analyticsDescription: copy.analyticsDescription,
+      saveConfigLabel: copy.saveConfigLabel,
+      onAccept: applyCookiePreferenceState,
+      onReject: applyCookiePreferenceState,
+      onSaveConfig: applyCookiePreferenceState
+    };
+  }
+
+  function initCookieBanner(lang) {
+    if (!window.CookieBannerCore || typeof window.CookieBannerCore.init !== 'function') return;
+
+    cookieBannerInstance = window.CookieBannerCore.init(buildCookieBannerConfig(lang || defaultLang));
+    if (cookieBannerInstance && typeof cookieBannerInstance.getPreferences === 'function') {
+      applyCookiePreferenceState(cookieBannerInstance.getPreferences());
+    }
+  }
+
+  function resetCookieBanner() {
+    window.localStorage.removeItem(cookieDecisionKey);
+    window.localStorage.removeItem(cookiePreferencesKey);
+    initCookieBanner(document.documentElement.lang || defaultLang);
+  }
 
   function applyTranslations(lang) {
     var dictionary = translations[lang] || translations[defaultLang];
@@ -732,6 +845,8 @@
       button.classList.toggle('is-active', isActive);
       button.setAttribute('aria-pressed', String(isActive));
     });
+
+    initCookieBanner(lang);
   }
 
   function setLanguage(lang) {
@@ -788,6 +903,13 @@
   /* ---- Footer year ---- */
   var yearEl = document.getElementById('footer-year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  document.querySelectorAll('[data-cookie-preferences-link]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      resetCookieBanner();
+    });
+  });
 
   /* ---- Fade-in on scroll ---- */
   var fadeEls = document.querySelectorAll(
