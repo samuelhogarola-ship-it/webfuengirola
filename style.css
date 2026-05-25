@@ -1389,6 +1389,31 @@ button { cursor: pointer; font-family: inherit; }
 }
 
 /* ============================================================
+   LEGAL PAGE
+============================================================ */
+.legal-wrap {
+  --primary: var(--color-text);
+  --ink: var(--color-text);
+  --ink-light: var(--color-text-muted);
+  --muted: var(--color-text-muted);
+  --border: var(--color-border);
+  --border-light: rgba(26,26,26,.08);
+  --surface: var(--color-surface);
+  --radius: var(--radius-md);
+  --shadow: var(--shadow-sm);
+  --font-display: var(--font);
+  --vl-blue: var(--color-text);
+}
+
+.legal-page .subpage-hero {
+  padding-bottom: 40px;
+}
+
+.legal-page .legal-index {
+  background: var(--color-surface);
+}
+
+/* ============================================================
    RESPONSIVE
 ============================================================ */
 @media (max-width: 1024px) {
