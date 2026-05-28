@@ -763,6 +763,10 @@
   function applyCookiePreferenceState(preferences) {
     var hasAnalytics = !!(preferences && preferences.analiticas);
     document.documentElement.dataset.analyticsConsent = hasAnalytics ? 'granted' : 'denied';
+    if (window.GoogleAnalyticsCore) {
+      if (hasAnalytics) GoogleAnalyticsCore.grantConsent();
+      else              GoogleAnalyticsCore.revokeConsent();
+    }
   }
 
   function buildCookieBannerConfig(lang) {
@@ -794,6 +798,11 @@
 
   function initCookieBanner(lang) {
     if (!window.CookieBannerCore || typeof window.CookieBannerCore.init !== 'function') return;
+
+    // GA init BEFORE el banner para que los consent defaults se encolen primero
+    if (window.GoogleAnalyticsCore) {
+      GoogleAnalyticsCore.init({ measurementId: 'G-V7KY8FGLM5' });
+    }
 
     cookieBannerInstance = window.CookieBannerCore.init(buildCookieBannerConfig(lang || defaultLang));
     if (cookieBannerInstance && typeof cookieBannerInstance.getPreferences === 'function') {
