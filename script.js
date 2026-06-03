@@ -32,7 +32,7 @@
       trust2Title: 'Presencia online',
       trust2Text: 'Aparece en Google cuando alguien busca tu servicio cerca. Sin web, no existes en el mapa digital.',
       trust3Title: 'Contacto directo',
-      trust3Text: 'Un botón de WhatsApp o formulario visible convierte visitas en clientes reales, sin rodeos.',
+      trust3Text: 'Un botón de WhatsApp o formulario visible convierte visitas en clientes reales, sin complicaciones.',
       problemLabel: 'El problema',
       problemTitle: 'Muchos negocios locales están perdiendo clientes sin saberlo',
       problem1: 'Dependen solo de Instagram, que cambia sus algoritmos sin avisar.',
