@@ -7,10 +7,10 @@
 
   var translations = {
     es: {
-      title: 'Diseño Web Premium en Fuengirola | Webs, Apps y Automatización',
-      metaDescription: 'Landing pages desde 300€ + IVA y desarrollo premium a medida en Fuengirola: webs corporativas, React, Node, chatbots, web apps y automatización de flujos.',
-      ogTitle: 'Web Fuengirola · Webs premium, apps y automatización para empresas',
-      ogDescription: 'Producto base claro desde 300€ + IVA y soluciones avanzadas a medida: React, Node, chatbots, apps Android y optimización de flujos.',
+      title: 'Diseño Web en Fuengirola | Páginas Web para Negocios Locales',
+      metaDescription: 'Creamos páginas web en Fuengirola para negocios locales: landing pages, webs corporativas y automatización con diseño claro, SEO técnico y contacto directo.',
+      ogTitle: 'Diseño Web en Fuengirola | Web Fuengirola',
+      ogDescription: 'Páginas web para negocios locales en Fuengirola: landing pages, webs corporativas y automatización con estructura clara y enfoque SEO.',
       navHome: 'Inicio',
       navServices: 'Servicios',
       navPortfolio: 'Portfolio',
