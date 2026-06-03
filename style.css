@@ -2178,20 +2178,22 @@ button { cursor: pointer; font-family: inherit; }
   bottom: 24px;
   right: 24px;
   z-index: 9999;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
   background: var(--color-whatsapp);
   color: #fff;
   text-decoration: none;
-  padding: 13px 20px 13px 16px;
-  border-radius: 50px;
+  width: 58px;
+  height: 58px;
+  padding: 0;
+  border-radius: 50%;
   box-shadow: 0 4px 16px rgba(37,211,102,.40);
   font-weight: 600;
   font-size: .92rem;
   letter-spacing: .01em;
   transition: background .2s, box-shadow .2s, transform .2s;
-  white-space: nowrap;
+  overflow: hidden;
 }
 .whatsapp-fab:hover {
   background: var(--color-whatsapp-h);
@@ -2203,12 +2205,14 @@ button { cursor: pointer; font-family: inherit; }
   height: 22px;
   flex-shrink: 0;
 }
+.whatsapp-fab span {
+  display: none;
+}
 @media (max-width: 600px) {
   .whatsapp-fab {
     bottom: 16px;
     right: 16px;
-    padding: 13px;
-    border-radius: 50%;
+    width: 54px;
+    height: 54px;
   }
-  .whatsapp-fab span { display: none; }
 }
