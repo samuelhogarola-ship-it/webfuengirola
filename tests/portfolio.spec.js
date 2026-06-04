@@ -48,7 +48,8 @@ test.describe('portfolio detail pages', () => {
       await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /index, follow/);
       await expect(page.locator('.project-breadcrumb')).toContainText('Portfolio');
       await expect(page.locator('.project-detail__image')).toHaveAttribute('alt', project.imageAlt);
-      await expect(page.getByRole('link', { name: new RegExp(project.urlLabel, 'i') })).toBeVisible();
+      await expect(page.locator('.project-subhero__actions .btn--primary')).toHaveAttribute('href', project.url);
+      await expect(page.locator('.project-subhero__actions .btn--primary')).toContainText(project.urlLabel);
 
       expect(errors).toEqual([]);
     });
@@ -72,6 +73,13 @@ test('ficha de proyecto mantiene CTA visible en móvil', async ({ page }) => {
   await page.goto('/portfolio/fisioapp-panel-clinica/');
 
   await expect(page.locator('.project-subhero__actions')).toBeVisible();
-  await expect(page.getByRole('link', { name: /quiero algo similar/i })).toBeVisible();
+  await expect(page.getByRole('link', { name: /quiero algo as[ií]/i })).toBeVisible();
   await expect(page.locator('.project-detail__cta')).toBeVisible();
+});
+
+test('la imagen principal de FisioApp enlaza a la demo comercial', async ({ page }) => {
+  await page.goto('/portfolio/fisioapp-panel-clinica/');
+
+  await expect(page.locator('.project-detail__image-card')).toHaveAttribute('href', 'https://webfuengirola.com/portfolio/demo.html');
+  await expect(page.locator('.project-detail__image-card')).toHaveAttribute('aria-label', /probar demo/i);
 });
