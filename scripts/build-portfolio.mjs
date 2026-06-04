@@ -356,7 +356,7 @@ ${renderHeader(prefix, 'portfolio')}
         <p class="subpage-hero__sub">${escapeHtml(project.description)}</p>
         <div class="project-subhero__actions">
           <a href="${escapeHtml(project.url)}" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">${escapeHtml(project.urlLabel)}</a>
-          <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20algo%20como%20${encodeURIComponent(project.title)}%20para%20mi%20negocio" class="btn btn--outline btn--lg" target="_blank" rel="noopener noreferrer">Quiero algo similar</a>
+          <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20algo%20como%20${encodeURIComponent(project.title)}%20para%20mi%20negocio" class="btn btn--outline btn--lg" target="_blank" rel="noopener noreferrer">Quiero algo as&iacute;</a>
         </div>
       </div>
     </section>
@@ -364,11 +364,11 @@ ${renderHeader(prefix, 'portfolio')}
     <section class="service-detail project-detail">
       <div class="container">
         <div class="project-detail__hero">
-          <div class="project-detail__image-card">
+          <a href="${escapeHtml(project.url)}" class="project-detail__image-card" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(project.urlLabel)}: ${escapeHtml(project.title)}">
             <img src="${assetHref(prefix, project.image)}" alt="${escapeHtml(project.imageAlt)}" width="${project.imageWidth}" height="${project.imageHeight}" class="project-detail__image" loading="eager" decoding="async" />
-          </div>
+          </a>
           <aside class="project-detail__summary-card">
-            <span class="section-label">Project overview</span>
+            <span class="section-label">Resumen del proyecto</span>
             <h2 class="project-detail__summary-title">${escapeHtml(project.brand)}</h2>
             <ul class="project-detail__facts">
               <li><strong>Tipo</strong><span>${escapeHtml(project.category)}</span></li>
