@@ -1058,7 +1058,7 @@ button { cursor: pointer; font-family: inherit; }
 }
 
 .project-detail {
-  padding-top: 8px;
+  padding: 48px 0 !important;
 }
 
 .project-detail__hero {
