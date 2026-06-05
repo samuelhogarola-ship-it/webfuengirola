@@ -811,6 +811,16 @@ button { cursor: pointer; font-family: inherit; }
   opacity: .5;
 }
 .service-card--featured .service-card__features li::before { background: #fff; }
+.service-card .btn { margin-top: auto; }
+.service-card--featured .btn--outline {
+  color: #fff;
+  border-color: rgba(255,255,255,.7);
+}
+.service-card--featured .btn--outline:hover {
+  background: #fff;
+  color: var(--color-text);
+  border-color: #fff;
+}
 
 .additional-services__grid {
   display: grid;
