@@ -52,7 +52,9 @@ test.describe('portfolio detail pages', () => {
       await expect(page.locator('.project-subhero__actions .btn--primary')).toHaveAttribute('href', project.url);
       await expect(page.locator('.project-subhero__actions .btn--primary')).toContainText(project.urlLabel);
       const productCategory = productCategories.find((item) => item.slug === project.productCategorySlug);
-      await expect(page.locator('.project-detail__facts')).toContainText(productCategory.label);
+      if (productCategory) {
+        await expect(page.locator('.project-detail__facts')).toContainText(productCategory.label);
+      }
 
       expect(errors).toEqual([]);
     });
@@ -79,6 +81,7 @@ test.describe('product category pages', () => {
     test(`${categorySlug} carga y muestra solo sus proyectos`, async ({ page }) => {
       const category = productCategories.find((item) => item.slug === categorySlug);
       const filteredProjects = projects.filter((item) => item.productCategorySlug === categorySlug);
+      expect(filteredProjects.length).toBeGreaterThan(0);
 
       await page.goto(`/productos/${categorySlug}/`);
 

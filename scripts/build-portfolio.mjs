@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 const portfolioDir = path.join(rootDir, 'portfolio');
 const productsDir = path.join(rootDir, 'productos');
-const today = '2026-06-05';
+const today = new Date().toISOString().slice(0, 10);
 const productCategoryMap = new Map(productCategories.map((category) => [category.slug, category]));
 
 const portfolioIntro = {
@@ -78,7 +78,8 @@ function renderHeader(prefix, activePage) {
   </header>`;
 }
 
-function renderFooter(prefix) {
+function renderFooter(prefix, whatsappText = 'Hola, me interesa una web para mi negocio') {
+  const whatsappHref = `https://wa.me/34622923988?text=${encodeURIComponent(whatsappText)}`;
   return `
   <footer class="footer">
     <div class="container footer__inner">
@@ -111,7 +112,7 @@ function renderFooter(prefix) {
         <ul class="footer__links">
           <li><a href="https://wa.me/34622923988" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
           <li><a href="mailto:info@webfuengirola.com">info@webfuengirola.com</a></li>
-          <li><a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" target="_blank" rel="noopener noreferrer">Pedir presupuesto</a></li>
+          <li><a href="${whatsappHref}" target="_blank" rel="noopener noreferrer">Pedir presupuesto</a></li>
         </ul>
       </div>
     </div>
@@ -125,7 +126,7 @@ function renderFooter(prefix) {
   <script src="${assetHref(prefix, 'google-analytics-core.js')}"></script>
   <script src="${assetHref(prefix, 'script.js')}"></script>
   <a
-    href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio"
+    href="${whatsappHref}"
     class="whatsapp-fab"
     target="_blank"
     rel="noopener noreferrer"
@@ -492,7 +493,7 @@ ${renderHeader(prefix, 'services')}
         <p class="subpage-hero__sub">${escapeHtml(category.heroDescription)}</p>
         <div class="project-subhero__actions">
           <a href="${navHref(prefix, category.serviceHref)}" class="btn btn--primary btn--lg">Ver servicio</a>
-          <a href="https://wa.me/34622923988?text=${encodeURIComponent(category.whatsappText)}" class="btn btn--outline btn--lg" target="_blank" rel="noopener noreferrer">Quiero algo as&iacute;</a>
+          <a href="https://wa.me/34622923988?text=${encodeURIComponent(category.whatsappText)}" class="btn btn--outline btn--lg" target="_blank" rel="noopener noreferrer">Quiero algo así</a>
         </div>
       </div>
     </section>
@@ -513,7 +514,7 @@ ${renderHeader(prefix, 'services')}
 
         <div class="section-header" style="margin-top:48px;">
           <span class="section-label">Casos reales</span>
-          <h2 class="section-title">Proyectos dentro de esta categor&iacute;a</h2>
+          <h2 class="section-title">Proyectos dentro de esta categoría</h2>
           <p class="section-sub">Solo aparecen ejemplos marcados como ${escapeHtml(category.label)} para que el cliente vea referentes parecidos al encargo que tiene en mente.</p>
         </div>
 
@@ -524,8 +525,8 @@ ${cards}
         <section class="project-detail__cta">
           <div class="project-detail__cta-copy">
             <span class="section-label">Siguiente paso</span>
-            <h2 class="section-title">¿Quieres una soluci&oacute;n de este tipo?</h2>
-            <p class="project-detail__copy">Podemos valorar si esta categor&iacute;a encaja tal cual o si merece una versi&oacute;n m&aacute;s personalizada seg&uacute;n tu negocio, tu contenido y el nivel de funcionalidad que necesitas.</p>
+            <h2 class="section-title">¿Quieres una solución de este tipo?</h2>
+            <p class="project-detail__copy">Podemos valorar si esta categoría encaja tal cual o si merece una versión más personalizada según tu negocio, tu contenido y el nivel de funcionalidad que necesitas.</p>
           </div>
           <div class="project-detail__cta-actions">
             <a href="https://wa.me/34622923988?text=${encodeURIComponent(category.whatsappText)}" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">Pedir algo parecido</a>
@@ -534,14 +535,14 @@ ${cards}
         </section>
 
         <section class="project-detail__related">
-          <span class="section-label">Otras categor&iacute;as</span>
+          <span class="section-label">Otras categorías</span>
           <div class="project-detail__related-links">${siblingLinks}</div>
         </section>
       </div>
     </section>
   </main>
 
-${renderFooter(prefix)}
+${renderFooter(prefix, category.whatsappText)}
 </body>
 </html>`;
 }
