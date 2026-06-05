@@ -17,7 +17,7 @@ export const productCategories = [
     label: 'Express 300€ + blog WordPress',
     shortLabel: 'Express 300€ + blog WP',
     serviceLabel: 'Web Express',
-    serviceHref: 'servicios.html#landing-web-local',
+    serviceHref: 'servicios.html#web-express',
     heroTitle: 'Ejemplos de Express 300€ + blog WordPress',
     heroDescription: 'Aquí agrupamos proyectos express de captación que añaden un blog en WordPress para ganar margen editorial sin convertir la web en una corporativa más pesada.',
     summary: 'Encaja cuando hace falta una web rápida, clara y comercial, con una base sencilla de contenidos que luego se puede seguir ampliando desde WordPress.',
