@@ -19,10 +19,19 @@ const portfolioIntro = {
   twitterDescription: 'Casos reales de diseño web en Fuengirola para negocios locales, captación y proyectos digitales.',
 };
 
+/**
+ * Creates a directory if it does not exist yet.
+ * @param {string} dir
+ */
 function ensureDir(dir) {
   fs.mkdirSync(dir, { recursive: true });
 }
 
+/**
+ * Escapes user-facing HTML content for safe string interpolation.
+ * @param {string} [value='']
+ * @returns {string}
+ */
 function escapeHtml(value = '') {
   return String(value)
     .replace(/&/g, '&amp;')
@@ -32,18 +41,41 @@ function escapeHtml(value = '') {
     .replace(/'/g, '&#39;');
 }
 
+/**
+ * Returns the relative prefix for nested generated pages.
+ * @param {number} [depth=0]
+ * @returns {string}
+ */
 function getRelPrefix(depth = 0) {
   return depth === 0 ? '' : '../'.repeat(depth);
 }
 
+/**
+ * Resolves a navigation href from a prefix and relative target.
+ * @param {string} prefix
+ * @param {string} href
+ * @returns {string}
+ */
 function navHref(prefix, href) {
   return `${prefix}${href}`;
 }
 
+/**
+ * Resolves an asset path from a prefix and relative target.
+ * @param {string} prefix
+ * @param {string} href
+ * @returns {string}
+ */
 function assetHref(prefix, href) {
   return `${prefix}${href}`;
 }
 
+/**
+ * Renders the shared site header for generated pages.
+ * @param {string} prefix
+ * @param {string} activePage
+ * @returns {string}
+ */
 function renderHeader(prefix, activePage) {
   const navItems = [
     { href: 'index.html', label: 'Inicio', key: 'home' },
@@ -78,6 +110,12 @@ function renderHeader(prefix, activePage) {
   </header>`;
 }
 
+/**
+ * Renders the shared site footer and floating WhatsApp CTA.
+ * @param {string} prefix
+ * @param {string} [whatsappText='Hola, me interesa una web para mi negocio']
+ * @returns {string}
+ */
 function renderFooter(prefix, whatsappText = 'Hola, me interesa una web para mi negocio') {
   const whatsappHref = `https://wa.me/34622923988?text=${encodeURIComponent(whatsappText)}`;
   return `
@@ -137,6 +175,21 @@ function renderFooter(prefix, whatsappText = 'Hola, me interesa una web para mi 
   </a>`;
 }
 
+/**
+ * Renders the shared HTML head for generated pages.
+ * @param {{
+ *   title: string,
+ *   description: string,
+ *   canonical: string,
+ *   ogTitle: string,
+ *   ogDescription: string,
+ *   ogImage: string,
+ *   ogAlt: string,
+ *   preloadImage: string,
+ *   prefix: string,
+ * }} options
+ * @returns {string}
+ */
 function renderHead({ title, description, canonical, ogTitle, ogDescription, ogImage, ogAlt, preloadImage, prefix }) {
   return `
 <head>
@@ -170,14 +223,30 @@ function renderHead({ title, description, canonical, ogTitle, ogDescription, ogI
 </head>`;
 }
 
+/**
+ * Renders a list of visual tags for a project card or summary block.
+ * @param {Array<{label: string, className: string}>} tags
+ * @returns {string}
+ */
 function renderTags(tags) {
   return tags.map((tag) => `<span class="tag ${tag.className}">${escapeHtml(tag.label)}</span>`).join('');
 }
 
+/**
+ * Looks up the product category attached to a portfolio project.
+ * @param {{ productCategorySlug?: string }} project
+ * @returns {object | undefined}
+ */
 function getProductCategory(project) {
   return productCategoryMap.get(project.productCategorySlug);
 }
 
+/**
+ * Renders a single portfolio card with optional path overrides.
+ * @param {object} project
+ * @param {{ detailHref?: string, imagePrefix?: string }} [options={}]
+ * @returns {string}
+ */
 function renderPortfolioCard(project, options = {}) {
   const productCategory = getProductCategory(project);
   const productTag = productCategory ? `<span class="tag">${escapeHtml(productCategory.shortLabel)}</span>` : '';
@@ -200,6 +269,10 @@ function renderPortfolioCard(project, options = {}) {
           </article>`;
 }
 
+/**
+ * Renders the main portfolio listing page.
+ * @returns {string}
+ */
 function renderPortfolioListing() {
   const cards = portfolioProjects.map(renderPortfolioCard).join('\n');
   return `<!DOCTYPE html>
@@ -330,6 +403,11 @@ ${renderFooter('')}
 </html>`;
 }
 
+/**
+ * Renders a generated detail page for a single portfolio project.
+ * @param {object} project
+ * @returns {string}
+ */
 function renderDetailPage(project) {
   const prefix = '../../';
   const canonical = `https://webfuengirola.com/portfolio/${project.slug}/`;
@@ -448,6 +526,11 @@ ${renderFooter(prefix)}
 </html>`;
 }
 
+/**
+ * Renders a filtered landing page for one product category.
+ * @param {object} category
+ * @returns {string}
+ */
 function renderProductCategoryPage(category) {
   const prefix = '../../';
   const canonical = `https://webfuengirola.com/productos/${category.slug}/`;
@@ -547,6 +630,10 @@ ${renderFooter(prefix, category.whatsappText)}
 </html>`;
 }
 
+/**
+ * Renders the XML sitemap for the current static output.
+ * @returns {string}
+ */
 function renderSitemap() {
   const urls = [
     { loc: 'https://webfuengirola.com/', lastmod: today },
@@ -571,6 +658,9 @@ ${urls.map((entry) => `  <url>\n    <loc>${entry.loc}</loc>\n    <lastmod>${entr
 `;
 }
 
+/**
+ * Builds the generated portfolio, product pages, and sitemap files.
+ */
 function build() {
   ensureDir(portfolioDir);
   ensureDir(productsDir);
