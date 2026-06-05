@@ -1,13 +1,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { portfolioProjects } from '../portfolio/projects-data.mjs';
+import { portfolioProjects, productCategories } from '../portfolio/projects-data.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 const portfolioDir = path.join(rootDir, 'portfolio');
-const today = '2026-06-04';
+const productsDir = path.join(rootDir, 'productos');
+const today = new Date().toISOString().slice(0, 10);
+const productCategoryMap = new Map(productCategories.map((category) => [category.slug, category]));
 
 const portfolioIntro = {
   title: 'Portfolio de Diseño Web en Fuengirola | Casos Reales',
@@ -17,10 +19,19 @@ const portfolioIntro = {
   twitterDescription: 'Casos reales de diseño web en Fuengirola para negocios locales, captación y proyectos digitales.',
 };
 
+/**
+ * Creates a directory if it does not exist yet.
+ * @param {string} dir
+ */
 function ensureDir(dir) {
   fs.mkdirSync(dir, { recursive: true });
 }
 
+/**
+ * Escapes user-facing HTML content for safe string interpolation.
+ * @param {string} [value='']
+ * @returns {string}
+ */
 function escapeHtml(value = '') {
   return String(value)
     .replace(/&/g, '&amp;')
@@ -30,18 +41,41 @@ function escapeHtml(value = '') {
     .replace(/'/g, '&#39;');
 }
 
+/**
+ * Returns the relative prefix for nested generated pages.
+ * @param {number} [depth=0]
+ * @returns {string}
+ */
 function getRelPrefix(depth = 0) {
   return depth === 0 ? '' : '../'.repeat(depth);
 }
 
+/**
+ * Resolves a navigation href from a prefix and relative target.
+ * @param {string} prefix
+ * @param {string} href
+ * @returns {string}
+ */
 function navHref(prefix, href) {
   return `${prefix}${href}`;
 }
 
+/**
+ * Resolves an asset path from a prefix and relative target.
+ * @param {string} prefix
+ * @param {string} href
+ * @returns {string}
+ */
 function assetHref(prefix, href) {
   return `${prefix}${href}`;
 }
 
+/**
+ * Renders the shared site header for generated pages.
+ * @param {string} prefix
+ * @param {string} activePage
+ * @returns {string}
+ */
 function renderHeader(prefix, activePage) {
   const navItems = [
     { href: 'index.html', label: 'Inicio', key: 'home' },
@@ -76,7 +110,14 @@ function renderHeader(prefix, activePage) {
   </header>`;
 }
 
-function renderFooter(prefix) {
+/**
+ * Renders the shared site footer and floating WhatsApp CTA.
+ * @param {string} prefix
+ * @param {string} [whatsappText='Hola, me interesa una web para mi negocio']
+ * @returns {string}
+ */
+function renderFooter(prefix, whatsappText = 'Hola, me interesa una web para mi negocio') {
+  const whatsappHref = `https://wa.me/34622923988?text=${encodeURIComponent(whatsappText)}`;
   return `
   <footer class="footer">
     <div class="container footer__inner">
@@ -109,7 +150,7 @@ function renderFooter(prefix) {
         <ul class="footer__links">
           <li><a href="https://wa.me/34622923988" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
           <li><a href="mailto:info@webfuengirola.com">info@webfuengirola.com</a></li>
-          <li><a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" target="_blank" rel="noopener noreferrer">Pedir presupuesto</a></li>
+          <li><a href="${whatsappHref}" target="_blank" rel="noopener noreferrer">Pedir presupuesto</a></li>
         </ul>
       </div>
     </div>
@@ -123,7 +164,7 @@ function renderFooter(prefix) {
   <script src="${assetHref(prefix, 'google-analytics-core.js')}"></script>
   <script src="${assetHref(prefix, 'script.js')}"></script>
   <a
-    href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio"
+    href="${whatsappHref}"
     class="whatsapp-fab"
     target="_blank"
     rel="noopener noreferrer"
@@ -134,6 +175,21 @@ function renderFooter(prefix) {
   </a>`;
 }
 
+/**
+ * Renders the shared HTML head for generated pages.
+ * @param {{
+ *   title: string,
+ *   description: string,
+ *   canonical: string,
+ *   ogTitle: string,
+ *   ogDescription: string,
+ *   ogImage: string,
+ *   ogAlt: string,
+ *   preloadImage: string,
+ *   prefix: string,
+ * }} options
+ * @returns {string}
+ */
 function renderHead({ title, description, canonical, ogTitle, ogDescription, ogImage, ogAlt, preloadImage, prefix }) {
   return `
 <head>
@@ -167,27 +223,56 @@ function renderHead({ title, description, canonical, ogTitle, ogDescription, ogI
 </head>`;
 }
 
+/**
+ * Renders a list of visual tags for a project card or summary block.
+ * @param {Array<{label: string, className: string}>} tags
+ * @returns {string}
+ */
 function renderTags(tags) {
   return tags.map((tag) => `<span class="tag ${tag.className}">${escapeHtml(tag.label)}</span>`).join('');
 }
 
-function renderPortfolioCard(project) {
+/**
+ * Looks up the product category attached to a portfolio project.
+ * @param {{ productCategorySlug?: string }} project
+ * @returns {object | undefined}
+ */
+function getProductCategory(project) {
+  return productCategoryMap.get(project.productCategorySlug);
+}
+
+/**
+ * Renders a single portfolio card with optional path overrides.
+ * @param {object} project
+ * @param {{ detailHref?: string, imagePrefix?: string }} [options={}]
+ * @returns {string}
+ */
+function renderPortfolioCard(project, options = {}) {
+  const productCategory = getProductCategory(project);
+  const productTag = productCategory ? `<span class="tag">${escapeHtml(productCategory.shortLabel)}</span>` : '';
+  const detailHref = options.detailHref ?? `portfolio/${project.slug}/`;
+  const imagePrefix = options.imagePrefix ?? '';
+
   return `
           <article class="portfolio-card">
-            <a href="portfolio/${project.slug}/" class="portfolio-card__img-link" aria-label="Abrir caso de ${escapeHtml(project.title)}">
-              <img src="${escapeHtml(project.image)}" alt="${escapeHtml(project.imageAlt)}" class="portfolio-card__img" width="${project.imageWidth}" height="${project.imageHeight}" loading="lazy" decoding="async"/>
+            <a href="${detailHref}" class="portfolio-card__img-link" aria-label="Abrir caso de ${escapeHtml(project.title)}">
+              <img src="${escapeHtml(`${imagePrefix}${project.image}`)}" alt="${escapeHtml(project.imageAlt)}" class="portfolio-card__img" width="${project.imageWidth}" height="${project.imageHeight}" loading="lazy" decoding="async"/>
             </a>
             <div class="portfolio-card__body">
-              <h3 class="portfolio-card__title"><a class="portfolio-card__title-link" href="portfolio/${project.slug}/">${escapeHtml(project.title)}</a></h3>
+              <h3 class="portfolio-card__title"><a class="portfolio-card__title-link" href="${detailHref}">${escapeHtml(project.title)}</a></h3>
               <p class="portfolio-card__desc">${escapeHtml(project.description)}</p>
               <div class="portfolio-card__tags">
-                ${renderTags(project.cardTags)}
+                ${productTag}${renderTags(project.cardTags)}
               </div>
-              <a href="portfolio/${project.slug}/" class="btn btn--ghost btn--sm">Saber más</a>
+              <a href="${detailHref}" class="btn btn--ghost btn--sm">Saber más</a>
             </div>
           </article>`;
 }
 
+/**
+ * Renders the main portfolio listing page.
+ * @returns {string}
+ */
 function renderPortfolioListing() {
   const cards = portfolioProjects.map(renderPortfolioCard).join('\n');
   return `<!DOCTYPE html>
@@ -318,9 +403,15 @@ ${renderFooter('')}
 </html>`;
 }
 
+/**
+ * Renders a generated detail page for a single portfolio project.
+ * @param {object} project
+ * @returns {string}
+ */
 function renderDetailPage(project) {
   const prefix = '../../';
   const canonical = `https://webfuengirola.com/portfolio/${project.slug}/`;
+  const productCategory = getProductCategory(project);
   const siblingLinks = portfolioProjects
     .filter((item) => item.slug !== project.slug)
     .slice(0, 3)
@@ -371,6 +462,7 @@ ${renderHeader(prefix, 'portfolio')}
             <span class="section-label">Resumen del proyecto</span>
             <h2 class="project-detail__summary-title">${escapeHtml(project.brand)}</h2>
             <ul class="project-detail__facts">
+              ${productCategory ? `<li><strong>Producto</strong><span>${escapeHtml(productCategory.label)}</span></li>` : ''}
               <li><strong>Tipo</strong><span>${escapeHtml(project.category)}</span></li>
               <li><strong>Cliente / marca</strong><span>${escapeHtml(project.client)}</span></li>
               <li><strong>Tecnologías</strong><span>${escapeHtml(project.tech.join(' · '))}</span></li>
@@ -434,11 +526,123 @@ ${renderFooter(prefix)}
 </html>`;
 }
 
+/**
+ * Renders a filtered landing page for one product category.
+ * @param {object} category
+ * @returns {string}
+ */
+function renderProductCategoryPage(category) {
+  const prefix = '../../';
+  const canonical = `https://webfuengirola.com/productos/${category.slug}/`;
+  const categoryProjects = portfolioProjects.filter((project) => project.productCategorySlug === category.slug);
+  const cards = categoryProjects
+    .map((project) => renderPortfolioCard(project, {
+      detailHref: `${prefix}portfolio/${project.slug}/`,
+      imagePrefix: prefix,
+    }))
+    .join('\n');
+  const siblingLinks = productCategories
+    .filter((item) => item.slug !== category.slug)
+    .map((item) => `<a href="../${item.slug}/" class="project-detail__related-link">${escapeHtml(item.label)}</a>`)
+    .join('');
+  const examplesLabel = `${categoryProjects.length} ejemplo${categoryProjects.length === 1 ? '' : 's'} real${categoryProjects.length === 1 ? '' : 'es'}`;
+
+  return `<!DOCTYPE html>
+<html lang="es">
+${renderHead({
+    title: category.seoTitle,
+    description: category.seoDescription,
+    canonical,
+    ogTitle: category.seoTitle,
+    ogDescription: category.seoDescription,
+    ogImage: 'https://webfuengirola.com/img/og-cover.jpg',
+    ogAlt: `Ejemplos de ${category.label} en Web Fuengirola`,
+    preloadImage: 'img/og-cover.webp',
+    prefix,
+  })}
+<body>
+${renderHeader(prefix, 'services')}
+
+  <main class="project-page">
+    <section class="subpage-hero project-subhero">
+      <div class="container project-subhero__inner">
+        <nav class="project-breadcrumb" aria-label="Breadcrumb">
+          <a href="${navHref(prefix, 'servicios.html')}">Servicios</a>
+          <span>/</span>
+          <span>${escapeHtml(category.label)}</span>
+        </nav>
+        <span class="badge">Ejemplos filtrados</span>
+        <h1 class="subpage-hero__title">${escapeHtml(category.heroTitle)}</h1>
+        <p class="subpage-hero__sub">${escapeHtml(category.heroDescription)}</p>
+        <div class="project-subhero__actions">
+          <a href="${navHref(prefix, category.serviceHref)}" class="btn btn--primary btn--lg">Ver servicio</a>
+          <a href="https://wa.me/34622923988?text=${encodeURIComponent(category.whatsappText)}" class="btn btn--outline btn--lg" target="_blank" rel="noopener noreferrer">Quiero algo así</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-detail project-detail">
+      <div class="container">
+        <section class="project-detail__cta" style="margin-top:0;">
+          <div class="project-detail__cta-copy">
+            <span class="section-label">Encaje de producto</span>
+            <h2 class="section-title">${escapeHtml(category.label)}</h2>
+            <p class="project-detail__copy">${escapeHtml(category.summary)}</p>
+          </div>
+          <div class="project-detail__cta-actions">
+            <span class="tag">${escapeHtml(category.serviceLabel)}</span>
+            <span class="tag">${escapeHtml(examplesLabel)}</span>
+          </div>
+        </section>
+
+        <div class="section-header" style="margin-top:48px;">
+          <span class="section-label">Casos reales</span>
+          <h2 class="section-title">Proyectos dentro de esta categoría</h2>
+          <p class="section-sub">Solo aparecen ejemplos marcados como ${escapeHtml(category.label)} para que el cliente vea referentes parecidos al encargo que tiene en mente.</p>
+        </div>
+
+        <div class="portfolio__grid">
+${cards}
+        </div>
+
+        <section class="project-detail__cta">
+          <div class="project-detail__cta-copy">
+            <span class="section-label">Siguiente paso</span>
+            <h2 class="section-title">¿Quieres una solución de este tipo?</h2>
+            <p class="project-detail__copy">Podemos valorar si esta categoría encaja tal cual o si merece una versión más personalizada según tu negocio, tu contenido y el nivel de funcionalidad que necesitas.</p>
+          </div>
+          <div class="project-detail__cta-actions">
+            <a href="https://wa.me/34622923988?text=${encodeURIComponent(category.whatsappText)}" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">Pedir algo parecido</a>
+            <a href="${navHref(prefix, 'portfolio.html')}" class="btn btn--ghost btn--lg">Ver todo el portfolio</a>
+          </div>
+        </section>
+
+        <section class="project-detail__related">
+          <span class="section-label">Otras categorías</span>
+          <div class="project-detail__related-links">${siblingLinks}</div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+${renderFooter(prefix, category.whatsappText)}
+</body>
+</html>`;
+}
+
+/**
+ * Renders the XML sitemap for the current static output.
+ * @returns {string}
+ */
 function renderSitemap() {
   const urls = [
     { loc: 'https://webfuengirola.com/', lastmod: today },
     { loc: 'https://webfuengirola.com/servicios.html', lastmod: today },
     { loc: 'https://webfuengirola.com/portfolio.html', lastmod: today },
+    ...productCategories.map((category) => ({
+      loc: `https://webfuengirola.com/productos/${category.slug}/`,
+      lastmod: today,
+    })),
     ...portfolioProjects.map((project) => ({
       loc: `https://webfuengirola.com/portfolio/${project.slug}/`,
       lastmod: today,
@@ -454,14 +658,24 @@ ${urls.map((entry) => `  <url>\n    <loc>${entry.loc}</loc>\n    <lastmod>${entr
 `;
 }
 
+/**
+ * Builds the generated portfolio, product pages, and sitemap files.
+ */
 function build() {
   ensureDir(portfolioDir);
+  ensureDir(productsDir);
   fs.writeFileSync(path.join(rootDir, 'portfolio.html'), renderPortfolioListing(), 'utf8');
 
   for (const project of portfolioProjects) {
     const detailDir = path.join(portfolioDir, project.slug);
     ensureDir(detailDir);
     fs.writeFileSync(path.join(detailDir, 'index.html'), renderDetailPage(project), 'utf8');
+  }
+
+  for (const category of productCategories) {
+    const categoryDir = path.join(productsDir, category.slug);
+    ensureDir(categoryDir);
+    fs.writeFileSync(path.join(categoryDir, 'index.html'), renderProductCategoryPage(category), 'utf8');
   }
 
   fs.writeFileSync(path.join(rootDir, 'sitemap.xml'), renderSitemap(), 'utf8');

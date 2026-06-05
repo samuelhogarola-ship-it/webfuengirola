@@ -1,9 +1,10 @@
 const { test, expect } = require('@playwright/test');
 
 let projects = [];
+let productCategories = [];
 
 test.beforeAll(async () => {
-  ({ portfolioProjects: projects } = await import('../portfolio/projects-data.mjs'));
+  ({ portfolioProjects: projects, productCategories } = await import('../portfolio/projects-data.mjs'));
 });
 
 test('portfolio listing enlaza cada tarjeta a su ficha propia', async ({ page }) => {
@@ -50,18 +51,62 @@ test.describe('portfolio detail pages', () => {
       await expect(page.locator('.project-detail__image')).toHaveAttribute('alt', project.imageAlt);
       await expect(page.locator('.project-subhero__actions .btn--primary')).toHaveAttribute('href', project.url);
       await expect(page.locator('.project-subhero__actions .btn--primary')).toContainText(project.urlLabel);
+      const productCategory = productCategories.find((item) => item.slug === project.productCategorySlug);
+      if (productCategory) {
+        await expect(page.locator('.project-detail__facts')).toContainText(productCategory.label);
+      }
 
       expect(errors).toEqual([]);
     });
   }
 });
 
-test('sitemap incluye portfolio.html y todas las fichas nuevas', async ({ request }) => {
+test('servicios enlaza a todas las páginas filtradas por categoría de producto', async ({ page }) => {
+  await page.goto('/servicios.html');
+
+  for (const category of productCategories) {
+    await expect(page.locator(`a[href="productos/${category.slug}/"]`).first()).toBeVisible();
+  }
+});
+
+test.describe('product category pages', () => {
+  for (const categorySlug of [
+    'lite-blog-wordpress',
+    'express-300-blog-wordpress',
+    'web-personalizada',
+    'express-migracion-optimizacion-formularios',
+    'personalizada-webapp',
+    'mini-saas-personalizado',
+  ]) {
+    test(`${categorySlug} carga y muestra solo sus proyectos`, async ({ page }) => {
+      const category = productCategories.find((item) => item.slug === categorySlug);
+      const filteredProjects = projects.filter((item) => item.productCategorySlug === categorySlug);
+      expect(filteredProjects.length).toBeGreaterThan(0);
+
+      await page.goto(`/productos/${categorySlug}/`);
+
+      await expect(page).toHaveTitle(category.seoTitle);
+      await expect(page.locator('h1')).toHaveText(category.heroTitle);
+      await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', category.seoDescription);
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://webfuengirola.com/productos/${category.slug}/`);
+      await expect(page.locator('.portfolio-card')).toHaveCount(filteredProjects.length);
+      await expect(page.locator('.project-detail__cta').first()).toContainText(category.label);
+
+      const visibleTitles = await page.locator('.portfolio-card__title-link').allTextContents();
+      expect(visibleTitles).toEqual(filteredProjects.map((item) => item.title));
+    });
+  }
+});
+
+test('sitemap incluye portfolio.html, categorías de producto y todas las fichas nuevas', async ({ request }) => {
   const response = await request.get('/sitemap.xml');
   expect(response.ok()).toBeTruthy();
   const xml = await response.text();
 
   expect(xml).toContain('https://webfuengirola.com/portfolio.html');
+  for (const category of productCategories) {
+    expect(xml).toContain(`https://webfuengirola.com/productos/${category.slug}/`);
+  }
 
   for (const project of projects) {
     expect(xml).toContain(`https://webfuengirola.com/portfolio/${project.slug}/`);
