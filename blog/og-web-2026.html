@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OG - Por qué crear una web en 2026</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      color: #161616;
+      background:
+        radial-gradient(circle at top left, rgba(27, 153, 139, 0.18), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(24, 32, 50, 0.12), transparent 30%),
+        linear-gradient(135deg, #f7f2ea 0%, #efe8de 100%);
+      display: flex;
+      position: relative;
+    }
+
+    .grain {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 24px 24px;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .panel {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 34px;
+      padding: 46px 52px 42px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .brand img {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+    }
+
+    .brand span {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #1f2937;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(22,22,22,0.08);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      width: fit-content;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 72px;
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      max-width: 640px;
+    }
+
+    .sub {
+      margin: 22px 0 0;
+      font-size: 26px;
+      line-height: 1.28;
+      color: #49515e;
+      max-width: 620px;
+      letter-spacing: -0.02em;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .tag {
+      padding: 11px 16px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 700;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(22,22,22,0.08);
+      color: #243041;
+    }
+
+    .footer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-top: 26px;
+    }
+
+    .url {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1f2937;
+    }
+
+    .note {
+      font-size: 18px;
+      color: #667085;
+      max-width: 280px;
+      text-align: right;
+      line-height: 1.35;
+    }
+
+    .right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .stack {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .card {
+      position: absolute;
+      border-radius: 28px;
+      border: 1px solid rgba(24,32,50,0.08);
+      background: rgba(255,255,255,0.88);
+      box-shadow: 0 24px 60px rgba(24,32,50,0.14);
+      backdrop-filter: blur(8px);
+    }
+
+    .card.main {
+      inset: 66px 0 72px 40px;
+      padding: 28px;
+      transform: rotate(-4deg);
+    }
+
+    .card.float {
+      top: 36px;
+      right: 8px;
+      width: 250px;
+      padding: 20px 22px;
+      transform: rotate(7deg);
+      background: linear-gradient(135deg, #182032 0%, #24364f 100%);
+      color: #fff;
+    }
+
+    .eyebrow {
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: #8090a5;
+      margin-bottom: 14px;
+    }
+
+    .search {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px;
+      background: #fff;
+      border-radius: 18px;
+      border: 1px solid rgba(22,22,22,0.08);
+      margin-bottom: 18px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    .search .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #1b998b;
+      flex: 0 0 auto;
+    }
+
+    .search span {
+      font-size: 24px;
+      font-weight: 700;
+      color: #222;
+      letter-spacing: -0.03em;
+    }
+
+    .bars {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .bar {
+      height: 18px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #182032, #1b998b);
+    }
+
+    .bar:nth-child(2) { width: 88%; }
+    .bar:nth-child(3) { width: 76%; }
+
+    .mini {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .mini-box {
+      border-radius: 18px;
+      padding: 18px 14px;
+      background: #f5f7fa;
+      border: 1px solid rgba(22,22,22,0.06);
+    }
+
+    .mini-box strong {
+      display: block;
+      font-size: 24px;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+
+    .mini-box span {
+      font-size: 14px;
+      color: #5b6470;
+      line-height: 1.3;
+    }
+
+    .float .kicker {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 12px;
+    }
+
+    .float .big {
+      font-size: 56px;
+      line-height: 0.95;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      margin: 0 0 10px;
+    }
+
+    .float p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.3;
+      color: rgba(255,255,255,0.84);
+    }
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="panel">
+    <section class="left">
+      <div>
+        <div class="brand">
+          <img src="../img/logo-wf.webp" alt="WF Studio" />
+          <span>Web Fuengirola</span>
+        </div>
+        <div class="badge">Blog para negocio local</div>
+        <h1>Por qué crear una web en 2026</h1>
+        <p class="sub">Google, redes sociales, Meta Ads y una verdad simple: vender mejor empieza cuando tu negocio tiene una base propia.</p>
+        <div class="tags">
+          <span class="tag">Google vs RRSS</span>
+          <span class="tag">Meta Ads</span>
+          <span class="tag">Algoritmos</span>
+          <span class="tag">Web propia</span>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="url">webfuengirola.com/blog</div>
+        <div class="note">Diseño claro, SEO local y una base seria para captar clientes.</div>
+      </div>
+    </section>
+
+    <section class="right">
+      <div class="stack">
+        <div class="card main">
+          <div class="eyebrow">Lo que sí controlas</div>
+          <div class="search">
+            <div class="dot"></div>
+            <span>Tu web es tu casa</span>
+          </div>
+          <div class="bars">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+          <div class="mini">
+            <div class="mini-box">
+              <strong>+Confianza</strong>
+              <span>Explicas mejor servicios, zona y contacto.</span>
+            </div>
+            <div class="mini-box">
+              <strong>+Control</strong>
+              <span>Menos dependencia del alcance alquilado.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card float">
+          <div class="kicker">No todo depende del algoritmo</div>
+          <div class="big">Casa propia<br />online</div>
+          <p>Una web bien planteada sigue acumulando valor mientras las plataformas cambian las reglas.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

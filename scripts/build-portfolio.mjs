@@ -82,6 +82,7 @@ function renderHeader(prefix, activePage) {
     { href: 'servicios.html', label: 'Servicios', key: 'services' },
     { href: 'portfolio.html', label: 'Portfolio', key: 'portfolio' },
     { href: 'proceso.html', label: 'Proceso', key: 'process' },
+    { href: 'blog/', label: 'Blog', key: 'blog' },
   ];
 
   return `
@@ -94,7 +95,6 @@ function renderHeader(prefix, activePage) {
       <nav class="nav" id="nav" aria-label="Navegación principal">
         <ul class="nav__list">
           ${navItems.map((item) => `<li><a href="${navHref(prefix, item.href)}" class="nav__link${item.key === activePage ? ' nav__link--active' : ''}">${item.label}</a></li>`).join('\n          ')}
-          <li><a href="https://blog.webfuengirola.com" class="nav__link" target="_blank" rel="noopener noreferrer">Blog</a></li>
           <li><a href="${navHref(prefix, 'index.html#contacto')}" class="nav__link">Contacto</a></li>
         </ul>
       </nav>
