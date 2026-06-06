@@ -3,6 +3,8 @@ const { test, expect } = require('@playwright/test');
 test('el blog carga y enlaza al artículo principal', async ({ page }) => {
   await page.goto('/blog/');
   await expect(page).toHaveTitle(/blog de diseño web en fuengirola/i);
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', 'https://webfuengirola.com/img/blog-home-og.png');
+  await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute('content', 'https://webfuengirola.com/img/blog-home-og.png');
   await expect(page.getByRole('heading', { name: /ideas claras para que tu negocio venda mejor online/i })).toBeVisible();
   await expect(page.locator('a[href="./por-que-crear-una-web-en-2026/"]').first()).toBeVisible();
 });

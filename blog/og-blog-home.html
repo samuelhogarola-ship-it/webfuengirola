@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OG - Blog Web Fuengirola</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      color: #111827;
+      background:
+        radial-gradient(circle at top left, rgba(27, 153, 139, 0.16), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(24, 32, 50, 0.14), transparent 30%),
+        linear-gradient(135deg, #f7f3ec 0%, #eef2f6 100%);
+      position: relative;
+    }
+
+    .grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+      opacity: 0.45;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 34px;
+      height: 100%;
+      padding: 46px 50px 42px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .brand img {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      box-shadow: 0 12px 26px rgba(24,32,50,0.12);
+    }
+
+    .brand span {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #182032;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(17,24,39,0.08);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      box-shadow: 0 8px 26px rgba(17,24,39,0.08);
+    }
+
+    h1 {
+      margin: 22px 0 0;
+      font-size: 78px;
+      line-height: 0.94;
+      letter-spacing: -0.06em;
+      max-width: 640px;
+    }
+
+    .sub {
+      margin: 22px 0 0;
+      max-width: 620px;
+      font-size: 27px;
+      line-height: 1.28;
+      letter-spacing: -0.02em;
+      color: #475467;
+    }
+
+    .tags {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .tag {
+      padding: 11px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(17,24,39,0.08);
+      font-size: 16px;
+      font-weight: 700;
+      color: #182032;
+    }
+
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 34px;
+    }
+
+    .url {
+      font-size: 20px;
+      font-weight: 800;
+      color: #182032;
+    }
+
+    .note {
+      font-size: 18px;
+      line-height: 1.35;
+      color: #667085;
+      max-width: 260px;
+      text-align: right;
+    }
+
+    .art {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .board {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .panel {
+      position: absolute;
+      border-radius: 28px;
+      border: 1px solid rgba(24,32,50,0.08);
+      box-shadow: 0 24px 56px rgba(24,32,50,0.14);
+      overflow: hidden;
+    }
+
+    .panel.main {
+      inset: 54px 18px 70px 30px;
+      background: linear-gradient(160deg, #182032 0%, #263a52 100%);
+      color: #fff;
+      padding: 26px;
+      transform: rotate(-4deg);
+    }
+
+    .panel.float-a {
+      top: 30px;
+      right: -6px;
+      width: 238px;
+      padding: 18px;
+      background: rgba(255,255,255,0.9);
+      transform: rotate(7deg);
+    }
+
+    .panel.float-b {
+      bottom: 24px;
+      left: -2px;
+      width: 242px;
+      padding: 18px;
+      background: rgba(255,255,255,0.92);
+      transform: rotate(-8deg);
+    }
+
+    .eyebrow {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.66);
+      margin-bottom: 14px;
+    }
+
+    .title {
+      font-size: 54px;
+      line-height: 0.95;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      margin: 0 0 16px;
+      max-width: 260px;
+    }
+
+    .desc {
+      font-size: 18px;
+      line-height: 1.34;
+      color: rgba(255,255,255,0.82);
+      max-width: 280px;
+      margin-bottom: 20px;
+    }
+
+    .cards {
+      display: grid;
+      gap: 12px;
+    }
+
+    .row {
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .row strong {
+      display: block;
+      font-size: 22px;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+
+    .row span {
+      display: block;
+      font-size: 15px;
+      color: rgba(255,255,255,0.76);
+      line-height: 1.35;
+    }
+
+    .panel.float-a strong,
+    .panel.float-b strong {
+      display: block;
+      font-size: 31px;
+      letter-spacing: -0.05em;
+      line-height: 0.98;
+      margin-bottom: 8px;
+      color: #182032;
+    }
+
+    .panel.float-a p,
+    .panel.float-b p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.34;
+      color: #475467;
+    }
+
+    .mini-kicker {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #667085;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid"></div>
+  <div class="wrap">
+    <section>
+      <div class="brand">
+        <img src="../img/logo-wf.webp" alt="WF Studio" />
+        <span>Web Fuengirola</span>
+      </div>
+      <div class="badge">Blog estático listo para crecer</div>
+      <h1>Ideas claras para vender mejor online</h1>
+      <p class="sub">Web, Google, redes sociales, SEO local e IA explicados de forma cercana para negocios locales que quieren resultados reales.</p>
+      <div class="tags">
+        <span class="tag">Diseño web</span>
+        <span class="tag">SEO local</span>
+        <span class="tag">Google vs RRSS</span>
+        <span class="tag">IA</span>
+      </div>
+      <div class="bottom">
+        <div class="url">webfuengirola.com/blog</div>
+        <div class="note">Contenido útil ahora en estático y preparado para futuro paso a WordPress.</div>
+      </div>
+    </section>
+
+    <section class="art">
+      <div class="board">
+        <div class="panel main">
+          <div class="eyebrow">Recursos para negocio local</div>
+          <div class="title">Blog con base propia</div>
+          <div class="desc">Publicar mejor, compartir mejor y no depender de una red social para explicarlo todo.</div>
+          <div class="cards">
+            <div class="row">
+              <strong>Posts con SEO completo</strong>
+              <span>Canonical, JSON-LD, OG, Twitter y enlazado interno bien armado.</span>
+            </div>
+            <div class="row">
+              <strong>Comparte con más gancho</strong>
+              <span>Imágenes OG personalizadas para cada tema y una portada propia del blog.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel float-a">
+          <div class="mini-kicker">Ahora mismo</div>
+          <strong>Google, redes e IA en el mismo sitio</strong>
+          <p>Una base editorial clara para captar mejor y crecer sin depender del algoritmo.</p>
+        </div>
+
+        <div class="panel float-b">
+          <div class="mini-kicker">Preparado para después</div>
+          <strong>Empieza simple. Crece bien.</strong>
+          <p>Publicación rápida hoy y migración más fácil mañana cuando pases el blog a WordPress.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
