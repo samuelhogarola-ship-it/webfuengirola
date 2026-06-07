@@ -107,11 +107,9 @@
   }
   </script>
 
-  <link rel="stylesheet" href="cookie-banner-core.css" />
+  <link rel="preload" href="cookie-banner-core.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="cookie-banner-core.css" /></noscript>
   <link rel="stylesheet" href="style.css?v=8" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 </head>
 <body>
 
@@ -181,12 +179,13 @@
             <img
               src="img/hero-preview.webp"
               alt="Preview visual del mockup principal con ordenador e iconos de herramientas web"
-              class="imac-wrap__art"
-              width="860"
-              height="793"
-              loading="eager"
-              decoding="async"
-            />
+            class="imac-wrap__art"
+            width="860"
+            height="793"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
           </div>
         </div>
       </div>
