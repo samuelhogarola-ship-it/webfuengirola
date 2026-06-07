@@ -6,6 +6,23 @@
   var DEFAULT_PREFERENCES_KEY = 'cookie_preferences';
   var ROOT_ID = 'cookie-banner-core-root';
   var activeInstance = null;
+  var STYLESHEET_ID = 'cookie-banner-core-styles';
+
+  function ensureStylesheet() {
+    if (document.getElementById(STYLESHEET_ID)) return;
+
+    var existingSheet = document.querySelector('link[href*="cookie-banner-core.css"]');
+    if (existingSheet) {
+      existingSheet.id = STYLESHEET_ID;
+      return;
+    }
+
+    var link = document.createElement('link');
+    link.id = STYLESHEET_ID;
+    link.rel = 'stylesheet';
+    link.href = 'cookie-banner-core.css';
+    document.head.appendChild(link);
+  }
 
   function getDecisionKey(cfg) {
     return cfg.decisionStorageKey || cfg.storageKey || DEFAULT_DECISION_KEY;
@@ -95,7 +112,7 @@
   function renderBanner(cfg, preferences) {
     var imgHtml = cfg.imageSrc
       ? '<div class="cookie-banner-img-container">' +
-          '<img src="' + cfg.imageSrc + '" alt="' + (cfg.imageAlt || '') + '" class="cookie-banner-img">' +
+          '<img src="' + cfg.imageSrc + '" alt="' + (cfg.imageAlt || '') + '" class="cookie-banner-img" width="' + (cfg.imageWidth || 180) + '" height="' + (cfg.imageHeight || 180) + '" loading="eager" decoding="async">' +
         '</div>'
       : '';
 
@@ -157,6 +174,8 @@
   }
 
   function createInstance(cfg) {
+    ensureStylesheet();
+
     var root = ensureRoot();
     var currentConfig = cfg || {};
     var currentPreferences = readPreferences(currentConfig);

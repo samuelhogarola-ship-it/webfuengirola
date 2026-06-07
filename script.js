@@ -813,6 +813,8 @@
       preferencesStorageKey: cookiePreferencesKey,
       imageSrc: 'img/cookie-funny.webp',
       imageAlt: 'Funny cookie illustration',
+      imageWidth: 180,
+      imageHeight: 180,
       title: copy.title,
       noticeHtml: copy.noticeHtml,
       rejectLabel: copy.rejectLabel,
@@ -900,18 +902,6 @@
     window.localStorage.setItem('webfuengirola-language', nextLang);
   }
 
-  /* ---- Smooth scroll for anchor links ---- */
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      var target = document.querySelector(this.getAttribute('href'));
-      if (!target) return;
-      e.preventDefault();
-      var headerH = header.offsetHeight;
-      var top = target.getBoundingClientRect().top + window.scrollY - headerH - 8;
-      window.scrollTo({ top: top, behavior: 'smooth' });
-    });
-  });
-
   /* ---- Header scroll class ---- */
   function onScroll() {
     if (window.scrollY > 10) {
@@ -920,48 +910,14 @@
       header.classList.remove('scrolled');
     }
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  /* ---- Mobile menu ---- */
-  hamburger.addEventListener('click', function () {
-    var isOpen = nav.classList.toggle('open');
-    hamburger.classList.toggle('open', isOpen);
-    hamburger.setAttribute('aria-expanded', String(isOpen));
-  });
-
-  nav.querySelectorAll('.nav__link').forEach(function (link) {
-    link.addEventListener('click', function () {
-      nav.classList.remove('open');
-      hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-    });
-  });
-
-  /* ---- Language switcher ---- */
-  langButtons.forEach(function (button) {
-    button.addEventListener('click', function () {
-      setLanguage(button.getAttribute('data-lang'));
-    });
-  });
-
-  /* ---- Footer year ---- */
-  var yearEl = document.getElementById('footer-year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  document.querySelectorAll('[data-cookie-preferences-link]').forEach(function (link) {
-    link.addEventListener('click', function (event) {
-      event.preventDefault();
-      resetCookieBanner();
-    });
-  });
-
   /* ---- Fade-in on scroll ---- */
-  var fadeEls = document.querySelectorAll(
-    '.trust__block, .benefit__item, .service-card, .portfolio-card, .process__step, .maintenance__plan, .problem__stat-card, .pricing__card, .blog-teaser__cta-block'
-  );
+  function initFadeInObserver() {
+    var fadeEls = document.querySelectorAll(
+      '.trust__block, .benefit__item, .service-card, .portfolio-card, .process__step, .maintenance__plan, .problem__stat-card, .pricing__card, .blog-teaser__cta-block'
+    );
 
-  if ('IntersectionObserver' in window) {
+    if (!fadeEls.length || !('IntersectionObserver' in window)) return;
+
     var observer = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
@@ -986,7 +942,10 @@
 
   /* ---- iframe preview scaling ---- */
   function scalePreviewIframes() {
-    document.querySelectorAll('.portfolio-card__preview').forEach(function (wrapper) {
+    var wrappers = document.querySelectorAll('.portfolio-card__preview');
+    if (!wrappers.length) return;
+
+    wrappers.forEach(function (wrapper) {
       var iframe = wrapper.querySelector('iframe');
       if (!iframe) return;
       var scale = wrapper.offsetWidth / 1280;
@@ -994,15 +953,70 @@
       wrapper.style.height = Math.round(wrapper.offsetWidth * 0.75) + 'px';
     });
   }
-  scalePreviewIframes();
-  window.addEventListener('resize', scalePreviewIframes, { passive: true });
 
-  /* ---- Visible helper ---- */
-  var style = document.createElement('style');
-  style.textContent = '.visible { opacity: 1 !important; transform: none !important; }';
-  document.head.appendChild(style);
+  function initApp() {
+    /* ---- Smooth scroll for anchor links ---- */
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        var target = document.querySelector(this.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        var headerH = header.offsetHeight;
+        var top = target.getBoundingClientRect().top + window.scrollY - headerH - 8;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      });
+    });
 
-  /* ---- Initial language ---- */
-  var savedLang = window.localStorage.getItem('webfuengirola-language');
-  setLanguage(savedLang || defaultLang);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    /* ---- Mobile menu ---- */
+    hamburger.addEventListener('click', function () {
+      var isOpen = nav.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    nav.querySelectorAll('.nav__link').forEach(function (link) {
+      link.addEventListener('click', function () {
+        nav.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    /* ---- Language switcher ---- */
+    langButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        setLanguage(button.getAttribute('data-lang'));
+      });
+    });
+
+    /* ---- Footer year ---- */
+    var yearEl = document.getElementById('footer-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    document.querySelectorAll('[data-cookie-preferences-link]').forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        event.preventDefault();
+        resetCookieBanner();
+      });
+    });
+
+    /* ---- Initial language ---- */
+    var savedLang = window.localStorage.getItem('webfuengirola-language');
+    setLanguage(savedLang || defaultLang);
+
+    window.requestAnimationFrame(function () {
+      initFadeInObserver();
+      scalePreviewIframes();
+      window.addEventListener('resize', scalePreviewIframes, { passive: true });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp, { once: true });
+  } else {
+    initApp();
+  }
 })();
