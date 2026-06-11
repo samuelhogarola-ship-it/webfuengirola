@@ -2,7 +2,7 @@
 
 ## Current Focus
 
-Convertir `webfuengirola.com` en una web más consistente, más confiable y más fácil de convertir, sin perder la ventaja actual de velocidad del stack estático.
+Extender el patrón ya aplicado en `servicios.html` al resto del sitio: más claridad comercial, más consistencia SEO y mejor conexión entre home, portfolio, blog y productos.
 
 ## Prioridad Alta
 
@@ -14,6 +14,9 @@ Convertir `webfuengirola.com` en una web más consistente, más confiable y más
   - Hero más directo sobre resultado para negocio local.
   - Mejor jerarquía entre prueba social, servicios y CTA.
   - Añadir una señal visual clara de “qué incluye” y “para quién es”.
+- Consolidar el nuevo recorrido comercial de `servicios.html`.
+  - Revisar si hace falta afinar copy entre `Web Lite` y `Web Express`.
+  - Aprovechar el nuevo bloque de proyectos, casos y comparativa como patrón reusable para futuras landings comerciales.
 - Reforzar UI/UX del blog.
   - Mejorar jerarquía entre portada, artículos relacionados y CTA.
   - Mantener imágenes destacadas en `.webp` dentro del render del post.
@@ -84,7 +87,7 @@ Convertir `webfuengirola.com` en una web más consistente, más confiable y más
 
 ## Siguiente Arranque Recomendado
 
-1. Extender el estándar SEO del blog a páginas principales y productos.
-2. Mejorar la home con foco en claridad comercial y prueba social.
-3. Diseñar el flujo del cuestionario recomendador.
-4. Definir arquitectura mínima del área cliente antes de picar código.
+1. Sincronizar esta worktree con `main` o arrancar la siguiente tarea ya desde `main`.
+2. Extender el estándar SEO del blog a páginas principales y productos.
+3. Mejorar la home con foco en claridad comercial y prueba social.
+4. Diseñar el flujo del cuestionario recomendador.
