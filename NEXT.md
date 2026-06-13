@@ -2,7 +2,7 @@
 
 ## Current Focus
 
-Extender el patrón ya aplicado en `servicios.html` al resto del sitio: más claridad comercial, más consistencia SEO y mejor conexión entre home, portfolio, blog y productos.
+Consolidar el nuevo pulido visual premium/minimalista: home ya va encaminada y ahora toca extender ese criterio con calma a `servicios.html`, `portfolio.html` y el resto del sistema visual.
 
 ## Prioridad Alta
 
@@ -11,12 +11,14 @@ Extender el patrón ya aplicado en `servicios.html` al resto del sitio: más cla
   - Estándar objetivo: `favicon.webp`, `manifest`, `robots` completo con `max-snippet` y `max-video-preview`, `og:image:alt`, Twitter Card y canonical revisado.
 - Mejorar el `sitemap.xml` cada vez que se publiquen posts, productos o nuevos casos de portfolio.
 - Revisar el home para subir intención comercial y claridad.
-  - Hero más directo sobre resultado para negocio local.
-  - Mejor jerarquía entre prueba social, servicios y CTA.
-  - Añadir una señal visual clara de “qué incluye” y “para quién es”.
+  - Ya se ha hecho un primer pase de premiumización sobria.
+  - Falta revisar visualmente si el hero, trust, servicios y CTA final necesitan un segundo ajuste fino.
 - Consolidar el nuevo recorrido comercial de `servicios.html`.
   - Revisar si hace falta afinar copy entre `Web Lite` y `Web Express`.
   - Aprovechar el nuevo bloque de proyectos, casos y comparativa como patrón reusable para futuras landings comerciales.
+- Extender el criterio visual premium al resto de páginas clave.
+  - `portfolio.html`: menos sensación de listado y más selección curada.
+  - `proceso.html` y blog: heredar spacing, jerarquía y silencio visual sin rediseñar estructura.
 - Reforzar UI/UX del blog.
   - Mejorar jerarquía entre portada, artículos relacionados y CTA.
   - Mantener imágenes destacadas en `.webp` dentro del render del post.
@@ -88,6 +90,6 @@ Extender el patrón ya aplicado en `servicios.html` al resto del sitio: más cla
 ## Siguiente Arranque Recomendado
 
 1. Sincronizar esta worktree con `main` o arrancar la siguiente tarea ya desde `main`.
-2. Extender el estándar SEO del blog a páginas principales y productos.
-3. Mejorar la home con foco en claridad comercial y prueba social.
-4. Diseñar el flujo del cuestionario recomendador.
+2. Hacer revisión visual del pulido premium en home con navegador disponible y ajustar lo que aún se sienta cargado.
+3. Extender ese mismo criterio a `servicios.html` y `portfolio.html`.
+4. Retomar la unificación SEO del blog hacia páginas principales y productos.
