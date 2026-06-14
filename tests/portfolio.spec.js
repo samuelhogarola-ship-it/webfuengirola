@@ -61,12 +61,19 @@ test.describe('portfolio detail pages', () => {
   }
 });
 
-test('servicios enlaza a todas las páginas filtradas por categoría de producto', async ({ page }) => {
+test('servicios premium enlaza a proyectos reales y al portfolio completo', async ({ page }) => {
   await page.goto('/servicios.html');
 
-  for (const category of productCategories) {
-    await expect(page.locator(`a[href="productos/${category.slug}/"]`).first()).toBeVisible();
+  for (const projectSlug of [
+    'agama',
+    'fisioapp-panel-clinica',
+    'vokabellab',
+    'personal-trainer-fuengirola',
+  ]) {
+    await expect(page.locator(`a[href="portfolio/${projectSlug}/"]`).first()).toBeVisible();
   }
+
+  await expect(page.locator('a[href="portfolio.html"]').first()).toBeVisible();
 });
 
 test.describe('product category pages', () => {

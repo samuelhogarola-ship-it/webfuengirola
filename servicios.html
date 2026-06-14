@@ -27,12 +27,12 @@
   <meta name="twitter:description" content="Servicios web en Fuengirola para captar clientes, ordenar la oferta y crear automatizaciones o herramientas internas a medida." />
   <meta name="twitter:image" content="https://webfuengirola.com/img/og-cover.jpg" />
   <link rel="preload" as="image" href="img/og-cover.webp" type="image/webp" />
-  <link rel="stylesheet" href="style.css?v=9" />
+  <link rel="stylesheet" href="style.css?v=10" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 </head>
-<body>
+<body class="services-page services-page--premium">
 
   <header class="header" id="header">
     <div class="container header__inner">
@@ -62,716 +62,224 @@
   </header>
 
   <main>
+    <section class="services-premium-hero" id="servicios-premium">
+      <div class="container services-premium-hero__grid">
+        <div class="services-premium-hero__content">
+          <p class="services-premium-hero__eyebrow">Estudio digital</p>
+          <h1 class="services-premium-hero__title">Webs, automatización e IA para negocios que quieren crecer.</h1>
+          <p class="services-premium-hero__sub">Diseñamos y desarrollamos soluciones digitales claras, elegantes y pensadas para negocio real.</p>
+          <div class="services-premium-hero__actions">
+            <a href="#proyectos-destacados" class="btn btn--outline btn--lg">Ver proyectos</a>
+            <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20solicitar%20un%20presupuesto%20para%20mi%20negocio" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">Solicitar presupuesto</a>
+          </div>
+        </div>
 
-    <!-- SUBPAGE HERO -->
-    <section class="subpage-hero">
-      <div class="container">
-        <span class="badge">Disponible en 48 horas</span>
-        <h1 class="subpage-hero__title">Servicios digitales claros, premium y pensados para negocio local</h1>
-        <p class="subpage-hero__sub">Puedes empezar por una Web Lite desde 200€ + IVA o por una Web Express desde 300€ + IVA con una base clara para transmitir confianza. Después, si el negocio lo pide, subimos a personalizado, automatización o una herramienta interna a medida.</p>
-        <div class="subpage-hero__highlights" aria-label="Ganchos principales del servicio">
-          <div class="subpage-hero__highlight">
-            <strong>48h</strong>
-            <span>Publicación rápida una vez recibido el material.</span>
-          </div>
-          <div class="subpage-hero__highlight">
-            <strong>Desde 200€</strong>
-            <span>Entrada simple para presencia online limpia y directa.</span>
-          </div>
-          <div class="subpage-hero__highlight">
-            <strong>300€ cerrado</strong>
-            <span>Web Express para captar antes sin complicar el alcance.</span>
+        <div class="services-premium-hero__visual" aria-label="Mockup del proyecto Agama">
+          <div class="device-frame">
+            <div class="device-frame__bar">
+              <span></span><span></span><span></span>
+              <div class="device-frame__url">agama.com</div>
+            </div>
+            <div class="device-frame__screen">
+              <img src="img/agama.webp" alt="Captura del proyecto Agama mostrada dentro de un mockup premium" width="800" height="800" loading="eager" decoding="async" />
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- INDICADORES RÁPIDOS -->
-    <section class="services-map">
+    <section class="services-premium-projects" id="proyectos-destacados">
       <div class="container">
-        <a href="#proyectos-recientes" class="services-map__item">
-          <div class="services-map__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 9h8M8 13h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </div>
-          <div class="services-map__body">
-            <span class="services-map__label">Proyectos reales</span>
-            <h3 class="services-map__title">Trabajos que ya están hechos y publicados</h3>
-            <p class="services-map__price">Ejemplos visibles para entender el nivel de ejecución.</p>
-          </div>
-          <span class="services-map__arrow" aria-hidden="true">→</span>
-        </a>
-
-        <a href="#sobre-wf-studio" class="services-map__item">
-          <div class="services-map__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 8h10M7 12h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </div>
-          <div class="services-map__body">
-            <span class="services-map__label">Trato directo</span>
-            <h3 class="services-map__title">WF Studio trabaja con enfoque claro y cercano</h3>
-            <p class="services-map__price">Sin tecnicismos innecesarios ni procesos confusos.</p>
-          </div>
-          <span class="services-map__arrow" aria-hidden="true">→</span>
-        </a>
-
-        <a href="#comparativa-servicios" class="services-map__item">
-          <div class="services-map__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18M6.3 6.3l11.4 11.4M17.7 6.3 6.3 17.7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </div>
-          <div class="services-map__body">
-            <span class="services-map__label">Oferta ordenada</span>
-            <h3 class="services-map__title">Cada servicio tiene su sitio y su alcance</h3>
-            <p class="services-map__price">Lite, Express, Personalizada y Web App / Mini SaaS.</p>
-          </div>
-          <span class="services-map__arrow" aria-hidden="true">→</span>
-        </a>
-
-        <a href="#categoria-ia" class="services-map__item">
-          <div class="services-map__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M9 18h6M8 6h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </div>
-          <div class="services-map__body">
-            <span class="services-map__label">IA práctica</span>
-            <h3 class="services-map__title">Automatización útil para negocio local</h3>
-            <p class="services-map__price">Para responder mejor, ahorrar tiempo y captar más.</p>
-          </div>
-          <span class="services-map__arrow" aria-hidden="true">→</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="portfolio portfolio--services" id="proyectos-recientes">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label">Proyectos recientes</span>
-          <h2 class="section-title">Trabajos reales para entender cómo se ve una web bien planteada</h2>
-          <p class="section-sub">Antes de hablar de servicios, conviene ver resultados. Aquí tienes cuatro proyectos reales con enfoques distintos: captación, negocio local, web corporativa y herramienta interna.</p>
+        <div class="services-premium-heading">
+          <p class="services-premium-heading__eyebrow">Proyectos destacados</p>
+          <h2 class="services-premium-heading__title">Una selección real de lo que ya hemos desarrollado.</h2>
         </div>
 
-        <div class="portfolio__grid portfolio__grid--services">
-          <article class="portfolio-card">
-            <a href="portfolio/samuel-coach-aleman/" class="portfolio-card__img-link" aria-label="Abrir caso de Samuel Coach de Alemán">
-              <img src="img/samuel-coach.webp" alt="Captura de la landing page de Samuel Coach de Alemán" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
+        <div class="services-premium-projects__grid">
+          <article class="services-premium-project services-premium-project--light">
+            <a href="portfolio/agama/" class="services-premium-project__link" aria-label="Ver proyecto Agama">
+              <div class="services-premium-project__media">
+                <img src="img/agama.webp" alt="Captura del proyecto Agama" width="800" height="800" loading="lazy" decoding="async" />
+              </div>
+              <div class="services-premium-project__body">
+                <div>
+                  <h3>AGAMA</h3>
+                  <p>Sitio corporativo</p>
+                </div>
+                <span class="services-premium-project__arrow" aria-hidden="true">↗</span>
+              </div>
             </a>
-            <div class="portfolio-card__body">
-              <h3 class="portfolio-card__title"><a class="portfolio-card__title-link" href="portfolio/samuel-coach-aleman/">Samuel Coach de Alemán</a></h3>
-              <p class="portfolio-card__desc">Landing page de captación con estructura clara, mejor lectura de servicios y contacto más directo para convertir visitas en conversaciones reales.</p>
-              <div class="portfolio-card__tags">
-                <span class="tag">Landing page</span>
-                <span class="tag tag--orange">SEO</span>
-              </div>
-              <a href="portfolio/samuel-coach-aleman/" class="btn btn--ghost btn--sm">Ver proyecto</a>
-            </div>
           </article>
 
-          <article class="portfolio-card">
-            <a href="portfolio/sport-massage-fuengirola/" class="portfolio-card__img-link" aria-label="Abrir caso de Sport Massage Fuengirola">
-              <img src="img/sport-massage-fuengirola.webp" alt="Captura de la landing page Sport Massage Fuengirola" class="portfolio-card__img" width="1600" height="900" loading="lazy" decoding="async"/>
+          <article class="services-premium-project services-premium-project--phone">
+            <a href="portfolio/fisioapp-panel-clinica/" class="services-premium-project__link" aria-label="Ver proyecto FisioApp">
+              <div class="services-premium-project__media">
+                <img src="img/clinica-demo-v2.webp" alt="Captura del panel de FisioApp" width="1600" height="900" loading="lazy" decoding="async" />
+              </div>
+              <div class="services-premium-project__body">
+                <div>
+                  <h3>FisioApp</h3>
+                  <p>Plataforma de gestión para clínicas de fisioterapia</p>
+                </div>
+                <span class="services-premium-project__arrow" aria-hidden="true">↗</span>
+              </div>
             </a>
-            <div class="portfolio-card__body">
-              <h3 class="portfolio-card__title"><a class="portfolio-card__title-link" href="portfolio/sport-massage-fuengirola/">Sport Massage Fuengirola</a></h3>
-              <p class="portfolio-card__desc">Web local de servicios preparada para mostrar confianza, explicar mejor la oferta y facilitar un contacto más directo por WhatsApp.</p>
-              <div class="portfolio-card__tags">
-                <span class="tag">Negocio local</span>
-                <span class="tag tag--orange">SEO local</span>
-              </div>
-              <a href="portfolio/sport-massage-fuengirola/" class="btn btn--ghost btn--sm">Ver proyecto</a>
-            </div>
           </article>
 
-          <article class="portfolio-card">
-            <a href="portfolio/agama/" class="portfolio-card__img-link" aria-label="Abrir caso de Agama">
-              <img src="img/agama.webp" alt="Portada del proyecto web corporativo Agama" class="portfolio-card__img" width="800" height="800" loading="lazy" decoding="async"/>
+          <article class="services-premium-project services-premium-project--light">
+            <a href="portfolio/vokabellab/" class="services-premium-project__link" aria-label="Ver proyecto Vokabellab">
+              <div class="services-premium-project__media">
+                <img src="img/vokabellab.webp" alt="Captura del proyecto Vokabellab" width="800" height="400" loading="lazy" decoding="async" />
+              </div>
+              <div class="services-premium-project__body">
+                <div>
+                  <h3>VokabelLab</h3>
+                  <p>Plataforma de aprendizaje de idiomas</p>
+                </div>
+                <span class="services-premium-project__arrow" aria-hidden="true">↗</span>
+              </div>
             </a>
-            <div class="portfolio-card__body">
-              <h3 class="portfolio-card__title"><a class="portfolio-card__title-link" href="portfolio/agama/">Agama</a></h3>
-              <p class="portfolio-card__desc">Web corporativa enfocada en ordenar mejor la información, presentar el catálogo con más claridad y dejar una base más sólida para crecer.</p>
-              <div class="portfolio-card__tags">
-                <span class="tag">Web corporativa</span>
-                <span class="tag tag--red">Industria</span>
-              </div>
-              <a href="portfolio/agama/" class="btn btn--ghost btn--sm">Ver proyecto</a>
-            </div>
           </article>
 
-          <article class="portfolio-card">
-            <a href="portfolio/fisioapp-panel-clinica/" class="portfolio-card__img-link" aria-label="Abrir caso de FisioApp — Panel de clínica">
-              <img src="img/clinica-demo-v2.webp" alt="Captura del panel administrador de FisioApp" class="portfolio-card__img" width="1600" height="900" loading="lazy" decoding="async"/>
+          <article class="services-premium-project services-premium-project--dark">
+            <a href="portfolio/personal-trainer-fuengirola/" class="services-premium-project__link" aria-label="Ver proyecto Personal Trainer Fuengirola">
+              <div class="services-premium-project__media">
+                <img src="img/personal-trainer.webp" alt="Captura del proyecto Personal Trainer Fuengirola" width="800" height="400" loading="lazy" decoding="async" />
+              </div>
+              <div class="services-premium-project__body">
+                <div>
+                  <h3>Personal Trainer</h3>
+                  <p>Plataforma de entrenamiento personal online</p>
+                </div>
+                <span class="services-premium-project__arrow" aria-hidden="true">↗</span>
+              </div>
             </a>
-            <div class="portfolio-card__body">
-              <h3 class="portfolio-card__title"><a class="portfolio-card__title-link" href="portfolio/fisioapp-panel-clinica/">FisioApp</a></h3>
-              <p class="portfolio-card__desc">Herramienta interna para ordenar sesiones, pacientes y documentos en un panel más claro, más rápido y más fácil de usar a diario.</p>
-              <div class="portfolio-card__tags">
-                <span class="tag">Mini SaaS</span>
-                <span class="tag tag--blue">Panel interno</span>
-              </div>
-              <a href="portfolio/fisioapp-panel-clinica/" class="btn btn--ghost btn--sm">Ver proyecto</a>
-            </div>
+          </article>
+        </div>
+
+        <div class="services-premium-projects__footer">
+          <a href="portfolio.html" class="btn btn--ghost btn--lg">Ver portfolio completo</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-premium-offer" id="categoria-webs">
+      <div class="container">
+        <div class="services-premium-heading services-premium-heading--split">
+          <div>
+            <p class="services-premium-heading__eyebrow">Servicios</p>
+            <h2 class="services-premium-heading__title">Cuatro líneas claras para resolver lo importante.</h2>
+          </div>
+          <p class="services-premium-heading__sub">Menos catálogo. Más criterio, más foco y una propuesta mejor ordenada.</p>
+        </div>
+
+        <div class="services-premium-offer__grid">
+          <article class="services-premium-offer__card">
+            <h3>Webs</h3>
+            <p>Landing pages y webs corporativas para presentar mejor tu negocio y convertir con más claridad.</p>
+          </article>
+          <article class="services-premium-offer__card">
+            <h3>Tiendas online</h3>
+            <p>Catálogo y venta online con una estructura limpia, enfocada en producto, confianza y compra.</p>
+          </article>
+          <article class="services-premium-offer__card" id="categoria-ia">
+            <h3>IA y automatización</h3>
+            <p>Procesos sencillos para responder mejor, ahorrar tiempo y captar oportunidades sin fricción.</p>
+          </article>
+          <article class="services-premium-offer__card" id="categoria-herramientas">
+            <h3>Aplicaciones</h3>
+            <p>Paneles, CRM y herramientas internas para organizar mejor el trabajo diario de tu negocio.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section-cta section-cta--light" aria-label="Acciones después del portfolio">
-      <div class="container section-cta__inner">
-        <div>
-          <p class="section-cta__eyebrow">Ver más o pedir orientación</p>
-          <h2 class="section-cta__title">Si quieres comparar mejor, puedes ver más proyectos o contarnos tu caso</h2>
-        </div>
-        <div class="section-cta__actions">
-          <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20saber%20qu%C3%A9%20tipo%20de%20web%20encaja%20con%20mi%20negocio" class="btn btn--whatsapp" target="_blank" rel="noopener noreferrer">Hablar por WhatsApp</a>
-          <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20solicitar%20un%20presupuesto%20para%20mi%20negocio" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Solicitar presupuesto</a>
-          <a href="portfolio.html" class="btn btn--outline">Ver proyectos</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="about-studio" id="sobre-wf-studio">
-      <div class="container about-studio__grid">
-        <div class="about-studio__content">
-          <span class="section-label">Sobre WF Studio</span>
-          <h2 class="section-title">Un trato directo para negocios que necesitan una web clara y útil</h2>
-          <p class="about-studio__lead">WF Studio es el proyecto con el que Samuel trabaja webs, SEO, automatización y herramientas digitales para negocio local con una idea muy simple: explicar bien lo que haces, ordenar la oferta y poner más fácil el contacto.</p>
-          <p class="about-studio__text">Aquí no se trata de llenar la página de palabras técnicas ni de vender una solución más grande de lo que necesitas. Se trata de entender tu negocio, decidir qué encaja de verdad y construir una base limpia para que tu presencia online te ayude en lugar de estorbar.</p>
-        </div>
-        <aside class="about-studio__card" aria-label="Puntos clave de WF Studio">
-          <h3 class="about-studio__card-title">Cómo se trabaja</h3>
-          <ul class="about-studio__list">
-            <li>Hablas directamente con quien plantea y desarrolla el proyecto.</li>
-            <li>Se busca una solución clara para tu negocio, no una web recargada.</li>
-            <li>El enfoque está pensado para presencia local, captación y evolución real.</li>
-          </ul>
-        </aside>
-      </div>
-    </section>
-
-    <section class="success-cases" id="casos-exito">
+    <section class="services-premium-process" id="proceso-premium">
       <div class="container">
-        <div class="section-header success-cases__header">
-          <span class="section-label">Casos de éxito</span>
-          <h2 class="section-title">Ejemplos de cómo una mejor estructura cambia la percepción del negocio</h2>
-          <p class="section-sub">No hace falta inventar cifras para enseñar valor. Muchas veces el cambio importante está en la claridad, en la confianza y en que el contacto llegue más directo.</p>
+        <div class="services-premium-heading">
+          <p class="services-premium-heading__eyebrow">Proceso</p>
+          <h2 class="services-premium-heading__title">Un proceso corto, claro y sin ruido.</h2>
         </div>
 
-        <div class="success-cases__grid">
-          <article class="success-case-card">
-            <span class="success-case-card__kicker">Caso 1</span>
-            <h3 class="success-case-card__title">Samuel Coach de Alemán</h3>
-            <div class="success-case-card__block">
-              <strong>Problema</strong>
-              <p>La propuesta necesitaba una presentación más clara para que el visitante entendiera rápido los servicios y cómo contactar.</p>
-            </div>
-            <div class="success-case-card__block">
-              <strong>Solución</strong>
-              <p>Se construyó una landing con mejor jerarquía, narrativa comercial más limpia y varios puntos de contacto visibles.</p>
-            </div>
-            <div class="success-case-card__block">
-              <strong>Resultado</strong>
-              <p>Una presencia online más sólida y un contacto más directo para consultas de nuevos clientes.</p>
-            </div>
+        <div class="services-premium-process__rail">
+          <article class="services-premium-process__step">
+            <span>01</span>
+            <h3>Descubrimiento</h3>
+            <p>Entendemos tu negocio, tu punto de partida y lo que de verdad necesitas.</p>
           </article>
-
-          <article class="success-case-card">
-            <span class="success-case-card__kicker">Caso 2</span>
-            <h3 class="success-case-card__title">Sport Massage Fuengirola</h3>
-            <div class="success-case-card__block">
-              <strong>Problema</strong>
-              <p>Hacía falta transmitir confianza local y explicar mejor el servicio sin perder rapidez en el recorrido.</p>
-            </div>
-            <div class="success-case-card__block">
-              <strong>Solución</strong>
-              <p>Se planteó una web local de captación con mensajes más claros, mejor lectura móvil y CTA visibles.</p>
-            </div>
-            <div class="success-case-card__block">
-              <strong>Resultado</strong>
-              <p>Una web más preparada para SEO local y un contacto más directo por WhatsApp.</p>
-            </div>
+          <article class="services-premium-process__step">
+            <span>02</span>
+            <h3>Diseño</h3>
+            <p>Definimos una dirección visual y comercial sobria, clara y útil.</p>
           </article>
-
-          <article class="success-case-card">
-            <span class="success-case-card__kicker">Caso 3</span>
-            <h3 class="success-case-card__title">FisioApp</h3>
-            <div class="success-case-card__block">
-              <strong>Problema</strong>
-              <p>La gestión diaria necesitaba una herramienta más clara para centralizar información y trabajar con menos fricción.</p>
-            </div>
-            <div class="success-case-card__block">
-              <strong>Solución</strong>
-              <p>Se diseñó un panel interno para organizar pacientes, sesiones, documentos y seguimiento desde un mismo lugar.</p>
-            </div>
-            <div class="success-case-card__block">
-              <strong>Resultado</strong>
-              <p>Una operativa más ordenada y una base más cómoda para el trabajo diario.</p>
-            </div>
+          <article class="services-premium-process__step">
+            <span>03</span>
+            <h3>Desarrollo</h3>
+            <p>Construimos una solución rápida, sólida y pensada para durar.</p>
+          </article>
+          <article class="services-premium-process__step">
+            <span>04</span>
+            <h3>Publicación</h3>
+            <p>Dejamos la web lista para salir online y empezar a trabajar a tu favor.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="comparison-section" id="comparativa-servicios">
+    <section class="services-premium-pricing" id="precios">
       <div class="container">
-        <div class="section-header comparison-section__header">
-          <span class="section-label">Comparativa</span>
-          <h2 class="section-title">Una forma rápida de entender qué servicio encaja mejor</h2>
-          <p class="section-sub">La idea no es complicar la decisión, sino ordenar bien la oferta para que sepas cuándo conviene empezar con algo simple y cuándo ya toca una solución a medida.</p>
+        <div class="services-premium-heading">
+          <p class="services-premium-heading__eyebrow">Precios</p>
+          <h2 class="services-premium-heading__title">Opciones claras para empezar con el nivel que encaja contigo.</h2>
         </div>
 
-        <div class="comparison-table-wrap">
-          <table class="comparison-table">
-            <caption class="sr-only">Tabla comparativa de servicios de WF Studio</caption>
-            <thead>
-              <tr>
-                <th scope="col">Aspecto</th>
-                <th scope="col">Web Lite</th>
-                <th scope="col">Web Express</th>
-                <th scope="col">Web Personalizada</th>
-                <th scope="col">Web App / Mini SaaS</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Precio orientativo</th>
-                <td data-label="Web Lite">Desde 200€ + IVA</td>
-                <td data-label="Web Express">300€ + IVA</td>
-                <td data-label="Web Personalizada">Según proyecto</td>
-                <td data-label="Web App / Mini SaaS">Según proyecto</td>
-              </tr>
-              <tr>
-                <th scope="row">Tiempo de entrega</th>
-                <td data-label="Web Lite">Entrega rápida</td>
-                <td data-label="Web Express">48h una vez recibido el material</td>
-                <td data-label="Web Personalizada">Según alcance</td>
-                <td data-label="Web App / Mini SaaS">Según alcance</td>
-              </tr>
-              <tr>
-                <th scope="row">Nº de páginas</th>
-                <td data-label="Web Lite">1 página</td>
-                <td data-label="Web Express">1 página</td>
-                <td data-label="Web Personalizada">A medida</td>
-                <td data-label="Web App / Mini SaaS">A medida</td>
-              </tr>
-              <tr>
-                <th scope="row">Diseño responsive</th>
-                <td data-label="Web Lite">Sí</td>
-                <td data-label="Web Express">Sí</td>
-                <td data-label="Web Personalizada">Sí</td>
-                <td data-label="Web App / Mini SaaS">Sí</td>
-              </tr>
-              <tr>
-                <th scope="row">SEO local básico</th>
-                <td data-label="Web Lite">Sí</td>
-                <td data-label="Web Express">Sí</td>
-                <td data-label="Web Personalizada">Sí, según proyecto</td>
-                <td data-label="Web App / Mini SaaS">Según proyecto</td>
-              </tr>
-              <tr>
-                <th scope="row">Formularios / WhatsApp</th>
-                <td data-label="Web Lite">Sí</td>
-                <td data-label="Web Express">Sí</td>
-                <td data-label="Web Personalizada">Sí</td>
-                <td data-label="Web App / Mini SaaS">Sí, según necesidad</td>
-              </tr>
-              <tr>
-                <th scope="row">Blog</th>
-                <td data-label="Web Lite">Opcional según proyecto</td>
-                <td data-label="Web Express">Opcional según proyecto</td>
-                <td data-label="Web Personalizada">Sí, si encaja</td>
-                <td data-label="Web App / Mini SaaS">A consultar</td>
-              </tr>
-              <tr>
-                <th scope="row">Reservas online</th>
-                <td data-label="Web Lite">A consultar</td>
-                <td data-label="Web Express">A consultar</td>
-                <td data-label="Web Personalizada">Sí, según proyecto</td>
-                <td data-label="Web App / Mini SaaS">Sí, según proyecto</td>
-              </tr>
-              <tr>
-                <th scope="row">Automatizaciones</th>
-                <td data-label="Web Lite">A consultar</td>
-                <td data-label="Web Express">A consultar</td>
-                <td data-label="Web Personalizada">Según proyecto</td>
-                <td data-label="Web App / Mini SaaS">Sí</td>
-              </tr>
-              <tr>
-                <th scope="row">Gestión de datos</th>
-                <td data-label="Web Lite">No</td>
-                <td data-label="Web Express">No</td>
-                <td data-label="Web Personalizada">A consultar</td>
-                <td data-label="Web App / Mini SaaS">Sí, según proyecto</td>
-              </tr>
-              <tr>
-                <th scope="row">Recomendado para</th>
-                <td data-label="Web Lite">Presencia sencilla y rápida</td>
-                <td data-label="Web Express">Captación directa con alcance cerrado</td>
-                <td data-label="Web Personalizada">Negocios que necesitan más identidad, más estructura o más recorrido</td>
-                <td data-label="Web App / Mini SaaS">Negocios que necesitan una herramienta o lógica propia</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="services-premium-pricing__grid">
+          <article class="services-premium-pricing__card">
+            <p class="services-premium-pricing__name">Web Lite</p>
+            <p class="services-premium-pricing__price">Desde 200 €</p>
+          </article>
+          <article class="services-premium-pricing__card services-premium-pricing__card--featured">
+            <p class="services-premium-pricing__name">Web Express</p>
+            <p class="services-premium-pricing__price">300 €</p>
+          </article>
+          <article class="services-premium-pricing__card">
+            <p class="services-premium-pricing__name">Web Personalizada</p>
+            <p class="services-premium-pricing__price">Presupuesto</p>
+          </article>
+          <article class="services-premium-pricing__card">
+            <p class="services-premium-pricing__name">Web App</p>
+            <p class="services-premium-pricing__price">Presupuesto</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- FUTURO: aquí irá el configurador "Descubre qué necesita tu negocio", justo después de la comparativa. -->
-
-    <section class="section-cta section-cta--surface" aria-label="Acciones después de la comparativa">
-      <div class="container section-cta__inner">
-        <div>
-          <p class="section-cta__eyebrow">Elegir con criterio</p>
-          <h2 class="section-cta__title">Si ya ves qué formato te encaja, el siguiente paso es hablar del alcance real</h2>
-        </div>
-        <div class="section-cta__actions">
-          <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20hablar%20sobre%20qu%C3%A9%20servicio%20encaja%20mejor%20con%20mi%20negocio" class="btn btn--whatsapp" target="_blank" rel="noopener noreferrer">Hablar por WhatsApp</a>
-          <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20solicitar%20un%20presupuesto%20para%20mi%20negocio" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Solicitar presupuesto</a>
-          <a href="portfolio.html" class="btn btn--outline">Ver proyectos</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="services-showcase" id="categoria-webs">
-      <div class="container">
-        <div class="services-showcase__intro">
-          <div class="section-header services-showcase__header">
-            <span class="section-label">Servicios organizados por producto</span>
-            <h2 class="section-title">Después de la comparativa, aquí puedes ver cada línea con más detalle</h2>
-            <p class="section-sub">La tabla ayuda a decidir rápido. Este bloque sirve para entender mejor qué incluye cada enfoque y cuándo conviene pasar de una web sencilla a una solución más trabajada.</p>
-          </div>
-          <div class="services-showcase__intro-card">
-            <span class="services-showcase__intro-kicker">Cómo leer esta página</span>
-            <ul class="services-showcase__intro-list">
-              <li>Empieza por la opción más simple si necesitas salir online con claridad.</li>
-              <li>Sube a personalizada cuando el negocio pide más identidad, más páginas o más recorrido.</li>
-              <li>Ve a herramienta a medida cuando ya necesitas una solución interna, datos o lógica propia.</li>
-            </ul>
+    <section class="services-premium-about" id="sobre-wf-studio">
+      <div class="container services-premium-about__grid">
+        <div class="services-premium-about__panel">
+          <p class="services-premium-heading__eyebrow">Sobre WF Studio</p>
+          <h2 class="services-premium-about__title">Desarrollo personalmente cada proyecto.</h2>
+          <div class="services-premium-about__statements">
+            <p>Sin comerciales.</p>
+            <p>Sin intermediarios.</p>
+            <p>Sin soluciones genéricas.</p>
           </div>
         </div>
-
-        <div class="service-category-grid">
-          <section class="service-category service-category--webs">
-            <div class="service-category__lead">
-              <span class="service-category__eyebrow">1. Webs</span>
-              <h2 class="service-category__title">Webs para cada fase de tu negocio</h2>
-              <p class="service-category__desc">Desde una presencia sencilla hasta una web con lógica de producto. La diferencia no está solo en el diseño: está en el nivel de identidad, captación y funcionalidad que necesita tu negocio.</p>
-
-              <article class="service-spotlight">
-                <span class="service-spotlight__badge">Ruta recomendada</span>
-                <h3 class="service-spotlight__title">Empezar limpio, crecer con criterio y no parecer una plantilla</h3>
-                <p class="service-spotlight__text">Si solo necesitas estar bien presentado, no hace falta complicarlo. Si quieres captar mejor, diferenciarte o resolver funciones internas, subimos de nivel con una estructura más pensada.</p>
-                <div class="service-spotlight__meta">
-                  <span>Presencia básica</span>
-                  <span>Captación rápida</span>
-                  <span>A medida</span>
-                  <span>Web app</span>
-                </div>
-                <div class="service-spotlight__actions">
-                  <a href="productos/express-300-blog-wordpress/" class="btn btn--primary">Ver ejemplos</a>
-                  <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20saber%20qu%C3%A9%20tipo%20de%20web%20encaja%20con%20mi%20negocio" class="btn btn--outline" target="_blank" rel="noopener noreferrer">Consultar este servicio</a>
-                </div>
-              </article>
-            </div>
-
-            <div class="service-category__items">
-              <article class="service-item-card" id="pagina-web-lite">
-                <div class="service-item-card__top">
-                  <span class="service-item-card__pill">Desde web básica</span>
-                  <div class="service-item-card__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 9h8M8 13h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                  </div>
-                </div>
-                <h3 class="service-item-card__title">Web Lite</h3>
-                <p class="service-item-card__text">Para negocios que necesitan presencia online limpia, rápida y económica.</p>
-                <p class="service-item-card__fit"><strong>Ideal para:</strong> página básica, servicios, contacto, WhatsApp y Google Business.</p>
-                <div class="service-item-card__actions">
-                  <a href="productos/lite-blog-wordpress/" class="service-item-card__link">Ver ejemplos</a>
-                  <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20Web%20Lite%20para%20mi%20negocio" class="service-item-card__link" target="_blank" rel="noopener noreferrer">Consultar</a>
-                </div>
-              </article>
-
-              <article class="service-item-card service-item-card--featured" id="web-express">
-                <span id="landing-web-local" aria-hidden="true"></span>
-                <div class="service-item-card__top">
-                  <span class="service-item-card__pill">Captación rápida</span>
-                  <div class="service-item-card__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h10m0 0-3.5-3.5M15 12l-3.5 3.5M5 5h14v14H5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </div>
-                </div>
-                <h3 class="service-item-card__title">Web Express</h3>
-                <p class="service-item-card__text">300€ + IVA. Una sola página, estructura cerrada y mensaje claro. La forma más directa de salir online con buena presencia.</p>
-                <p class="service-item-card__fit"><strong>Incluye:</strong> landing corporativa de 1 página, responsive, copy orientado a conversión, WhatsApp, formulario, SEO básico, entrega rápida con alcance definido y 1 ronda de revisiones.</p>
-                <div class="service-item-card__actions">
-                  <a href="productos/express-300-blog-wordpress/" class="service-item-card__link">Ver ejemplos</a>
-                  <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20Web%20Express%20para%20captar%20clientes" class="service-item-card__link" target="_blank" rel="noopener noreferrer">Consultar</a>
-                </div>
-              </article>
-
-              <article class="service-item-card" id="web-pro">
-                <div class="service-item-card__top">
-                  <span class="service-item-card__pill">A medida</span>
-                  <div class="service-item-card__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 8.5h9M7.5 12.5h9M7.5 16.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                  </div>
-                </div>
-                <h3 class="service-item-card__title">Web Personalizada</h3>
-                <p class="service-item-card__text">Diseño y estructura a medida, más cuidada y con más identidad visual y comercial.</p>
-                <p class="service-item-card__fit"><strong>Ideal para:</strong> negocios que no quieren parecer una plantilla.</p>
-                <div class="service-item-card__actions">
-                  <a href="productos/web-personalizada/" class="service-item-card__link">Ver ejemplos</a>
-                  <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20una%20web%20personalizada%20para%20mi%20negocio" class="service-item-card__link" target="_blank" rel="noopener noreferrer">Consultar</a>
-                </div>
-              </article>
-
-              <article class="service-item-card">
-                <div class="service-item-card__top">
-                  <span class="service-item-card__pill">Web app</span>
-                  <div class="service-item-card__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.5"/><path d="M9 8.5v7M15 8.5v7M8.5 12H15.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                  </div>
-                </div>
-                <h3 class="service-item-card__title">Web App</h3>
-                <p class="service-item-card__text">Cuando la web necesita lógica, usuarios, formularios avanzados, datos o funcionalidades internas.</p>
-                <p class="service-item-card__fit"><strong>Ideal para:</strong> proyectos donde la experiencia ya funciona como herramienta.</p>
-                <div class="service-item-card__actions">
-                  <a href="productos/personalizada-webapp/" class="service-item-card__link">Ver ejemplos</a>
-                  <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20consultar%20una%20web%20app%20para%20mi%20negocio" class="service-item-card__link" target="_blank" rel="noopener noreferrer">Consultar</a>
-                </div>
-              </article>
-            </div>
-          </section>
-
-          <section class="service-category service-category--alt" id="categoria-tecnica">
-            <div class="service-category__lead">
-              <span class="service-category__eyebrow">2. Servicios técnicos</span>
-              <h2 class="service-category__title">Mejora, migración y optimización</h2>
-              <p class="service-category__desc">Cuando ya existe una web, pero la base no está ayudando al negocio como debería. Aquí entro para limpiar estructura, ganar control y mejorar rendimiento, captación y experiencia móvil.</p>
-
-              <article class="service-spotlight service-spotlight--warm">
-                <span class="service-spotlight__badge">Muy útil cuando ya tienes algo montado</span>
-                <h3 class="service-spotlight__title">No siempre hace falta rehacerlo todo; a veces hace falta arreglar bien lo importante</h3>
-                <p class="service-spotlight__text">Migraciones, mejoras de carga, formularios más finos o una revisión técnica clara pueden cambiar mucho la sensación de profesionalidad y el rendimiento comercial de una web existente.</p>
-                <div class="service-spotlight__actions">
-                  <a href="productos/express-migracion-optimizacion-formularios/" class="btn btn--ghost">Ver ejemplos</a>
-                  <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20mejorar%20o%20migrar%20mi%20web%20actual" class="btn btn--outline" target="_blank" rel="noopener noreferrer">Consultar este servicio</a>
-                </div>
-              </article>
-            </div>
-
-            <div class="service-category__items">
-              <article class="service-item-card">
-                <div class="service-item-card__top">
-                  <span class="service-item-card__pill">Migración</span>
-                  <div class="service-item-card__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M6 12h9m0 0-3-3m3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="3.5" y="5" width="17" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/></svg>
-                  </div>
-                </div>
-                <h3 class="service-item-card__title">Migración de web</h3>
-                <p class="service-item-card__text">Pasar una web antigua o limitada a una estructura más limpia, rápida y controlable.</p>
-              </article>
-
-              <article class="service-item-card">
-                <div class="service-item-card__top">
-                  <span class="service-item-card__pill">Diagnóstico</span>
-                  <div class="service-item-card__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                  </div>
-                </div>
-                <h3 class="service-item-card__title">Auditoría web</h3>
-                <p class="service-item-card__text">Revisión de velocidad, SEO técnico, enlaces, estructura, seguridad básica y experiencia móvil.</p>
-              </article>
-
-              <article class="service-item-card">
-                <div class="service-item-card__top">
-                  <span class="service-item-card__pill">Rendimiento</span>
-                  <div class="service-item-card__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v8l5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.5"/></svg>
-                  </div>
-                </div>
-                <h3 class="service-item-card__title">Optimización</h3>
-                <p class="service-item-card__text">Mejora de rendimiento, imágenes, Core Web Vitals, scripts, carga móvil y puntos de fricción.</p>
-              </article>
-
-              <article class="service-item-card">
-                <div class="service-item-card__top">
-                  <span class="service-item-card__pill">Captación</span>
-                  <div class="service-item-card__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 9h8M8 13h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M16 16h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                  </div>
-                </div>
-                <h3 class="service-item-card__title">Formularios y captación</h3>
-                <p class="service-item-card__text">Formularios más útiles, WhatsApp, llamadas a la acción y flujos de contacto mejor resueltos.</p>
-              </article>
-            </div>
-          </section>
-
-          <section class="service-category service-category--alt" id="categoria-herramientas">
-            <div class="service-category__lead">
-              <span class="service-category__eyebrow">3. Web App / Mini SaaS</span>
-              <h2 class="service-category__title">Herramientas digitales a medida</h2>
-              <p class="service-category__desc">Cuando el problema ya no es solo comunicar mejor, sino trabajar mejor por dentro. Aquí entran paneles, dashboards y apps internas pensadas para ordenar procesos reales del negocio.</p>
-
-              <article class="service-spotlight service-spotlight--framed" id="apps-medida">
-                <span class="service-spotlight__badge">Mini-SaaS personalizado</span>
-                <h3 class="service-spotlight__title">Una solución propia para dejar de depender de hojas sueltas, mensajes dispersos o sistemas improvisados</h3>
-                <p class="service-spotlight__text">La idea es convertir una necesidad interna en una herramienta clara de uso diario: con panel, estados, seguimiento y una estructura que tenga sentido para tu operativa.</p>
-                <div class="service-spotlight__actions">
-                  <a href="productos/mini-saas-personalizado/" class="btn btn--primary">Ver ejemplos</a>
-                  <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20consultar%20una%20herramienta%20interna%20o%20mini-saas%20para%20mi%20negocio" class="btn btn--outline" target="_blank" rel="noopener noreferrer">Consultar este servicio</a>
-                </div>
-              </article>
-            </div>
-
-            <div class="service-category__items">
-              <article class="service-item-card">
-                <div class="service-item-card__top">
-                  <span class="service-item-card__pill">Gestión</span>
-                  <div class="service-item-card__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 9h8M8 13h8M8 17h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                  </div>
-                </div>
-                <h3 class="service-item-card__title">Panel administrativo</h3>
-                <p class="service-item-card__text">Gestión interna de pacientes, clientes, sesiones, productos o registros.</p>
-              </article>
-
-              <article class="service-item-card">
-                <div class="service-item-card__top">
-                  <span class="service-item-card__pill">Seguimiento</span>
-                  <div class="service-item-card__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M7 8.5h10M7 12h10M7 15.5h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="4" y="5" width="16" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/></svg>
-                  </div>
-                </div>
-                <h3 class="service-item-card__title">Seguimiento de clientes</h3>
-                <p class="service-item-card__text">Control básico de clientes, contactos, estados y actividad sin sobredimensionar la herramienta.</p>
-              </article>
-
-              <article class="service-item-card">
-                <div class="service-item-card__top">
-                  <span class="service-item-card__pill">Métricas</span>
-                  <div class="service-item-card__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M6 17V9M12 17V6M18 17v-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M4.5 19.5h15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                  </div>
-                </div>
-                <h3 class="service-item-card__title">Dashboard</h3>
-                <p class="service-item-card__text">Estadísticas, progreso, actividad o datos importantes en un panel claro y útil.</p>
-              </article>
-
-              <article class="service-item-card">
-                <div class="service-item-card__top">
-                  <span class="service-item-card__pill">Operativa interna</span>
-                  <div class="service-item-card__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="4" width="14" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M9 8h6M9 12h6M9 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                  </div>
-                </div>
-                <h3 class="service-item-card__title">App interna</h3>
-                <p class="service-item-card__text">Herramienta privada para trabajar mejor, sin depender de procesos desordenados.</p>
-              </article>
-            </div>
-          </section>
+        <div class="services-premium-about__note">
+          <p>WF Studio trabaja con una idea simple: crear soluciones digitales claras, premium y orientadas a negocio real. Hablas directamente con quien diseña y desarrolla.</p>
         </div>
       </div>
     </section>
 
-    <section class="services-ai" id="categoria-ia">
-      <div class="container">
-        <div class="service-category service-category--dark">
-          <div class="service-category__lead">
-            <span class="service-category__eyebrow">4. Automatización e IA para negocios locales</span>
-            <h2 class="service-category__title">No se trata de usar tecnología por usarla. Se trata de ahorrar tiempo, responder mejor y vender más.</h2>
-            <p class="service-category__desc">La parte interesante de la IA no es el nombre. Es que te puede ayudar a responder clientes 24/7, ordenar mejor las consultas, ahorrar tareas repetitivas y dejar paneles internos más sencillos para trabajar.</p>
+    <!-- FUTURO: aquí irá el configurador "Descubre qué necesita tu negocio", después de precios. -->
 
-            <article class="service-spotlight service-spotlight--dark" id="react-automatizacion">
-              <span class="service-spotlight__badge">IA práctica</span>
-              <h3 class="service-spotlight__title">Automatización e IA pensadas para el día a día de un negocio local</h3>
-              <p class="service-spotlight__text">Puede servir para responder dudas frecuentes, captar leads, organizar avisos, apoyar reservas o dejar tareas repetitivas mejor resueltas sin convertirlo todo en un proyecto enorme desde el principio.</p>
-              <div class="service-spotlight__meta">
-                <span>Responder mejor</span>
-                <span>Ahorrar tiempo</span>
-                <span>Captar leads</span>
-                <span>Organizar tareas</span>
-              </div>
-              <div class="service-spotlight__actions">
-                <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20consultar%20una%20automatizaci%C3%B3n%20o%20soluci%C3%B3n%20de%20IA%20para%20mi%20negocio" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Consultar este servicio</a>
-              </div>
-            </article>
-          </div>
-
-          <div class="service-category__items">
-            <article class="service-item-card service-item-card--dark">
-              <div class="service-item-card__top">
-                <span class="service-item-card__pill">Atención</span>
-                <div class="service-item-card__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M8 9.5V8a4 4 0 1 1 8 0v1.5M7.5 10.5h9a1.5 1.5 0 0 1 1.5 1.5v5A1.5 1.5 0 0 1 16.5 18.5h-9A1.5 1.5 0 0 1 6 17v-5a1.5 1.5 0 0 1 1.5-1.5Z" stroke="currentColor" stroke-width="1.5"/></svg>
-                </div>
-              </div>
-              <h3 class="service-item-card__title">Responder clientes 24/7</h3>
-              <p class="service-item-card__text">Un apoyo para resolver dudas frecuentes incluso cuando no puedes contestar al momento.</p>
-            </article>
-
-            <article class="service-item-card service-item-card--dark">
-              <div class="service-item-card__top">
-                <span class="service-item-card__pill">Captación</span>
-                <div class="service-item-card__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.5"/></svg>
-                </div>
-              </div>
-              <h3 class="service-item-card__title">Captar leads con menos fricción</h3>
-              <p class="service-item-card__text">Formularios, mensajes y respuestas mejor planteadas para convertir mejor las visitas en oportunidades.</p>
-            </article>
-
-            <article class="service-item-card service-item-card--dark">
-              <div class="service-item-card__top">
-                <span class="service-item-card__pill">Operativa</span>
-                <div class="service-item-card__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 5.5h12v13H6z" stroke="currentColor" stroke-width="1.5"/><path d="M9 9h6M9 12h6M9 15h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                </div>
-              </div>
-              <h3 class="service-item-card__title">Organizar clientes y citas</h3>
-              <p class="service-item-card__text">Pequeñas soluciones para ordenar avisos, reservas, consultas o seguimiento sin liarlo más.</p>
-            </article>
-
-            <article class="service-item-card service-item-card--dark">
-              <div class="service-item-card__top">
-                <span class="service-item-card__pill">Ahorro de tiempo</span>
-                <div class="service-item-card__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M8 7h8M8 12h8M8 17h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/></svg>
-                </div>
-              </div>
-              <h3 class="service-item-card__title">Automatizar avisos y tareas repetitivas</h3>
-              <p class="service-item-card__text">Menos trabajo manual y más orden en procesos sencillos que hoy te quitan tiempo.</p>
-            </article>
-          </div>
-        </div>
+    <section class="services-premium-cta" id="contacto">
+      <div class="container services-premium-cta__inner">
+        <p class="services-premium-heading__eyebrow">Contacto</p>
+        <h2 class="services-premium-cta__title">Cuéntame qué necesitas.</h2>
+        <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">Hablar por WhatsApp</a>
       </div>
     </section>
-
-    <section class="section-cta section-cta--dark" aria-label="Acciones después de la sección de automatización">
-      <div class="container section-cta__inner">
-        <div>
-          <p class="section-cta__eyebrow">Automatización e IA</p>
-          <h2 class="section-cta__title">Si quieres una web que además te ayude a trabajar mejor, lo vemos contigo</h2>
-        </div>
-        <div class="section-cta__actions">
-          <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20hablar%20sobre%20automatizaci%C3%B3n%20o%20IA%20para%20mi%20negocio" class="btn btn--whatsapp" target="_blank" rel="noopener noreferrer">Hablar por WhatsApp</a>
-          <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20solicitar%20un%20presupuesto%20para%20mi%20negocio" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Solicitar presupuesto</a>
-          <a href="portfolio.html" class="btn btn--outline">Ver proyectos</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta-final" id="contacto">
-      <div class="container cta-final__inner">
-        <div class="cta-final__content">
-          <h2 class="cta-final__title">¿No sabes si necesitas una landing o un proyecto a medida?</h2>
-          <p class="cta-final__sub">Cuéntanos tu caso y te diremos qué encaja mejor: producto base, web corporativa o desarrollo técnico con automatización.</p>
-          <div class="cta-final__actions">
-            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-              <span>Hablar por WhatsApp</span>
-            </a>
-            <a href="mailto:info@webfuengirola.com" class="btn btn--outline btn--lg">Enviar un email</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <footer class="footer">
@@ -785,11 +293,11 @@
         <div class="footer__col">
           <h4 class="footer__col-title">Servicios</h4>
           <ul class="footer__links">
-          <li><a href="servicios.html#categoria-webs">Webs por fase</a></li>
-          <li><a href="servicios.html#categoria-tecnica">Migración y optimización</a></li>
+          <li><a href="servicios.html#proyectos-destacados">Proyectos destacados</a></li>
+          <li><a href="servicios.html#categoria-webs">Webs y tiendas online</a></li>
           <li><a href="servicios.html#categoria-ia">IA y automatización</a></li>
-          <li><a href="servicios.html#categoria-herramientas">Herramientas a medida</a></li>
-          <li><a href="index.html#mantenimiento">Mantenimiento</a></li>
+          <li><a href="servicios.html#categoria-herramientas">Aplicaciones</a></li>
+          <li><a href="servicios.html#precios">Precios</a></li>
         </ul>
       </div>
       <div class="footer__col">
