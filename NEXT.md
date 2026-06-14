@@ -2,7 +2,7 @@
 
 ## Current Focus
 
-Consolidar el nuevo pulido visual premium/minimalista: home ya va encaminada y ahora toca extender ese criterio con calma a `servicios.html`, `portfolio.html` y el resto del sistema visual.
+Consolidar el nuevo pulido visual premium/minimalista después del rediseño de `servicios.html`: ahora toca validar ese nivel en `home`, extenderlo a `portfolio.html` y mantener coherencia en el resto del sistema visual.
 
 ## Prioridad Alta
 
@@ -14,8 +14,9 @@ Consolidar el nuevo pulido visual premium/minimalista: home ya va encaminada y a
   - Ya se ha hecho un primer pase de premiumización sobria.
   - Falta revisar visualmente si el hero, trust, servicios y CTA final necesitan un segundo ajuste fino.
 - Consolidar el nuevo recorrido comercial de `servicios.html`.
+  - Validar en frío si el nuevo hero, la selección de proyectos y la sección de precios transmiten suficiente claridad comercial.
   - Revisar si hace falta afinar copy entre `Web Lite` y `Web Express`.
-  - Aprovechar el nuevo bloque de proyectos, casos y comparativa como patrón reusable para futuras landings comerciales.
+  - Usar esta página como patrón premium para futuras landings comerciales.
 - Extender el criterio visual premium al resto de páginas clave.
   - `portfolio.html`: menos sensación de listado y más selección curada.
   - `proceso.html` y blog: heredar spacing, jerarquía y silencio visual sin rediseñar estructura.
@@ -91,5 +92,5 @@ Consolidar el nuevo pulido visual premium/minimalista: home ya va encaminada y a
 
 1. Sincronizar esta worktree con `main` o arrancar la siguiente tarea ya desde `main`.
 2. Hacer revisión visual del pulido premium en home con navegador disponible y ajustar lo que aún se sienta cargado.
-3. Extender ese mismo criterio a `servicios.html` y `portfolio.html`.
+3. Extender ese mismo criterio a `portfolio.html` y comprobar consistencia entre home, servicios y portfolio.
 4. Retomar la unificación SEO del blog hacia páginas principales y productos.
