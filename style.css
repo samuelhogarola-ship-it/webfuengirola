@@ -5498,10 +5498,10 @@ body.is-transitioning {
 /* ─── Scroll reveal ──────────────────────────────────────────────── */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(48px);
+  transform: translateY(24px);
   transition:
-    opacity 900ms var(--ease),
-    transform 900ms var(--ease);
+    opacity 600ms var(--ease),
+    transform 600ms var(--ease);
 }
 
 [data-reveal-delay="1"] { transition-delay: 80ms; }
@@ -5519,6 +5519,47 @@ body.is-transitioning {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+}
+
+/* ─── Hero cinematic keyframe animations (pure CSS, no JS) ──────── */
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.hero__cin-label {
+  animation: hero-fade-up 700ms var(--ease) both;
+}
+
+.hero__cin-title {
+  animation: hero-fade-up 800ms var(--ease) 100ms both;
+}
+
+.hero__cin-sub {
+  animation: hero-fade-up 700ms var(--ease) 200ms both;
+}
+
+.hero__cin-actions {
+  animation: hero-fade-up 700ms var(--ease) 340ms both;
+}
+
+.hero__cin-badge {
+  animation: hero-fade-up 700ms var(--ease) 480ms both;
+}
+
+.hero__cin-scroll {
+  animation: hero-fade-up 600ms var(--ease) 900ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__cin-label,
+  .hero__cin-title,
+  .hero__cin-sub,
+  .hero__cin-actions,
+  .hero__cin-badge,
+  .hero__cin-scroll {
+    animation: none;
   }
 }
 
@@ -5921,7 +5962,7 @@ body.is-transitioning {
   overflow: hidden;
   background: #090909;
   color: #fff;
-  padding-bottom: 80px;
+  padding-bottom: 72px;
 }
 
 .hero__cin-bg {
@@ -5965,10 +6006,10 @@ body.is-transitioning {
 .hero__cin-inner {
   position: relative;
   z-index: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 48px;
-  padding-top: calc(var(--header-h, 72px) + 40px);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 48px;
+  align-items: end;
 }
 
 .hero__cin-content {
