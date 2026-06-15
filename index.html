@@ -154,31 +154,30 @@
     <!-- ============================================================
          HERO
     ============================================================ -->
-    <section class="hero" id="inicio">
-      <div class="container hero__inner hero__inner--media">
-        <div class="hero__content hero__content--clean">
-          <span class="hero__overlay-label" data-reveal data-i18n="heroBadge">Disponible en 48 horas</span>
-          <h1 class="hero__overlay-title" data-reveal data-reveal-delay="1" data-i18n="heroTitle">La web que tu negocio se merece.</h1>
-          <p class="hero__overlay-subtitle" data-reveal data-reveal-delay="2" data-i18n="heroSubtitle">Webs rápidas y profesionales con todo lo que necesitas para llegar a más clientes.</p>
-          <div class="hero__actions hero__actions--overlay" data-reveal data-reveal-delay="3">
+    <section class="hero hero--cinematic" id="inicio">
+      <!-- Background: replace div with <video autoplay muted loop playsinline> when ready -->
+      <div class="hero__cin-bg" aria-hidden="true">
+        <div class="hero__cin-anim"></div>
+        <div class="hero__cin-overlay"></div>
+        <div class="hero__cin-grid"></div>
+      </div>
+      <div class="container hero__cin-inner">
+        <div class="hero__cin-content">
+          <span class="hero__cin-label" data-reveal data-i18n="heroBadge">Disponible en 48 horas</span>
+          <h1 class="hero__cin-title" data-reveal data-reveal-delay="1" data-i18n="heroTitle">La web que<br>tu negocio<br>se merece.</h1>
+          <p class="hero__cin-sub" data-reveal data-reveal-delay="2" data-i18n="heroSubtitle">Webs rápidas y profesionales con todo lo que necesitas para llegar a más clientes.</p>
+          <div class="hero__actions hero__cin-actions" data-reveal data-reveal-delay="3">
             <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer" data-i18n="heroPrimaryCta">Pedir presupuesto</a>
-            <a href="servicios.html" class="btn btn--outline btn--lg" data-page-transition="services" data-i18n="servicesExplore">Ver servicios</a>
-            <a href="#portfolio" class="btn btn--ghost btn--lg" data-i18n="heroSecondaryCta">Ver trabajos</a>
+            <a href="servicios.html" class="btn btn--outline-light btn--lg" data-page-transition="services" data-i18n="servicesExplore">Ver servicios</a>
           </div>
         </div>
-        <div class="hero__media" data-reveal data-reveal-delay="2" aria-hidden="true">
-          <div class="hero__media-inner">
-            <img src="img/samuel-coach.webp" alt="" class="hero__media-img" width="800" height="600" loading="eager" decoding="async">
-            <!-- Aquí puedes reemplazar la imagen por un <video> cuando esté listo:
-            <video class="hero__media-img" autoplay muted loop playsinline>
-              <source src="video/hero.mp4" type="video/mp4">
-            </video> -->
-            <div class="hero__media-badge">
-              <span class="hero__media-badge-num">+50</span>
-              <span class="hero__media-badge-label">proyectos en la Costa</span>
-            </div>
-          </div>
+        <div class="hero__cin-badge" data-reveal data-reveal-delay="4" aria-hidden="true">
+          <span class="hero__cin-badge-num">+50</span>
+          <span class="hero__cin-badge-label">proyectos en la Costa</span>
         </div>
+      </div>
+      <div class="hero__cin-scroll" aria-hidden="true">
+        <span class="hero__cin-scroll-line"></span>
       </div>
     </section>
 
@@ -257,16 +256,16 @@
             <img src="img/agama.webp" alt="" width="800" height="800" loading="lazy" decoding="async">
           </figure>
           <figure class="services-preview__card" data-service-preview-card="express">
-            <img src="img/samuel-coach.webp" alt="" width="800" height="400" loading="lazy" decoding="async">
+            <img src="img/personal-trainer.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
           </figure>
           <figure class="services-preview__card" data-service-preview-card="pro">
-            <img src="img/agama.webp" alt="" width="800" height="800" loading="lazy" decoding="async">
+            <img src="img/clinica-demo-v2.webp" alt="" width="1600" height="900" loading="lazy" decoding="async">
           </figure>
           <figure class="services-preview__card" data-service-preview-card="react">
-            <img src="img/vokabellab.webp" alt="" width="800" height="400" loading="lazy" decoding="async">
+            <img src="img/chatbots-illustration.svg" alt="" width="800" height="600" loading="lazy" decoding="async">
           </figure>
           <figure class="services-preview__card" data-service-preview-card="apps">
-            <img src="img/clinica-demo-v2.webp" alt="" width="1600" height="900" loading="lazy" decoding="async">
+            <img src="img/apps-phone-illustration.svg" alt="" width="800" height="600" loading="lazy" decoding="async">
           </figure>
         </div>
       </div>
