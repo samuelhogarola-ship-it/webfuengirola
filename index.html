@@ -109,7 +109,7 @@
 
   <link rel="preload" href="cookie-banner-core.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="cookie-banner-core.css" /></noscript>
-  <link rel="stylesheet" href="style.css?v=8" />
+  <link rel="stylesheet" href="style.css?v=9" />
 </head>
 <body>
 
@@ -125,7 +125,7 @@
       <nav class="nav" id="nav" aria-label="Navegación principal">
         <ul class="nav__list">
           <li><a href="#inicio" class="nav__link" data-i18n="navHome">Inicio</a></li>
-          <li><a href="servicios.html" class="nav__link" data-i18n="navServices">Servicios</a></li>
+          <li><a href="servicios.html" class="nav__link" data-i18n="navServices" data-page-transition="services">Servicios</a></li>
           <li><a href="portfolio.html" class="nav__link" data-i18n="navPortfolio">Portfolio</a></li>
           <li><a href="proceso.html" class="nav__link" data-i18n="navProcess">Proceso</a></li>
           <li><a href="blog/" class="nav__link">Blog</a></li>
@@ -151,41 +151,207 @@
   </header>
 
   <main>
-
     <!-- ============================================================
          HERO
     ============================================================ -->
     <section class="hero" id="inicio">
-      <div class="container hero__inner">
-        <div class="hero__content">
-          <span class="badge" data-i18n="heroBadge">Disponible en 48 horas</span>
-          <h1 class="hero__title" data-i18n="heroTitle">La web que tu negocio se merece.</h1>
-          <p class="hero__subtitle" data-i18n="heroSubtitle">Webs rápidas y profesionales con todo lo que necesitas para llegar a más clientes.</p>
-          <div class="hero__highlights">
-            <div class="hero__highlight">
-              <strong>300€ + IVA</strong>
-              <span>Web profesional básica.</span>
-              <a href="servicios.html#web-express" class="hero__highlight-link">Saber más</a>
-            </div>
-          </div>
-          <div class="hero__actions">
+      <div class="container hero__inner hero__inner--textonly">
+        <div class="hero__content hero__content--clean">
+          <span class="hero__overlay-label" data-i18n="heroBadge">Disponible en 48 horas</span>
+          <h1 class="hero__overlay-title" data-i18n="heroTitle">La web que tu negocio se merece.</h1>
+          <p class="hero__overlay-subtitle" data-i18n="heroSubtitle">Webs rápidas y profesionales con todo lo que necesitas para llegar a más clientes.</p>
+          <div class="hero__actions hero__actions--overlay">
             <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer" data-i18n="heroPrimaryCta">Pedir presupuesto</a>
+            <a href="servicios.html" class="btn btn--outline btn--lg" data-page-transition="services" data-i18n="servicesExplore">Ver servicios</a>
             <a href="#portfolio" class="btn btn--ghost btn--lg" data-i18n="heroSecondaryCta">Ver trabajos</a>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="hero__mockup" aria-hidden="true">
-          <div class="imac-wrap imac-wrap--composite">
-            <img
-              src="img/hero-preview.webp"
-              alt="Preview visual del mockup principal con ordenador e iconos de herramientas web"
-            class="imac-wrap__art"
-            width="860"
-            height="793"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-          />
+    <!-- ============================================================
+         SERVICIOS
+    ============================================================ -->
+    <section class="services" id="servicios">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label" data-i18n="servicesLabel">Servicios</span>
+          <h2 class="section-title" data-i18n="servicesTitle">Oferta clara para negocio local y desarrollo a medida</h2>
+        </div>
+        <div class="services-editorial" data-services-editorial>
+          <button type="button" class="services-editorial__item is-active" data-services-item data-service-preview="lite" aria-expanded="true">
+            <span class="services-editorial__index" aria-hidden="true">01</span>
+            <span class="services-editorial__main">
+              <span class="services-editorial__title" data-i18n="serviceLiteTitle">Página Web Lite</span>
+              <span class="services-editorial__price">200€ <span data-i18n="vatLabel">+ IVA</span></span>
+            </span>
+            <span class="services-editorial__meta">
+              <span class="services-editorial__summary" data-i18n="serviceLiteDesc">Una página sencilla para tener escaparate online cuanto antes. Pensada para negocios que ya tienen su clientela y solo necesitan estar bien visibles.</span>
+            </span>
+            <span class="services-editorial__arrow" aria-hidden="true">+</span>
+          </button>
+
+          <button type="button" class="services-editorial__item" data-services-item data-service-preview="express" aria-expanded="false">
+            <span class="services-editorial__index" aria-hidden="true">02</span>
+            <span class="services-editorial__main">
+              <span class="services-editorial__title" data-i18n="service1Title">Web Express</span>
+              <span class="services-editorial__price">300€ <span data-i18n="vatLabel">+ IVA</span></span>
+            </span>
+            <span class="services-editorial__meta">
+              <span class="services-editorial__summary" data-i18n="service1Desc">Una sola página, estructura cerrada y mensaje claro. La forma más directa de salir online con buena presencia.</span>
+            </span>
+            <span class="services-editorial__arrow" aria-hidden="true">+</span>
+          </button>
+
+          <button type="button" class="services-editorial__item" data-services-item data-service-preview="pro" aria-expanded="false">
+            <span class="services-editorial__index" aria-hidden="true">03</span>
+            <span class="services-editorial__main">
+              <span class="services-editorial__title" data-i18n="service2Title">Web Corporativa / Web Pro</span>
+              <span class="services-editorial__price">Desde 900€ <span data-i18n="vatLabel">+ IVA</span></span>
+            </span>
+            <span class="services-editorial__meta">
+              <span class="services-editorial__summary" data-i18n="service2Desc">Cuando una empresa necesita varias páginas, narrativa más sólida, blog, SEO escalable o integraciones reales.</span>
+            </span>
+            <span class="services-editorial__arrow" aria-hidden="true">+</span>
+          </button>
+
+          <button type="button" class="services-editorial__item" data-services-item data-service-preview="react" aria-expanded="false">
+            <span class="services-editorial__index" aria-hidden="true">04</span>
+            <span class="services-editorial__main">
+              <span class="services-editorial__title" data-i18n="service3Title">React, chatbots y automatización</span>
+              <span class="services-editorial__price" data-i18n-html="service3PriceHtml">300€ implantación <span>+ 50€ / mes</span></span>
+            </span>
+            <span class="services-editorial__meta">
+              <span class="services-editorial__summary" data-i18n="service3Desc">Bloques técnicos para empresas que ya no necesitan solo una web, sino interacción, eficiencia y captación automatizada.</span>
+            </span>
+            <span class="services-editorial__arrow" aria-hidden="true">+</span>
+          </button>
+
+          <button type="button" class="services-editorial__item" data-services-item data-service-preview="apps" aria-expanded="false">
+            <span class="services-editorial__index" aria-hidden="true">05</span>
+            <span class="services-editorial__main">
+              <span class="services-editorial__title" data-i18n="service4Title">Apps y herramientas a medida</span>
+              <span class="services-editorial__price">2500€ <span data-i18n="vatLabel">+ IVA</span></span>
+            </span>
+            <span class="services-editorial__meta">
+              <span class="services-editorial__summary" data-i18n="service4Desc">Web apps, proyectos con Node, apps Android y herramientas internas para operaciones, reservas o gestión de clientes.</span>
+            </span>
+            <span class="services-editorial__arrow" aria-hidden="true">+</span>
+          </button>
+        </div>
+        <div class="services-preview" aria-hidden="true">
+          <figure class="services-preview__card is-active" data-service-preview-card="lite">
+            <img src="img/agama.webp" alt="" width="800" height="800" loading="lazy" decoding="async">
+          </figure>
+          <figure class="services-preview__card" data-service-preview-card="express">
+            <img src="img/samuel-coach.webp" alt="" width="800" height="400" loading="lazy" decoding="async">
+          </figure>
+          <figure class="services-preview__card" data-service-preview-card="pro">
+            <img src="img/agama.webp" alt="" width="800" height="800" loading="lazy" decoding="async">
+          </figure>
+          <figure class="services-preview__card" data-service-preview-card="react">
+            <img src="img/vokabellab.webp" alt="" width="800" height="400" loading="lazy" decoding="async">
+          </figure>
+          <figure class="services-preview__card" data-service-preview-card="apps">
+            <img src="img/clinica-demo-v2.webp" alt="" width="1600" height="900" loading="lazy" decoding="async">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PROBLEMA
+    ============================================================ -->
+    <section class="problem" id="problema">
+      <div class="container problem__inner">
+        <div class="problem__text">
+          <span class="section-label" data-i18n="problemLabel">El problema</span>
+          <h2 class="section-title" data-i18n="problemTitle">Muchos negocios locales están perdiendo clientes sin saberlo</h2>
+          <ul class="problem__list">
+            <li class="problem__item" data-i18n="problem1">Dependen solo de Instagram, que cambia sus algoritmos sin avisar.</li>
+            <li class="problem__item" data-i18n="problem2">Tienen una web antigua que no se ve bien en el móvil.</li>
+            <li class="problem__item" data-i18n="problem3">Usan fotos genéricas que no transmiten confianza.</li>
+            <li class="problem__item" data-i18n="problem4">No aparecen cuando alguien busca su servicio en Google.</li>
+            <li class="problem__item" data-i18n="problem5">Su web no deja claro qué hacen ni cómo contactarles.</li>
+          </ul>
+        </div>
+        <div class="problem__visual" aria-hidden="true">
+          <div class="problem__stat-card">
+            <span class="problem__stat-num">76%</span>
+            <span class="problem__stat-desc" data-i18n="problemStat1">de los consumidores buscan negocios en Google antes de visitar un local</span>
+          </div>
+          <div class="problem__stat-card">
+            <span class="problem__stat-num">53%</span>
+            <span class="problem__stat-desc" data-i18n="problemStat2">abandona una web que tarda más de 3 segundos en cargar en móvil</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SOLUCIÓN
+    ============================================================ -->
+    <section class="solution" id="solucion">
+      <div class="container">
+        <div class="solution__header">
+          <span class="section-label" data-i18n="solutionLabel">La solución</span>
+          <h2 class="section-title" data-i18n-html="solutionTitle">Una web sencilla, rápida y personalizada<br/>para mostrar bien tu negocio</h2>
+          <p class="section-sub" data-i18n="solutionSub">Sin tecnicismos, sin complicaciones. Tú nos cuentas tu negocio y nosotros lo publicamos online de forma clara y profesional.</p>
+        </div>
+        <div class="benefits__grid">
+          <div class="benefit__item">
+            <div class="benefit__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M9 18h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <h3 class="benefit__title" data-i18n="benefit1Title">Adaptada a móvil</h3>
+              <p class="benefit__text" data-i18n="benefit1Text">Se ve perfecta en cualquier pantalla. El 80% de tus clientes te buscarán desde el teléfono.</p>
+            </div>
+          </div>
+          <div class="benefit__item">
+            <div class="benefit__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <h3 class="benefit__title" data-i18n="benefit2Title">Fotos reales de tu negocio</h3>
+              <p class="benefit__text" data-i18n="benefit2Text">Incluimos una sesión fotográfica básica del local para que la web sea tuya de verdad.</p>
+            </div>
+          </div>
+          <div class="benefit__item">
+            <div class="benefit__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 10h16M4 14h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <h3 class="benefit__title" data-i18n="benefit3Title">Textos claros</h3>
+              <p class="benefit__text" data-i18n="benefit3Text">Explicamos lo que haces en un lenguaje directo que tus clientes entienden al instante.</p>
+            </div>
+          </div>
+          <div class="benefit__item">
+            <div class="benefit__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M3 5a2 2 0 0 1 2-2h3l2 4-2 2a12 12 0 0 0 5 5l2-2 4 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3 class="benefit__title" data-i18n="benefit4Title">WhatsApp directo</h3>
+              <p class="benefit__text" data-i18n="benefit4Text">Un botón visible en cada pantalla para que tus clientes te escriban en un clic.</p>
+            </div>
+          </div>
+          <div class="benefit__item">
+            <div class="benefit__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <h3 class="benefit__title" data-i18n="benefit5Title">Preparada para Google</h3>
+              <p class="benefit__text" data-i18n="benefit5Text">Estructura y velocidad pensadas para que Google te encuentre y te muestre a tus vecinos.</p>
+            </div>
+          </div>
+          <div class="benefit__item">
+            <div class="benefit__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3 class="benefit__title" data-i18n="benefit6Title">Publicación en 48h</h3>
+              <p class="benefit__text" data-i18n="benefit6Text">Del primer contacto a la web publicada en menos de dos días. Sin esperas eternas.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -267,229 +433,6 @@
         </div>
         <div style="text-align:center;margin-top:2.5rem;">
           <a href="portfolio.html" class="btn btn--outline btn--lg">Ver todos los proyectos</a>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ============================================================
-         CONFIANZA
-    ============================================================ -->
-    <section class="trust" id="confianza">
-      <div class="container">
-        <p class="trust__headline" data-i18n-html="trustHeadline">Una web no tiene que ser complicada.<br/>Tiene que explicar bien tu negocio.</p>
-        <div class="trust__blocks">
-          <div class="trust__block">
-            <div class="trust__icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/><path d="M10 16l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <h3 class="trust__block-title" data-i18n="trust1Title">Claridad</h3>
-            <p class="trust__block-text" data-i18n="trust1Text">Tus clientes entienden en segundos qué ofreces y por qué deberían elegirte a ti.</p>
-          </div>
-          <div class="trust__block">
-            <div class="trust__icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="6" width="24" height="18" rx="3" stroke="currentColor" stroke-width="2"/><path d="M10 28h12M16 24v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            </div>
-            <h3 class="trust__block-title" data-i18n="trust2Title">Presencia online</h3>
-            <p class="trust__block-text" data-i18n="trust2Text">Aparece en Google cuando alguien busca tu servicio cerca. Sin web, no existes en el mapa digital.</p>
-          </div>
-          <div class="trust__block">
-            <div class="trust__icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 6h20v16H6z" rx="2" stroke="currentColor" stroke-width="2"/><path d="M10 28l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13" cy="13" r="2" stroke="currentColor" stroke-width="2"/></svg>
-            </div>
-            <h3 class="trust__block-title" data-i18n="trust3Title">Contacto directo</h3>
-            <p class="trust__block-text" data-i18n="trust3Text">Un botón de WhatsApp o formulario visible convierte visitas en clientes reales, sin complicaciones.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         PROBLEMA
-    ============================================================ -->
-    <section class="problem" id="problema">
-      <div class="container problem__inner">
-        <div class="problem__text">
-          <span class="section-label" data-i18n="problemLabel">El problema</span>
-          <h2 class="section-title" data-i18n="problemTitle">Muchos negocios locales están perdiendo clientes sin saberlo</h2>
-          <ul class="problem__list">
-            <li class="problem__item" data-i18n="problem1">Dependen solo de Instagram, que cambia sus algoritmos sin avisar.</li>
-            <li class="problem__item" data-i18n="problem2">Tienen una web antigua que no se ve bien en el móvil.</li>
-            <li class="problem__item" data-i18n="problem3">Usan fotos genéricas que no transmiten confianza.</li>
-            <li class="problem__item" data-i18n="problem4">No aparecen cuando alguien busca su servicio en Google.</li>
-            <li class="problem__item" data-i18n="problem5">Su web no deja claro qué hacen ni cómo contactarles.</li>
-          </ul>
-        </div>
-        <div class="problem__visual" aria-hidden="true">
-          <div class="problem__stat-card">
-            <span class="problem__stat-num">76%</span>
-            <span class="problem__stat-desc" data-i18n="problemStat1">de los consumidores buscan negocios en Google antes de visitar un local</span>
-          </div>
-          <div class="problem__stat-card">
-            <span class="problem__stat-num">53%</span>
-            <span class="problem__stat-desc" data-i18n="problemStat2">abandona una web que tarda más de 3 segundos en cargar en móvil</span>
-          </div>
-          <div class="problem__stat-card">
-            <span class="problem__stat-num">48h</span>
-            <span class="problem__stat-desc" data-i18n="problemStat3">es todo lo que necesitas para tener una web profesional publicada</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         SOLUCIÓN
-    ============================================================ -->
-    <section class="solution" id="solucion">
-      <div class="container">
-        <div class="solution__header">
-          <span class="section-label" data-i18n="solutionLabel">La solución</span>
-          <h2 class="section-title" data-i18n-html="solutionTitle">Una web sencilla, rápida y personalizada<br/>para mostrar bien tu negocio</h2>
-          <p class="section-sub" data-i18n="solutionSub">Sin tecnicismos, sin complicaciones. Tú nos cuentas tu negocio y nosotros lo publicamos online de forma clara y profesional.</p>
-        </div>
-        <div class="benefits__grid">
-          <div class="benefit__item">
-            <div class="benefit__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M9 18h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-            <div>
-              <h3 class="benefit__title" data-i18n="benefit1Title">Adaptada a móvil</h3>
-              <p class="benefit__text" data-i18n="benefit1Text">Se ve perfecta en cualquier pantalla. El 80% de tus clientes te buscarán desde el teléfono.</p>
-            </div>
-          </div>
-          <div class="benefit__item">
-            <div class="benefit__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-            <div>
-              <h3 class="benefit__title" data-i18n="benefit2Title">Fotos reales de tu negocio</h3>
-              <p class="benefit__text" data-i18n="benefit2Text">Incluimos una sesión fotográfica básica del local para que la web sea tuya de verdad.</p>
-            </div>
-          </div>
-          <div class="benefit__item">
-            <div class="benefit__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 10h16M4 14h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-            <div>
-              <h3 class="benefit__title" data-i18n="benefit3Title">Textos claros</h3>
-              <p class="benefit__text" data-i18n="benefit3Text">Explicamos lo que haces en un lenguaje directo que tus clientes entienden al instante.</p>
-            </div>
-          </div>
-          <div class="benefit__item">
-            <div class="benefit__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M3 5a2 2 0 0 1 2-2h3l2 4-2 2a12 12 0 0 0 5 5l2-2 4 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            </div>
-            <div>
-              <h3 class="benefit__title" data-i18n="benefit4Title">WhatsApp directo</h3>
-              <p class="benefit__text" data-i18n="benefit4Text">Un botón visible en cada pantalla para que tus clientes te escriban en un clic.</p>
-            </div>
-          </div>
-          <div class="benefit__item">
-            <div class="benefit__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-            <div>
-              <h3 class="benefit__title" data-i18n="benefit5Title">Preparada para Google</h3>
-              <p class="benefit__text" data-i18n="benefit5Text">Estructura y velocidad pensadas para que Google te encuentre y te muestre a tus vecinos.</p>
-            </div>
-          </div>
-          <div class="benefit__item">
-            <div class="benefit__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            </div>
-            <div>
-              <h3 class="benefit__title" data-i18n="benefit6Title">Publicación en 48h</h3>
-              <p class="benefit__text" data-i18n="benefit6Text">Del primer contacto a la web publicada en menos de dos días. Sin esperas eternas.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         SERVICIOS
-    ============================================================ -->
-    <section class="services" id="servicios">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label" data-i18n="servicesLabel">Servicios</span>
-          <h2 class="section-title" data-i18n="servicesTitle">Oferta clara para negocio local y desarrollo a medida</h2>
-        </div>
-        <div class="services__grid">
-
-          <div class="service-card service-card--entry">
-            <div class="service-card__eyebrow" data-i18n="serviceLiteEyebrow">Entrada rápida</div>
-            <h3 class="service-card__title" data-i18n="serviceLiteTitle">Página Web Lite</h3>
-            <p class="service-card__price">200€ <span data-i18n="vatLabel">+ IVA</span></p>
-            <p class="service-card__desc" data-i18n="serviceLiteDesc">Una página sencilla para tener escaparate online cuanto antes. Pensada para negocios que ya tienen su clientela y solo necesitan estar bien visibles.</p>
-            <ul class="service-card__features">
-              <li data-i18n="serviceLiteFeature1">1 sola página tipo escaparate</li>
-              <li data-i18n="serviceLiteFeature2">WhatsApp, correo y dirección visibles</li>
-              <li data-i18n="serviceLiteFeature3">SEO base de publicación incluido</li>
-              <li data-i18n="serviceLiteFeature4">Menos trabajo SEO y menos conversión que la Landing</li>
-              <li data-i18n="serviceLiteFeature5">Buena para empezar y ampliar después</li>
-            </ul>
-            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20la%20P%C3%A1gina%20Web%20Lite%20para%20mi%20negocio" class="btn btn--ghost btn--full" target="_blank" rel="noopener noreferrer" data-i18n="serviceLiteCta">Quiero esta opción</a>
-          </div>
-
-          <div class="service-card service-card--featured">
-            <div class="service-card__badge" data-i18n="servicePopular">Más popular</div>
-            <h3 class="service-card__title" data-i18n="service1Title">Web Express</h3>
-            <p class="service-card__price">300€ <span data-i18n="vatLabel">+ IVA</span></p>
-            <p class="service-card__desc" data-i18n="service1Desc">Una sola página, estructura cerrada y mensaje claro. La forma más directa de salir online con buena presencia.</p>
-            <ul class="service-card__features">
-              <li data-i18n="service1Feature1">Landing corporativa de 1 página</li>
-              <li data-i18n="service1Feature2">Responsive y copy orientado a conversión</li>
-              <li data-i18n="service1Feature3">WhatsApp, formulario y SEO básico</li>
-              <li data-i18n="service1Feature4">Sin lógica avanzada ni integraciones</li>
-              <li data-i18n="service1Feature5">Entrega rápida con alcance definido</li>
-              <li data-i18n="service1Feature6">Ideal para negocios locales y autónomos</li>
-              <li data-i18n="service1Feature7">1 ronda de revisiones incluida</li>
-            </ul>
-            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--primary btn--full" target="_blank" rel="noopener noreferrer" data-i18n="service1Cta">Pedir esta web</a>
-          </div>
-
-          <div class="service-card">
-            <h3 class="service-card__title" data-i18n="service2Title">Web Corporativa / Web Pro</h3>
-            <p class="service-card__price">Desde 900€ <span data-i18n="vatLabel">+ IVA</span></p>
-            <p class="service-card__desc" data-i18n="service2Desc">Cuando una empresa necesita varias páginas, narrativa más sólida, blog, SEO escalable o integraciones reales.</p>
-            <ul class="service-card__features">
-              <li data-i18n="service2Feature1">Arquitectura de contenidos más completa</li>
-              <li data-i18n="service2Feature2">Páginas adicionales y mejor jerarquía SEO</li>
-              <li data-i18n="service2Feature3">Blog, formularios avanzados o reservas</li>
-              <li data-i18n="service2Feature4">Integraciones y alcance editorial superior</li>
-              <li data-i18n="service2Feature5">Presupuesto adaptado a negocio y objetivos</li>
-            </ul>
-            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--outline btn--full" target="_blank" rel="noopener noreferrer" data-i18n="service2Cta">Solicitar presupuesto</a>
-          </div>
-
-          <div class="service-card">
-            <h3 class="service-card__title" data-i18n="service3Title">React, chatbots y automatización</h3>
-            <p class="service-card__price">Desde 600€ <span data-i18n="vatLabel">+ IVA</span></p>
-            <p class="service-card__desc" data-i18n="service3Desc">Bloques técnicos para empresas que ya no necesitan solo una web, sino interacción, eficiencia y captación automatizada.</p>
-            <ul class="service-card__features">
-              <li data-i18n="service3Feature1">Páginas dinámicas con React desde 1.400€</li>
-              <li data-i18n="service3Feature2">Chatbots de soporte o captación desde 600€</li>
-              <li data-i18n="service3Feature3">Automatización de tareas y flujos internos</li>
-              <li data-i18n="service3Feature4">Setup modular según alcance real</li>
-            </ul>
-            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--outline btn--full" target="_blank" rel="noopener noreferrer" data-i18n="consultPrice">Consultar precio</a>
-          </div>
-
-          <div class="service-card">
-            <h3 class="service-card__title" data-i18n="service4Title">Apps y herramientas a medida</h3>
-            <p class="service-card__price">Desde 1.800€ <span data-i18n="vatLabel">+ IVA</span></p>
-            <p class="service-card__desc" data-i18n="service4Desc">Web apps, proyectos con Node, apps Android y herramientas internas para operaciones, reservas o gestión de clientes.</p>
-            <ul class="service-card__features">
-              <li data-i18n="service4Feature1">Web apps y paneles internos</li>
-              <li data-i18n="service4Feature2">Backends Node y lógica de negocio</li>
-              <li data-i18n="service4Feature3">Apps Android orientadas a operaciones</li>
-              <li data-i18n="service4Feature4">Optimización de flujos de trabajo</li>
-              <li data-i18n="service4Feature5">Presupuesto premium con alcance cerrado</li>
-            </ul>
-            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--outline btn--full" target="_blank" rel="noopener noreferrer" data-i18n="consultPrice">Consultar precio</a>
-          </div>
-
         </div>
       </div>
     </section>
@@ -618,43 +561,84 @@
     ============================================================ -->
     <section class="cta-final" id="contacto">
       <div class="container cta-final__inner">
-        <div class="cta-final__content">
-          <h2 class="cta-final__title" data-i18n-html="ctaTitle">¿Tienes un negocio local<br/>y necesitas una web clara?</h2>
-          <p class="cta-final__sub" data-i18n="ctaSub">Cuéntanos qué haces y te decimos cómo podemos ayudarte. Sin compromiso, sin tecnicismos.</p>
-          <div class="cta-final__actions">
-            <a
-              href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio"
-              class="btn btn--whatsapp btn--lg"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-              <span data-i18n="ctaWhatsapp">Hablar por WhatsApp</span>
-            </a>
-            <a href="mailto:info@webfuengirola.com" class="btn btn--outline btn--lg">
-              <span data-i18n="ctaEmail">Enviar un email</span>
-            </a>
-          </div>
-          <form class="contact-form" action="https://formsubmit.co/info@webfuengirola.com" method="POST">
-            <input type="hidden" name="_subject" value="Nuevo contacto desde webfuengirola.com"/>
-            <input type="hidden" name="_captcha" value="false"/>
-            <input type="hidden" name="_template" value="table"/>
-            <div class="contact-form__grid">
-              <label class="contact-form__field">
-                <span>Nombre</span>
-                <input type="text" name="nombre" autocomplete="name" required/>
-              </label>
-              <label class="contact-form__field">
-                <span>Email</span>
-                <input type="email" name="email" autocomplete="email" required/>
-              </label>
+        <div class="cta-final__content cta-final__content--calculator">
+          <div class="price-calculator" data-price-calculator>
+            <div class="price-calculator__intro">
+              <span class="section-label" data-i18n="calcLabel">Calculadora</span>
+              <h2 class="cta-final__title" data-i18n-html="calcTitle">Configura tu web y calcula una estimación rápida</h2>
+              <p class="cta-final__sub" data-i18n="calcSub">Selecciona los servicios que te interesan y verás cómo cambia el presupuesto al momento.</p>
             </div>
-            <label class="contact-form__field">
-              <span>Cuéntanos qué necesitas</span>
-              <textarea name="mensaje" rows="5" required></textarea>
-            </label>
-            <button type="submit" class="btn btn--primary btn--lg">Enviar formulario</button>
-          </form>
+
+            <div class="price-calculator__panel">
+              <div class="price-calculator__group">
+                <div class="price-calculator__group-head">
+                  <span class="price-calculator__group-label" data-i18n="calcBaseLabel">Servicios</span>
+                  <span class="price-calculator__group-note" data-i18n="calcPickHint">Puedes combinar varias opciones</span>
+                </div>
+                <div class="price-calculator__options">
+                  <label class="calc-option">
+                    <input type="checkbox" data-calc-option data-label-key="serviceLiteTitle" data-price="200">
+                    <span class="calc-option__content">
+                      <span class="calc-option__name" data-i18n="serviceLiteTitle">Página Web Lite</span>
+                      <span class="calc-option__price">200€ <span data-i18n="vatLabel">+ IVA</span></span>
+                    </span>
+                  </label>
+                  <label class="calc-option">
+                    <input type="checkbox" data-calc-option data-label-key="service1Title" data-price="300">
+                    <span class="calc-option__content">
+                      <span class="calc-option__name" data-i18n="service1Title">Web Express</span>
+                      <span class="calc-option__price">300€ <span data-i18n="vatLabel">+ IVA</span></span>
+                    </span>
+                  </label>
+                  <label class="calc-option">
+                    <input type="checkbox" data-calc-option data-label-key="service2Title" data-price="900">
+                    <span class="calc-option__content">
+                      <span class="calc-option__name" data-i18n="service2Title">Web Corporativa / Web Pro</span>
+                      <span class="calc-option__price">900€ <span data-i18n="vatLabel">+ IVA</span></span>
+                    </span>
+                  </label>
+                  <label class="calc-option">
+                    <input type="checkbox" data-calc-option data-label-key="service3Title" data-price="300">
+                    <span class="calc-option__content">
+                      <span class="calc-option__name" data-i18n="service3Title">React, chatbots y automatización</span>
+                      <span class="calc-option__price" data-i18n-html="service3PriceHtml">300€ implantación <span>+ 50€ / mes</span></span>
+                    </span>
+                  </label>
+                  <label class="calc-option">
+                    <input type="checkbox" data-calc-option data-label-key="service4Title" data-price="2500">
+                    <span class="calc-option__content">
+                      <span class="calc-option__name" data-i18n="service4Title">Apps y herramientas a medida</span>
+                      <span class="calc-option__price">2500€ <span data-i18n="vatLabel">+ IVA</span></span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="price-calculator__summary">
+                <div class="price-calculator__summary-top">
+                  <span class="price-calculator__summary-label" data-i18n="calcEstimateLabel">Estimación actual</span>
+                  <strong class="price-calculator__total" data-calc-total>0€</strong>
+                </div>
+                <p class="price-calculator__summary-note" data-i18n="calcEstimateNote">Precio orientativo antes de cerrar alcance final.</p>
+                <div class="price-calculator__selected" data-calc-selected></div>
+                <div class="cta-final__actions price-calculator__actions">
+                  <a
+                    href="https://wa.me/34622923988?text=Hola%2C%20quiero%20pedir%20este%20presupuesto"
+                    class="btn btn--whatsapp btn--lg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-calc-whatsapp
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                    <span data-i18n="calcWhatsapp">Pedir este presupuesto</span>
+                  </a>
+                  <a href="mailto:info@webfuengirola.com?subject=Presupuesto%20web%20WF%20Studio" class="btn btn--outline btn--lg" data-calc-email>
+                    <span data-i18n="calcEmail">Enviar por email</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -676,11 +660,11 @@
       <div class="footer__col">
         <h4 class="footer__col-title" data-i18n="navServices">Servicios</h4>
         <ul class="footer__links">
-          <li><a href="servicios.html#pagina-web-lite" data-i18n="serviceLiteTitle">Página Web Lite</a></li>
-          <li><a href="servicios.html#web-express" data-i18n="service1Title">Web Express</a></li>
-          <li><a href="servicios.html#web-pro" data-i18n="service2Title">Web Corporativa / Web Pro</a></li>
-          <li><a href="servicios.html#react-automatizacion" data-i18n="service3Title">React, chatbots y automatización</a></li>
-          <li><a href="servicios.html#apps-medida" data-i18n="service4Title">Apps y herramientas a medida</a></li>
+          <li><a href="servicios.html#pagina-web-lite" data-i18n="serviceLiteTitle" data-page-transition="services">Página Web Lite</a></li>
+          <li><a href="servicios.html#web-express" data-i18n="service1Title" data-page-transition="services">Web Express</a></li>
+          <li><a href="servicios.html#web-pro" data-i18n="service2Title" data-page-transition="services">Web Corporativa / Web Pro</a></li>
+          <li><a href="servicios.html#react-automatizacion" data-i18n="service3Title" data-page-transition="services">React, chatbots y automatización</a></li>
+          <li><a href="servicios.html#apps-medida" data-i18n="service4Title" data-page-transition="services">Apps y herramientas a medida</a></li>
           <li><a href="#mantenimiento" data-i18n="maintenanceLabel">Mantenimiento</a></li>
         </ul>
       </div>
@@ -712,7 +696,7 @@
 
   <script src="google-analytics-core.js"></script>
   <script src="cookie-banner-core.js"></script>
-  <script src="script.js?v=9"></script>
+  <script src="script.js?v=10"></script>
   <!-- WhatsApp FAB -->
   <a
     href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio"
@@ -724,5 +708,16 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.52 3.48A11.94 11.94 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.17 1.6 5.99L0 24l6.18-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52ZM12 22c-1.85 0-3.67-.5-5.25-1.44l-.38-.22-3.67.96.98-3.58-.24-.38A9.94 9.94 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10Zm5.48-7.48c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"/></svg>
     <span>Pedir presupuesto</span>
   </a>
+  <div class="page-transition" id="page-transition" aria-hidden="true">
+    <div class="page-transition__grid" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="page-transition__brand">WF STUDIO</div>
+  </div>
 </body>
 </html>

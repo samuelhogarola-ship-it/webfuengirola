@@ -91,14 +91,15 @@
       service2Feature5: 'Presupuesto adaptado a negocio y objetivos',
       service2Cta: 'Solicitar presupuesto',
       service3Title: 'React, chatbots y automatización',
-      service3Price: 'Desde 600€ + IVA',
+      service3Price: '300€ implantación + 50€ / mes + IVA',
+      service3PriceHtml: '300€ implantación <span>+ 50€ / mes</span>',
       service3Desc: 'Bloques técnicos para empresas que ya no necesitan solo una web, sino interacción, eficiencia y captación automatizada.',
       service3Feature1: 'Páginas dinámicas con React desde 1.400€',
-      service3Feature2: 'Chatbots de soporte o captación desde 600€',
+      service3Feature2: 'Entrenamiento e implantación por 300€ + cuota de 50€ al mes',
       service3Feature3: 'Automatización de tareas y flujos internos',
       service3Feature4: 'Setup modular según alcance real',
       service4Title: 'Apps y herramientas a medida',
-      service4Price: 'Desde 1.800€ + IVA',
+      service4Price: '2500€ + IVA',
       service4Desc: 'Web apps, proyectos con Node, apps Android y herramientas internas para operaciones, reservas o gestión de clientes.',
       service4Feature1: 'Web apps y paneles internos',
       service4Feature2: 'Backends Node y lógica de negocio',
@@ -106,6 +107,7 @@
       service4Feature4: 'Optimización de flujos de trabajo',
       service4Feature5: 'Presupuesto premium con alcance cerrado',
       consultPrice: 'Consultar precio',
+      servicesExplore: 'Ver servicios',
       portfolioTitle: 'Proyectos para negocios locales',
       portfolioSub: 'Cada web es diferente. Estas son algunas de las que hemos creado para comercios de la zona.',
       portfolio1Desc: 'Plataforma de aprendizaje de vocabulario. Diseño limpio y funcional centrado en la experiencia del usuario.',
@@ -151,8 +153,8 @@
       pricingProDesc: 'Para proyectos con lógica, automatización o crecimiento real: webs corporativas, React, Node, chatbots, apps y herramientas internas.',
       pricingPro1: 'Web corporativa / Web Pro desde 900€',
       pricingPro2: 'Páginas dinámicas con React desde 1.400€',
-      pricingPro3: 'Chatbots y automatización desde 600€',
-      pricingPro4: 'Web apps, Node y herramientas internas desde 1.800€',
+      pricingPro3: 'Chatbots y automatización por 300€ + 50€ al mes',
+      pricingPro4: 'Web apps, Node y herramientas internas desde 2500€',
       maintenanceLabel: 'Mantenimiento',
       maintenanceTitle: 'Mantén tu web al día sin preocupaciones',
       maintenanceSub: 'Planes orientativos para actualizar y cuidar tu web una vez publicada. Precios finales según el trabajo necesario.',
@@ -173,6 +175,16 @@
       maintenance3Feature2: 'Nuevas páginas y funcionalidades',
       maintenance3Feature3: 'Respuesta en el mismo día',
       maintenance3Feature4: 'Seguimiento SEO y analítica',
+      calcLabel: 'Calculadora',
+      calcTitle: 'Configura tu web y calcula una estimación rápida',
+      calcSub: 'Selecciona los servicios que te interesan y verás cómo cambia el presupuesto al momento.',
+      calcBaseLabel: 'Servicios',
+      calcPickHint: 'Puedes combinar varias opciones',
+      calcEstimateLabel: 'Estimación actual',
+      calcEstimateNote: 'Precio orientativo antes de cerrar alcance final.',
+      calcWhatsapp: 'Pedir este presupuesto',
+      calcEmail: 'Enviar por email',
+      calcEmpty: 'Selecciona uno o varios servicios para ver tu estimación.',
       ctaTitle: '¿Tienes un negocio local<br>y necesitas una web clara?',
       ctaSub: 'Cuéntanos qué haces y te decimos cómo podemos ayudarte. Sin compromiso, sin tecnicismos.',
       ctaWhatsapp: 'Hablar por WhatsApp',
@@ -270,14 +282,15 @@
       service2Feature5: 'Budget tailored to business goals',
       service2Cta: 'Request a quote',
       service3Title: 'React, chatbots and automation',
-      service3Price: 'From €600 + VAT',
+      service3Price: '€300 setup + €50 / month + VAT',
+      service3PriceHtml: '€300 setup <span>+ €50 / month</span>',
       service3Desc: 'Technical building blocks for companies that no longer need just a website, but interaction, efficiency and automated lead capture.',
       service3Feature1: 'Dynamic React pages from €1,400',
-      service3Feature2: 'Support or lead-gen chatbots from €600',
+      service3Feature2: 'Training and setup for €300 + a €50 monthly fee',
       service3Feature3: 'Task and workflow automation',
       service3Feature4: 'Modular setup based on real scope',
       service4Title: 'Custom apps and tools',
-      service4Price: 'From €1,800 + VAT',
+      service4Price: '€2500 + VAT',
       service4Desc: 'Web apps, Node projects, Android apps and internal tools for operations, bookings or customer management.',
       service4Feature1: 'Web apps and internal dashboards',
       service4Feature2: 'Node backends and business logic',
@@ -285,6 +298,7 @@
       service4Feature4: 'Workflow optimization',
       service4Feature5: 'Premium quote with fixed scope',
       consultPrice: 'Ask for pricing',
+      servicesExplore: 'Explore services',
       portfolioTitle: 'Projects for local businesses',
       portfolioSub: 'Every website is different. These are some we have created for local businesses.',
       portfolio1Desc: 'Vocabulary learning platform. Clean, functional design focused on user experience.',
@@ -330,7 +344,7 @@
       pricingProDesc: 'For projects with logic, automation or real growth needs: corporate websites, React, Node, chatbots, apps and internal tools.',
       pricingPro1: 'Corporate / Pro website from €900',
       pricingPro2: 'Dynamic React pages from €1,400',
-      pricingPro3: 'Chatbots and automation from €600',
+      pricingPro3: 'Chatbots and automation for €300 + €50 per month',
       pricingPro4: 'Web apps, Node and internal tools from €1,800',
       maintenanceLabel: 'Maintenance',
       maintenanceTitle: 'Keep your website updated without worries',
@@ -352,6 +366,16 @@
       maintenance3Feature2: 'New pages and features',
       maintenance3Feature3: 'Same-day response',
       maintenance3Feature4: 'SEO and analytics monitoring',
+      calcLabel: 'Calculator',
+      calcTitle: 'Configure your website and get a quick estimate',
+      calcSub: 'Select the services you are interested in and the budget updates instantly.',
+      calcBaseLabel: 'Services',
+      calcPickHint: 'You can combine multiple options',
+      calcEstimateLabel: 'Current estimate',
+      calcEstimateNote: 'Indicative price before the final scope is closed.',
+      calcWhatsapp: 'Request this quote',
+      calcEmail: 'Send by email',
+      calcEmpty: 'Select one or more services to see your estimate.',
       ctaTitle: 'Do you run a local business<br>and need a clear website?',
       ctaSub: 'Tell us what you do and we will explain how we can help. No obligation, no jargon.',
       ctaWhatsapp: 'Chat on WhatsApp',
@@ -449,14 +473,15 @@
       service2Feature5: 'Mehr Korrekturrunden',
       service2Cta: 'Angebot anfragen',
       service3Title: 'React, Chatbots und Automatisierung',
-      service3Price: 'Ab 600 € + MwSt.',
+      service3Price: '300 € Einrichtung + 50 € / Monat + MwSt.',
+      service3PriceHtml: '300 € Einrichtung <span>+ 50 € / Monat</span>',
       service3Desc: 'Technische Bausteine für Unternehmen, die mehr als nur eine Webseite brauchen: Interaktion, Effizienz und automatisierte Leadgewinnung.',
       service3Feature1: 'Dynamische React-Seiten ab 1.400 €',
-      service3Feature2: 'Support- oder Lead-Chatbots ab 600 €',
+      service3Feature2: 'Schulung und Einrichtung für 300 € + 50 € Monatsgebühr',
       service3Feature3: 'Automatisierung von Aufgaben und Abläufen',
       service3Feature4: 'Modularer Setup je nach Umfang',
       service4Title: 'Apps und individuelle Tools',
-      service4Price: 'Ab 1.800 € + MwSt.',
+      service4Price: '2500 € + MwSt.',
       service4Desc: 'Web-Apps, Node-Projekte, Android-Apps und interne Tools für Abläufe, Reservierungen oder Kundenverwaltung.',
       service4Feature1: 'Web-Apps und interne Dashboards',
       service4Feature2: 'Node-Backends und Geschäftslogik',
@@ -464,6 +489,7 @@
       service4Feature4: 'Optimierung von Arbeitsabläufen',
       service4Feature5: 'Premium-Angebot mit klarem Umfang',
       consultPrice: 'Preis anfragen',
+      servicesExplore: 'Leistungen ansehen',
       portfolioTitle: 'Projekte für lokale Unternehmen',
       portfolioSub: 'Jede Webseite ist anders. Hier sind einige, die wir für lokale Unternehmen erstellt haben.',
       portfolio1Desc: 'Plattform zum Vokabellernen. Klares, funktionales Design mit Fokus auf die Nutzererfahrung.',
@@ -531,6 +557,16 @@
       maintenance3Feature2: 'Neue Seiten und Funktionen',
       maintenance3Feature3: 'Antwort am selben Tag',
       maintenance3Feature4: 'SEO- und Analyse-Monitoring',
+      calcLabel: 'Rechner',
+      calcTitle: 'Stellen Sie Ihre Website zusammen und berechnen Sie schnell eine Schätzung',
+      calcSub: 'Wählen Sie die Leistungen aus und der Preis aktualisiert sich sofort.',
+      calcBaseLabel: 'Leistungen',
+      calcPickHint: 'Mehrere Optionen sind kombinierbar',
+      calcEstimateLabel: 'Aktuelle Schätzung',
+      calcEstimateNote: 'Unverbindlicher Richtpreis vor dem finalen Leistungsumfang.',
+      calcWhatsapp: 'Dieses Angebot anfragen',
+      calcEmail: 'Per E-Mail senden',
+      calcEmpty: 'Wählen Sie eine oder mehrere Leistungen, um die Schätzung zu sehen.',
       ctaTitle: 'Haben Sie ein lokales Unternehmen<br>und brauchen eine klare Webseite?',
       ctaSub: 'Erzählen Sie uns, was Sie tun, und wir sagen Ihnen, wie wir helfen können. Unverbindlich und ohne Fachsprache.',
       ctaWhatsapp: 'Per WhatsApp schreiben',
@@ -628,14 +664,15 @@
       service2Feature5: 'Useampia tarkistuskierroksia',
       service2Cta: 'Pyydä tarjous',
       service3Title: 'React, chatbotit ja automaatio',
-      service3Price: 'Alkaen 600 € + ALV',
+      service3Price: '300 € käyttöönotto + 50 € / kk + ALV',
+      service3PriceHtml: '300 € käyttöönotto <span>+ 50 € / kk</span>',
       service3Desc: 'Tekniset ratkaisut yrityksille, jotka tarvitsevat enemmän kuin vain verkkosivun: vuorovaikutusta, tehokkuutta ja automatisoitua liidien keruuta.',
       service3Feature1: 'Dynaamiset React-sivut alkaen 1.400 €',
-      service3Feature2: 'Tuki- tai liidichatbotit alkaen 600 €',
+      service3Feature2: 'Koulutus ja käyttöönotto 300 € + 50 € kuukausimaksu',
       service3Feature3: 'Tehtävien ja työnkulkujen automaatio',
       service3Feature4: 'Modulaarinen toteutus tarpeen mukaan',
       service4Title: 'Sovellukset ja räätälöidyt työkalut',
-      service4Price: 'Alkaen 1.800 € + ALV',
+      service4Price: '2500 € + ALV',
       service4Desc: 'Web-sovellukset, Node-projektit, Android-sovellukset ja sisäiset työkalut operaatioihin, varauksiin tai asiakashallintaan.',
       service4Feature1: 'Web-sovellukset ja sisäiset dashboardit',
       service4Feature2: 'Node-taustajärjestelmät ja liiketoimintalogiikka',
@@ -643,6 +680,7 @@
       service4Feature4: 'Työnkulkujen optimointi',
       service4Feature5: 'Premium-tarjous selkeällä laajuudella',
       consultPrice: 'Kysy hinta',
+      servicesExplore: 'Katso palvelut',
       portfolioTitle: 'Projekteja paikallisille yrityksille',
       portfolioSub: 'Jokainen verkkosivu on erilainen. Tässä on joitakin sivuja, joita olemme tehneet paikallisille yrityksille.',
       portfolio1Desc: 'Sanaston oppimisalusta. Selkeä ja toimiva design, jossa käyttäjäkokemus on keskiössä.',
@@ -710,6 +748,16 @@
       maintenance3Feature2: 'Uusia sivuja ja toimintoja',
       maintenance3Feature3: 'Vastaus saman päivän aikana',
       maintenance3Feature4: 'SEO- ja analytiikkaseuranta',
+      calcLabel: 'Laskuri',
+      calcTitle: 'Rakenna verkkosivusi ja laske nopea arvio',
+      calcSub: 'Valitse kiinnostavat palvelut ja arvio päivittyy heti.',
+      calcBaseLabel: 'Palvelut',
+      calcPickHint: 'Voit yhdistää useita vaihtoehtoja',
+      calcEstimateLabel: 'Nykyinen arvio',
+      calcEstimateNote: 'Suuntaa-antava hinta ennen lopullisen laajuuden vahvistusta.',
+      calcWhatsapp: 'Pyydä tämä tarjous',
+      calcEmail: 'Lähetä sähköpostilla',
+      calcEmpty: 'Valitse yksi tai useampi palvelu nähdäksesi arvion.',
       ctaTitle: 'Onko sinulla paikallinen yritys<br>ja tarvitset selkeät verkkosivut?',
       ctaSub: 'Kerro mitä teet, niin kerromme miten voimme auttaa. Ei sitoumuksia eikä teknistä jargonia.',
       ctaWhatsapp: 'Keskustele WhatsAppissa',
@@ -795,6 +843,7 @@
   var cookieBannerInstance = null;
   var cookieDecisionKey = 'webfuengirola_cookie_consent';
   var cookiePreferencesKey = 'webfuengirola_cookie_preferences';
+  var priceCalculatorApi = null;
 
   function applyCookiePreferenceState(preferences) {
     var hasAnalytics = !!(preferences && preferences.analiticas);
@@ -894,6 +943,9 @@
     });
 
     initCookieBanner(lang);
+    if (priceCalculatorApi && typeof priceCalculatorApi.update === 'function') {
+      priceCalculatorApi.update();
+    }
   }
 
   function setLanguage(lang) {
@@ -913,7 +965,7 @@
   /* ---- Fade-in on scroll ---- */
   function initFadeInObserver() {
     var fadeEls = document.querySelectorAll(
-      '.trust__block, .benefit__item, .service-card, .portfolio-card, .process__step, .maintenance__plan, .problem__stat-card, .pricing__card, .blog-teaser__cta-block'
+      '.trust__block, .benefit__item, .services-editorial__item, .portfolio-card, .process__step, .maintenance__plan, .problem__stat-card, .pricing__card, .blog-teaser__cta-block'
     );
 
     if (!fadeEls.length || !('IntersectionObserver' in window)) return;
@@ -951,6 +1003,230 @@
       var scale = wrapper.offsetWidth / 1280;
       iframe.style.transform = 'scale(' + scale + ')';
       wrapper.style.height = Math.round(wrapper.offsetWidth * 0.75) + 'px';
+    });
+  }
+
+  function initPriceCalculator() {
+    var root = document.querySelector('[data-price-calculator]');
+    if (!root) return;
+
+    var optionInputs = Array.prototype.slice.call(root.querySelectorAll('[data-calc-option]'));
+    var totalEl = root.querySelector('[data-calc-total]');
+    var selectedEl = root.querySelector('[data-calc-selected]');
+    var whatsappLink = root.querySelector('[data-calc-whatsapp]');
+    var emailLink = root.querySelector('[data-calc-email]');
+
+    function getDictionary() {
+      var lang = document.documentElement.lang || defaultLang;
+      return translations[lang] || translations[defaultLang];
+    }
+
+    function getLocale(lang) {
+      if (lang === 'de') return 'de-DE';
+      if (lang === 'fi') return 'fi-FI';
+      if (lang === 'en') return 'en-GB';
+      return 'es-ES';
+    }
+
+    function formatCurrency(value) {
+      var lang = document.documentElement.lang || defaultLang;
+      return new Intl.NumberFormat(getLocale(lang)).format(value) + '€';
+    }
+
+    function update() {
+      var dictionary = getDictionary();
+      var selected = optionInputs.filter(function (input) {
+        return input.checked;
+      });
+
+      var total = selected.reduce(function (sum, input) {
+        return sum + Number(input.getAttribute('data-price') || 0);
+      }, 0);
+
+      if (totalEl) totalEl.textContent = formatCurrency(total);
+
+      if (selectedEl) {
+        if (!selected.length) {
+          selectedEl.innerHTML = '<span class="price-calculator__empty">' + dictionary.calcEmpty + '</span>';
+        } else {
+          selectedEl.innerHTML = selected.map(function (input) {
+            var key = input.getAttribute('data-label-key');
+            var label = dictionary[key] || key;
+            return '<span class="price-calculator__tag">' + label + '</span>';
+          }).join('');
+        }
+      }
+
+      if (whatsappLink) {
+        var vatSuffix = ' ' + (dictionary.vatLabel || '+ IVA');
+        var serviceLines = selected.map(function (input) {
+          var key = input.getAttribute('data-label-key');
+          var label = dictionary[key] || key;
+          var price = formatCurrency(Number(input.getAttribute('data-price') || 0));
+          return '- ' + label + ': ' + price + vatSuffix;
+        });
+        var message = selected.length
+          ? 'Hola, quiero pedir este presupuesto:\n\n' + serviceLines.join('\n') + '\n\nTotal estimado: ' + formatCurrency(total) + vatSuffix
+          : 'Hola, quiero pedir presupuesto para mi web.';
+        whatsappLink.href = 'https://wa.me/34622923988?text=' + encodeURIComponent(message);
+      }
+
+      if (emailLink) {
+        var emailVatSuffix = ' ' + (dictionary.vatLabel || '+ IVA');
+        var emailBody = selected.length
+          ? 'Hola,\n\nQuiero pedir este presupuesto:\n' + selected.map(function (input) {
+              var key = input.getAttribute('data-label-key');
+              var label = dictionary[key] || key;
+              var price = formatCurrency(Number(input.getAttribute('data-price') || 0));
+              return '- ' + label + ': ' + price + emailVatSuffix;
+            }).join('\n') + '\n\nTotal estimado: ' + formatCurrency(total) + emailVatSuffix
+          : 'Hola,\n\nQuiero pedir presupuesto para mi web.';
+        emailLink.href = 'mailto:info@webfuengirola.com?subject=' + encodeURIComponent('Presupuesto web WF Studio') + '&body=' + encodeURIComponent(emailBody);
+      }
+    }
+
+    optionInputs.forEach(function (input) {
+      input.addEventListener('change', update);
+    });
+
+    priceCalculatorApi = { update: update };
+    update();
+  }
+
+  function initEditorialServices() {
+    var items = Array.prototype.slice.call(document.querySelectorAll('[data-services-item]'));
+    var previews = Array.prototype.slice.call(document.querySelectorAll('[data-service-preview-card]'));
+    if (!items.length) return;
+
+    function activate(item) {
+      var previewKey = item ? item.getAttribute('data-service-preview') : '';
+      items.forEach(function (entry) {
+        var isActive = entry === item;
+        entry.classList.toggle('is-active', isActive);
+        entry.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+      });
+
+      previews.forEach(function (card) {
+        card.classList.toggle('is-active', card.getAttribute('data-service-preview-card') === previewKey);
+      });
+    }
+
+    items.forEach(function (item) {
+      item.addEventListener('mouseenter', function () {
+        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) activate(item);
+      });
+
+      item.addEventListener('focus', function () {
+        activate(item);
+      });
+
+      item.addEventListener('click', function () {
+        if (window.matchMedia('(hover: none), (pointer: coarse)').matches && item.classList.contains('is-active')) {
+          item.classList.remove('is-active');
+          item.setAttribute('aria-expanded', 'false');
+          return;
+        }
+
+        activate(item);
+      });
+    });
+  }
+
+  function initHeroParallax() {
+    var stage = document.querySelector('[data-hero-parallax]');
+    var floats = Array.prototype.slice.call(document.querySelectorAll('[data-hero-float]'));
+    if (!stage || !floats.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var rafId = null;
+    var pointerX = 0;
+    var pointerY = 0;
+
+    function applyTransforms() {
+      rafId = null;
+      floats.forEach(function (item, index) {
+        var depth = 30 + index * 8;
+        var verticalDirection = index % 2 === 0 ? 1 : -1;
+        var offsetX = pointerX * depth;
+        var offsetY = pointerY * (6 + index * 2) * verticalDirection;
+        item.style.transform = 'translate3d(' + offsetX.toFixed(2) + 'px, ' + offsetY.toFixed(2) + 'px, 0)';
+      });
+    }
+
+    stage.addEventListener('mousemove', function (event) {
+      var rect = stage.getBoundingClientRect();
+      pointerX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+      pointerY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+      if (!rafId) rafId = window.requestAnimationFrame(applyTransforms);
+    });
+
+    stage.addEventListener('mouseleave', function () {
+      pointerX = 0;
+      pointerY = 0;
+      if (!rafId) rafId = window.requestAnimationFrame(applyTransforms);
+    });
+  }
+
+  function initPageTransition() {
+    var overlay = document.getElementById('page-transition');
+    if (!overlay) return;
+
+    var isLeaving = false;
+
+    function showTransition() {
+      overlay.classList.add('is-active');
+      document.documentElement.classList.add('is-transitioning');
+      document.body.classList.add('is-transitioning');
+    }
+
+    function hideTransition() {
+      overlay.classList.add('is-enter');
+      window.setTimeout(function () {
+        overlay.classList.remove('is-active');
+        overlay.classList.remove('is-enter');
+        document.documentElement.classList.remove('is-transitioning');
+        document.body.classList.remove('is-transitioning');
+      }, 820);
+    }
+
+    hideTransition();
+
+    document.querySelectorAll('a[data-page-transition="services"]').forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        var href = link.getAttribute('href');
+        if (!href || href.charAt(0) === '#') return;
+        if (link.target === '_blank' || link.hasAttribute('download')) return;
+        if (isLeaving) {
+          event.preventDefault();
+          return;
+        }
+
+        var url;
+        try {
+          url = new URL(link.href, window.location.href);
+        } catch (_error) {
+          return;
+        }
+
+        if (url.origin !== window.location.origin) return;
+        if (url.pathname.indexOf('servicios.html') === -1) return;
+
+        event.preventDefault();
+        isLeaving = true;
+        showTransition();
+
+        window.setTimeout(function () {
+          window.location.href = url.href;
+        }, 760);
+      });
+    });
+
+    window.addEventListener('pageshow', function (event) {
+      if (event.persisted) {
+        overlay.classList.remove('is-active');
+        overlay.classList.remove('is-enter');
+        document.documentElement.classList.remove('is-transitioning');
+        document.body.classList.remove('is-transitioning');
+      }
     });
   }
 
@@ -1008,6 +1284,10 @@
     setLanguage(savedLang || defaultLang);
 
     window.requestAnimationFrame(function () {
+      initPriceCalculator();
+      initHeroParallax();
+      initEditorialServices();
+      initPageTransition();
       initFadeInObserver();
       scalePreviewIframes();
       window.addEventListener('resize', scalePreviewIframes, { passive: true });
