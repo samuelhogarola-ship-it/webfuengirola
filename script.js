@@ -962,33 +962,69 @@
       header.classList.remove('scrolled');
     }
   }
-  /* ---- Fade-in on scroll ---- */
-  function initFadeInObserver() {
-    var fadeEls = document.querySelectorAll(
-      '.trust__block, .benefit__item, .services-editorial__item, .portfolio-card, .process__step, .maintenance__plan, .problem__stat-card, .pricing__card, .blog-teaser__cta-block'
-    );
+  /* ---- Elegant scroll reveal ---- */
+  function initReveal() {
+    var els = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+    if (!els.length) return;
 
-    if (!fadeEls.length || !('IntersectionObserver' in window)) return;
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('is-revealed'); });
+      return;
+    }
 
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.08, rootMargin: '0px 0px -32px 0px' }
-    );
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -72px 0px' });
 
-    var ease = 'cubic-bezier(.4, 0, .2, 1)';
-    fadeEls.forEach(function (el, i) {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(16px)';
-      var delay = (i % 4) * 0.08;
-      el.style.transition = 'opacity .55s ' + ease + ' ' + delay + 's, transform .55s ' + ease + ' ' + delay + 's';
-      observer.observe(el);
+    els.forEach(function (el) { observer.observe(el); });
+  }
+
+  /* ---- Portfolio hover popup ---- */
+  function initPortfolioPopup() {
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.portfolio-card'));
+    if (!cards.length || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    var popup = document.createElement('div');
+    popup.className = 'portfolio-popup';
+    popup.setAttribute('aria-hidden', 'true');
+    popup.innerHTML = '<img class="portfolio-popup__img" src="" alt="">';
+    document.body.appendChild(popup);
+
+    var popupImg = popup.querySelector('img');
+    var hideTimer = null;
+
+    cards.forEach(function (card) {
+      var thumb = card.querySelector('.portfolio-card__img');
+      if (!thumb) return;
+
+      card.addEventListener('mouseenter', function () {
+        clearTimeout(hideTimer);
+        if (popupImg.src !== thumb.src) {
+          popupImg.src = thumb.src;
+        }
+
+        var rect = card.getBoundingClientRect();
+        var popupW = 420;
+        var spaceRight = window.innerWidth - rect.right - 24;
+        var left = spaceRight >= popupW
+          ? rect.right + window.scrollX + 16
+          : rect.left + window.scrollX - popupW - 16;
+
+        popup.style.top = (rect.top + window.scrollY) + 'px';
+        popup.style.left = left + 'px';
+        popup.classList.add('is-visible');
+      });
+
+      card.addEventListener('mouseleave', function () {
+        hideTimer = setTimeout(function () {
+          popup.classList.remove('is-visible');
+        }, 80);
+      });
     });
   }
 
@@ -1006,91 +1042,110 @@
     });
   }
 
-  function initPriceCalculator() {
-    var root = document.querySelector('[data-price-calculator]');
+  function initCalculatorV2() {
+    var root = document.querySelector('[data-calc-v2]');
     if (!root) return;
 
-    var optionInputs = Array.prototype.slice.call(root.querySelectorAll('[data-calc-option]'));
-    var totalEl = root.querySelector('[data-calc-total]');
-    var selectedEl = root.querySelector('[data-calc-selected]');
-    var whatsappLink = root.querySelector('[data-calc-whatsapp]');
-    var emailLink = root.querySelector('[data-calc-email]');
+    var WA_BASE = 'https://wa.me/34622923988?text=';
+    var EMAIL = 'info@webfuengirola.com';
 
-    function getDictionary() {
-      var lang = document.documentElement.lang || defaultLang;
-      return translations[lang] || translations[defaultLang];
-    }
+    var state = {
+      type: null,       // 'lite'|'seo'|'pro'|'custom'|'optimize'
+      basePrice: 0,
+      maintenance: 0,   // 0|50|100
+      googleSite: false,
+      analytics: false
+    };
 
-    function getLocale(lang) {
-      if (lang === 'de') return 'de-DE';
-      if (lang === 'fi') return 'fi-FI';
-      if (lang === 'en') return 'en-GB';
-      return 'es-ES';
-    }
+    var BASE_PRICES = { lite: 200, seo: 300, pro: 900, custom: 0, optimize: 0 };
 
-    function formatCurrency(value) {
-      var lang = document.documentElement.lang || defaultLang;
-      return new Intl.NumberFormat(getLocale(lang)).format(value) + '€';
-    }
+    var typeButtons = Array.prototype.slice.call(root.querySelectorAll('[data-calc-type]'));
+    var stepAddons  = root.querySelector('[data-calc-step="addons"]');
+    var stepCustom  = root.querySelector('[data-calc-step="custom"]');
+    var stepOptimize = root.querySelector('[data-calc-step="optimize"]');
+    var maintInputs = Array.prototype.slice.call(root.querySelectorAll('[data-calc-maint]'));
+    var extraInputs = Array.prototype.slice.call(root.querySelectorAll('[data-calc-extra]'));
+    var oneTimeEl   = root.querySelector('[data-calc-onetime]');
+    var monthlyEl   = root.querySelector('[data-calc-monthly]');
+    var whatsappBtn = root.querySelector('[data-calc-wa]');
+    var emailBtn    = root.querySelector('[data-calc-email]');
+    var backBtns    = Array.prototype.slice.call(root.querySelectorAll('[data-calc-back]'));
 
-    function update() {
-      var dictionary = getDictionary();
-      var selected = optionInputs.filter(function (input) {
-        return input.checked;
+    function showStep(step) {
+      [stepAddons, stepCustom, stepOptimize].forEach(function (s) {
+        if (s) s.hidden = true;
       });
-
-      var total = selected.reduce(function (sum, input) {
-        return sum + Number(input.getAttribute('data-price') || 0);
-      }, 0);
-
-      if (totalEl) totalEl.textContent = formatCurrency(total);
-
-      if (selectedEl) {
-        if (!selected.length) {
-          selectedEl.innerHTML = '<span class="price-calculator__empty">' + dictionary.calcEmpty + '</span>';
-        } else {
-          selectedEl.innerHTML = selected.map(function (input) {
-            var key = input.getAttribute('data-label-key');
-            var label = dictionary[key] || key;
-            return '<span class="price-calculator__tag">' + label + '</span>';
-          }).join('');
-        }
-      }
-
-      if (whatsappLink) {
-        var vatSuffix = ' ' + (dictionary.vatLabel || '+ IVA');
-        var serviceLines = selected.map(function (input) {
-          var key = input.getAttribute('data-label-key');
-          var label = dictionary[key] || key;
-          var price = formatCurrency(Number(input.getAttribute('data-price') || 0));
-          return '- ' + label + ': ' + price + vatSuffix;
-        });
-        var message = selected.length
-          ? 'Hola, quiero pedir este presupuesto:\n\n' + serviceLines.join('\n') + '\n\nTotal estimado: ' + formatCurrency(total) + vatSuffix
-          : 'Hola, quiero pedir presupuesto para mi web.';
-        whatsappLink.href = 'https://wa.me/34622923988?text=' + encodeURIComponent(message);
-      }
-
-      if (emailLink) {
-        var emailVatSuffix = ' ' + (dictionary.vatLabel || '+ IVA');
-        var emailBody = selected.length
-          ? 'Hola,\n\nQuiero pedir este presupuesto:\n' + selected.map(function (input) {
-              var key = input.getAttribute('data-label-key');
-              var label = dictionary[key] || key;
-              var price = formatCurrency(Number(input.getAttribute('data-price') || 0));
-              return '- ' + label + ': ' + price + emailVatSuffix;
-            }).join('\n') + '\n\nTotal estimado: ' + formatCurrency(total) + emailVatSuffix
-          : 'Hola,\n\nQuiero pedir presupuesto para mi web.';
-        emailLink.href = 'mailto:info@webfuengirola.com?subject=' + encodeURIComponent('Presupuesto web WF Studio') + '&body=' + encodeURIComponent(emailBody);
-      }
+      typeButtons.forEach(function (b) { b.classList.remove('is-active'); });
+      if (step) step.hidden = false;
     }
 
-    optionInputs.forEach(function (input) {
-      input.addEventListener('change', update);
+    function buildMessage() {
+      var typeNames = { lite: 'Presencia básica (1-2 páginas)', seo: 'Web para SEO (3-6 páginas)', pro: 'Web completa + eventos', custom: 'Algo personalizado', optimize: 'Optimización de negocio' };
+      var lines = ['Hola, quiero pedir presupuesto:'];
+      lines.push('- Tipo de web: ' + (typeNames[state.type] || state.type));
+      if (state.basePrice) lines.push('- Pago único: ' + state.basePrice + '€ + IVA');
+      if (state.maintenance) lines.push('- Mantenimiento mensual: +' + state.maintenance + '€/mes');
+      if (state.googleSite) lines.push('- Google Site: +25€/mes');
+      if (state.analytics) lines.push('- Analíticas + seguimiento: +25€/mes');
+      var monthly = state.maintenance + (state.googleSite ? 25 : 0) + (state.analytics ? 25 : 0);
+      if (monthly) lines.push('Total mensual: ' + monthly + '€/mes');
+      return lines.join('\n');
+    }
+
+    function updateSummary() {
+      var monthly = state.maintenance + (state.googleSite ? 25 : 0) + (state.analytics ? 25 : 0);
+      if (oneTimeEl) oneTimeEl.textContent = state.basePrice ? state.basePrice + '€' : '—';
+      if (monthlyEl) monthlyEl.textContent = monthly ? '+' + monthly + '€/mes' : '—';
+      if (whatsappBtn) whatsappBtn.href = WA_BASE + encodeURIComponent(buildMessage());
+      if (emailBtn) emailBtn.href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Presupuesto WF Studio') + '&body=' + encodeURIComponent(buildMessage());
+    }
+
+    typeButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var type = btn.getAttribute('data-calc-type');
+        state.type = type;
+        state.basePrice = BASE_PRICES[type] || 0;
+        state.maintenance = 0;
+        state.googleSite = false;
+        state.analytics = false;
+
+        typeButtons.forEach(function (b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+
+        maintInputs.forEach(function (i) { i.checked = i.value === '0'; });
+        extraInputs.forEach(function (i) { i.checked = false; });
+
+        if (type === 'custom') { showStep(stepCustom); }
+        else if (type === 'optimize') { showStep(stepOptimize); }
+        else { showStep(stepAddons); updateSummary(); }
+      });
     });
 
-    priceCalculatorApi = { update: update };
-    update();
+    maintInputs.forEach(function (input) {
+      input.addEventListener('change', function () {
+        state.maintenance = Number(input.value);
+        updateSummary();
+      });
+    });
+
+    extraInputs.forEach(function (input) {
+      input.addEventListener('change', function () {
+        var key = input.getAttribute('data-calc-extra');
+        if (key === 'google') state.googleSite = input.checked;
+        if (key === 'analytics') state.analytics = input.checked;
+        updateSummary();
+      });
+    });
+
+    backBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        showStep(null);
+        typeButtons.forEach(function (b) { b.classList.remove('is-active'); });
+        state.type = null;
+      });
+    });
+
+    priceCalculatorApi = { update: updateSummary };
   }
 
   function initEditorialServices() {
@@ -1284,11 +1339,12 @@
     setLanguage(savedLang || defaultLang);
 
     window.requestAnimationFrame(function () {
-      initPriceCalculator();
+      initCalculatorV2();
       initHeroParallax();
       initEditorialServices();
       initPageTransition();
-      initFadeInObserver();
+      initReveal();
+      initPortfolioPopup();
       scalePreviewIframes();
       window.addEventListener('resize', scalePreviewIframes, { passive: true });
     });

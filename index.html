@@ -155,15 +155,28 @@
          HERO
     ============================================================ -->
     <section class="hero" id="inicio">
-      <div class="container hero__inner hero__inner--textonly">
+      <div class="container hero__inner hero__inner--media">
         <div class="hero__content hero__content--clean">
-          <span class="hero__overlay-label" data-i18n="heroBadge">Disponible en 48 horas</span>
-          <h1 class="hero__overlay-title" data-i18n="heroTitle">La web que tu negocio se merece.</h1>
-          <p class="hero__overlay-subtitle" data-i18n="heroSubtitle">Webs rápidas y profesionales con todo lo que necesitas para llegar a más clientes.</p>
-          <div class="hero__actions hero__actions--overlay">
+          <span class="hero__overlay-label" data-reveal data-i18n="heroBadge">Disponible en 48 horas</span>
+          <h1 class="hero__overlay-title" data-reveal data-reveal-delay="1" data-i18n="heroTitle">La web que tu negocio se merece.</h1>
+          <p class="hero__overlay-subtitle" data-reveal data-reveal-delay="2" data-i18n="heroSubtitle">Webs rápidas y profesionales con todo lo que necesitas para llegar a más clientes.</p>
+          <div class="hero__actions hero__actions--overlay" data-reveal data-reveal-delay="3">
             <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer" data-i18n="heroPrimaryCta">Pedir presupuesto</a>
             <a href="servicios.html" class="btn btn--outline btn--lg" data-page-transition="services" data-i18n="servicesExplore">Ver servicios</a>
             <a href="#portfolio" class="btn btn--ghost btn--lg" data-i18n="heroSecondaryCta">Ver trabajos</a>
+          </div>
+        </div>
+        <div class="hero__media" data-reveal data-reveal-delay="2" aria-hidden="true">
+          <div class="hero__media-inner">
+            <img src="img/samuel-coach.webp" alt="" class="hero__media-img" width="800" height="600" loading="eager" decoding="async">
+            <!-- Aquí puedes reemplazar la imagen por un <video> cuando esté listo:
+            <video class="hero__media-img" autoplay muted loop playsinline>
+              <source src="video/hero.mp4" type="video/mp4">
+            </video> -->
+            <div class="hero__media-badge">
+              <span class="hero__media-badge-num">+50</span>
+              <span class="hero__media-badge-label">proyectos en la Costa</span>
+            </div>
           </div>
         </div>
       </div>
@@ -175,8 +188,8 @@
     <section class="services" id="servicios">
       <div class="container">
         <div class="section-header">
-          <span class="section-label" data-i18n="servicesLabel">Servicios</span>
-          <h2 class="section-title" data-i18n="servicesTitle">Oferta clara para negocio local y desarrollo a medida</h2>
+          <span class="section-label" data-reveal data-i18n="servicesLabel">Servicios</span>
+          <h2 class="section-title" data-reveal data-reveal-delay="1" data-i18n="servicesTitle">Oferta clara para negocio local y desarrollo a medida</h2>
         </div>
         <div class="services-editorial" data-services-editorial>
           <button type="button" class="services-editorial__item is-active" data-services-item data-service-preview="lite" aria-expanded="true">
@@ -265,8 +278,8 @@
     <section class="problem" id="problema">
       <div class="container problem__inner">
         <div class="problem__text">
-          <span class="section-label" data-i18n="problemLabel">El problema</span>
-          <h2 class="section-title" data-i18n="problemTitle">Muchos negocios locales están perdiendo clientes sin saberlo</h2>
+          <span class="section-label" data-reveal data-i18n="problemLabel">El problema</span>
+          <h2 class="section-title" data-reveal data-reveal-delay="1" data-i18n="problemTitle">Muchos negocios locales están perdiendo clientes sin saberlo</h2>
           <ul class="problem__list">
             <li class="problem__item" data-i18n="problem1">Dependen solo de Instagram, que cambia sus algoritmos sin avisar.</li>
             <li class="problem__item" data-i18n="problem2">Tienen una web antigua que no se ve bien en el móvil.</li>
@@ -294,9 +307,9 @@
     <section class="solution" id="solucion">
       <div class="container">
         <div class="solution__header">
-          <span class="section-label" data-i18n="solutionLabel">La solución</span>
-          <h2 class="section-title" data-i18n-html="solutionTitle">Una web sencilla, rápida y personalizada<br/>para mostrar bien tu negocio</h2>
-          <p class="section-sub" data-i18n="solutionSub">Sin tecnicismos, sin complicaciones. Tú nos cuentas tu negocio y nosotros lo publicamos online de forma clara y profesional.</p>
+          <span class="section-label" data-reveal data-i18n="solutionLabel">La solución</span>
+          <h2 class="section-title" data-reveal data-reveal-delay="1" data-i18n-html="solutionTitle">Una web sencilla, rápida y personalizada<br/>para mostrar bien tu negocio</h2>
+          <p class="section-sub" data-reveal data-reveal-delay="2" data-i18n="solutionSub">Sin tecnicismos, sin complicaciones. Tú nos cuentas tu negocio y nosotros lo publicamos online de forma clara y profesional.</p>
         </div>
         <div class="benefits__grid">
           <div class="benefit__item">
@@ -363,13 +376,13 @@
     <section class="portfolio" id="portfolio">
       <div class="container">
         <div class="section-header">
-          <span class="section-label" data-i18n="navPortfolio">Portfolio</span>
-          <h2 class="section-title" data-i18n="portfolioTitle">Proyectos para negocios locales</h2>
-          <p class="section-sub" data-i18n="portfolioSub">Cada web es diferente. Estas son algunas de las que hemos creado para comercios de la zona.</p>
+          <span class="section-label" data-reveal data-i18n="navPortfolio">Portfolio</span>
+          <h2 class="section-title" data-reveal data-reveal-delay="1" data-i18n="portfolioTitle">Proyectos para negocios locales</h2>
+          <p class="section-sub" data-reveal data-reveal-delay="2" data-i18n="portfolioSub">Cada web es diferente. Estas son algunas de las que hemos creado para comercios de la zona.</p>
         </div>
         <div class="portfolio__grid">
 
-          <article class="portfolio-card">
+          <article class="portfolio-card" data-reveal>
             <a href="https://www.vokabellab.com" target="_blank" rel="noopener noreferrer" class="portfolio-card__img-link">
               <img src="img/vokabellab.webp" alt="Captura de pantalla de Vokabellab" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
             </a>
@@ -384,7 +397,7 @@
             </div>
           </article>
 
-          <article class="portfolio-card">
+          <article class="portfolio-card" data-reveal>
             <a href="https://www.samuelcoachdealeman.com" target="_blank" rel="noopener noreferrer" class="portfolio-card__img-link">
               <img src="img/samuel-coach.webp" alt="Captura de pantalla de Samuel Coach de Alemán" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
             </a>
@@ -399,7 +412,7 @@
             </div>
           </article>
 
-          <article class="portfolio-card">
+          <article class="portfolio-card" data-reveal>
             <a href="https://www.personaltrainerfuengirola.com" target="_blank" rel="noopener noreferrer" class="portfolio-card__img-link">
               <img src="img/personal-trainer.webp" alt="Captura de pantalla de Personal Trainer Fuengirola" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
             </a>
@@ -415,7 +428,7 @@
             </div>
           </article>
 
-          <article class="portfolio-card">
+          <article class="portfolio-card" data-reveal>
             <a href="https://imkontext.vokabellab.com" target="_blank" rel="noopener noreferrer" class="portfolio-card__img-link">
               <img src="img/imkontext.webp" alt="Captura de pantalla de Im Kontext Vokabellab" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
             </a>
@@ -443,13 +456,13 @@
     <section class="process" id="proceso">
       <div class="container">
         <div class="section-header">
-          <span class="section-label" data-i18n="processLabel">Cómo trabajamos</span>
-          <h2 class="section-title" data-i18n="processTitle">De cero a publicado en 48 horas</h2>
-          <p class="section-sub" data-i18n="processSub">Un proceso sencillo y sin sorpresas. Tú nos das la información, nosotros hacemos el resto.</p>
+          <span class="section-label" data-reveal data-i18n="processLabel">Cómo trabajamos</span>
+          <h2 class="section-title" data-reveal data-reveal-delay="1" data-i18n="processTitle">De cero a publicado en 48 horas</h2>
+          <p class="section-sub" data-reveal data-reveal-delay="2" data-i18n="processSub">Un proceso sencillo y sin sorpresas. Tú nos das la información, nosotros hacemos el resto.</p>
         </div>
         <div class="process__steps">
 
-          <div class="process__step">
+          <div class="process__step" data-reveal>
             <div class="process__step-num" aria-hidden="true">01</div>
             <div class="process__step-content">
               <h3 class="process__step-title" data-i18n="process1Title">Reunión inicial</h3>
@@ -457,7 +470,7 @@
             </div>
           </div>
 
-          <div class="process__step">
+          <div class="process__step" data-reveal>
             <div class="process__step-num" aria-hidden="true">02</div>
             <div class="process__step-content">
               <h3 class="process__step-title" data-i18n="process2Title">Fotos y contenido</h3>
@@ -465,7 +478,7 @@
             </div>
           </div>
 
-          <div class="process__step">
+          <div class="process__step" data-reveal>
             <div class="process__step-num" aria-hidden="true">03</div>
             <div class="process__step-content">
               <h3 class="process__step-title" data-i18n="process3Title">Diseño y publicación</h3>
@@ -473,7 +486,7 @@
             </div>
           </div>
 
-          <div class="process__step">
+          <div class="process__step" data-reveal>
             <div class="process__step-num" aria-hidden="true">04</div>
             <div class="process__step-content">
               <h3 class="process__step-title" data-i18n="process4Title">Revisión final</h3>
@@ -494,13 +507,13 @@
     <section class="maintenance" id="mantenimiento">
       <div class="container">
         <div class="section-header">
-          <span class="section-label" data-i18n="maintenanceLabel">Mantenimiento</span>
-          <h2 class="section-title" data-i18n="maintenanceTitle">Mantén tu web al día sin preocupaciones</h2>
-          <p class="section-sub" data-i18n="maintenanceSub">Planes orientativos para actualizar y cuidar tu web una vez publicada. Precios finales según el trabajo necesario.</p>
+          <span class="section-label" data-reveal data-i18n="maintenanceLabel">Mantenimiento</span>
+          <h2 class="section-title" data-reveal data-reveal-delay="1" data-i18n="maintenanceTitle">Mantén tu web al día sin preocupaciones</h2>
+          <p class="section-sub" data-reveal data-reveal-delay="2" data-i18n="maintenanceSub">Planes orientativos para actualizar y cuidar tu web una vez publicada. Precios finales según el trabajo necesario.</p>
         </div>
         <div class="maintenance__grid">
 
-          <div class="maintenance__plan">
+          <div class="maintenance__plan" data-reveal>
             <h3 class="maintenance__plan-title" data-i18n="maintenance1Title">Básico</h3>
             <p class="maintenance__plan-desc" data-i18n="maintenance1Desc">Para negocios que necesitan pocos cambios al año. Actualizaciones puntuales de textos, horarios o fotos.</p>
             <ul class="maintenance__list">
@@ -511,7 +524,7 @@
             <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--ghost btn--sm" target="_blank" rel="noopener noreferrer" data-i18n="consultPrice">Consultar precio</a>
           </div>
 
-          <div class="maintenance__plan maintenance__plan--highlight">
+          <div class="maintenance__plan maintenance__plan--highlight" data-reveal>
             <h3 class="maintenance__plan-title" data-i18n="maintenance2Title">Medio</h3>
             <p class="maintenance__plan-desc" data-i18n="maintenance2Desc">Para negocios activos que actualizan ofertas, añaden secciones o quieren cambios periódicos.</p>
             <ul class="maintenance__list">
@@ -523,7 +536,7 @@
             <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--primary btn--sm" target="_blank" rel="noopener noreferrer" data-i18n="consultPrice">Consultar precio</a>
           </div>
 
-          <div class="maintenance__plan">
+          <div class="maintenance__plan" data-reveal>
             <h3 class="maintenance__plan-title" data-i18n="maintenance3Title">Pro</h3>
             <p class="maintenance__plan-desc" data-i18n="maintenance3Desc">Para proyectos en crecimiento que necesitan actualizaciones constantes y soporte continuo.</p>
             <ul class="maintenance__list">
@@ -562,82 +575,163 @@
     <section class="cta-final" id="contacto">
       <div class="container cta-final__inner">
         <div class="cta-final__content cta-final__content--calculator">
-          <div class="price-calculator" data-price-calculator>
-            <div class="price-calculator__intro">
-              <span class="section-label" data-i18n="calcLabel">Calculadora</span>
-              <h2 class="cta-final__title" data-i18n-html="calcTitle">Configura tu web y calcula una estimación rápida</h2>
-              <p class="cta-final__sub" data-i18n="calcSub">Selecciona los servicios que te interesan y verás cómo cambia el presupuesto al momento.</p>
+          <div class="calc-v2" data-calc-v2>
+
+            <!-- STEP 1: Tipo de web -->
+            <div class="calc-v2__header">
+              <span class="section-label">Calculadora</span>
+              <h2 class="cta-final__title">¿Qué tipo de web necesitas?</h2>
+              <p class="cta-final__sub">Elige la opción que mejor describe tu proyecto y configura los extras que quieras.</p>
             </div>
 
-            <div class="price-calculator__panel">
-              <div class="price-calculator__group">
-                <div class="price-calculator__group-head">
-                  <span class="price-calculator__group-label" data-i18n="calcBaseLabel">Servicios</span>
-                  <span class="price-calculator__group-note" data-i18n="calcPickHint">Puedes combinar varias opciones</span>
-                </div>
-                <div class="price-calculator__options">
-                  <label class="calc-option">
-                    <input type="checkbox" data-calc-option data-label-key="serviceLiteTitle" data-price="200">
-                    <span class="calc-option__content">
-                      <span class="calc-option__name" data-i18n="serviceLiteTitle">Página Web Lite</span>
-                      <span class="calc-option__price">200€ <span data-i18n="vatLabel">+ IVA</span></span>
-                    </span>
-                  </label>
-                  <label class="calc-option">
-                    <input type="checkbox" data-calc-option data-label-key="service1Title" data-price="300">
-                    <span class="calc-option__content">
-                      <span class="calc-option__name" data-i18n="service1Title">Web Express</span>
-                      <span class="calc-option__price">300€ <span data-i18n="vatLabel">+ IVA</span></span>
-                    </span>
-                  </label>
-                  <label class="calc-option">
-                    <input type="checkbox" data-calc-option data-label-key="service2Title" data-price="900">
-                    <span class="calc-option__content">
-                      <span class="calc-option__name" data-i18n="service2Title">Web Corporativa / Web Pro</span>
-                      <span class="calc-option__price">900€ <span data-i18n="vatLabel">+ IVA</span></span>
-                    </span>
-                  </label>
-                  <label class="calc-option">
-                    <input type="checkbox" data-calc-option data-label-key="service3Title" data-price="300">
-                    <span class="calc-option__content">
-                      <span class="calc-option__name" data-i18n="service3Title">React, chatbots y automatización</span>
-                      <span class="calc-option__price" data-i18n-html="service3PriceHtml">300€ implantación <span>+ 50€ / mes</span></span>
-                    </span>
-                  </label>
-                  <label class="calc-option">
-                    <input type="checkbox" data-calc-option data-label-key="service4Title" data-price="2500">
-                    <span class="calc-option__content">
-                      <span class="calc-option__name" data-i18n="service4Title">Apps y herramientas a medida</span>
-                      <span class="calc-option__price">2500€ <span data-i18n="vatLabel">+ IVA</span></span>
-                    </span>
-                  </label>
-                </div>
-              </div>
+            <div class="calc-v2__types">
+              <button type="button" class="calc-type-btn" data-calc-type="lite">
+                <span class="calc-type-btn__num">01</span>
+                <span class="calc-type-btn__main">
+                  <span class="calc-type-btn__name">Presencia básica</span>
+                  <span class="calc-type-btn__desc">1-2 páginas para mostrar tu negocio y aparecer en Google</span>
+                </span>
+                <span class="calc-type-btn__price">desde 200€</span>
+                <span class="calc-type-btn__arrow">→</span>
+              </button>
+              <button type="button" class="calc-type-btn" data-calc-type="seo">
+                <span class="calc-type-btn__num">02</span>
+                <span class="calc-type-btn__main">
+                  <span class="calc-type-btn__name">Web para SEO</span>
+                  <span class="calc-type-btn__desc">3-6 páginas para captar clientes en Google con contenido</span>
+                </span>
+                <span class="calc-type-btn__price">desde 300€</span>
+                <span class="calc-type-btn__arrow">→</span>
+              </button>
+              <button type="button" class="calc-type-btn" data-calc-type="pro">
+                <span class="calc-type-btn__num">03</span>
+                <span class="calc-type-btn__main">
+                  <span class="calc-type-btn__name">Web completa + eventos</span>
+                  <span class="calc-type-btn__desc">Varias páginas, catálogo, galería o calendario de eventos</span>
+                </span>
+                <span class="calc-type-btn__price">desde 900€</span>
+                <span class="calc-type-btn__arrow">→</span>
+              </button>
+              <button type="button" class="calc-type-btn" data-calc-type="custom">
+                <span class="calc-type-btn__num">04</span>
+                <span class="calc-type-btn__main">
+                  <span class="calc-type-btn__name">Algo personalizado</span>
+                  <span class="calc-type-btn__desc">Con usuarios, pasarela de pagos o requisitos especiales</span>
+                </span>
+                <span class="calc-type-btn__price">Presupuesto a medida</span>
+                <span class="calc-type-btn__arrow">→</span>
+              </button>
+              <button type="button" class="calc-type-btn" data-calc-type="optimize">
+                <span class="calc-type-btn__num">05</span>
+                <span class="calc-type-btn__main">
+                  <span class="calc-type-btn__name">Optimizar mi negocio</span>
+                  <span class="calc-type-btn__desc">Ahorra tiempo con automatizaciones y flujos de trabajo con IA</span>
+                </span>
+                <span class="calc-type-btn__price">Concertar cita</span>
+                <span class="calc-type-btn__arrow">→</span>
+              </button>
+            </div>
 
-              <div class="price-calculator__summary">
-                <div class="price-calculator__summary-top">
-                  <span class="price-calculator__summary-label" data-i18n="calcEstimateLabel">Estimación actual</span>
-                  <strong class="price-calculator__total" data-calc-total>0€</strong>
+            <!-- STEP 2A: Add-ons (para lite / seo / pro) -->
+            <div class="calc-v2__step" data-calc-step="addons" hidden>
+              <button type="button" class="calc-v2__back" data-calc-back>← Cambiar tipo</button>
+              <div class="calc-v2__addons-layout">
+                <div class="calc-v2__addons-left">
+
+                  <div class="calc-addon-group">
+                    <h3 class="calc-addon-group__title">¿Quieres mantenimiento mensual?</h3>
+                    <label class="calc-addon-row">
+                      <input type="radio" name="calc-maint" data-calc-maint value="0" checked>
+                      <span class="calc-addon-row__content">
+                        <span class="calc-addon-row__name">Sin mantenimiento</span>
+                        <span class="calc-addon-row__price">incluido</span>
+                      </span>
+                    </label>
+                    <label class="calc-addon-row">
+                      <input type="radio" name="calc-maint" data-calc-maint value="50">
+                      <span class="calc-addon-row__content">
+                        <span class="calc-addon-row__name">Básico — hasta 5 cambios menores al mes</span>
+                        <span class="calc-addon-row__price">+50€/mes</span>
+                      </span>
+                    </label>
+                    <label class="calc-addon-row">
+                      <input type="radio" name="calc-maint" data-calc-maint value="100">
+                      <span class="calc-addon-row__content">
+                        <span class="calc-addon-row__name">Avanzado — hasta 10 cambios + 2 modificaciones de estilo</span>
+                        <span class="calc-addon-row__price">+100€/mes</span>
+                      </span>
+                    </label>
+                  </div>
+
+                  <div class="calc-addon-group">
+                    <h3 class="calc-addon-group__title">Extras opcionales</h3>
+                    <label class="calc-addon-row">
+                      <input type="checkbox" data-calc-extra="google">
+                      <span class="calc-addon-row__content">
+                        <span class="calc-addon-row__name">Google Site — gestión de ficha de Google Business</span>
+                        <span class="calc-addon-row__price">+25€/mes</span>
+                      </span>
+                    </label>
+                    <label class="calc-addon-row">
+                      <input type="checkbox" data-calc-extra="analytics">
+                      <span class="calc-addon-row__content">
+                        <span class="calc-addon-row__name">Analíticas — seguimiento mensual de visitas e informe</span>
+                        <span class="calc-addon-row__price">+25€/mes</span>
+                      </span>
+                    </label>
+                  </div>
                 </div>
-                <p class="price-calculator__summary-note" data-i18n="calcEstimateNote">Precio orientativo antes de cerrar alcance final.</p>
-                <div class="price-calculator__selected" data-calc-selected></div>
-                <div class="cta-final__actions price-calculator__actions">
-                  <a
-                    href="https://wa.me/34622923988?text=Hola%2C%20quiero%20pedir%20este%20presupuesto"
-                    class="btn btn--whatsapp btn--lg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-calc-whatsapp
-                  >
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-                    <span data-i18n="calcWhatsapp">Pedir este presupuesto</span>
-                  </a>
-                  <a href="mailto:info@webfuengirola.com?subject=Presupuesto%20web%20WF%20Studio" class="btn btn--outline btn--lg" data-calc-email>
-                    <span data-i18n="calcEmail">Enviar por email</span>
-                  </a>
+
+                <div class="calc-v2__summary">
+                  <div class="calc-v2__summary-row">
+                    <span class="calc-v2__summary-label">Pago único</span>
+                    <strong class="calc-v2__summary-val" data-calc-onetime>—</strong>
+                  </div>
+                  <div class="calc-v2__summary-row">
+                    <span class="calc-v2__summary-label">Mensual</span>
+                    <strong class="calc-v2__summary-val calc-v2__summary-val--monthly" data-calc-monthly>—</strong>
+                  </div>
+                  <p class="calc-v2__summary-note">Precio orientativo. El coste final se cierra en la reunión inicial.</p>
+                  <div class="calc-v2__summary-actions">
+                    <a href="#" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener noreferrer" data-calc-wa>
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                      Pedir este presupuesto
+                    </a>
+                    <a href="mailto:info@webfuengirola.com?subject=Presupuesto%20web%20WF%20Studio" class="btn btn--outline btn--lg" data-calc-email>
+                      Enviar por email
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
+
+            <!-- STEP 2B: Personalizado -->
+            <div class="calc-v2__step calc-v2__step--alt" data-calc-step="custom" hidden>
+              <button type="button" class="calc-v2__back" data-calc-back>← Volver</button>
+              <div class="calc-v2__alt-inner">
+                <p class="calc-v2__alt-eyebrow">Proyecto personalizado</p>
+                <h3 class="calc-v2__alt-title">Cuéntanos qué tienes en mente</h3>
+                <p class="calc-v2__alt-desc">Usuarios, pasarela de pagos, lógica a medida... Para proyectos especiales hacemos una reunión gratuita para entender bien lo que necesitas y darte un presupuesto real.</p>
+                <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20hablar%20sobre%20un%20proyecto%20personalizado" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                  Escribirnos por WhatsApp
+                </a>
+              </div>
+            </div>
+
+            <!-- STEP 2C: Optimización -->
+            <div class="calc-v2__step calc-v2__step--alt" data-calc-step="optimize" hidden>
+              <button type="button" class="calc-v2__back" data-calc-back>← Volver</button>
+              <div class="calc-v2__alt-inner">
+                <p class="calc-v2__alt-eyebrow">Optimización con IA</p>
+                <h3 class="calc-v2__alt-title">Concierta una cita gratuita</h3>
+                <p class="calc-v2__alt-desc">Analizamos tus flujos de trabajo actuales y encontramos dónde puedes ahorrar tiempo y dinero con automatizaciones, chatbots o herramientas a medida.</p>
+                <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20concertar%20una%20cita%20para%20optimizar%20mi%20negocio" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">
+                  Concertar cita gratuita
+                </a>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
