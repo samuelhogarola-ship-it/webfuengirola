@@ -843,7 +843,6 @@
   var cookieBannerInstance = null;
   var cookieDecisionKey = 'webfuengirola_cookie_consent';
   var cookiePreferencesKey = 'webfuengirola_cookie_preferences';
-  var priceCalculatorApi = null;
 
   function applyCookiePreferenceState(preferences) {
     var hasAnalytics = !!(preferences && preferences.analiticas);
@@ -943,9 +942,6 @@
     });
 
     initCookieBanner(lang);
-    if (priceCalculatorApi && typeof priceCalculatorApi.update === 'function') {
-      priceCalculatorApi.update();
-    }
   }
 
   function setLanguage(lang) {
@@ -1155,6 +1151,8 @@
 
     extraOpts.forEach(function (input) {
       input.addEventListener('change', function () {
+        var row = input.closest('.calc-v3__row');
+        if (row) row.classList.toggle('is-selected', input.checked);
         state.extras = extraOpts.reduce(function (sum, opt) {
           return sum + (opt.checked ? Number(opt.getAttribute('data-price')) : 0);
         }, 0);
@@ -1376,16 +1374,19 @@
     var savedLang = window.localStorage.getItem('webfuengirola-language');
     setLanguage(savedLang || defaultLang);
 
-    window.requestAnimationFrame(function () {
-      initCalculatorV3();
-      initHeroParallax();
-      initEditorialServices();
-      initPageTransition();
-      initReveal();
-      initPortfolioPopup();
-      scalePreviewIframes();
-      window.addEventListener('resize', scalePreviewIframes, { passive: true });
-    });
+    /* Run directly (not inside requestAnimationFrame): rAF can be throttled
+       indefinitely for backgrounded/non-visible tabs, which would silently
+       leave the calculator, services hover, page transitions, and portfolio
+       popup uninitialized with no error. initReveal() has its own internal
+       double-RAF for its specific paint-timing needs. */
+    initCalculatorV3();
+    initHeroParallax();
+    initEditorialServices();
+    initPageTransition();
+    initReveal();
+    initPortfolioPopup();
+    scalePreviewIframes();
+    window.addEventListener('resize', scalePreviewIframes, { passive: true });
   }
 
   if (document.readyState === 'loading') {
