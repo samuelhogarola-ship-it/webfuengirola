@@ -1047,110 +1047,143 @@
     });
   }
 
-  function initCalculatorV2() {
-    var root = document.querySelector('[data-calc-v2]');
+  function initCalculatorV3() {
+    var root = document.querySelector('[data-calc-v3]');
     if (!root) return;
 
     var WA_BASE = 'https://wa.me/34622923988?text=';
     var EMAIL = 'info@webfuengirola.com';
+    var ADVANCE_DELAY = 420; /* ms — lets user see the selection before moving on */
 
-    var state = {
-      type: null,       // 'lite'|'seo'|'pro'|'custom'|'optimize'
-      basePrice: 0,
-      maintenance: 0,   // 0|50|100
-      googleSite: false,
-      analytics: false
-    };
+    var state = { pages: 0, maintenance: 0, extras: 0 };
 
-    var BASE_PRICES = { lite: 200, seo: 300, pro: 900, custom: 0, optimize: 0 };
+    var stepOrder = ['pages', 'maintenance', 'extras', 'summary'];
+    var history = ['pages'];
 
-    var typeButtons = Array.prototype.slice.call(root.querySelectorAll('[data-calc-type]'));
-    var stepAddons  = root.querySelector('[data-calc-step="addons"]');
-    var stepCustom  = root.querySelector('[data-calc-step="custom"]');
-    var stepOptimize = root.querySelector('[data-calc-step="optimize"]');
-    var maintInputs = Array.prototype.slice.call(root.querySelectorAll('[data-calc-maint]'));
-    var extraInputs = Array.prototype.slice.call(root.querySelectorAll('[data-calc-extra]'));
-    var oneTimeEl   = root.querySelector('[data-calc-onetime]');
-    var monthlyEl   = root.querySelector('[data-calc-monthly]');
-    var whatsappBtn = root.querySelector('[data-calc-wa]');
-    var emailBtn    = root.querySelector('[data-calc-email]');
-    var backBtns    = Array.prototype.slice.call(root.querySelectorAll('[data-calc-back]'));
+    var steps = {};
+    Array.prototype.slice.call(root.querySelectorAll('[data-calc-v3-step]')).forEach(function (el) {
+      steps[el.getAttribute('data-calc-v3-step')] = el;
+    });
 
-    function showStep(step) {
-      [stepAddons, stepCustom, stepOptimize].forEach(function (s) {
-        if (s) s.hidden = true;
-      });
-      typeButtons.forEach(function (b) { b.classList.remove('is-active'); });
-      if (step) step.hidden = false;
+    var dots = Array.prototype.slice.call(root.querySelectorAll('[data-step-dot]'));
+    var backBtn = root.querySelector('[data-calc-v3-back]');
+    var priceWrap = root.querySelector('[data-calc-v3-price-wrap]');
+    var priceEl = root.querySelector('[data-calc-v3-price]');
+    var monthlyEl = root.querySelector('[data-calc-v3-monthly]');
+    var whatsappBtn = root.querySelector('[data-calc-v3-wa]');
+    var emailBtn = root.querySelector('[data-calc-v3-email]');
+    var continueBtn = root.querySelector('[data-calc-v3-continue]');
+
+    var pagesOpts = Array.prototype.slice.call(root.querySelectorAll('[data-pages-opt]'));
+    var maintOpts = Array.prototype.slice.call(root.querySelectorAll('[data-maint-opt]'));
+    var extraOpts = Array.prototype.slice.call(root.querySelectorAll('[data-extra-opt]'));
+    var jumpBtns = Array.prototype.slice.call(root.querySelectorAll('[data-calc-v3-jump]'));
+
+    function total() {
+      return { onetime: state.pages, monthly: state.maintenance + state.extras };
+    }
+
+    function updatePrice() {
+      var t = total();
+      if (!priceEl || !monthlyEl) return;
+      priceEl.textContent = t.onetime ? t.onetime + '€' : '—';
+      monthlyEl.textContent = t.monthly ? '+' + t.monthly + '€/mes' : '';
     }
 
     function buildMessage() {
-      var typeNames = { lite: 'Presencia básica (1-2 páginas)', seo: 'Web para SEO (3-6 páginas)', pro: 'Web completa + eventos', custom: 'Algo personalizado', optimize: 'Optimización de negocio' };
+      var t = total();
       var lines = ['Hola, quiero pedir presupuesto:'];
-      lines.push('- Tipo de web: ' + (typeNames[state.type] || state.type));
-      if (state.basePrice) lines.push('- Pago único: ' + state.basePrice + '€ + IVA');
+      if (state.pages) lines.push('- Páginas: ' + state.pages + '€ + IVA');
       if (state.maintenance) lines.push('- Mantenimiento mensual: +' + state.maintenance + '€/mes');
-      if (state.googleSite) lines.push('- Google Site: +25€/mes');
-      if (state.analytics) lines.push('- Analíticas + seguimiento: +25€/mes');
-      var monthly = state.maintenance + (state.googleSite ? 25 : 0) + (state.analytics ? 25 : 0);
-      if (monthly) lines.push('Total mensual: ' + monthly + '€/mes');
+      if (state.extras) lines.push('- Extras: +' + state.extras + '€/mes');
+      lines.push('Total: ' + t.onetime + '€ + IVA' + (t.monthly ? ' / +' + t.monthly + '€ mes' : ''));
       return lines.join('\n');
     }
 
-    function updateSummary() {
-      var monthly = state.maintenance + (state.googleSite ? 25 : 0) + (state.analytics ? 25 : 0);
-      if (oneTimeEl) oneTimeEl.textContent = state.basePrice ? state.basePrice + '€' : '—';
-      if (monthlyEl) monthlyEl.textContent = monthly ? '+' + monthly + '€/mes' : '—';
+    function updateLinks() {
       if (whatsappBtn) whatsappBtn.href = WA_BASE + encodeURIComponent(buildMessage());
       if (emailBtn) emailBtn.href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Presupuesto WF Studio') + '&body=' + encodeURIComponent(buildMessage());
     }
 
-    typeButtons.forEach(function (btn) {
+    function goTo(key) {
+      Object.keys(steps).forEach(function (k) { steps[k].classList.remove('is-active'); });
+      if (steps[key]) steps[key].classList.add('is-active');
+
+      var idx = stepOrder.indexOf(key);
+      dots.forEach(function (dot) {
+        var dotKey = dot.getAttribute('data-step-dot');
+        var dotIdx = stepOrder.indexOf(dotKey);
+        dot.classList.toggle('is-active', dotKey === key);
+        dot.classList.toggle('is-done', idx > -1 && dotIdx > -1 && dotIdx < idx);
+      });
+
+      var isAlt = key === 'custom' || key === 'optimize';
+      if (root.querySelector('[data-calc-v3-progress]')) {
+        root.querySelector('[data-calc-v3-progress]').hidden = isAlt;
+      }
+      if (priceWrap) priceWrap.hidden = isAlt || key === 'pages';
+      if (backBtn) backBtn.hidden = history.length <= 1;
+
+      if (key === 'summary') updateLinks();
+    }
+
+    function advance(nextKey) {
+      history.push(nextKey);
+      goTo(nextKey);
+    }
+
+    pagesOpts.forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var type = btn.getAttribute('data-calc-type');
-        state.type = type;
-        state.basePrice = BASE_PRICES[type] || 0;
-        state.maintenance = 0;
-        state.googleSite = false;
-        state.analytics = false;
-
-        typeButtons.forEach(function (b) { b.classList.remove('is-active'); });
-        btn.classList.add('is-active');
-
-        maintInputs.forEach(function (i) { i.checked = i.value === '0'; });
-        extraInputs.forEach(function (i) { i.checked = false; });
-
-        if (type === 'custom') { showStep(stepCustom); }
-        else if (type === 'optimize') { showStep(stepOptimize); }
-        else { showStep(stepAddons); updateSummary(); }
+        pagesOpts.forEach(function (b) { b.classList.remove('is-selected'); });
+        btn.classList.add('is-selected');
+        state.pages = Number(btn.getAttribute('data-price'));
+        priceWrap.hidden = false;
+        updatePrice();
+        setTimeout(function () { advance('maintenance'); }, ADVANCE_DELAY);
       });
     });
 
-    maintInputs.forEach(function (input) {
-      input.addEventListener('change', function () {
-        state.maintenance = Number(input.value);
-        updateSummary();
-      });
-    });
-
-    extraInputs.forEach(function (input) {
-      input.addEventListener('change', function () {
-        var key = input.getAttribute('data-calc-extra');
-        if (key === 'google') state.googleSite = input.checked;
-        if (key === 'analytics') state.analytics = input.checked;
-        updateSummary();
-      });
-    });
-
-    backBtns.forEach(function (btn) {
+    maintOpts.forEach(function (btn) {
       btn.addEventListener('click', function () {
-        showStep(null);
-        typeButtons.forEach(function (b) { b.classList.remove('is-active'); });
-        state.type = null;
+        maintOpts.forEach(function (b) { b.classList.remove('is-selected'); });
+        btn.classList.add('is-selected');
+        state.maintenance = Number(btn.getAttribute('data-price'));
+        updatePrice();
+        setTimeout(function () { advance('extras'); }, ADVANCE_DELAY);
       });
     });
 
-    priceCalculatorApi = { update: updateSummary };
+    extraOpts.forEach(function (input) {
+      input.addEventListener('change', function () {
+        state.extras = extraOpts.reduce(function (sum, opt) {
+          return sum + (opt.checked ? Number(opt.getAttribute('data-price')) : 0);
+        }, 0);
+        updatePrice();
+      });
+    });
+
+    if (continueBtn) {
+      continueBtn.addEventListener('click', function () {
+        advance('summary');
+      });
+    }
+
+    jumpBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        advance(btn.getAttribute('data-calc-v3-jump'));
+      });
+    });
+
+    if (backBtn) {
+      backBtn.addEventListener('click', function () {
+        if (history.length <= 1) return;
+        history.pop();
+        goTo(history[history.length - 1]);
+      });
+    }
+
+    goTo('pages');
+    updatePrice();
   }
 
   function initEditorialServices() {
@@ -1344,7 +1377,7 @@
     setLanguage(savedLang || defaultLang);
 
     window.requestAnimationFrame(function () {
-      initCalculatorV2();
+      initCalculatorV3();
       initHeroParallax();
       initEditorialServices();
       initPageTransition();

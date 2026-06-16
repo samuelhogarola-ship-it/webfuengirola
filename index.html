@@ -574,160 +574,133 @@
     <section class="cta-final" id="contacto">
       <div class="container cta-final__inner">
         <div class="cta-final__content cta-final__content--calculator">
-          <div class="calc-v2" data-calc-v2>
+          <div class="calc-v3" data-calc-v3>
 
-            <!-- STEP 1: Tipo de web -->
-            <div class="calc-v2__header">
+            <div class="calc-v3__head">
               <span class="section-label">Calculadora</span>
-              <h2 class="cta-final__title">¿Qué tipo de web necesitas?</h2>
-              <p class="cta-final__sub">Elige la opción que mejor describe tu proyecto y configura los extras que quieras.</p>
+              <h2 class="cta-final__title">Calcula tu presupuesto en 3 pasos</h2>
+              <p class="cta-final__sub">Responde unas preguntas rápidas y verás el precio actualizarse al instante.</p>
             </div>
 
-            <div class="calc-v2__types">
-              <button type="button" class="calc-type-btn" data-calc-type="lite">
-                <span class="calc-type-btn__num">01</span>
-                <span class="calc-type-btn__main">
-                  <span class="calc-type-btn__name">Presencia básica</span>
-                  <span class="calc-type-btn__desc">1-2 páginas para mostrar tu negocio y aparecer en Google</span>
-                </span>
-                <span class="calc-type-btn__price">desde 200€</span>
-                <span class="calc-type-btn__arrow">→</span>
-              </button>
-              <button type="button" class="calc-type-btn" data-calc-type="seo">
-                <span class="calc-type-btn__num">02</span>
-                <span class="calc-type-btn__main">
-                  <span class="calc-type-btn__name">Web para SEO</span>
-                  <span class="calc-type-btn__desc">3-6 páginas para captar clientes en Google con contenido</span>
-                </span>
-                <span class="calc-type-btn__price">desde 300€</span>
-                <span class="calc-type-btn__arrow">→</span>
-              </button>
-              <button type="button" class="calc-type-btn" data-calc-type="pro">
-                <span class="calc-type-btn__num">03</span>
-                <span class="calc-type-btn__main">
-                  <span class="calc-type-btn__name">Web completa + eventos</span>
-                  <span class="calc-type-btn__desc">Varias páginas, catálogo, galería o calendario de eventos</span>
-                </span>
-                <span class="calc-type-btn__price">desde 900€</span>
-                <span class="calc-type-btn__arrow">→</span>
-              </button>
-              <button type="button" class="calc-type-btn" data-calc-type="custom">
-                <span class="calc-type-btn__num">04</span>
-                <span class="calc-type-btn__main">
-                  <span class="calc-type-btn__name">Algo personalizado</span>
-                  <span class="calc-type-btn__desc">Con usuarios, pasarela de pagos o requisitos especiales</span>
-                </span>
-                <span class="calc-type-btn__price">Presupuesto a medida</span>
-                <span class="calc-type-btn__arrow">→</span>
-              </button>
-              <button type="button" class="calc-type-btn" data-calc-type="optimize">
-                <span class="calc-type-btn__num">05</span>
-                <span class="calc-type-btn__main">
-                  <span class="calc-type-btn__name">Optimizar mi negocio</span>
-                  <span class="calc-type-btn__desc">Ahorra tiempo con automatizaciones y flujos de trabajo con IA</span>
-                </span>
-                <span class="calc-type-btn__price">Concertar cita</span>
-                <span class="calc-type-btn__arrow">→</span>
-              </button>
-            </div>
+            <div class="calc-v3__card">
+              <div class="calc-v3__top">
+                <button type="button" class="calc-v3__back" data-calc-v3-back hidden>← Atrás</button>
+                <div class="calc-v3__progress" data-calc-v3-progress>
+                  <span class="calc-v3__dot is-active" data-step-dot="pages"></span>
+                  <span class="calc-v3__dot" data-step-dot="maintenance"></span>
+                  <span class="calc-v3__dot" data-step-dot="extras"></span>
+                  <span class="calc-v3__dot" data-step-dot="summary"></span>
+                </div>
+              </div>
 
-            <!-- STEP 2A: Add-ons (para lite / seo / pro) -->
-            <div class="calc-v2__step" data-calc-step="addons" hidden>
-              <button type="button" class="calc-v2__back" data-calc-back>← Cambiar tipo</button>
-              <div class="calc-v2__addons-layout">
-                <div class="calc-v2__addons-left">
+              <div class="calc-v3__stage">
 
-                  <div class="calc-addon-group">
-                    <h3 class="calc-addon-group__title">¿Quieres mantenimiento mensual?</h3>
-                    <label class="calc-addon-row">
-                      <input type="radio" name="calc-maint" data-calc-maint value="0" checked>
-                      <span class="calc-addon-row__content">
-                        <span class="calc-addon-row__name">Sin mantenimiento</span>
-                        <span class="calc-addon-row__price">incluido</span>
-                      </span>
-                    </label>
-                    <label class="calc-addon-row">
-                      <input type="radio" name="calc-maint" data-calc-maint value="50">
-                      <span class="calc-addon-row__content">
-                        <span class="calc-addon-row__name">Básico — hasta 5 cambios menores al mes</span>
-                        <span class="calc-addon-row__price">+50€/mes</span>
-                      </span>
-                    </label>
-                    <label class="calc-addon-row">
-                      <input type="radio" name="calc-maint" data-calc-maint value="100">
-                      <span class="calc-addon-row__content">
-                        <span class="calc-addon-row__name">Avanzado — hasta 10 cambios + 2 modificaciones de estilo</span>
-                        <span class="calc-addon-row__price">+100€/mes</span>
-                      </span>
-                    </label>
+                <!-- STEP 1: páginas -->
+                <div class="calc-v3__step is-active" data-calc-v3-step="pages">
+                  <h3 class="calc-v3__question">¿Cuántas páginas necesitas?</h3>
+                  <div class="calc-v3__grid">
+                    <button type="button" class="calc-v3__opt" data-pages-opt data-price="200">
+                      <span class="calc-v3__opt-num">1</span>
+                      <span class="calc-v3__opt-label">página</span>
+                    </button>
+                    <button type="button" class="calc-v3__opt" data-pages-opt data-price="250">
+                      <span class="calc-v3__opt-num">2</span>
+                      <span class="calc-v3__opt-label">páginas</span>
+                    </button>
+                    <button type="button" class="calc-v3__opt" data-pages-opt data-price="300">
+                      <span class="calc-v3__opt-num">3</span>
+                      <span class="calc-v3__opt-label">páginas</span>
+                    </button>
+                    <button type="button" class="calc-v3__opt" data-pages-opt data-price="600">
+                      <span class="calc-v3__opt-num">4+</span>
+                      <span class="calc-v3__opt-label">páginas</span>
+                    </button>
                   </div>
-
-                  <div class="calc-addon-group">
-                    <h3 class="calc-addon-group__title">Extras opcionales</h3>
-                    <label class="calc-addon-row">
-                      <input type="checkbox" data-calc-extra="google">
-                      <span class="calc-addon-row__content">
-                        <span class="calc-addon-row__name">Google Site — gestión de ficha de Google Business</span>
-                        <span class="calc-addon-row__price">+25€/mes</span>
-                      </span>
-                    </label>
-                    <label class="calc-addon-row">
-                      <input type="checkbox" data-calc-extra="analytics">
-                      <span class="calc-addon-row__content">
-                        <span class="calc-addon-row__name">Analíticas — seguimiento mensual de visitas e informe</span>
-                        <span class="calc-addon-row__price">+25€/mes</span>
-                      </span>
-                    </label>
+                  <div class="calc-v3__alt">
+                    <button type="button" class="calc-v3__alt-link" data-calc-v3-jump="custom">¿Necesitas usuarios o pasarela de pagos? Algo personalizado →</button>
+                    <button type="button" class="calc-v3__alt-link" data-calc-v3-jump="optimize">¿Quieres optimizar tu negocio con IA? →</button>
                   </div>
                 </div>
 
-                <div class="calc-v2__summary">
-                  <div class="calc-v2__summary-row">
-                    <span class="calc-v2__summary-label">Pago único</span>
-                    <strong class="calc-v2__summary-val" data-calc-onetime>—</strong>
+                <!-- STEP 2: mantenimiento -->
+                <div class="calc-v3__step" data-calc-v3-step="maintenance">
+                  <h3 class="calc-v3__question">¿Qué servicios de mantenimiento necesitas?</h3>
+                  <div class="calc-v3__list">
+                    <button type="button" class="calc-v3__row" data-maint-opt data-price="0">
+                      <span class="calc-v3__row-name">Sin mantenimiento</span>
+                      <span class="calc-v3__row-price">incluido</span>
+                    </button>
+                    <button type="button" class="calc-v3__row" data-maint-opt data-price="50">
+                      <span class="calc-v3__row-name">Básico — hasta 5 cambios menores al mes</span>
+                      <span class="calc-v3__row-price">+50€/mes</span>
+                    </button>
+                    <button type="button" class="calc-v3__row" data-maint-opt data-price="100">
+                      <span class="calc-v3__row-name">Avanzado — hasta 10 cambios + 2 modificaciones de estilo</span>
+                      <span class="calc-v3__row-price">+100€/mes</span>
+                    </button>
                   </div>
-                  <div class="calc-v2__summary-row">
-                    <span class="calc-v2__summary-label">Mensual</span>
-                    <strong class="calc-v2__summary-val calc-v2__summary-val--monthly" data-calc-monthly>—</strong>
+                </div>
+
+                <!-- STEP 3: extras -->
+                <div class="calc-v3__step" data-calc-v3-step="extras">
+                  <h3 class="calc-v3__question">¿Algún extra más?</h3>
+                  <div class="calc-v3__list">
+                    <label class="calc-v3__row calc-v3__row--check">
+                      <input type="checkbox" data-extra-opt data-price="25">
+                      <span class="calc-v3__row-name">Google Site — gestión de ficha de Google Business</span>
+                      <span class="calc-v3__row-price">+25€/mes</span>
+                    </label>
+                    <label class="calc-v3__row calc-v3__row--check">
+                      <input type="checkbox" data-extra-opt data-price="25">
+                      <span class="calc-v3__row-name">Analíticas — seguimiento mensual de visitas e informe</span>
+                      <span class="calc-v3__row-price">+25€/mes</span>
+                    </label>
                   </div>
-                  <p class="calc-v2__summary-note">Precio orientativo. El coste final se cierra en la reunión inicial.</p>
-                  <div class="calc-v2__summary-actions">
-                    <a href="#" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener noreferrer" data-calc-wa>
+                  <button type="button" class="btn btn--primary btn--lg calc-v3__continue" data-calc-v3-continue>Continuar</button>
+                </div>
+
+                <!-- STEP 4: resumen -->
+                <div class="calc-v3__step" data-calc-v3-step="summary">
+                  <h3 class="calc-v3__question">Tu presupuesto está listo</h3>
+                  <p class="calc-v3__summary-note">Precio orientativo. El coste final se cierra en la reunión inicial.</p>
+                  <div class="calc-v3__summary-actions">
+                    <a href="#" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener noreferrer" data-calc-v3-wa>
                       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
                       Pedir este presupuesto
                     </a>
-                    <a href="mailto:info@webfuengirola.com?subject=Presupuesto%20web%20WF%20Studio" class="btn btn--outline btn--lg" data-calc-email>
+                    <a href="mailto:info@webfuengirola.com?subject=Presupuesto%20web%20WF%20Studio" class="btn btn--outline btn--lg" data-calc-v3-email>
                       Enviar por email
                     </a>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <!-- STEP 2B: Personalizado -->
-            <div class="calc-v2__step calc-v2__step--alt" data-calc-step="custom" hidden>
-              <button type="button" class="calc-v2__back" data-calc-back>← Volver</button>
-              <div class="calc-v2__alt-inner">
-                <p class="calc-v2__alt-eyebrow">Proyecto personalizado</p>
-                <h3 class="calc-v2__alt-title">Cuéntanos qué tienes en mente</h3>
-                <p class="calc-v2__alt-desc">Usuarios, pasarela de pagos, lógica a medida... Para proyectos especiales hacemos una reunión gratuita para entender bien lo que necesitas y darte un presupuesto real.</p>
-                <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20hablar%20sobre%20un%20proyecto%20personalizado" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener noreferrer">
-                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-                  Escribirnos por WhatsApp
-                </a>
-              </div>
-            </div>
+                <!-- ALT: personalizado -->
+                <div class="calc-v3__step calc-v3__step--alt" data-calc-v3-step="custom">
+                  <p class="calc-v3__alt-eyebrow">Proyecto personalizado</p>
+                  <h3 class="calc-v3__question">Cuéntanos qué tienes en mente</h3>
+                  <p class="calc-v3__alt-desc">Usuarios, pasarela de pagos, lógica a medida... Para proyectos especiales hacemos una reunión gratuita para entender bien lo que necesitas y darte un presupuesto real.</p>
+                  <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20hablar%20sobre%20un%20proyecto%20personalizado" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                    Escribirnos por WhatsApp
+                  </a>
+                </div>
 
-            <!-- STEP 2C: Optimización -->
-            <div class="calc-v2__step calc-v2__step--alt" data-calc-step="optimize" hidden>
-              <button type="button" class="calc-v2__back" data-calc-back>← Volver</button>
-              <div class="calc-v2__alt-inner">
-                <p class="calc-v2__alt-eyebrow">Optimización con IA</p>
-                <h3 class="calc-v2__alt-title">Concierta una cita gratuita</h3>
-                <p class="calc-v2__alt-desc">Analizamos tus flujos de trabajo actuales y encontramos dónde puedes ahorrar tiempo y dinero con automatizaciones, chatbots o herramientas a medida.</p>
-                <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20concertar%20una%20cita%20para%20optimizar%20mi%20negocio" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">
-                  Concertar cita gratuita
-                </a>
+                <!-- ALT: optimizar -->
+                <div class="calc-v3__step calc-v3__step--alt" data-calc-v3-step="optimize">
+                  <p class="calc-v3__alt-eyebrow">Optimización con IA</p>
+                  <h3 class="calc-v3__question">Concierta una cita gratuita</h3>
+                  <p class="calc-v3__alt-desc">Analizamos tus flujos de trabajo actuales y encontramos dónde puedes ahorrar tiempo y dinero con automatizaciones, chatbots o herramientas a medida.</p>
+                  <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20concertar%20una%20cita%20para%20optimizar%20mi%20negocio" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">
+                    Concertar cita gratuita
+                  </a>
+                </div>
+
+              </div>
+
+              <div class="calc-v3__price" data-calc-v3-price-wrap hidden>
+                <span class="calc-v3__price-label">Total estimado</span>
+                <strong class="calc-v3__price-value" data-calc-v3-price>0€</strong>
+                <span class="calc-v3__price-monthly" data-calc-v3-monthly></span>
               </div>
             </div>
 
