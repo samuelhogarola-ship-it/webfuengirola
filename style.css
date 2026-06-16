@@ -6015,11 +6015,11 @@ body.is-transitioning {
   margin-bottom: 32px;
 }
 
-/* Persistent live price, bottom-right */
+/* Persistent live price — sits below the stage content, never overlaps it */
 .calc-v3__price {
-  position: absolute;
-  bottom: 40px;
-  right: 40px;
+  position: relative;
+  align-self: flex-end;
+  margin-top: 28px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
