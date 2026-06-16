@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 </head>
-<body>
+<body class="portfolio-page">
 
   <header class="header" id="header">
     <div class="container header__inner">
@@ -60,17 +60,26 @@
   </header>
 
   <main>
-    <section class="subpage-hero">
-      <div class="container">
-        <span class="badge">Portfolio</span>
-        <h1 class="subpage-hero__title">Proyectos reales con criterio comercial y técnico</h1>
-        <p class="subpage-hero__sub">Mostramos tanto captación local como producto digital. La idea no es enseñar cantidad, sino demostrar rango y ejecución.</p>
+    <section class="subpage-hero subpage-hero--editorial">
+      <div class="container subpage-hero__layout">
+        <div class="subpage-hero__main">
+          <span class="badge">Portfolio</span>
+          <h1 class="subpage-hero__title">Proyectos reales con criterio comercial y técnico</h1>
+        </div>
+        <div class="subpage-hero__side">
+          <p class="subpage-hero__sub">Mostramos tanto captación local como producto digital. La idea no es enseñar cantidad, sino demostrar rango y ejecución.</p>
+          <div class="subpage-hero__meta">
+            <span>WF Studio</span>
+            <span>Casos seleccionados</span>
+            <span>Fuengirola / Costa del Sol</span>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="portfolio" id="proyectos" style="padding-top:80px;">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header section-header--split">
           <span class="section-label">Proyectos</span>
           <h2 class="section-title">Webs que hemos creado</h2>
           <p class="section-sub">Cada proyecto tiene ahora su propia ficha para enseñar mejor el contexto, el trabajo realizado y el valor que aporta.</p>
@@ -78,7 +87,7 @@
 
         <div class="portfolio__grid">
 
-          <article class="portfolio-card">
+          <article class="portfolio-card portfolio-card--feature">
             <a href="portfolio/vokabellab/" class="portfolio-card__img-link" aria-label="Abrir caso de Vokabellab">
               <img src="img/vokabellab.webp" alt="Captura de Vokabellab, plataforma para practicar vocabulario de alemán" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
             </a>
@@ -120,7 +129,7 @@
             </div>
           </article>
 
-          <article class="portfolio-card">
+          <article class="portfolio-card portfolio-card--feature">
             <a href="portfolio/im-kontext-vokabellab/" class="portfolio-card__img-link" aria-label="Abrir caso de Im Kontext — Vokabellab">
               <img src="img/imkontext.webp" alt="Captura de la herramienta educativa Im Kontext" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
             </a>
@@ -195,7 +204,7 @@
 
     <section class="service-detail" style="padding-bottom:0;">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header section-header--split">
           <span class="section-label">Tipos de web</span>
           <h2 class="section-title">¿Qué tipo de web necesitas?</h2>
           <p class="section-sub">No todos los encargos exigen el mismo nivel de complejidad. Estos son los formatos donde más valor aportamos.</p>

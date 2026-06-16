@@ -7,15 +7,36 @@
     "test": "playwright test",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
-    "prepare": "husky"
+    "prepare": "husky",
+    "check": "node --check script.js && node --check cookie-banner-core.js && node --check google-analytics-core.js && node --check legal-page.js && node --check legal-core.js && node --check scripts/build-portfolio.mjs",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "security:setup": "node scripts/install-gitleaks.mjs",
+    "secrets:scan": ".tools/gitleaks/current/gitleaks git --redact --no-banner .",
+    "secrets:scan:staged": ".tools/gitleaks/current/gitleaks git --staged --redact --no-banner .",
+    "audit:deps": "audit-ci --config ./audit-ci.jsonc",
+    "commitlint": "commitlint --from HEAD~1 --to HEAD"
   },
   "lint-staged": {
-    "*.js": "node --check"
+    "*.{js,mjs,cjs}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{css,json,md}": "prettier --write"
   },
   "devDependencies": {
+    "@commitlint/cli": "^21.0.2",
+    "@commitlint/config-conventional": "^21.0.2",
+    "@eslint/js": "^9.29.0",
     "@playwright/test": "^1.60.0",
+    "audit-ci": "^7.1.0",
+    "eslint": "^9.29.0",
+    "globals": "^15.15.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.7",
+    "prettier": "^3.8.4",
     "serve": "^14.2.3"
   }
 }

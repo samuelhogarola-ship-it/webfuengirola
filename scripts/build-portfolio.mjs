@@ -1,22 +1,30 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { portfolioProjects, productCategories } from '../portfolio/projects-data.mjs';
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import {
+  portfolioProjects,
+  productCategories,
+} from "../portfolio/projects-data.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const rootDir = path.resolve(__dirname, '..');
-const portfolioDir = path.join(rootDir, 'portfolio');
-const productsDir = path.join(rootDir, 'productos');
+const rootDir = path.resolve(__dirname, "..");
+const portfolioDir = path.join(rootDir, "portfolio");
+const productsDir = path.join(rootDir, "productos");
 const today = new Date().toISOString().slice(0, 10);
-const productCategoryMap = new Map(productCategories.map((category) => [category.slug, category]));
+const productCategoryMap = new Map(
+  productCategories.map((category) => [category.slug, category]),
+);
 
 const portfolioIntro = {
-  title: 'Portfolio de Diseño Web en Fuengirola | Casos Reales',
-  description: 'Portfolio con casos reales de diseño web en Fuengirola: landing pages, webs corporativas y proyectos digitales para negocios locales.',
-  ogTitle: 'Portfolio de Diseño Web en Fuengirola | Web Fuengirola',
-  ogDescription: 'Casos reales de landing pages, webs corporativas y proyectos digitales creados para negocios locales.',
-  twitterDescription: 'Casos reales de diseño web en Fuengirola para negocios locales, captación y proyectos digitales.',
+  title: "Portfolio de Diseño Web en Fuengirola | Casos Reales",
+  description:
+    "Portfolio con casos reales de diseño web en Fuengirola: landing pages, webs corporativas y proyectos digitales para negocios locales.",
+  ogTitle: "Portfolio de Diseño Web en Fuengirola | Web Fuengirola",
+  ogDescription:
+    "Casos reales de landing pages, webs corporativas y proyectos digitales creados para negocios locales.",
+  twitterDescription:
+    "Casos reales de diseño web en Fuengirola para negocios locales, captación y proyectos digitales.",
 };
 
 /**
@@ -32,22 +40,13 @@ function ensureDir(dir) {
  * @param {string} [value='']
  * @returns {string}
  */
-function escapeHtml(value = '') {
+function escapeHtml(value = "") {
   return String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-/**
- * Returns the relative prefix for nested generated pages.
- * @param {number} [depth=0]
- * @returns {string}
- */
-function getRelPrefix(depth = 0) {
-  return depth === 0 ? '' : '../'.repeat(depth);
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 /**
@@ -78,24 +77,24 @@ function assetHref(prefix, href) {
  */
 function renderHeader(prefix, activePage) {
   const navItems = [
-    { href: 'index.html', label: 'Inicio', key: 'home' },
-    { href: 'servicios.html', label: 'Servicios', key: 'services' },
-    { href: 'portfolio.html', label: 'Portfolio', key: 'portfolio' },
-    { href: 'proceso.html', label: 'Proceso', key: 'process' },
-    { href: 'blog/', label: 'Blog', key: 'blog' },
+    { href: "index.html", label: "Inicio", key: "home" },
+    { href: "servicios.html", label: "Servicios", key: "services" },
+    { href: "portfolio.html", label: "Portfolio", key: "portfolio" },
+    { href: "proceso.html", label: "Proceso", key: "process" },
+    { href: "blog/", label: "Blog", key: "blog" },
   ];
 
   return `
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="${navHref(prefix, 'index.html')}" class="logo" aria-label="WF Studio">
-        <img src="${assetHref(prefix, 'img/logo-wf.webp')}" alt="WF Studio" class="logo__img" width="36" height="36" loading="eager"/>
+      <a href="${navHref(prefix, "index.html")}" class="logo" aria-label="WF Studio">
+        <img src="${assetHref(prefix, "img/logo-wf.webp")}" alt="WF Studio" class="logo__img" width="36" height="36" loading="eager"/>
       </a>
 
       <nav class="nav" id="nav" aria-label="Navegación principal">
         <ul class="nav__list">
-          ${navItems.map((item) => `<li><a href="${navHref(prefix, item.href)}" class="nav__link${item.key === activePage ? ' nav__link--active' : ''}">${item.label}</a></li>`).join('\n          ')}
-          <li><a href="${navHref(prefix, 'index.html#contacto')}" class="nav__link">Contacto</a></li>
+          ${navItems.map((item) => `<li><a href="${navHref(prefix, item.href)}" class="nav__link${item.key === activePage ? " nav__link--active" : ""}">${item.label}</a></li>`).join("\n          ")}
+          <li><a href="${navHref(prefix, "index.html#contacto")}" class="nav__link">Contacto</a></li>
         </ul>
       </nav>
 
@@ -116,33 +115,36 @@ function renderHeader(prefix, activePage) {
  * @param {string} [whatsappText='Hola, me interesa una web para mi negocio']
  * @returns {string}
  */
-function renderFooter(prefix, whatsappText = 'Hola, me interesa una web para mi negocio') {
+function renderFooter(
+  prefix,
+  whatsappText = "Hola, me interesa una web para mi negocio",
+) {
   const whatsappHref = `https://wa.me/34622923988?text=${encodeURIComponent(whatsappText)}`;
   return `
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <a href="${navHref(prefix, 'index.html')}" class="logo logo--light" aria-label="WF Studio">
-          <img src="${assetHref(prefix, 'img/logo-wf.webp')}" alt="WF Studio" class="logo__img" width="36" height="36" loading="lazy"/>
+        <a href="${navHref(prefix, "index.html")}" class="logo logo--light" aria-label="WF Studio">
+          <img src="${assetHref(prefix, "img/logo-wf.webp")}" alt="WF Studio" class="logo__img" width="36" height="36" loading="lazy"/>
         </a>
         <p class="footer__tagline">Webs para comercios locales en la Costa del Sol.</p>
       </div>
       <div class="footer__col">
         <h4 class="footer__col-title">Servicios</h4>
         <ul class="footer__links">
-          <li><a href="${navHref(prefix, 'servicios.html#web-express')}">Web Express</a></li>
-          <li><a href="${navHref(prefix, 'servicios.html#web-pro')}">Web Corporativa / Web Pro</a></li>
-          <li><a href="${navHref(prefix, 'servicios.html#react-automatizacion')}">React, chatbots y automatización</a></li>
-          <li><a href="${navHref(prefix, 'servicios.html#apps-medida')}">Apps y herramientas a medida</a></li>
-          <li><a href="${navHref(prefix, 'index.html#mantenimiento')}">Mantenimiento</a></li>
+          <li><a href="${navHref(prefix, "servicios.html#web-express")}">Web Express</a></li>
+          <li><a href="${navHref(prefix, "servicios.html#web-pro")}">Web Corporativa / Web Pro</a></li>
+          <li><a href="${navHref(prefix, "servicios.html#react-automatizacion")}">React, chatbots y automatización</a></li>
+          <li><a href="${navHref(prefix, "servicios.html#apps-medida")}">Apps y herramientas a medida</a></li>
+          <li><a href="${navHref(prefix, "index.html#mantenimiento")}">Mantenimiento</a></li>
         </ul>
       </div>
       <div class="footer__col">
         <h4 class="footer__col-title">Legal</h4>
         <ul class="footer__links">
-          <li><a href="${navHref(prefix, 'legal.html#aviso-legal')}">Aviso legal</a></li>
-          <li><a href="${navHref(prefix, 'legal.html#privacidad')}">Política de privacidad</a></li>
-          <li><a href="${navHref(prefix, 'legal.html#cookies')}">Política de cookies</a></li>
+          <li><a href="${navHref(prefix, "legal.html#aviso-legal")}">Aviso legal</a></li>
+          <li><a href="${navHref(prefix, "legal.html#privacidad")}">Política de privacidad</a></li>
+          <li><a href="${navHref(prefix, "legal.html#cookies")}">Política de cookies</a></li>
         </ul>
       </div>
       <div class="footer__col">
@@ -161,8 +163,8 @@ function renderFooter(prefix, whatsappText = 'Hola, me interesa una web para mi 
     </div>
   </footer>
 
-  <script src="${assetHref(prefix, 'google-analytics-core.js')}"></script>
-  <script src="${assetHref(prefix, 'script.js')}"></script>
+  <script src="${assetHref(prefix, "google-analytics-core.js")}"></script>
+  <script src="${assetHref(prefix, "script.js")}"></script>
   <a
     href="${whatsappHref}"
     class="whatsapp-fab"
@@ -190,7 +192,17 @@ function renderFooter(prefix, whatsappText = 'Hola, me interesa una web para mi 
  * }} options
  * @returns {string}
  */
-function renderHead({ title, description, canonical, ogTitle, ogDescription, ogImage, ogAlt, preloadImage, prefix }) {
+function renderHead({
+  title,
+  description,
+  canonical,
+  ogTitle,
+  ogDescription,
+  ogImage,
+  ogAlt,
+  preloadImage,
+  prefix,
+}) {
   return `
 <head>
   <meta charset="UTF-8" />
@@ -216,7 +228,7 @@ function renderHead({ title, description, canonical, ogTitle, ogDescription, ogI
   <meta name="twitter:description" content="${escapeHtml(ogDescription)}" />
   <meta name="twitter:image" content="${ogImage}" />
   <link rel="preload" as="image" href="${assetHref(prefix, preloadImage)}" type="image/webp" />
-  <link rel="stylesheet" href="${assetHref(prefix, 'style.css?v=9')}" />
+  <link rel="stylesheet" href="${assetHref(prefix, "style.css?v=9")}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -229,7 +241,12 @@ function renderHead({ title, description, canonical, ogTitle, ogDescription, ogI
  * @returns {string}
  */
 function renderTags(tags) {
-  return tags.map((tag) => `<span class="tag ${tag.className}">${escapeHtml(tag.label)}</span>`).join('');
+  return tags
+    .map(
+      (tag) =>
+        `<span class="tag ${tag.className}">${escapeHtml(tag.label)}</span>`,
+    )
+    .join("");
 }
 
 /**
@@ -249,9 +266,11 @@ function getProductCategory(project) {
  */
 function renderPortfolioCard(project, options = {}) {
   const productCategory = getProductCategory(project);
-  const productTag = productCategory ? `<span class="tag">${escapeHtml(productCategory.shortLabel)}</span>` : '';
+  const productTag = productCategory
+    ? `<span class="tag">${escapeHtml(productCategory.shortLabel)}</span>`
+    : "";
   const detailHref = options.detailHref ?? `portfolio/${project.slug}/`;
-  const imagePrefix = options.imagePrefix ?? '';
+  const imagePrefix = options.imagePrefix ?? "";
 
   return `
           <article class="portfolio-card">
@@ -274,22 +293,22 @@ function renderPortfolioCard(project, options = {}) {
  * @returns {string}
  */
 function renderPortfolioListing() {
-  const cards = portfolioProjects.map(renderPortfolioCard).join('\n');
+  const cards = portfolioProjects.map(renderPortfolioCard).join("\n");
   return `<!DOCTYPE html>
 <html lang="es">
 ${renderHead({
-    title: portfolioIntro.title,
-    description: portfolioIntro.description,
-    canonical: 'https://webfuengirola.com/portfolio.html',
-    ogTitle: portfolioIntro.ogTitle,
-    ogDescription: portfolioIntro.ogDescription,
-    ogImage: 'https://webfuengirola.com/img/og-cover.jpg',
-    ogAlt: 'Portfolio de Web Fuengirola con proyectos para negocios locales',
-    preloadImage: 'img/og-cover.webp',
-    prefix: '',
-  })}
+  title: portfolioIntro.title,
+  description: portfolioIntro.description,
+  canonical: "https://webfuengirola.com/portfolio.html",
+  ogTitle: portfolioIntro.ogTitle,
+  ogDescription: portfolioIntro.ogDescription,
+  ogImage: "https://webfuengirola.com/img/og-cover.jpg",
+  ogAlt: "Portfolio de Web Fuengirola con proyectos para negocios locales",
+  preloadImage: "img/og-cover.webp",
+  prefix: "",
+})}
 <body>
-${renderHeader('', 'portfolio')}
+${renderHeader("", "portfolio")}
 
   <main>
     <section class="subpage-hero">
@@ -398,7 +417,7 @@ ${cards}
     </section>
   </main>
 
-${renderFooter('')}
+${renderFooter("")}
 </body>
 </html>`;
 }
@@ -409,36 +428,39 @@ ${renderFooter('')}
  * @returns {string}
  */
 function renderDetailPage(project) {
-  const prefix = '../../';
+  const prefix = "../../";
   const canonical = `https://webfuengirola.com/portfolio/${project.slug}/`;
   const productCategory = getProductCategory(project);
   const siblingLinks = portfolioProjects
     .filter((item) => item.slug !== project.slug)
     .slice(0, 3)
-    .map((item) => `<a href="../${item.slug}/" class="project-detail__related-link">${escapeHtml(item.title)}</a>`)
-    .join('');
+    .map(
+      (item) =>
+        `<a href="../${item.slug}/" class="project-detail__related-link">${escapeHtml(item.title)}</a>`,
+    )
+    .join("");
 
   return `<!DOCTYPE html>
 <html lang="es">
 ${renderHead({
-    title: project.seoTitle,
-    description: project.seoDescription,
-    canonical,
-    ogTitle: project.seoTitle,
-    ogDescription: project.seoDescription,
-    ogImage: project.ogImage,
-    ogAlt: project.ogAlt,
-    preloadImage: project.image,
-    prefix,
-  })}
+  title: project.seoTitle,
+  description: project.seoDescription,
+  canonical,
+  ogTitle: project.seoTitle,
+  ogDescription: project.seoDescription,
+  ogImage: project.ogImage,
+  ogAlt: project.ogAlt,
+  preloadImage: project.image,
+  prefix,
+})}
 <body>
-${renderHeader(prefix, 'portfolio')}
+${renderHeader(prefix, "portfolio")}
 
   <main class="project-page">
     <section class="subpage-hero project-subhero">
       <div class="container project-subhero__inner">
         <nav class="project-breadcrumb" aria-label="Breadcrumb">
-          <a href="${navHref(prefix, 'portfolio.html')}">Portfolio</a>
+          <a href="${navHref(prefix, "portfolio.html")}">Portfolio</a>
           <span>/</span>
           <span>${escapeHtml(project.title)}</span>
         </nav>
@@ -462,11 +484,11 @@ ${renderHeader(prefix, 'portfolio')}
             <span class="section-label">Resumen del proyecto</span>
             <h2 class="project-detail__summary-title">${escapeHtml(project.brand)}</h2>
             <ul class="project-detail__facts">
-              ${productCategory ? `<li><strong>Producto</strong><span>${escapeHtml(productCategory.label)}</span></li>` : ''}
+              ${productCategory ? `<li><strong>Producto</strong><span>${escapeHtml(productCategory.label)}</span></li>` : ""}
               <li><strong>Tipo</strong><span>${escapeHtml(project.category)}</span></li>
               <li><strong>Cliente / marca</strong><span>${escapeHtml(project.client)}</span></li>
-              <li><strong>Tecnologías</strong><span>${escapeHtml(project.tech.join(' · '))}</span></li>
-              <li><strong>Entrega principal</strong><span>${escapeHtml(project.services.join(' · '))}</span></li>
+              <li><strong>Tecnologías</strong><span>${escapeHtml(project.tech.join(" · "))}</span></li>
+              <li><strong>Entrega principal</strong><span>${escapeHtml(project.services.join(" · "))}</span></li>
             </ul>
           </aside>
         </div>
@@ -482,7 +504,7 @@ ${renderHeader(prefix, 'portfolio')}
             <span class="section-label">Trabajo realizado</span>
             <h2 class="section-title">Qué se hizo</h2>
             <ul class="project-detail__list">
-              ${project.services.map((service) => `<li>${escapeHtml(service)}</li>`).join('')}
+              ${project.services.map((service) => `<li>${escapeHtml(service)}</li>`).join("")}
             </ul>
           </section>
 
@@ -490,7 +512,7 @@ ${renderHeader(prefix, 'portfolio')}
             <span class="section-label">Stack</span>
             <h2 class="section-title">Tecnologías principales</h2>
             <div class="project-detail__tags">
-              ${project.tech.map((item) => `<span class="tag">${escapeHtml(item)}</span>`).join('')}
+              ${project.tech.map((item) => `<span class="tag">${escapeHtml(item)}</span>`).join("")}
             </div>
           </section>
 
@@ -509,7 +531,7 @@ ${renderHeader(prefix, 'portfolio')}
           </div>
           <div class="project-detail__cta-actions">
             <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20una%20web%20parecida%20a%20${encodeURIComponent(project.title)}" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">Pedir una web similar</a>
-            <a href="${navHref(prefix, 'portfolio.html')}" class="btn btn--ghost btn--lg">Volver al portfolio</a>
+            <a href="${navHref(prefix, "portfolio.html")}" class="btn btn--ghost btn--lg">Volver al portfolio</a>
           </div>
         </section>
 
@@ -532,42 +554,49 @@ ${renderFooter(prefix)}
  * @returns {string}
  */
 function renderProductCategoryPage(category) {
-  const prefix = '../../';
+  const prefix = "../../";
   const canonical = `https://webfuengirola.com/productos/${category.slug}/`;
-  const categoryProjects = portfolioProjects.filter((project) => project.productCategorySlug === category.slug);
+  const categoryProjects = portfolioProjects.filter(
+    (project) => project.productCategorySlug === category.slug,
+  );
   const cards = categoryProjects
-    .map((project) => renderPortfolioCard(project, {
-      detailHref: `${prefix}portfolio/${project.slug}/`,
-      imagePrefix: prefix,
-    }))
-    .join('\n');
+    .map((project) =>
+      renderPortfolioCard(project, {
+        detailHref: `${prefix}portfolio/${project.slug}/`,
+        imagePrefix: prefix,
+      }),
+    )
+    .join("\n");
   const siblingLinks = productCategories
     .filter((item) => item.slug !== category.slug)
-    .map((item) => `<a href="../${item.slug}/" class="project-detail__related-link">${escapeHtml(item.label)}</a>`)
-    .join('');
-  const examplesLabel = `${categoryProjects.length} ejemplo${categoryProjects.length === 1 ? '' : 's'} real${categoryProjects.length === 1 ? '' : 'es'}`;
+    .map(
+      (item) =>
+        `<a href="../${item.slug}/" class="project-detail__related-link">${escapeHtml(item.label)}</a>`,
+    )
+    .join("");
+  const examplesLabel = `${categoryProjects.length} ejemplo${categoryProjects.length === 1 ? "" : "s"} real${categoryProjects.length === 1 ? "" : "es"}`;
 
   return `<!DOCTYPE html>
 <html lang="es">
 ${renderHead({
-    title: category.seoTitle,
-    description: category.seoDescription,
-    canonical,
-    ogTitle: category.seoTitle,
-    ogDescription: category.seoDescription,
-    ogImage: 'https://webfuengirola.com/img/og-cover.jpg',
-    ogAlt: `Ejemplos de ${category.label} en Web Fuengirola`,
-    preloadImage: 'img/og-cover.webp',
-    prefix,
-  })}
+  title: category.seoTitle,
+  description: category.seoDescription,
+  canonical,
+  ogTitle: category.seoTitle,
+  ogDescription: category.seoDescription,
+  ogImage: "https://webfuengirola.com/img/og-cover.jpg",
+  ogAlt: `Ejemplos de ${category.label} en Web Fuengirola`,
+  preloadImage: "img/og-cover.webp",
+  prefix,
+})}
 <body>
-${renderHeader(prefix, 'services')}
+${renderHeader(prefix, "services")}
 
   <main class="project-page">
     <section class="subpage-hero project-subhero">
       <div class="container project-subhero__inner">
         <nav class="project-breadcrumb" aria-label="Breadcrumb">
-          <a href="${navHref(prefix, 'servicios.html')}">Servicios</a>
+          <a href="${navHref(prefix, "servicios.html")}">Servicios</a>
           <span>/</span>
           <span>${escapeHtml(category.label)}</span>
         </nav>
@@ -613,7 +642,7 @@ ${cards}
           </div>
           <div class="project-detail__cta-actions">
             <a href="https://wa.me/34622923988?text=${encodeURIComponent(category.whatsappText)}" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">Pedir algo parecido</a>
-            <a href="${navHref(prefix, 'portfolio.html')}" class="btn btn--ghost btn--lg">Ver todo el portfolio</a>
+            <a href="${navHref(prefix, "portfolio.html")}" class="btn btn--ghost btn--lg">Ver todo el portfolio</a>
           </div>
         </section>
 
@@ -636,9 +665,9 @@ ${renderFooter(prefix, category.whatsappText)}
  */
 function renderSitemap() {
   const urls = [
-    { loc: 'https://webfuengirola.com/', lastmod: today },
-    { loc: 'https://webfuengirola.com/servicios.html', lastmod: today },
-    { loc: 'https://webfuengirola.com/portfolio.html', lastmod: today },
+    { loc: "https://webfuengirola.com/", lastmod: today },
+    { loc: "https://webfuengirola.com/servicios.html", lastmod: today },
+    { loc: "https://webfuengirola.com/portfolio.html", lastmod: today },
     ...productCategories.map((category) => ({
       loc: `https://webfuengirola.com/productos/${category.slug}/`,
       lastmod: today,
@@ -647,13 +676,13 @@ function renderSitemap() {
       loc: `https://webfuengirola.com/portfolio/${project.slug}/`,
       lastmod: today,
     })),
-    { loc: 'https://webfuengirola.com/proceso.html', lastmod: today },
-    { loc: 'https://webfuengirola.com/legal.html', lastmod: today },
+    { loc: "https://webfuengirola.com/proceso.html", lastmod: today },
+    { loc: "https://webfuengirola.com/legal.html", lastmod: today },
   ];
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((entry) => `  <url>\n    <loc>${entry.loc}</loc>\n    <lastmod>${entry.lastmod}</lastmod>\n  </url>`).join('\n')}
+${urls.map((entry) => `  <url>\n    <loc>${entry.loc}</loc>\n    <lastmod>${entry.lastmod}</lastmod>\n  </url>`).join("\n")}
 </urlset>
 `;
 }
@@ -664,21 +693,33 @@ ${urls.map((entry) => `  <url>\n    <loc>${entry.loc}</loc>\n    <lastmod>${entr
 function build() {
   ensureDir(portfolioDir);
   ensureDir(productsDir);
-  fs.writeFileSync(path.join(rootDir, 'portfolio.html'), renderPortfolioListing(), 'utf8');
+  fs.writeFileSync(
+    path.join(rootDir, "portfolio.html"),
+    renderPortfolioListing(),
+    "utf8",
+  );
 
   for (const project of portfolioProjects) {
     const detailDir = path.join(portfolioDir, project.slug);
     ensureDir(detailDir);
-    fs.writeFileSync(path.join(detailDir, 'index.html'), renderDetailPage(project), 'utf8');
+    fs.writeFileSync(
+      path.join(detailDir, "index.html"),
+      renderDetailPage(project),
+      "utf8",
+    );
   }
 
   for (const category of productCategories) {
     const categoryDir = path.join(productsDir, category.slug);
     ensureDir(categoryDir);
-    fs.writeFileSync(path.join(categoryDir, 'index.html'), renderProductCategoryPage(category), 'utf8');
+    fs.writeFileSync(
+      path.join(categoryDir, "index.html"),
+      renderProductCategoryPage(category),
+      "utf8",
+    );
   }
 
-  fs.writeFileSync(path.join(rootDir, 'sitemap.xml'), renderSitemap(), 'utf8');
+  fs.writeFileSync(path.join(rootDir, "sitemap.xml"), renderSitemap(), "utf8");
 }
 
 build();

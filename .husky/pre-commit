@@ -1,1 +1,5 @@
+#!/bin/sh
+set -eu
 npx lint-staged
+npm run secrets:scan:staged
+npm run check

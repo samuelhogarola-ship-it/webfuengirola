@@ -109,7 +109,7 @@
 
   <link rel="preload" href="cookie-banner-core.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="cookie-banner-core.css" /></noscript>
-  <link rel="stylesheet" href="style.css?v=8" />
+  <link rel="stylesheet" href="style.css?v=9" />
 </head>
 <body>
 
@@ -125,7 +125,7 @@
       <nav class="nav" id="nav" aria-label="Navegación principal">
         <ul class="nav__list">
           <li><a href="#inicio" class="nav__link" data-i18n="navHome">Inicio</a></li>
-          <li><a href="servicios.html" class="nav__link" data-i18n="navServices">Servicios</a></li>
+          <li><a href="servicios.html" class="nav__link" data-i18n="navServices" data-page-transition="services">Servicios</a></li>
           <li><a href="portfolio.html" class="nav__link" data-i18n="navPortfolio">Portfolio</a></li>
           <li><a href="proceso.html" class="nav__link" data-i18n="navProcess">Proceso</a></li>
           <li><a href="blog/" class="nav__link">Blog</a></li>
@@ -151,155 +151,122 @@
   </header>
 
   <main>
-
     <!-- ============================================================
          HERO
     ============================================================ -->
-    <section class="hero" id="inicio">
-      <div class="container hero__inner">
-        <div class="hero__content">
-          <span class="badge" data-i18n="heroBadge">Disponible en 48 horas</span>
-          <h1 class="hero__title" data-i18n="heroTitle">La web que tu negocio se merece.</h1>
-          <p class="hero__subtitle" data-i18n="heroSubtitle">Webs rápidas y profesionales con todo lo que necesitas para llegar a más clientes.</p>
-          <div class="hero__highlights">
-            <div class="hero__highlight">
-              <strong>300€ + IVA</strong>
-              <span>Web profesional básica.</span>
-              <a href="servicios.html#web-express" class="hero__highlight-link">Saber más</a>
-            </div>
-          </div>
-          <div class="hero__actions">
+    <section class="hero hero--cinematic" id="inicio">
+      <!-- Background: replace div with <video autoplay muted loop playsinline> when ready -->
+      <div class="hero__cin-bg" aria-hidden="true">
+        <div class="hero__cin-anim"></div>
+        <div class="hero__cin-overlay"></div>
+        <div class="hero__cin-grid"></div>
+      </div>
+      <div class="container hero__cin-inner">
+        <div class="hero__cin-content">
+          <span class="hero__cin-label" data-i18n="heroBadge">Disponible en 48 horas</span>
+          <h1 class="hero__cin-title" data-i18n="heroTitle">La web que<br>tu negocio<br>se merece.</h1>
+          <p class="hero__cin-sub" data-i18n="heroSubtitle">Webs rápidas y profesionales con todo lo que necesitas para llegar a más clientes.</p>
+          <div class="hero__actions hero__cin-actions">
             <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer" data-i18n="heroPrimaryCta">Pedir presupuesto</a>
-            <a href="#portfolio" class="btn btn--ghost btn--lg" data-i18n="heroSecondaryCta">Ver trabajos</a>
+            <a href="servicios.html" class="btn btn--outline-light btn--lg" data-page-transition="services" data-i18n="servicesExplore">Ver servicios</a>
           </div>
         </div>
-
-        <div class="hero__mockup" aria-hidden="true">
-          <div class="imac-wrap imac-wrap--composite">
-            <img
-              src="img/hero-preview.webp"
-              alt="Preview visual del mockup principal con ordenador e iconos de herramientas web"
-            class="imac-wrap__art"
-            width="860"
-            height="793"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-          />
-          </div>
+        <div class="hero__cin-badge" aria-hidden="true">
+          <span class="hero__cin-badge-num">+50</span>
+          <span class="hero__cin-badge-label">proyectos en la Costa</span>
         </div>
+      </div>
+      <div class="hero__cin-scroll" aria-hidden="true">
+        <span class="hero__cin-scroll-line"></span>
       </div>
     </section>
 
     <!-- ============================================================
-         PORTFOLIO
+         SERVICIOS
     ============================================================ -->
-    <section class="portfolio" id="portfolio">
+    <section class="services" id="servicios">
       <div class="container">
         <div class="section-header">
-          <span class="section-label" data-i18n="navPortfolio">Portfolio</span>
-          <h2 class="section-title" data-i18n="portfolioTitle">Proyectos para negocios locales</h2>
-          <p class="section-sub" data-i18n="portfolioSub">Cada web es diferente. Estas son algunas de las que hemos creado para comercios de la zona.</p>
+          <span class="section-label" data-i18n="servicesLabel">Servicios</span>
+          <h2 class="section-title" data-i18n="servicesTitle">Oferta clara para negocio local y desarrollo a medida</h2>
         </div>
-        <div class="portfolio__grid">
+        <div class="services-editorial" data-services-editorial>
+          <button type="button" class="services-editorial__item is-active" data-services-item data-service-preview="lite" aria-expanded="true">
+            <span class="services-editorial__index" aria-hidden="true">01</span>
+            <span class="services-editorial__main">
+              <span class="services-editorial__title" data-i18n="serviceLiteTitle">Página Web Lite</span>
+              <span class="services-editorial__price">200€ <span data-i18n="vatLabel">+ IVA</span></span>
+            </span>
+            <span class="services-editorial__meta">
+              <span class="services-editorial__summary" data-i18n="serviceLiteDesc">Una página sencilla para tener escaparate online cuanto antes. Pensada para negocios que ya tienen su clientela y solo necesitan estar bien visibles.</span>
+            </span>
+            <span class="services-editorial__arrow" aria-hidden="true">+</span>
+          </button>
 
-          <article class="portfolio-card">
-            <a href="https://www.vokabellab.com" target="_blank" rel="noopener noreferrer" class="portfolio-card__img-link">
-              <img src="img/vokabellab.webp" alt="Captura de pantalla de Vokabellab" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
-            </a>
-            <div class="portfolio-card__body">
-              <h3 class="portfolio-card__title">Vokabellab</h3>
-              <p class="portfolio-card__desc" data-i18n="portfolio1Desc">Plataforma de aprendizaje de vocabulario. Diseño limpio y funcional centrado en la experiencia del usuario.</p>
-              <div class="portfolio-card__tags">
-                <span class="tag tag--blue" data-i18n="portfolioTagWebApp">Web app</span>
-                <span class="tag tag--green" data-i18n="portfolioTagEducation">Educación</span>
-              </div>
-              <a href="https://www.vokabellab.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm" data-i18n="viewSite">Ver web</a>
-            </div>
-          </article>
+          <button type="button" class="services-editorial__item" data-services-item data-service-preview="express" aria-expanded="false">
+            <span class="services-editorial__index" aria-hidden="true">02</span>
+            <span class="services-editorial__main">
+              <span class="services-editorial__title" data-i18n="service1Title">Web Express</span>
+              <span class="services-editorial__price">300€ <span data-i18n="vatLabel">+ IVA</span></span>
+            </span>
+            <span class="services-editorial__meta">
+              <span class="services-editorial__summary" data-i18n="service1Desc">Una sola página, estructura cerrada y mensaje claro. La forma más directa de salir online con buena presencia.</span>
+            </span>
+            <span class="services-editorial__arrow" aria-hidden="true">+</span>
+          </button>
 
-          <article class="portfolio-card">
-            <a href="https://www.samuelcoachdealeman.com" target="_blank" rel="noopener noreferrer" class="portfolio-card__img-link">
-              <img src="img/samuel-coach.webp" alt="Captura de pantalla de Samuel Coach de Alemán" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
-            </a>
-            <div class="portfolio-card__body">
-              <h3 class="portfolio-card__title">Samuel Coach de Alemán</h3>
-              <p class="portfolio-card__desc" data-i18n="portfolio2Desc">Web de captación para coach de idiomas. Landing clara con propuesta de valor, servicios y contacto directo.</p>
-              <div class="portfolio-card__tags">
-                <span class="tag tag--purple" data-i18n="portfolioTagLanding">Landing page</span>
-                <span class="tag tag--orange" data-i18n="portfolioTagSeo">SEO</span>
-              </div>
-              <a href="https://www.samuelcoachdealeman.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm" data-i18n="viewSite">Ver web</a>
-            </div>
-          </article>
+          <button type="button" class="services-editorial__item" data-services-item data-service-preview="pro" aria-expanded="false">
+            <span class="services-editorial__index" aria-hidden="true">03</span>
+            <span class="services-editorial__main">
+              <span class="services-editorial__title" data-i18n="service2Title">Web Corporativa / Web Pro</span>
+              <span class="services-editorial__price">Desde 900€ <span data-i18n="vatLabel">+ IVA</span></span>
+            </span>
+            <span class="services-editorial__meta">
+              <span class="services-editorial__summary" data-i18n="service2Desc">Cuando una empresa necesita varias páginas, narrativa más sólida, blog, SEO escalable o integraciones reales.</span>
+            </span>
+            <span class="services-editorial__arrow" aria-hidden="true">+</span>
+          </button>
 
-          <article class="portfolio-card">
-            <a href="https://www.personaltrainerfuengirola.com" target="_blank" rel="noopener noreferrer" class="portfolio-card__img-link">
-              <img src="img/personal-trainer.webp" alt="Captura de pantalla de Personal Trainer Fuengirola" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
-            </a>
-            <div class="portfolio-card__body">
-              <h3 class="portfolio-card__title" data-i18n="portfolio3Title">Personal Trainer Fuengirola</h3>
-              <p class="portfolio-card__desc" data-i18n="portfolio3Desc">Web minimalista de captación para entrenador personal. Servicios, metodología y contacto directo.</p>
-              <div class="portfolio-card__tags">
-                <span class="tag tag--purple" data-i18n="portfolioTagLanding">Landing page</span>
-                <span class="tag tag--red" data-i18n="portfolioTagSport">Deporte</span>
-                <span class="tag tag--orange" data-i18n="portfolioTagLocalSeo">SEO local</span>
-              </div>
-              <a href="https://www.personaltrainerfuengirola.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm" data-i18n="viewSite">Ver web</a>
-            </div>
-          </article>
+          <button type="button" class="services-editorial__item" data-services-item data-service-preview="react" aria-expanded="false">
+            <span class="services-editorial__index" aria-hidden="true">04</span>
+            <span class="services-editorial__main">
+              <span class="services-editorial__title" data-i18n="service3Title">React, chatbots y automatización</span>
+              <span class="services-editorial__price" data-i18n-html="service3PriceHtml">300€ implantación <span>+ 50€ / mes</span></span>
+            </span>
+            <span class="services-editorial__meta">
+              <span class="services-editorial__summary" data-i18n="service3Desc">Bloques técnicos para empresas que ya no necesitan solo una web, sino interacción, eficiencia y captación automatizada.</span>
+            </span>
+            <span class="services-editorial__arrow" aria-hidden="true">+</span>
+          </button>
 
-          <article class="portfolio-card">
-            <a href="https://imkontext.vokabellab.com" target="_blank" rel="noopener noreferrer" class="portfolio-card__img-link">
-              <img src="img/imkontext.webp" alt="Captura de pantalla de Im Kontext Vokabellab" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
-            </a>
-            <div class="portfolio-card__body">
-              <h3 class="portfolio-card__title" data-i18n="portfolio4Title">Im Kontext — Vokabellab</h3>
-              <p class="portfolio-card__desc" data-i18n="portfolio4Desc">Herramienta de aprendizaje de alemán en contexto. Diseño enfocado en la usabilidad y la experiencia de aprendizaje.</p>
-              <div class="portfolio-card__tags">
-                <span class="tag tag--blue" data-i18n="portfolioTagWebApp">Web app</span>
-                <span class="tag tag--green" data-i18n="portfolioTagEducation">Educación</span>
-              </div>
-              <a href="https://imkontext.vokabellab.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm" data-i18n="viewSite">Ver web</a>
-            </div>
-          </article>
-
+          <button type="button" class="services-editorial__item" data-services-item data-service-preview="apps" aria-expanded="false">
+            <span class="services-editorial__index" aria-hidden="true">05</span>
+            <span class="services-editorial__main">
+              <span class="services-editorial__title" data-i18n="service4Title">Apps y herramientas a medida</span>
+              <span class="services-editorial__price">2500€ <span data-i18n="vatLabel">+ IVA</span></span>
+            </span>
+            <span class="services-editorial__meta">
+              <span class="services-editorial__summary" data-i18n="service4Desc">Web apps, proyectos con Node, apps Android y herramientas internas para operaciones, reservas o gestión de clientes.</span>
+            </span>
+            <span class="services-editorial__arrow" aria-hidden="true">+</span>
+          </button>
         </div>
-        <div style="text-align:center;margin-top:2.5rem;">
-          <a href="portfolio.html" class="btn btn--outline btn--lg">Ver todos los proyectos</a>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ============================================================
-         CONFIANZA
-    ============================================================ -->
-    <section class="trust" id="confianza">
-      <div class="container">
-        <p class="trust__headline" data-i18n-html="trustHeadline">Una web no tiene que ser complicada.<br/>Tiene que explicar bien tu negocio.</p>
-        <div class="trust__blocks">
-          <div class="trust__block">
-            <div class="trust__icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/><path d="M10 16l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <h3 class="trust__block-title" data-i18n="trust1Title">Claridad</h3>
-            <p class="trust__block-text" data-i18n="trust1Text">Tus clientes entienden en segundos qué ofreces y por qué deberían elegirte a ti.</p>
-          </div>
-          <div class="trust__block">
-            <div class="trust__icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="6" width="24" height="18" rx="3" stroke="currentColor" stroke-width="2"/><path d="M10 28h12M16 24v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            </div>
-            <h3 class="trust__block-title" data-i18n="trust2Title">Presencia online</h3>
-            <p class="trust__block-text" data-i18n="trust2Text">Aparece en Google cuando alguien busca tu servicio cerca. Sin web, no existes en el mapa digital.</p>
-          </div>
-          <div class="trust__block">
-            <div class="trust__icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 6h20v16H6z" rx="2" stroke="currentColor" stroke-width="2"/><path d="M10 28l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13" cy="13" r="2" stroke="currentColor" stroke-width="2"/></svg>
-            </div>
-            <h3 class="trust__block-title" data-i18n="trust3Title">Contacto directo</h3>
-            <p class="trust__block-text" data-i18n="trust3Text">Un botón de WhatsApp o formulario visible convierte visitas en clientes reales, sin complicaciones.</p>
-          </div>
+        <div class="services-preview" aria-hidden="true">
+          <figure class="services-preview__card is-active" data-service-preview-card="lite">
+            <img src="img/agama.webp" alt="" width="800" height="800" loading="lazy" decoding="async">
+          </figure>
+          <figure class="services-preview__card" data-service-preview-card="express">
+            <img src="img/personal-trainer.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
+          </figure>
+          <figure class="services-preview__card" data-service-preview-card="pro">
+            <img src="img/clinica-demo-v2.webp" alt="" width="1600" height="900" loading="lazy" decoding="async">
+          </figure>
+          <figure class="services-preview__card" data-service-preview-card="react">
+            <img src="img/chatbots-illustration.svg" alt="" width="800" height="600" loading="lazy" decoding="async">
+          </figure>
+          <figure class="services-preview__card" data-service-preview-card="apps">
+            <img src="img/apps-phone-illustration.svg" alt="" width="800" height="600" loading="lazy" decoding="async">
+          </figure>
         </div>
       </div>
     </section>
@@ -328,10 +295,6 @@
           <div class="problem__stat-card">
             <span class="problem__stat-num">53%</span>
             <span class="problem__stat-desc" data-i18n="problemStat2">abandona una web que tarda más de 3 segundos en cargar en móvil</span>
-          </div>
-          <div class="problem__stat-card">
-            <span class="problem__stat-num">48h</span>
-            <span class="problem__stat-desc" data-i18n="problemStat3">es todo lo que necesitas para tener una web profesional publicada</span>
           </div>
         </div>
       </div>
@@ -407,89 +370,81 @@
     </section>
 
     <!-- ============================================================
-         SERVICIOS
+         PORTFOLIO
     ============================================================ -->
-    <section class="services" id="servicios">
+    <section class="portfolio" id="portfolio">
       <div class="container">
         <div class="section-header">
-          <span class="section-label" data-i18n="servicesLabel">Servicios</span>
-          <h2 class="section-title" data-i18n="servicesTitle">Oferta clara para negocio local y desarrollo a medida</h2>
+          <span class="section-label" data-i18n="navPortfolio">Portfolio</span>
+          <h2 class="section-title" data-i18n="portfolioTitle">Proyectos para negocios locales</h2>
+          <p class="section-sub" data-i18n="portfolioSub">Cada web es diferente. Estas son algunas de las que hemos creado para comercios de la zona.</p>
         </div>
-        <div class="services__grid">
+        <div class="portfolio__grid">
 
-          <div class="service-card service-card--entry">
-            <div class="service-card__eyebrow" data-i18n="serviceLiteEyebrow">Entrada rápida</div>
-            <h3 class="service-card__title" data-i18n="serviceLiteTitle">Página Web Lite</h3>
-            <p class="service-card__price">200€ <span data-i18n="vatLabel">+ IVA</span></p>
-            <p class="service-card__desc" data-i18n="serviceLiteDesc">Una página sencilla para tener escaparate online cuanto antes. Pensada para negocios que ya tienen su clientela y solo necesitan estar bien visibles.</p>
-            <ul class="service-card__features">
-              <li data-i18n="serviceLiteFeature1">1 sola página tipo escaparate</li>
-              <li data-i18n="serviceLiteFeature2">WhatsApp, correo y dirección visibles</li>
-              <li data-i18n="serviceLiteFeature3">SEO base de publicación incluido</li>
-              <li data-i18n="serviceLiteFeature4">Menos trabajo SEO y menos conversión que la Landing</li>
-              <li data-i18n="serviceLiteFeature5">Buena para empezar y ampliar después</li>
-            </ul>
-            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20la%20P%C3%A1gina%20Web%20Lite%20para%20mi%20negocio" class="btn btn--ghost btn--full" target="_blank" rel="noopener noreferrer" data-i18n="serviceLiteCta">Quiero esta opción</a>
-          </div>
+          <article class="portfolio-card" data-reveal>
+            <a href="https://www.vokabellab.com" target="_blank" rel="noopener noreferrer" class="portfolio-card__img-link">
+              <img src="img/vokabellab.webp" alt="Captura de pantalla de Vokabellab" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
+            </a>
+            <div class="portfolio-card__body">
+              <h3 class="portfolio-card__title">Vokabellab</h3>
+              <p class="portfolio-card__desc" data-i18n="portfolio1Desc">Plataforma de aprendizaje de vocabulario. Diseño limpio y funcional centrado en la experiencia del usuario.</p>
+              <div class="portfolio-card__tags">
+                <span class="tag tag--blue" data-i18n="portfolioTagWebApp">Web app</span>
+                <span class="tag tag--green" data-i18n="portfolioTagEducation">Educación</span>
+              </div>
+              <a href="https://www.vokabellab.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm" data-i18n="viewSite">Ver web</a>
+            </div>
+          </article>
 
-          <div class="service-card service-card--featured">
-            <div class="service-card__badge" data-i18n="servicePopular">Más popular</div>
-            <h3 class="service-card__title" data-i18n="service1Title">Web Express</h3>
-            <p class="service-card__price">300€ <span data-i18n="vatLabel">+ IVA</span></p>
-            <p class="service-card__desc" data-i18n="service1Desc">Una sola página, estructura cerrada y mensaje claro. La forma más directa de salir online con buena presencia.</p>
-            <ul class="service-card__features">
-              <li data-i18n="service1Feature1">Landing corporativa de 1 página</li>
-              <li data-i18n="service1Feature2">Responsive y copy orientado a conversión</li>
-              <li data-i18n="service1Feature3">WhatsApp, formulario y SEO básico</li>
-              <li data-i18n="service1Feature4">Sin lógica avanzada ni integraciones</li>
-              <li data-i18n="service1Feature5">Entrega rápida con alcance definido</li>
-              <li data-i18n="service1Feature6">Ideal para negocios locales y autónomos</li>
-              <li data-i18n="service1Feature7">1 ronda de revisiones incluida</li>
-            </ul>
-            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--primary btn--full" target="_blank" rel="noopener noreferrer" data-i18n="service1Cta">Pedir esta web</a>
-          </div>
+          <article class="portfolio-card" data-reveal>
+            <a href="https://www.samuelcoachdealeman.com" target="_blank" rel="noopener noreferrer" class="portfolio-card__img-link">
+              <img src="img/samuel-coach.webp" alt="Captura de pantalla de Samuel Coach de Alemán" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
+            </a>
+            <div class="portfolio-card__body">
+              <h3 class="portfolio-card__title">Samuel Coach de Alemán</h3>
+              <p class="portfolio-card__desc" data-i18n="portfolio2Desc">Web de captación para coach de idiomas. Landing clara con propuesta de valor, servicios y contacto directo.</p>
+              <div class="portfolio-card__tags">
+                <span class="tag tag--purple" data-i18n="portfolioTagLanding">Landing page</span>
+                <span class="tag tag--orange" data-i18n="portfolioTagSeo">SEO</span>
+              </div>
+              <a href="https://www.samuelcoachdealeman.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm" data-i18n="viewSite">Ver web</a>
+            </div>
+          </article>
 
-          <div class="service-card">
-            <h3 class="service-card__title" data-i18n="service2Title">Web Corporativa / Web Pro</h3>
-            <p class="service-card__price">Desde 900€ <span data-i18n="vatLabel">+ IVA</span></p>
-            <p class="service-card__desc" data-i18n="service2Desc">Cuando una empresa necesita varias páginas, narrativa más sólida, blog, SEO escalable o integraciones reales.</p>
-            <ul class="service-card__features">
-              <li data-i18n="service2Feature1">Arquitectura de contenidos más completa</li>
-              <li data-i18n="service2Feature2">Páginas adicionales y mejor jerarquía SEO</li>
-              <li data-i18n="service2Feature3">Blog, formularios avanzados o reservas</li>
-              <li data-i18n="service2Feature4">Integraciones y alcance editorial superior</li>
-              <li data-i18n="service2Feature5">Presupuesto adaptado a negocio y objetivos</li>
-            </ul>
-            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--outline btn--full" target="_blank" rel="noopener noreferrer" data-i18n="service2Cta">Solicitar presupuesto</a>
-          </div>
+          <article class="portfolio-card" data-reveal>
+            <a href="https://www.personaltrainerfuengirola.com" target="_blank" rel="noopener noreferrer" class="portfolio-card__img-link">
+              <img src="img/personal-trainer.webp" alt="Captura de pantalla de Personal Trainer Fuengirola" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
+            </a>
+            <div class="portfolio-card__body">
+              <h3 class="portfolio-card__title" data-i18n="portfolio3Title">Personal Trainer Fuengirola</h3>
+              <p class="portfolio-card__desc" data-i18n="portfolio3Desc">Web minimalista de captación para entrenador personal. Servicios, metodología y contacto directo.</p>
+              <div class="portfolio-card__tags">
+                <span class="tag tag--purple" data-i18n="portfolioTagLanding">Landing page</span>
+                <span class="tag tag--red" data-i18n="portfolioTagSport">Deporte</span>
+                <span class="tag tag--orange" data-i18n="portfolioTagLocalSeo">SEO local</span>
+              </div>
+              <a href="https://www.personaltrainerfuengirola.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm" data-i18n="viewSite">Ver web</a>
+            </div>
+          </article>
 
-          <div class="service-card">
-            <h3 class="service-card__title" data-i18n="service3Title">React, chatbots y automatización</h3>
-            <p class="service-card__price">Desde 600€ <span data-i18n="vatLabel">+ IVA</span></p>
-            <p class="service-card__desc" data-i18n="service3Desc">Bloques técnicos para empresas que ya no necesitan solo una web, sino interacción, eficiencia y captación automatizada.</p>
-            <ul class="service-card__features">
-              <li data-i18n="service3Feature1">Páginas dinámicas con React desde 1.400€</li>
-              <li data-i18n="service3Feature2">Chatbots de soporte o captación desde 600€</li>
-              <li data-i18n="service3Feature3">Automatización de tareas y flujos internos</li>
-              <li data-i18n="service3Feature4">Setup modular según alcance real</li>
-            </ul>
-            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--outline btn--full" target="_blank" rel="noopener noreferrer" data-i18n="consultPrice">Consultar precio</a>
-          </div>
+          <article class="portfolio-card" data-reveal>
+            <a href="https://imkontext.vokabellab.com" target="_blank" rel="noopener noreferrer" class="portfolio-card__img-link">
+              <img src="img/imkontext.webp" alt="Captura de pantalla de Im Kontext Vokabellab" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
+            </a>
+            <div class="portfolio-card__body">
+              <h3 class="portfolio-card__title" data-i18n="portfolio4Title">Im Kontext — Vokabellab</h3>
+              <p class="portfolio-card__desc" data-i18n="portfolio4Desc">Herramienta de aprendizaje de alemán en contexto. Diseño enfocado en la usabilidad y la experiencia de aprendizaje.</p>
+              <div class="portfolio-card__tags">
+                <span class="tag tag--blue" data-i18n="portfolioTagWebApp">Web app</span>
+                <span class="tag tag--green" data-i18n="portfolioTagEducation">Educación</span>
+              </div>
+              <a href="https://imkontext.vokabellab.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm" data-i18n="viewSite">Ver web</a>
+            </div>
+          </article>
 
-          <div class="service-card">
-            <h3 class="service-card__title" data-i18n="service4Title">Apps y herramientas a medida</h3>
-            <p class="service-card__price">Desde 1.800€ <span data-i18n="vatLabel">+ IVA</span></p>
-            <p class="service-card__desc" data-i18n="service4Desc">Web apps, proyectos con Node, apps Android y herramientas internas para operaciones, reservas o gestión de clientes.</p>
-            <ul class="service-card__features">
-              <li data-i18n="service4Feature1">Web apps y paneles internos</li>
-              <li data-i18n="service4Feature2">Backends Node y lógica de negocio</li>
-              <li data-i18n="service4Feature3">Apps Android orientadas a operaciones</li>
-              <li data-i18n="service4Feature4">Optimización de flujos de trabajo</li>
-              <li data-i18n="service4Feature5">Presupuesto premium con alcance cerrado</li>
-            </ul>
-            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--outline btn--full" target="_blank" rel="noopener noreferrer" data-i18n="consultPrice">Consultar precio</a>
-          </div>
-
+        </div>
+        <div style="text-align:center;margin-top:2.5rem;">
+          <a href="portfolio.html" class="btn btn--outline btn--lg">Ver todos los proyectos</a>
         </div>
       </div>
     </section>
@@ -506,7 +461,7 @@
         </div>
         <div class="process__steps">
 
-          <div class="process__step">
+          <div class="process__step" data-reveal>
             <div class="process__step-num" aria-hidden="true">01</div>
             <div class="process__step-content">
               <h3 class="process__step-title" data-i18n="process1Title">Reunión inicial</h3>
@@ -514,7 +469,7 @@
             </div>
           </div>
 
-          <div class="process__step">
+          <div class="process__step" data-reveal>
             <div class="process__step-num" aria-hidden="true">02</div>
             <div class="process__step-content">
               <h3 class="process__step-title" data-i18n="process2Title">Fotos y contenido</h3>
@@ -522,7 +477,7 @@
             </div>
           </div>
 
-          <div class="process__step">
+          <div class="process__step" data-reveal>
             <div class="process__step-num" aria-hidden="true">03</div>
             <div class="process__step-content">
               <h3 class="process__step-title" data-i18n="process3Title">Diseño y publicación</h3>
@@ -530,7 +485,7 @@
             </div>
           </div>
 
-          <div class="process__step">
+          <div class="process__step" data-reveal>
             <div class="process__step-num" aria-hidden="true">04</div>
             <div class="process__step-content">
               <h3 class="process__step-title" data-i18n="process4Title">Revisión final</h3>
@@ -557,7 +512,7 @@
         </div>
         <div class="maintenance__grid">
 
-          <div class="maintenance__plan">
+          <div class="maintenance__plan" data-reveal>
             <h3 class="maintenance__plan-title" data-i18n="maintenance1Title">Básico</h3>
             <p class="maintenance__plan-desc" data-i18n="maintenance1Desc">Para negocios que necesitan pocos cambios al año. Actualizaciones puntuales de textos, horarios o fotos.</p>
             <ul class="maintenance__list">
@@ -568,7 +523,7 @@
             <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--ghost btn--sm" target="_blank" rel="noopener noreferrer" data-i18n="consultPrice">Consultar precio</a>
           </div>
 
-          <div class="maintenance__plan maintenance__plan--highlight">
+          <div class="maintenance__plan maintenance__plan--highlight" data-reveal>
             <h3 class="maintenance__plan-title" data-i18n="maintenance2Title">Medio</h3>
             <p class="maintenance__plan-desc" data-i18n="maintenance2Desc">Para negocios activos que actualizan ofertas, añaden secciones o quieren cambios periódicos.</p>
             <ul class="maintenance__list">
@@ -580,7 +535,7 @@
             <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--primary btn--sm" target="_blank" rel="noopener noreferrer" data-i18n="consultPrice">Consultar precio</a>
           </div>
 
-          <div class="maintenance__plan">
+          <div class="maintenance__plan" data-reveal>
             <h3 class="maintenance__plan-title" data-i18n="maintenance3Title">Pro</h3>
             <p class="maintenance__plan-desc" data-i18n="maintenance3Desc">Para proyectos en crecimiento que necesitan actualizaciones constantes y soporte continuo.</p>
             <ul class="maintenance__list">
@@ -618,43 +573,138 @@
     ============================================================ -->
     <section class="cta-final" id="contacto">
       <div class="container cta-final__inner">
-        <div class="cta-final__content">
-          <h2 class="cta-final__title" data-i18n-html="ctaTitle">¿Tienes un negocio local<br/>y necesitas una web clara?</h2>
-          <p class="cta-final__sub" data-i18n="ctaSub">Cuéntanos qué haces y te decimos cómo podemos ayudarte. Sin compromiso, sin tecnicismos.</p>
-          <div class="cta-final__actions">
-            <a
-              href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio"
-              class="btn btn--whatsapp btn--lg"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-              <span data-i18n="ctaWhatsapp">Hablar por WhatsApp</span>
-            </a>
-            <a href="mailto:info@webfuengirola.com" class="btn btn--outline btn--lg">
-              <span data-i18n="ctaEmail">Enviar un email</span>
-            </a>
-          </div>
-          <form class="contact-form" action="https://formsubmit.co/info@webfuengirola.com" method="POST">
-            <input type="hidden" name="_subject" value="Nuevo contacto desde webfuengirola.com"/>
-            <input type="hidden" name="_captcha" value="false"/>
-            <input type="hidden" name="_template" value="table"/>
-            <div class="contact-form__grid">
-              <label class="contact-form__field">
-                <span>Nombre</span>
-                <input type="text" name="nombre" autocomplete="name" required/>
-              </label>
-              <label class="contact-form__field">
-                <span>Email</span>
-                <input type="email" name="email" autocomplete="email" required/>
-              </label>
+        <div class="cta-final__content cta-final__content--calculator">
+          <div class="calc-v3" data-calc-v3>
+
+            <div class="calc-v3__head">
+              <span class="section-label">Calculadora</span>
+              <h2 class="cta-final__title">Calcula tu presupuesto en 3 pasos</h2>
+              <p class="cta-final__sub">Responde unas preguntas rápidas y verás el precio actualizarse al instante.</p>
             </div>
-            <label class="contact-form__field">
-              <span>Cuéntanos qué necesitas</span>
-              <textarea name="mensaje" rows="5" required></textarea>
-            </label>
-            <button type="submit" class="btn btn--primary btn--lg">Enviar formulario</button>
-          </form>
+
+            <div class="calc-v3__card">
+              <div class="calc-v3__top">
+                <button type="button" class="calc-v3__back" data-calc-v3-back hidden>← Atrás</button>
+                <div class="calc-v3__progress" data-calc-v3-progress>
+                  <span class="calc-v3__dot is-active" data-step-dot="pages"></span>
+                  <span class="calc-v3__dot" data-step-dot="maintenance"></span>
+                  <span class="calc-v3__dot" data-step-dot="extras"></span>
+                  <span class="calc-v3__dot" data-step-dot="summary"></span>
+                </div>
+              </div>
+
+              <div class="calc-v3__stage">
+
+                <!-- STEP 1: páginas -->
+                <div class="calc-v3__step is-active" data-calc-v3-step="pages">
+                  <h3 class="calc-v3__question">¿Cuántas páginas necesitas?</h3>
+                  <div class="calc-v3__grid">
+                    <button type="button" class="calc-v3__opt" data-pages-opt data-price="200">
+                      <span class="calc-v3__opt-num">1</span>
+                      <span class="calc-v3__opt-label">página</span>
+                    </button>
+                    <button type="button" class="calc-v3__opt" data-pages-opt data-price="250">
+                      <span class="calc-v3__opt-num">2</span>
+                      <span class="calc-v3__opt-label">páginas</span>
+                    </button>
+                    <button type="button" class="calc-v3__opt" data-pages-opt data-price="300">
+                      <span class="calc-v3__opt-num">3</span>
+                      <span class="calc-v3__opt-label">páginas</span>
+                    </button>
+                    <button type="button" class="calc-v3__opt" data-pages-opt data-price="600">
+                      <span class="calc-v3__opt-num">4+</span>
+                      <span class="calc-v3__opt-label">páginas</span>
+                    </button>
+                  </div>
+                  <div class="calc-v3__alt">
+                    <button type="button" class="calc-v3__alt-link" data-calc-v3-jump="custom">¿Necesitas usuarios o pasarela de pagos? Algo personalizado →</button>
+                    <button type="button" class="calc-v3__alt-link" data-calc-v3-jump="optimize">¿Quieres optimizar tu negocio con IA? →</button>
+                  </div>
+                </div>
+
+                <!-- STEP 2: mantenimiento -->
+                <div class="calc-v3__step" data-calc-v3-step="maintenance">
+                  <h3 class="calc-v3__question">¿Qué servicios de mantenimiento necesitas?</h3>
+                  <div class="calc-v3__list">
+                    <button type="button" class="calc-v3__row" data-maint-opt data-price="0">
+                      <span class="calc-v3__row-name">Sin mantenimiento</span>
+                      <span class="calc-v3__row-price">incluido</span>
+                    </button>
+                    <button type="button" class="calc-v3__row" data-maint-opt data-price="50">
+                      <span class="calc-v3__row-name">Básico — hasta 5 cambios menores al mes</span>
+                      <span class="calc-v3__row-price">+50€/mes</span>
+                    </button>
+                    <button type="button" class="calc-v3__row" data-maint-opt data-price="100">
+                      <span class="calc-v3__row-name">Avanzado — hasta 10 cambios + 2 modificaciones de estilo</span>
+                      <span class="calc-v3__row-price">+100€/mes</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- STEP 3: extras -->
+                <div class="calc-v3__step" data-calc-v3-step="extras">
+                  <h3 class="calc-v3__question">¿Algún extra más?</h3>
+                  <div class="calc-v3__list">
+                    <label class="calc-v3__row calc-v3__row--check">
+                      <input type="checkbox" data-extra-opt data-price="25">
+                      <span class="calc-v3__row-name">Google Site — gestión de ficha de Google Business</span>
+                      <span class="calc-v3__row-price">+25€/mes</span>
+                    </label>
+                    <label class="calc-v3__row calc-v3__row--check">
+                      <input type="checkbox" data-extra-opt data-price="25">
+                      <span class="calc-v3__row-name">Analíticas — seguimiento mensual de visitas e informe</span>
+                      <span class="calc-v3__row-price">+25€/mes</span>
+                    </label>
+                  </div>
+                  <button type="button" class="btn btn--primary btn--lg calc-v3__continue" data-calc-v3-continue>Continuar</button>
+                </div>
+
+                <!-- STEP 4: resumen -->
+                <div class="calc-v3__step" data-calc-v3-step="summary">
+                  <h3 class="calc-v3__question">Tu presupuesto está listo</h3>
+                  <p class="calc-v3__summary-note">Precio orientativo. El coste final se cierra en la reunión inicial.</p>
+                  <div class="calc-v3__summary-actions">
+                    <a href="#" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener noreferrer" data-calc-v3-wa>
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                      Pedir este presupuesto
+                    </a>
+                    <a href="mailto:info@webfuengirola.com?subject=Presupuesto%20web%20WF%20Studio" class="btn btn--outline btn--lg" data-calc-v3-email>
+                      Enviar por email
+                    </a>
+                  </div>
+                </div>
+
+                <!-- ALT: personalizado -->
+                <div class="calc-v3__step calc-v3__step--alt" data-calc-v3-step="custom">
+                  <p class="calc-v3__alt-eyebrow">Proyecto personalizado</p>
+                  <h3 class="calc-v3__question">Cuéntanos qué tienes en mente</h3>
+                  <p class="calc-v3__alt-desc">Usuarios, pasarela de pagos, lógica a medida... Para proyectos especiales hacemos una reunión gratuita para entender bien lo que necesitas y darte un presupuesto real.</p>
+                  <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20hablar%20sobre%20un%20proyecto%20personalizado" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                    Escribirnos por WhatsApp
+                  </a>
+                </div>
+
+                <!-- ALT: optimizar -->
+                <div class="calc-v3__step calc-v3__step--alt" data-calc-v3-step="optimize">
+                  <p class="calc-v3__alt-eyebrow">Optimización con IA</p>
+                  <h3 class="calc-v3__question">Concierta una cita gratuita</h3>
+                  <p class="calc-v3__alt-desc">Analizamos tus flujos de trabajo actuales y encontramos dónde puedes ahorrar tiempo y dinero con automatizaciones, chatbots o herramientas a medida.</p>
+                  <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20concertar%20una%20cita%20para%20optimizar%20mi%20negocio" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">
+                    Concertar cita gratuita
+                  </a>
+                </div>
+
+              </div>
+
+              <div class="calc-v3__price" data-calc-v3-price-wrap hidden>
+                <span class="calc-v3__price-label">Total estimado</span>
+                <strong class="calc-v3__price-value" data-calc-v3-price>0€</strong>
+                <span class="calc-v3__price-monthly" data-calc-v3-monthly></span>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </section>
@@ -676,11 +726,11 @@
       <div class="footer__col">
         <h4 class="footer__col-title" data-i18n="navServices">Servicios</h4>
         <ul class="footer__links">
-          <li><a href="servicios.html#pagina-web-lite" data-i18n="serviceLiteTitle">Página Web Lite</a></li>
-          <li><a href="servicios.html#web-express" data-i18n="service1Title">Web Express</a></li>
-          <li><a href="servicios.html#web-pro" data-i18n="service2Title">Web Corporativa / Web Pro</a></li>
-          <li><a href="servicios.html#react-automatizacion" data-i18n="service3Title">React, chatbots y automatización</a></li>
-          <li><a href="servicios.html#apps-medida" data-i18n="service4Title">Apps y herramientas a medida</a></li>
+          <li><a href="servicios.html#pagina-web-lite" data-i18n="serviceLiteTitle" data-page-transition="services">Página Web Lite</a></li>
+          <li><a href="servicios.html#web-express" data-i18n="service1Title" data-page-transition="services">Web Express</a></li>
+          <li><a href="servicios.html#web-pro" data-i18n="service2Title" data-page-transition="services">Web Corporativa / Web Pro</a></li>
+          <li><a href="servicios.html#react-automatizacion" data-i18n="service3Title" data-page-transition="services">React, chatbots y automatización</a></li>
+          <li><a href="servicios.html#apps-medida" data-i18n="service4Title" data-page-transition="services">Apps y herramientas a medida</a></li>
           <li><a href="#mantenimiento" data-i18n="maintenanceLabel">Mantenimiento</a></li>
         </ul>
       </div>
@@ -712,7 +762,7 @@
 
   <script src="google-analytics-core.js"></script>
   <script src="cookie-banner-core.js"></script>
-  <script src="script.js?v=9"></script>
+  <script src="script.js?v=10"></script>
   <!-- WhatsApp FAB -->
   <a
     href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio"
@@ -724,5 +774,16 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.52 3.48A11.94 11.94 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.17 1.6 5.99L0 24l6.18-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52ZM12 22c-1.85 0-3.67-.5-5.25-1.44l-.38-.22-3.67.96.98-3.58-.24-.38A9.94 9.94 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10Zm5.48-7.48c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"/></svg>
     <span>Pedir presupuesto</span>
   </a>
+  <div class="page-transition" id="page-transition" aria-hidden="true">
+    <div class="page-transition__grid" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="page-transition__brand">WF STUDIO</div>
+  </div>
 </body>
 </html>
