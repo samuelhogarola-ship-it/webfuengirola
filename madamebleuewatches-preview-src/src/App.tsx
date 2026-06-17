@@ -3,7 +3,7 @@ import { ProductCard } from "./components/ProductCard";
 import { ProductViewer } from "./components/ProductViewer";
 import { featuredProduct, products, type Product } from "./data/products";
 
-const brandLogo = "/images/brand/logo-madame-1024x1024.png";
+const brandLogo = `${import.meta.env.BASE_URL}images/brand/logo-madame-1024x1024.png`.replace(/([^:]\/)\/+/g, "$1");
 
 const trustItems = [
   "Authenticated & Curated",
