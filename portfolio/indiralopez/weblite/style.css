@@ -460,16 +460,16 @@ img {
   .lite-stage,
   .lite-stage__sticky,
   .lite-stage__intro {
-    min-height: calc(100svh - var(--header-h));
+    min-height: calc(100svh - var(--header-h) - 18px);
   }
 
   .lite-stage__media {
     top: var(--header-h);
-    height: calc(100svh - var(--header-h));
+    height: calc(100svh - var(--header-h) - 18px);
   }
 
   .lite-stage__image {
-    inset: 0 auto 0 50%;
+    inset: -18px auto 0 50%;
     width: min(132vw, 620px);
     max-width: none;
     height: 100%;
@@ -497,7 +497,7 @@ img {
 
   .lite-stage__intro {
     padding-top: 96px;
-    padding-bottom: 32px;
+    padding-bottom: 12px;
   }
 
   .lite-stage__copy {
@@ -510,6 +510,10 @@ img {
     font-size: clamp(2.85rem, 12.4vw, 4.5rem);
   }
 
+  .story-actions {
+    margin-top: 22px;
+  }
+
   .lite-panel h2 {
     font-size: clamp(2.2rem, 10vw, 3.7rem);
   }
@@ -520,17 +524,17 @@ img {
   }
 
   .lite-flow {
-    margin-top: 4px;
+    margin-top: -18px;
   }
 
   .lite-flow::before {
-    top: -32px;
-    height: calc(100% + 56px);
+    top: -20px;
+    height: calc(100% + 44px);
     background: linear-gradient(
       180deg,
       rgba(5, 5, 5, 0) 0%,
-      rgba(5, 5, 5, 0.24) 80px,
-      rgba(5, 5, 5, 0.7) 220px,
+      rgba(5, 5, 5, 0.18) 56px,
+      rgba(5, 5, 5, 0.64) 180px,
       rgba(5, 5, 5, 0.92) 100%
     );
   }

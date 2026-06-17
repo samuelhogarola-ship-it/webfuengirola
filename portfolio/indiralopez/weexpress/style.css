@@ -135,6 +135,8 @@ img {
 }
 .hero--express {
   overflow: clip;
+  align-items: center;
+  padding-top: 36px;
 }
 .hero__layout {
   display: grid;
@@ -144,7 +146,7 @@ img {
 }
 .hero__copy {
   max-width: 620px;
-  padding: 40px 0 72px;
+  padding: 20px 0 36px;
 }
 .hero__copy > * {
   opacity: 0;
@@ -193,7 +195,9 @@ img {
 }
 .hero__media {
   position: relative;
-  min-height: 82vh;
+  aspect-ratio: 5 / 6;
+  min-height: 0;
+  max-height: 74vh;
   overflow: hidden;
   border: 1px solid var(--line-strong);
   border-radius: 20px;
@@ -212,12 +216,14 @@ img {
     linear-gradient(90deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.42));
 }
 .hero__image {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 18% center;
+  object-position: 24% 10%;
   filter: saturate(0.94) contrast(1.02);
-  transform: scale(1.03);
+  transform: scale(0.995);
   animation: hero-image-settle 1.8s ease-out 0.2s forwards;
 }
 .section {
@@ -433,10 +439,21 @@ img {
 }
 @keyframes hero-image-settle {
   from {
-    transform: scale(1.03);
+    transform: scale(1.01);
   }
   to {
-    transform: scale(1);
+    transform: scale(0.995);
+  }
+}
+@media (min-width: 1081px) {
+  .hero--express {
+    align-items: start;
+    padding-top: 64px;
+  }
+
+  .hero__copy {
+    padding-top: 0;
+    padding-bottom: 24px;
   }
 }
 @media (max-width: 1080px) {
@@ -461,7 +478,7 @@ img {
     display: grid;
   }
   .hero__media {
-    min-height: 560px;
+    max-height: none;
   }
   .page-hero {
     padding-top: 44px;
