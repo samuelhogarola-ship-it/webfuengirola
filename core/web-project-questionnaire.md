@@ -43,6 +43,7 @@ Cuestionario corto para usar siempre antes de crear una preview o empezar una we
 
 - `Modelo Clueso`
   Hero-portada con imagen persistente durante la bajada inicial y contenido entrando por encima sin rail lateral ni sticky visible.
+  Alias interno recomendado: `lite-clueso`
 
 ## Cierre
 

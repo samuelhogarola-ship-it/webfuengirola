@@ -16,7 +16,7 @@ Usar esta plantilla antes de crear una preview o arrancar una web nueva.
   `Lite / Express / Personalizada / Web Pro / App`
 - `Por que este modelo:`
 - `Patron visual asociado:`
-  `Modelo Clueso / Hero fijo Lite / Full-screen reveal / Split premium / Cards commercial / Otro`
+  `Modelo Clueso (lite-clueso) / Hero fijo Lite / Full-screen reveal / Split premium / Cards commercial / Otro`
 
 ## 3. Hero
 

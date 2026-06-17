@@ -27,6 +27,7 @@ Base reusable para arrancar proyectos web de forma consistente antes de disenar,
 
 - `Modelo Clueso`
   Portada dominante con imagen persistente durante el inicio del scroll y contenido entrando por encima sin split ni sticky visible.
+  Naming interno recomendado: `lite-clueso`
 
 ## Objetivo
 

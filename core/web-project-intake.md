@@ -27,6 +27,7 @@ Opciones base:
   Hero limpio, directo y sin exceso de capas.
 - `Modelo Clueso`
   Portada dominante con persistencia visual invisible: la imagen se mantiene presente al bajar y el contenido entra por encima como continuidad editorial.
+  Alias de naming: `lite-clueso`
 - `Full-screen reveal`
   Portada a pantalla completa que da paso editorial al contenido al hacer scroll.
 - `Split premium`
