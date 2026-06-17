@@ -4,6 +4,15 @@ Landing estática para vender páginas web a pequeños comercios locales en Fuen
 
 **Tecnología:** HTML + CSS + JS puro. Sin frameworks ni dependencias externas (solo la fuente Inter desde Google Fonts).
 
+## Core reusable
+
+El repo ya incluye una base para arrancar nuevas propuestas web de forma sistematica en [`core/`](/Users/sam/.codex/worktrees/53a7/web%20fuengirola/core/README.md).
+
+- `core/web-project-intake.md`
+  Define el sistema de preguntas y decisiones previas.
+- `core/web-project-brief-template.md`
+  Plantilla lista para duplicar antes de crear una preview o una web nueva.
+
 ---
 
 ## Estructura de archivos
@@ -24,14 +33,14 @@ Abre `index.html` con cualquier editor de texto (VSCode, Sublime, Notepad++).
 
 Los textos principales están en estas secciones del HTML:
 
-| Sección | Qué buscar en el HTML |
-|---|---|
-| Hero | `class="hero__title"`, `class="hero__subtitle"`, `class="hero__price"` |
-| Servicios | `class="service-card"` (hay 4 tarjetas) |
-| Portfolio | `class="portfolio-card"` (hay 4 tarjetas) |
-| Proceso | `class="process__step"` (hay 4 pasos) |
-| Precios | `class="pricing__card"` |
-| CTA final | `class="cta-final__title"` |
+| Sección   | Qué buscar en el HTML                                                  |
+| --------- | ---------------------------------------------------------------------- |
+| Hero      | `class="hero__title"`, `class="hero__subtitle"`, `class="hero__price"` |
+| Servicios | `class="service-card"` (hay 4 tarjetas)                                |
+| Portfolio | `class="portfolio-card"` (hay 4 tarjetas)                              |
+| Proceso   | `class="process__step"` (hay 4 pasos)                                  |
+| Precios   | `class="pricing__card"`                                                |
+| CTA final | `class="cta-final__title"`                                             |
 
 ---
 
@@ -41,6 +50,7 @@ Los textos principales están en estas secciones del HTML:
 2. Reemplázalo con tu número real (sin el `+`, solo los dígitos): p.ej. `34612345678`
 
 El enlace de WhatsApp sigue el formato:
+
 ```
 https://wa.me/34612345678?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio
 ```
@@ -52,9 +62,11 @@ Puedes personalizar el texto pre-cargado cambiando la parte después de `?text=`
 ## Cómo cambiar el email de contacto
 
 Busca en `index.html`:
+
 ```
 webfuengirola@pm.me
 ```
+
 Reemplázalo con tu dirección real en todos los lugares donde aparece (hay dos: el botón del CTA final y el footer).
 
 ---
@@ -66,7 +78,10 @@ Cada tarjeta del portfolio tiene esta estructura en `index.html`:
 ```html
 <article class="portfolio-card">
   <!-- Color de fondo del mockup: cambia el gradient -->
-  <div class="portfolio-card__image-inner" style="background: linear-gradient(...)">
+  <div
+    class="portfolio-card__image-inner"
+    style="background: linear-gradient(...)"
+  >
     ...
   </div>
   <div class="portfolio-card__body">
@@ -83,6 +98,7 @@ Cada tarjeta del portfolio tiene esta estructura en `index.html`:
 ```
 
 Para añadir un proyecto real:
+
 1. Cambia el `h3` con el nombre del negocio.
 2. Actualiza la descripción en el `p`.
 3. Ajusta las etiquetas según el sector y tipo de web.
