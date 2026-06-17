@@ -6,7 +6,7 @@
     <title>Indira López | Propuesta Web Express</title>
     <meta
       name="description"
-      content="Propuesta Web Express para Indira López: dirección más agresiva, premium y minimalista."
+      content="Propuesta Web Express para Indira López: home premium con estructura multipage y páginas internas definidas."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,7 +20,7 @@
     <div class="page-shell">
       <header class="site-header">
         <div class="container site-header__inner">
-          <a href="#inicio" class="brand" aria-label="Ir al inicio">
+          <a href="./" class="brand" aria-label="Ir al inicio">
             <img
               src="./assets/logo.jpg"
               alt="Indira López"
@@ -34,10 +34,11 @@
             </span>
           </a>
           <nav class="site-nav" aria-label="Navegación principal">
-            <a href="#inicio">Inicio</a>
-            <a href="#sistema">Sistema</a>
-            <a href="#servicios">Servicios</a>
-            <a href="#contacto">Contacto</a>
+            <a href="./">Inicio</a>
+            <a href="./servicios.html">Servicios</a>
+            <a href="./entrenos.html">Entrenos</a>
+            <a href="./online.html">Online</a>
+            <a href="./contacto.html">Contacto</a>
           </nav>
           <a
             class="header-cta"
@@ -51,28 +52,24 @@
       </header>
 
       <main>
-        <section class="hero" id="inicio">
+        <section class="hero hero--express" id="inicio">
           <div class="container hero__layout">
             <div class="hero__copy">
-              <p class="eyebrow">Web Express · Nike / Porsche / minimal</p>
               <h1>
                 Más directa.
-                <span>Más afilada.</span>
+                <span>Más definida.</span>
               </h1>
               <p class="hero__lead">
-                Una dirección premium y agresiva, sin ruido y sin adornos
-                blandos. Visual fuerte, ritmo corto y mensaje con más carácter.
+                Una home premium que abre puertas a páginas internas claras:
+                servicios, entrenos, online y contacto.
               </p>
               <div class="hero__actions">
-                <a
-                  class="btn btn--primary"
-                  href="https://wa.me/34622923988?text=Hola%20Indira%2C%20quiero%20la%20Web%20Express"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Activar esta versión
+                <a class="btn btn--primary" href="./servicios.html">
+                  Ver servicios
                 </a>
-                <a class="btn btn--secondary" href="#contacto">Hablarlo</a>
+                <a class="btn btn--secondary" href="./contacto.html">
+                  Agendar primera cita
+                </a>
               </div>
             </div>
 
@@ -88,15 +85,13 @@
           </div>
         </section>
 
-        <section class="section" id="sistema">
+        <section class="section section--tight">
           <div class="container">
-            <div class="intro-panel">
-              <p class="eyebrow">Sistema</p>
-              <h2>No vende por explicarlo todo. Vende por cómo se siente.</h2>
+            <div class="intro-panel intro-panel--narrow">
+              <h2>La Express ya no es una sola página. Es una estructura.</h2>
               <p>
-                Esta versión está pensada para una home más impactante y para
-                abrir luego páginas internas de servicios, metodología, sobre mí
-                y contacto.
+                La home presenta la energía. Las páginas internas ordenan la
+                oferta y hacen que cada servicio tenga más peso.
               </p>
             </div>
           </div>
@@ -104,26 +99,39 @@
 
         <section class="section" id="servicios">
           <div class="container">
-            <div class="card-grid">
+            <div class="card-grid card-grid--sharp">
               <article class="service-card service-card--feature">
                 <span class="service-card__index">01</span>
-                <h3>Entrenamiento personal</h3>
-                <p>Presencia fuerte. Oferta clara. CTA sin fricción.</p>
+                <h3>Servicios</h3>
+                <p>
+                  Vista general, acceso claro y jerarquía limpia para entender
+                  toda la oferta.
+                </p>
+                <a class="service-card__link" href="./servicios.html">
+                  Entrar
+                </a>
               </article>
               <article class="service-card">
                 <span class="service-card__index">02</span>
-                <h3>Recomposición corporal</h3>
+                <h3>Entrenos</h3>
                 <p>
-                  Mensaje más afilado para una clienta que ya sabe lo que
-                  quiere.
+                  Página propia para entrenamiento personal y recomposición con
+                  más intención comercial.
                 </p>
+                <a class="service-card__link" href="./entrenos.html">
+                  Entrar
+                </a>
               </article>
               <article class="service-card">
                 <span class="service-card__index">03</span>
                 <h3>Online</h3>
                 <p>
-                  Escalable, limpia y lista para crecer con páginas de apoyo.
+                  Una pieza más específica para la parte remota, escalable y
+                  lista para crecer.
                 </p>
+                <a class="service-card__link" href="./online.html">
+                  Entrar
+                </a>
               </article>
             </div>
           </div>
@@ -133,15 +141,9 @@
           <div class="container">
             <div class="cta-band">
               <div>
-                <p class="eyebrow">Cierre</p>
-                <h2>Si la Lite acaricia, la Express entra.</h2>
+                <h2>Home de entrada. Páginas internas. Oferta mejor definida.</h2>
               </div>
-              <a
-                class="btn btn--primary"
-                href="https://wa.me/34622923988?text=Hola%20Indira%2C%20quiero%20la%20Web%20Express"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a class="btn btn--primary" href="./contacto.html">
                 Quiero esta línea
               </a>
             </div>
@@ -150,8 +152,13 @@
       </main>
 
       <footer class="site-footer">
-        <div class="container">
-          <p>Diseñado por Web Fuengirola Studio</p>
+        <div class="container site-footer__inner">
+          <div class="site-footer__links">
+            <a href="./contacto.html">Contacto</a>
+            <a href="./legal.html">Legal</a>
+          </div>
+          <p class="site-footer__copy">Copyright © 2026 Indira López</p>
+          <p class="site-footer__signature">Diseñado por Web Fuengirola Studio</p>
         </div>
       </footer>
     </div>
