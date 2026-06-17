@@ -20,7 +20,7 @@ Base reusable para arrancar proyectos web de forma consistente antes de disenar,
 5. Definir hero, estilo, contenido y requisitos tecnicos.
 6. Crear la preview con una ruta clara, por ejemplo:
    - `portfolio/{cliente}/weblite/`
-   - `portfolio/{cliente}/weexpress/`
+   - `portfolio/{cliente}/web/`
    - `portfolio/{cliente}/webpro/`
 
 ## Patrones destacados
