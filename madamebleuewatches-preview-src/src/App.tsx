@@ -1,9 +1,33 @@
 import { useState } from "react";
+import { LegalDialog, type LegalPanelKey } from "./components/LegalDialog";
 import { ProductCard } from "./components/ProductCard";
 import { ProductViewer } from "./components/ProductViewer";
 import { featuredProduct, products, type Product } from "./data/products";
+import { asset } from "./lib/assets";
 
-const brandLogo = `${import.meta.env.BASE_URL}images/brand/logo-madame-1024x1024.png`.replace(/([^:]\/)\/+/g, "$1");
+const brandLogo = asset("images/brand/logo-madame-1024x1024.png");
+const instagramUrl = "https://www.instagram.com/madamebleuewatches/";
+const whatsappPrimaryUrl = "https://wa.me/33643916334";
+const whatsappMonacoUrl = "https://wa.me/37737703973";
+const emailUrl = "mailto:info@madamebleuewatches.com";
+
+const journalTiles = [
+  {
+    title: "Recent references",
+    image: products[1].image,
+    alt: products[1].alt,
+  },
+  {
+    title: "Collector notes",
+    image: products[0].images[2],
+    alt: "Close detail from a curated pre-owned timepiece reference",
+  },
+  {
+    title: "New arrivals",
+    image: products[3].image,
+    alt: products[3].alt,
+  },
+];
 
 const trustItems = [
   "Authenticated & Curated",
@@ -33,6 +57,7 @@ function scrollToSection(id: string) {
 
 function App() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [activeLegalPanel, setActiveLegalPanel] = useState<LegalPanelKey | null>(null);
 
   function handleDiscussPrivately() {
     setSelectedProduct(null);
@@ -53,6 +78,9 @@ function App() {
           <a href="#maison">Maison</a>
           <a href="#selection">Selection</a>
           <a href="#appointments">Private consultation</a>
+          <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
+            Instagram
+          </a>
         </nav>
       </header>
 
@@ -144,6 +172,28 @@ function App() {
         </div>
       </section>
 
+      <section className="section journal-section" aria-labelledby="journal-title">
+        <div className="journal-copy">
+          <p className="section-label">Monaco Journal</p>
+          <h2 id="journal-title">Collector Updates</h2>
+          <p>
+            Recent references, collector notes and new arrivals are shared through Madame Bleue's
+            Instagram journal.
+          </p>
+          <a className="button button-secondary" href={instagramUrl} target="_blank" rel="noopener noreferrer">
+            View latest posts on Instagram
+          </a>
+        </div>
+        <div className="journal-tiles" aria-label="Instagram journal topics">
+          {journalTiles.map((tile) => (
+            <a href={instagramUrl} target="_blank" rel="noopener noreferrer" key={tile.title}>
+              <img src={tile.image} alt={tile.alt} />
+              <span>{tile.title}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
       <section className="section sourcing-section" aria-labelledby="sourcing-title">
         <div className="sourcing-panel">
           <div>
@@ -175,14 +225,23 @@ function App() {
           </p>
         </div>
         <address>
-          3-5 Avenue Des Citronniers<br />
-          (Prince des Galles), Monaco 98000
+          3-5 Avenue Des Citronniers (Prince des Galles),<br />
+          98000 Monaco
         </address>
         <div className="contact-links">
-          <a href="https://www.instagram.com/madamebleuewatches/" target="_blank" rel="noreferrer">
-            Instagram
+          <a className="button button-primary" href={whatsappPrimaryUrl} target="_blank" rel="noopener noreferrer">
+            Contact on WhatsApp
           </a>
-          <span>Private consultation by appointment</span>
+          <a href={whatsappPrimaryUrl} target="_blank" rel="noopener noreferrer">
+            WhatsApp: +33 6 43 91 63 34
+          </a>
+          <a href={whatsappMonacoUrl} target="_blank" rel="noopener noreferrer">
+            Monaco: +377 37703973
+          </a>
+          <a href={emailUrl}>info@madamebleuewatches.com</a>
+          <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
+            @madamebleuewatches
+          </a>
         </div>
       </section>
 
@@ -195,13 +254,35 @@ function App() {
           Madame Bleue is an independent pre-owned timepieces dealer. Brand names are used only to
           describe available references.
         </p>
-        <a href="https://www.instagram.com/madamebleuewatches/" target="_blank" rel="noreferrer">
-          Instagram
-        </a>
+        <div className="footer-contact">
+          <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
+            Instagram
+          </a>
+          <a href={whatsappPrimaryUrl} target="_blank" rel="noopener noreferrer">
+            WhatsApp
+          </a>
+          <a href={emailUrl}>Email</a>
+          <span>3-5 Avenue Des Citronniers, 98000 Monaco</span>
+        </div>
+        <div className="footer-legal">
+          <button type="button" onClick={() => setActiveLegalPanel("about")}>
+            About
+          </button>
+          <button type="button" onClick={() => setActiveLegalPanel("legal")}>
+            Legal Notice
+          </button>
+          <button type="button" onClick={() => setActiveLegalPanel("privacy")}>
+            Privacy
+          </button>
+          <button type="button" onClick={() => setActiveLegalPanel("terms")}>
+            Terms
+          </button>
+        </div>
         <span>Private concept preview by KI-SIEBEN</span>
       </footer>
 
       <ProductViewer product={selectedProduct} onClose={() => setSelectedProduct(null)} onDiscuss={handleDiscussPrivately} />
+      <LegalDialog activePanel={activeLegalPanel} onClose={() => setActiveLegalPanel(null)} />
     </main>
   );
 }
