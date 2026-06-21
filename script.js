@@ -14,11 +14,11 @@
       navHome: 'Inicio',
       navServices: 'Servicios',
       navPortfolio: 'Portfolio',
-      navProcess: 'Proceso',
+      navProcess: 'FAQ',
       navPricing: 'Precios',
       navContact: 'Contacto',
       headerCta: 'Pedir presupuesto',
-      heroBadge: 'Disponible en 48 horas',
+      heroBadge: 'Webs claras para negocio local',
       heroTitle: 'La web que tu negocio se merece.',
       heroSubtitle: 'Webs rápidas y profesionales con todo lo que necesitas para llegar a más clientes.',
       heroPrice: 'Precio cerrado',
@@ -56,8 +56,8 @@
       benefit4Text: 'Un botón visible en cada pantalla para que tus clientes te escriban en un clic.',
       benefit5Title: 'Preparada para Google',
       benefit5Text: 'Estructura y velocidad pensadas para que Google te encuentre y te muestre a tus vecinos.',
-      benefit6Title: 'Publicación en 48h',
-      benefit6Text: 'Del primer contacto a la web publicada en menos de dos días. Sin esperas eternas.',
+      benefit6Title: 'Publicación ágil',
+      benefit6Text: 'Trabajamos con un proceso ordenado para publicar cada proyecto con rapidez, sin mezclar la velocidad con promesas que no encajan en todos los servicios.',
       servicesLabel: 'Servicios',
       servicesTitle: 'Oferta clara para negocio local y desarrollo a medida',
       servicePopular: 'Más popular',
@@ -72,23 +72,23 @@
       serviceLiteFeature5: 'Buena para empezar y ampliar después',
       serviceLiteCta: 'Quiero esta opción',
       service1Title: 'Web Express',
-      service1Desc: 'Una sola página, estructura cerrada y mensaje claro. La forma más directa de salir online con buena presencia.',
-      service1Feature1: 'Web corporativa de 1 página',
-      service1Feature2: 'Responsive y copy orientado a conversión',
-      service1Feature3: 'WhatsApp, formulario y SEO básico',
-      service1Feature4: 'Sin lógica avanzada ni integraciones',
-      service1Feature5: 'Entrega rápida con alcance definido',
-      service1Feature6: 'Ideal para negocios locales y autónomos',
+      service1Desc: 'Web multipágina para negocios que necesitan algo más que una presencia básica: mejor estructura, más espacio para explicar servicios y una imagen más sólida.',
+      service1Feature1: 'Hasta 5 páginas más blog',
+      service1Feature2: 'Diseño responsive para móvil y escritorio',
+      service1Feature3: 'WhatsApp, email y formulario básico',
+      service1Feature4: 'SEO medio orientado a estructura e indexación',
+      service1Feature5: 'Sin base de datos ni automatizaciones avanzadas',
+      service1Feature6: 'Ideal para empresas de servicios y negocios con instalaciones',
       service1Feature7: '1 ronda de revisiones incluida',
       service1Cta: 'Pedir esta web',
-      service2Title: 'Web Corporativa / Web Pro',
-      service2Price: 'Desde 900€ + IVA',
-      service2Desc: 'Cuando una empresa necesita varias páginas, narrativa más sólida, blog, SEO escalable o integraciones reales.',
-      service2Feature1: 'Arquitectura de contenidos más completa',
-      service2Feature2: 'Páginas adicionales y mejor jerarquía SEO',
-      service2Feature3: 'Blog, formularios avanzados o reservas',
-      service2Feature4: 'Integraciones y alcance editorial superior',
-      service2Feature5: 'Presupuesto adaptado a negocio y objetivos',
+      service2Title: 'Web Pro',
+      service2Price: '600€ + IVA',
+      service2Desc: 'La web corporativa más avanzada dentro de la oferta base: pensada para captar contactos, medir lo básico y autogestionar determinados contenidos sin convertir el proyecto en una aplicación a medida.',
+      service2Feature1: 'Todo lo incluido en Web Express',
+      service2Feature2: 'Hasta 10 páginas y SEO avanzado inicial',
+      service2Feature3: 'Formulario con almacenamiento de contactos',
+      service2Feature4: 'Panel para noticias, eventos, promociones o casos de éxito',
+      service2Feature5: 'Gestión básica de contenidos con alcance claro',
       service2Cta: 'Solicitar presupuesto',
       service3Title: 'React, chatbots y automatización',
       service3Price: '300€ implantación + 50€ / mes + IVA',
@@ -127,7 +127,7 @@
       portfolioTagYourSector: 'Tu sector',
       viewSite: 'Ver web',
       processLabel: 'Cómo trabajamos',
-      processTitle: 'De cero a publicado en 48 horas',
+      processTitle: 'De la idea a una web publicada con alcance claro',
       processSub: 'Un proceso sencillo y sin sorpresas. Tú nos das la información, nosotros hacemos el resto.',
       process1Title: 'Reunión inicial',
       process1Desc: 'Hablamos por teléfono o en persona para entender tu negocio, tu público y lo que quieres transmitir. No hace falta que sepas nada de webs.',
@@ -145,14 +145,14 @@
       pricing2: '1 ronda de revisiones incluida',
       pricing3: 'Responsive, SEO básico, WhatsApp y formulario',
       pricing4: 'Sin panel, sin login, sin reservas ni integraciones',
-      pricing5: 'Publicación online en 48 horas',
+      pricing5: 'Publicación online según alcance y material',
       pricingMainCta: 'Solicitar esta web',
       pricingNote: 'No incluye multiidioma real, blog, base de datos, React, Node, automatizaciones ni animaciones complejas. Eso pertenece a la línea avanzada.',
-      pricingProBudget: 'Desde 900€',
+      pricingProBudget: 'Desde 600€',
       pricingProCustom: 'según alcance',
-      pricingProDesc: 'Para proyectos con lógica, automatización o crecimiento real: webs corporativas, React, Node, chatbots, apps y herramientas internas.',
-      pricingPro1: 'Web corporativa / Web Pro desde 900€',
-      pricingPro2: 'Páginas dinámicas con React desde 1.400€',
+      pricingProDesc: 'Para negocios que necesitan más recorrido que una web básica: estructura corporativa avanzada, captación de contactos y autogestión básica antes de pasar a un desarrollo a medida.',
+      pricingPro1: 'Web Pro con panel básico y registro de contactos desde 600€',
+      pricingPro2: 'Web personalizada cuando el alcance ya sale del marco cerrado',
       pricingPro3: 'Chatbots y automatización por 300€ + 50€ al mes',
       pricingPro4: 'Web apps, Node y herramientas internas desde 2500€',
       maintenanceLabel: 'Mantenimiento',
@@ -162,7 +162,7 @@
       maintenance1Desc: 'Para negocios que necesitan pocos cambios al año. Actualizaciones puntuales de textos, horarios o fotos.',
       maintenance1Feature1: 'Hasta 2 cambios pequeños al mes',
       maintenance1Feature2: 'Actualización de contenidos básicos',
-      maintenance1Feature3: 'Web lista en 48h',
+      maintenance1Feature3: 'Cambios pequeños con gestión ágil',
       maintenance2Title: 'Medio',
       maintenance2Desc: 'Para negocios activos que actualizan ofertas, añaden secciones o quieren cambios periódicos.',
       maintenance2Feature1: 'Hasta 5 cambios al mes',
@@ -189,7 +189,7 @@
       ctaSub: 'Cuéntanos qué haces y te decimos cómo podemos ayudarte. Sin compromiso, sin tecnicismos.',
       ctaWhatsapp: 'Hablar por WhatsApp',
       ctaEmail: 'Enviar un email',
-      footerTagline: 'Webs para negocios locales en la Costa del Sol.',
+      footerTagline: 'Webs para negocios locales con una presencia clara y profesional.',
       footerLegal: 'Legal',
       footerLegalNotice: 'Aviso legal',
       footerPrivacy: 'Política de privacidad',
@@ -205,7 +205,7 @@
       navHome: 'Home',
       navServices: 'Services',
       navPortfolio: 'Portfolio',
-      navProcess: 'Process',
+      navProcess: 'FAQ',
       navPricing: 'Pricing',
       navContact: 'Contact',
       headerCta: 'Request a quote',
@@ -247,7 +247,7 @@
       benefit4Text: 'A visible button on every screen so your customers can message you in one click.',
       benefit5Title: 'Ready for Google',
       benefit5Text: 'Structure and speed designed so Google can find you and show you to nearby customers.',
-      benefit6Title: 'Published in 48h',
+      benefit6Title: 'Fast launch',
       benefit6Text: 'From first contact to a published website in less than two days. No endless waiting.',
       servicesLabel: 'Services',
       servicesTitle: 'A clear offer for local businesses and custom development',
@@ -353,7 +353,7 @@
       maintenance1Desc: 'For businesses that need only a few changes per year. Occasional updates to text, opening hours or photos.',
       maintenance1Feature1: 'Up to 2 small changes per month',
       maintenance1Feature2: 'Basic content updates',
-      maintenance1Feature3: 'Website ready in 48h',
+      maintenance1Feature3: 'Small changes handled quickly',
       maintenance2Title: 'Standard',
       maintenance2Desc: 'For active businesses that update offers, add sections or want recurring changes.',
       maintenance2Feature1: 'Up to 5 changes per month',
@@ -380,7 +380,7 @@
       ctaSub: 'Tell us what you do and we will explain how we can help. No obligation, no jargon.',
       ctaWhatsapp: 'Chat on WhatsApp',
       ctaEmail: 'Send an email',
-      footerTagline: 'Landing pages, apps and automation for businesses on the Costa del Sol.',
+      footerTagline: 'Websites, apps and automation for local businesses with a clear professional presence.',
       footerLegal: 'Legal',
       footerLegalNotice: 'Legal notice',
       footerPrivacy: 'Privacy policy',
@@ -391,12 +391,12 @@
     de: {
       title: 'Web Fuengirola | Premium Webdesign in Fuengirola',
       metaDescription: 'Wir erstellen einfache, klare und professionelle Webseiten für kleine lokale Unternehmen in Fuengirola und an der Costa del Sol. Ab 300 € zzgl. MwSt. Domain und Hosting im ersten Jahr inklusive.',
-      ogTitle: 'Web Fuengirola · Webseiten für lokale Unternehmen in 48h',
+      ogTitle: 'Web Fuengirola · Webseiten für lokale Unternehmen',
       ogDescription: 'Wir erstellen einfache, klare und professionelle Webseiten, damit Ihre Kunden sofort verstehen, was Sie tun, wo Sie sind und wie sie Sie kontaktieren können. Ab 300 € zzgl. MwSt.',
       navHome: 'Start',
       navServices: 'Leistungen',
       navPortfolio: 'Portfolio',
-      navProcess: 'Ablauf',
+      navProcess: 'FAQ',
       navPricing: 'Preise',
       navContact: 'Kontakt',
       headerCta: 'Angebot anfragen',
@@ -438,7 +438,7 @@
       benefit4Text: 'Ein sichtbarer Button auf jeder Ansicht, damit Kunden Sie mit einem Klick anschreiben können.',
       benefit5Title: 'Für Google vorbereitet',
       benefit5Text: 'Struktur und Geschwindigkeit sind so angelegt, dass Google Sie findet und in Ihrer Umgebung zeigt.',
-      benefit6Title: 'Veröffentlicht in 48h',
+      benefit6Title: 'Schnelle Veröffentlichung',
       benefit6Text: 'Vom ersten Kontakt bis zur veröffentlichten Webseite in weniger als zwei Tagen. Ohne endloses Warten.',
       servicesLabel: 'Leistungen',
       servicesTitle: 'Alles, was Ihr Unternehmen online braucht',
@@ -544,7 +544,7 @@
       maintenance1Desc: 'Für Unternehmen, die nur wenige Änderungen pro Jahr brauchen. Gelegentliche Updates von Texten, Öffnungszeiten oder Fotos.',
       maintenance1Feature1: 'Bis zu 2 kleine Änderungen pro Monat',
       maintenance1Feature2: 'Aktualisierung grundlegender Inhalte',
-      maintenance1Feature3: 'Webseite in 48h fertig',
+      maintenance1Feature3: 'Kleine Änderungen zügig umgesetzt',
       maintenance2Title: 'Mittel',
       maintenance2Desc: 'Für aktive Unternehmen, die Angebote aktualisieren, Bereiche ergänzen oder regelmäßige Änderungen wünschen.',
       maintenance2Feature1: 'Bis zu 5 Änderungen pro Monat',
@@ -571,7 +571,7 @@
       ctaSub: 'Erzählen Sie uns, was Sie tun, und wir sagen Ihnen, wie wir helfen können. Unverbindlich und ohne Fachsprache.',
       ctaWhatsapp: 'Per WhatsApp schreiben',
       ctaEmail: 'E-Mail senden',
-      footerTagline: 'Webseiten für lokale Unternehmen an der Costa del Sol.',
+      footerTagline: 'Webseiten für lokale Unternehmen mit einem klaren und professionellen Auftritt.',
       footerLegal: 'Rechtliches',
       footerLegalNotice: 'Impressum',
       footerPrivacy: 'Datenschutz',
@@ -587,7 +587,7 @@
       navHome: 'Etusivu',
       navServices: 'Palvelut',
       navPortfolio: 'Portfolio',
-      navProcess: 'Prosessi',
+      navProcess: 'FAQ',
       navPricing: 'Hinnat',
       navContact: 'Yhteys',
       headerCta: 'Pyydä tarjous',
@@ -762,7 +762,7 @@
       ctaSub: 'Kerro mitä teet, niin kerromme miten voimme auttaa. Ei sitoumuksia eikä teknistä jargonia.',
       ctaWhatsapp: 'Keskustele WhatsAppissa',
       ctaEmail: 'Lähetä sähköposti',
-      footerTagline: 'Verkkosivut paikallisille yrityksille Costa del Solilla.',
+      footerTagline: 'Verkkosivut paikallisille yrityksille selkeällä ja ammattimaisella ilmeellä.',
       footerLegal: 'Lakiasiat',
       footerLegalNotice: 'Lakiteksti',
       footerPrivacy: 'Tietosuojakäytäntö',
@@ -1043,150 +1043,373 @@
     });
   }
 
-  function initCalculatorV3() {
-    var root = document.querySelector('[data-calc-v3]');
+  function initServiceEstimator() {
+    var root = document.querySelector('[data-estimator]');
     if (!root) return;
 
     var WA_BASE = 'https://wa.me/34622923988?text=';
     var EMAIL = 'info@webfuengirola.com';
-    var ADVANCE_DELAY = 420; /* ms — lets user see the selection before moving on */
+    var stepOrder = ['service', 'support', 'extras', 'summary'];
+    var stepLabels = {
+      service: '1 de 4 · Tipo de web',
+      support: '2 de 4 · Seguimiento',
+      extras: '3 de 4 · Extras y publicación',
+      summary: '4 de 4 · Resumen'
+    };
 
-    var state = { pages: 0, maintenance: 0, extras: 0 };
+    var services = {
+      lite: {
+        title: 'Web Lite',
+        basePrice: 200,
+        priceLabel: '200€ + IVA',
+        summaryPrice: '200€ + IVA',
+        renewalLabel: 'Hosting 35€/año · dominio no incluido',
+        renewalSidePrice: '35€/año de hosting',
+        renewalCopy: 'El dominio va aparte. Web Lite está pensada para una presencia sencilla y publicada sin complicaciones.',
+        bullets: [
+          'Landing page monopágina con hasta 5 secciones.',
+          'Diseño responsive, legal básico y contacto visible.',
+          'SEO inicial para indexación y buenas prácticas.'
+        ]
+      },
+      express: {
+        title: 'Web Express',
+        basePrice: 350,
+        priceLabel: '350€ + IVA',
+        summaryPrice: '350€ + IVA',
+        renewalLabel: 'Hosting 50€/año · dominio no incluido',
+        renewalSidePrice: '50€/año de hosting',
+        renewalCopy: 'Ideal para una web corporativa multipágina con más espacio para explicar servicios, instalaciones y quiénes sois.',
+        bullets: [
+          'Hasta 5 páginas más blog.',
+          'SEO medio inicial orientado a estructura e indexación.',
+          'WhatsApp, email y formulario básico sin base de datos.'
+        ]
+      },
+      pro: {
+        title: 'Web Pro',
+        basePrice: 600,
+        priceLabel: '600€ + IVA',
+        summaryPrice: '600€ + IVA',
+        renewalLabel: 'Renovación anual: hosting 60€ IVA incl. + dominio 15€ IVA incl.',
+        renewalSidePrice: 'Primer año incluido',
+        renewalCopy: 'Después del primer año, la renovación prevista es de 60€ IVA incluido de hosting y 15€ IVA incluido de dominio.',
+        bullets: [
+          'Todo lo incluido en Web Express, hasta 10 páginas y SEO avanzado inicial.',
+          'Formulario con almacenamiento de contactos y registro básico de oportunidades.',
+          'Panel básico para noticias, eventos, promociones o casos de éxito.'
+        ]
+      },
+      custom: {
+        title: 'Web Personalizada',
+        basePrice: 600,
+        priceLabel: 'Desde 600€ + IVA',
+        summaryPrice: 'Desde 600€ + IVA',
+        renewalLabel: 'Renovación anual orientativa: hosting 80€ IVA incl. + dominio 15€ IVA incl.',
+        renewalSidePrice: 'Primer año incluido',
+        renewalCopy: 'Pensada para proyectos con funcionalidades específicas, integraciones o procesos a medida. El precio final depende del alcance real.',
+        bullets: [
+          'Reservas, áreas privadas, automatizaciones o integraciones según necesidad.',
+          'Desarrollo definido caso a caso, sin venderlo como una simple web más grande.',
+          'Base preparada para procesos internos o herramientas propias del negocio.'
+        ]
+      }
+    };
 
-    var stepOrder = ['pages', 'maintenance', 'extras', 'summary'];
-    var history = ['pages'];
+    var supportPlans = {
+      none: { title: 'Sin mantenimiento', type: 'none', oneTime: 0, monthly: 0, label: 'Sin cuota fija', summary: 'Publicamos la web y dejamos el seguimiento para más adelante.' },
+      marketing: { title: 'Marketing y Presencia Digital', type: 'monthly', oneTime: 0, monthly: 300, label: '300€/mes', summary: 'Presencia digital activa, reseñas, publicaciones y seguimiento SEO local.' },
+      carefree: { title: 'Cero Preocupaciones', type: 'monthly', oneTime: 0, monthly: 400, label: '400€/mes', summary: 'Delegación más completa con actualizaciones web, supervisión técnica y soporte prioritario.' },
+      flex: { title: 'Bono Flexible', type: 'pack', oneTime: 400, monthly: 0, label: '400€ · 10 horas', summary: 'Bolsa de horas para acciones concretas con flexibilidad y seguimiento.' },
+      priority: { title: 'Bono Prioritario', type: 'pack', oneTime: 550, monthly: 0, label: '550€ · 10 horas', summary: 'Bolsa prioritaria para actuar más rápido cuando el negocio lo necesita.' }
+    };
 
+    var extras = {
+      analytics: {
+        title: 'Google Analytics y Search Console',
+        price: 50,
+        label: '50€ + IVA',
+        summary: 'Configuración inicial, verificación de dominio y conexión con la web.'
+      }
+    };
+
+    var state = {
+      service: 'lite',
+      support: 'none',
+      analytics: false
+    };
+
+    var activeStep = 'service';
     var steps = {};
-    Array.prototype.slice.call(root.querySelectorAll('[data-calc-v3-step]')).forEach(function (el) {
-      steps[el.getAttribute('data-calc-v3-step')] = el;
+    Array.prototype.slice.call(root.querySelectorAll('[data-estimator-step]')).forEach(function (el) {
+      steps[el.getAttribute('data-estimator-step')] = el;
     });
 
-    var dots = Array.prototype.slice.call(root.querySelectorAll('[data-step-dot]'));
-    var backBtn = root.querySelector('[data-calc-v3-back]');
-    var priceWrap = root.querySelector('[data-calc-v3-price-wrap]');
-    var priceEl = root.querySelector('[data-calc-v3-price]');
-    var monthlyEl = root.querySelector('[data-calc-v3-monthly]');
-    var whatsappBtn = root.querySelector('[data-calc-v3-wa]');
-    var emailBtn = root.querySelector('[data-calc-v3-email]');
-    var continueBtn = root.querySelector('[data-calc-v3-continue]');
+    var serviceButtons = Array.prototype.slice.call(root.querySelectorAll('[data-estimator-choice="service"]'));
+    var supportButtons = Array.prototype.slice.call(root.querySelectorAll('[data-estimator-choice="support"]'));
+    var analyticsInput = root.querySelector('[data-estimator-extra="analytics"]');
+    var analyticsCard = root.querySelector('[data-estimator-extra-card]');
+    var analyticsNote = root.querySelector('[data-estimator-analytics-note]');
+    var dots = Array.prototype.slice.call(root.querySelectorAll('[data-estimator-dot]'));
+    var stepLabelEl = root.querySelector('[data-estimator-step-label]');
+    var miniPriceEl = root.querySelector('[data-estimator-mini-price]');
+    var renewalServiceEl = root.querySelector('[data-estimator-renewal-service]');
+    var renewalPriceEl = root.querySelector('[data-estimator-renewal-price]');
+    var renewalCopyEl = root.querySelector('[data-estimator-renewal-copy]');
+    var summaryEl = root.querySelector('[data-estimator-summary]');
+    var totalOnceEl = root.querySelector('[data-estimator-total-once]');
+    var totalRecurringEl = root.querySelector('[data-estimator-total-recurring]');
+    var barOnceEl = root.querySelector('[data-estimator-bar-once]');
+    var barRecurringEl = root.querySelector('[data-estimator-bar-recurring]');
+    var backBtn = root.querySelector('[data-estimator-back]');
+    var nextBtn = root.querySelector('[data-estimator-next]');
+    var whatsappBtn = root.querySelector('[data-estimator-wa]');
+    var emailBtn = root.querySelector('[data-estimator-email]');
 
-    var pagesOpts = Array.prototype.slice.call(root.querySelectorAll('[data-pages-opt]'));
-    var maintOpts = Array.prototype.slice.call(root.querySelectorAll('[data-maint-opt]'));
-    var extraOpts = Array.prototype.slice.call(root.querySelectorAll('[data-extra-opt]'));
-    var jumpBtns = Array.prototype.slice.call(root.querySelectorAll('[data-calc-v3-jump]'));
-
-    function total() {
-      return { onetime: state.pages, monthly: state.maintenance + state.extras };
+    function formatOneTime(amount, isFrom) {
+      return (isFrom ? 'Desde ' : '') + amount + '€ + IVA';
     }
 
-    function updatePrice() {
-      var t = total();
-      if (!priceEl || !monthlyEl) return;
-      priceEl.textContent = t.onetime ? t.onetime + '€' : '—';
-      monthlyEl.textContent = t.monthly ? '+' + t.monthly + '€/mes' : '';
+    function getCurrentService() {
+      return services[state.service];
+    }
+
+    function getCurrentSupport() {
+      return supportPlans[state.support];
+    }
+
+    function analyticsAllowed() {
+      return state.service === 'pro' || state.service === 'custom';
+    }
+
+    function getTotals() {
+      var service = getCurrentService();
+      var support = getCurrentSupport();
+      var once = service.basePrice + support.oneTime + (state.analytics && analyticsAllowed() ? extras.analytics.price : 0);
+      var monthly = support.monthly;
+      return {
+        once: once,
+        monthly: monthly,
+        hasFromPrefix: state.service === 'custom'
+      };
+    }
+
+    function getRecurringHint() {
+      var service = getCurrentService();
+      var support = getCurrentSupport();
+      var parts = [];
+
+      if (support.monthly) parts.push(support.monthly + '€/mes de seguimiento');
+      else if (support.type === 'pack' && support.oneTime) parts.push('Bono de ' + support.oneTime + '€ incluido en el arranque');
+
+      parts.push(service.renewalLabel);
+      return parts.join(' · ');
+    }
+
+    function syncSelections() {
+      serviceButtons.forEach(function (btn) {
+        btn.classList.toggle('is-selected', btn.getAttribute('data-key') === state.service);
+      });
+
+      supportButtons.forEach(function (btn) {
+        btn.classList.toggle('is-selected', btn.getAttribute('data-key') === state.support);
+      });
+
+      if (analyticsInput) {
+        if (!analyticsAllowed()) {
+          analyticsInput.checked = false;
+          analyticsInput.disabled = true;
+          state.analytics = false;
+        } else {
+          analyticsInput.disabled = false;
+          analyticsInput.checked = state.analytics;
+        }
+      }
+
+      if (analyticsCard) analyticsCard.classList.toggle('is-selected', !!state.analytics && analyticsAllowed());
+      if (analyticsCard) analyticsCard.classList.toggle('is-disabled', !analyticsAllowed());
+      if (analyticsNote) {
+        analyticsNote.classList.toggle('is-disabled', !analyticsAllowed());
+        analyticsNote.textContent = analyticsAllowed()
+          ? 'Este extra encaja especialmente con Web Pro y proyectos personalizados orientados a captación o seguimiento básico.'
+          : 'Este extra se ofrece dentro de Web Pro o en proyectos personalizados donde tenga sentido medir resultados desde el arranque.';
+      }
+    }
+
+    function updateMeta() {
+      var service = getCurrentService();
+      var totals = getTotals();
+
+      if (stepLabelEl) stepLabelEl.textContent = stepLabels[activeStep];
+      if (miniPriceEl) miniPriceEl.textContent = formatOneTime(totals.once, totals.hasFromPrefix);
+      if (renewalServiceEl) renewalServiceEl.textContent = service.title;
+      if (renewalPriceEl) renewalPriceEl.textContent = service.renewalSidePrice;
+      if (renewalCopyEl) renewalCopyEl.textContent = service.renewalCopy;
+      if (barOnceEl) barOnceEl.textContent = formatOneTime(totals.once, totals.hasFromPrefix);
+      if (barRecurringEl) barRecurringEl.textContent = getRecurringHint();
+    }
+
+    function updateSummary() {
+      var service = getCurrentService();
+      var support = getCurrentSupport();
+      var totals = getTotals();
+      var extraLines = state.analytics && analyticsAllowed()
+        ? '<div class="estimator-summary__line"><span>' + extras.analytics.title + '</span><strong>' + extras.analytics.label + '</strong></div>'
+        : '<div class="estimator-summary__line"><span>Extras opcionales</span><strong>Sin extras añadidos</strong></div>';
+
+      var bulletsHtml = service.bullets.map(function (bullet) {
+        return '<div class="estimator-summary__bullet">' + bullet + '</div>';
+      }).join('');
+
+      if (summaryEl) {
+        summaryEl.innerHTML =
+          '<div class="estimator-summary__group">' +
+            '<div class="estimator-summary__group-title">Servicio base</div>' +
+            '<div class="estimator-summary__line"><span>' + service.title + '</span><strong>' + service.summaryPrice + '</strong></div>' +
+            '<div class="estimator-summary__bullets">' + bulletsHtml + '</div>' +
+          '</div>' +
+          '<div class="estimator-summary__group">' +
+            '<div class="estimator-summary__group-title">Seguimiento elegido</div>' +
+            '<div class="estimator-summary__line"><span>' + support.title + '</span><strong>' + support.label + '</strong></div>' +
+            '<div class="estimator-summary__bullets"><div class="estimator-summary__bullet">' + support.summary + '</div></div>' +
+          '</div>' +
+          '<div class="estimator-summary__group">' +
+            '<div class="estimator-summary__group-title">Extras y renovación</div>' +
+            extraLines +
+            '<div class="estimator-summary__line"><span>Renovación orientativa</span><strong>' + service.renewalLabel + '</strong></div>' +
+          '</div>';
+      }
+
+      if (totalOnceEl) totalOnceEl.textContent = formatOneTime(totals.once, totals.hasFromPrefix);
+      if (totalRecurringEl) {
+        totalRecurringEl.textContent = support.monthly
+          ? support.monthly + '€/mes'
+          : support.type === 'pack'
+            ? support.oneTime + '€ en bono'
+            : 'Sin cuota mensual';
+      }
     }
 
     function buildMessage() {
-      var t = total();
-      var lines = ['Hola, quiero pedir presupuesto:'];
-      if (state.pages) lines.push('- Páginas: ' + state.pages + '€ + IVA');
-      if (state.maintenance) lines.push('- Mantenimiento mensual: +' + state.maintenance + '€/mes');
-      if (state.extras) lines.push('- Extras: +' + state.extras + '€/mes');
-      lines.push('Total: ' + t.onetime + '€ + IVA' + (t.monthly ? ' / +' + t.monthly + '€ mes' : ''));
+      var service = getCurrentService();
+      var support = getCurrentSupport();
+      var totals = getTotals();
+      var lines = [
+        'Hola, quiero pedir esta estimación web:',
+        '- Servicio: ' + service.title + ' (' + service.summaryPrice + ')',
+        '- Seguimiento: ' + support.title + ' (' + support.label + ')'
+      ];
+
+      if (state.analytics && analyticsAllowed()) {
+        lines.push('- Extra: ' + extras.analytics.title + ' (' + extras.analytics.label + ')');
+      }
+
+      lines.push('- Inversión inicial estimada: ' + formatOneTime(totals.once, totals.hasFromPrefix));
+      lines.push('- Continuidad / renovación: ' + getRecurringHint());
+      lines.push('Me gustaría comentar material, plazos y alcance real.');
       return lines.join('\n');
     }
 
     function updateLinks() {
-      if (whatsappBtn) whatsappBtn.href = WA_BASE + encodeURIComponent(buildMessage());
-      if (emailBtn) emailBtn.href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Presupuesto WF Studio') + '&body=' + encodeURIComponent(buildMessage());
-    }
-
-    function goTo(key) {
-      Object.keys(steps).forEach(function (k) { steps[k].classList.remove('is-active'); });
-      if (steps[key]) steps[key].classList.add('is-active');
-
-      var idx = stepOrder.indexOf(key);
-      dots.forEach(function (dot) {
-        var dotKey = dot.getAttribute('data-step-dot');
-        var dotIdx = stepOrder.indexOf(dotKey);
-        dot.classList.toggle('is-active', dotKey === key);
-        dot.classList.toggle('is-done', idx > -1 && dotIdx > -1 && dotIdx < idx);
-      });
-
-      var isAlt = key === 'custom' || key === 'optimize';
-      if (root.querySelector('[data-calc-v3-progress]')) {
-        root.querySelector('[data-calc-v3-progress]').hidden = isAlt;
+      var message = buildMessage();
+      if (whatsappBtn) whatsappBtn.href = WA_BASE + encodeURIComponent(message);
+      if (emailBtn) {
+        emailBtn.href = 'mailto:' + EMAIL +
+          '?subject=' + encodeURIComponent('Estimación web WF Studio') +
+          '&body=' + encodeURIComponent(message);
       }
-      if (priceWrap) priceWrap.hidden = isAlt || key === 'pages';
-      if (backBtn) backBtn.hidden = history.length <= 1;
-
-      if (key === 'summary') updateLinks();
     }
 
-    function advance(nextKey) {
-      history.push(nextKey);
-      goTo(nextKey);
+    function canContinue(stepKey) {
+      if (stepKey === 'service') return !!state.service;
+      if (stepKey === 'support') return !!state.support;
+      return true;
     }
 
-    pagesOpts.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        pagesOpts.forEach(function (b) { b.classList.remove('is-selected'); });
-        btn.classList.add('is-selected');
-        state.pages = Number(btn.getAttribute('data-price'));
-        priceWrap.hidden = false;
-        updatePrice();
-        setTimeout(function () { advance('maintenance'); }, ADVANCE_DELAY);
+    function updateNav() {
+      var idx = stepOrder.indexOf(activeStep);
+      dots.forEach(function (dot) {
+        var dotIdx = stepOrder.indexOf(dot.getAttribute('data-estimator-dot'));
+        dot.classList.toggle('is-active', dotIdx === idx);
+        dot.classList.toggle('is-done', dotIdx < idx);
       });
-    });
 
-    maintOpts.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        maintOpts.forEach(function (b) { b.classList.remove('is-selected'); });
-        btn.classList.add('is-selected');
-        state.maintenance = Number(btn.getAttribute('data-price'));
-        updatePrice();
-        setTimeout(function () { advance('extras'); }, ADVANCE_DELAY);
-      });
-    });
-
-    extraOpts.forEach(function (input) {
-      input.addEventListener('change', function () {
-        var row = input.closest('.calc-v3__row');
-        if (row) row.classList.toggle('is-selected', input.checked);
-        state.extras = extraOpts.reduce(function (sum, opt) {
-          return sum + (opt.checked ? Number(opt.getAttribute('data-price')) : 0);
-        }, 0);
-        updatePrice();
-      });
-    });
-
-    if (continueBtn) {
-      continueBtn.addEventListener('click', function () {
-        advance('summary');
-      });
+      if (backBtn) backBtn.hidden = idx === 0;
+      if (nextBtn) {
+        nextBtn.hidden = activeStep === 'summary';
+        nextBtn.disabled = !canContinue(activeStep);
+        nextBtn.textContent = activeStep === 'extras' ? 'Ver resumen →' : 'Siguiente →';
+      }
     }
 
-    jumpBtns.forEach(function (btn) {
+    function goTo(stepKey) {
+      activeStep = stepKey;
+      Object.keys(steps).forEach(function (key) {
+        steps[key].classList.toggle('is-active', key === stepKey);
+      });
+
+      updateMeta();
+      updateSummary();
+      updateLinks();
+      updateNav();
+    }
+
+    serviceButtons.forEach(function (btn) {
       btn.addEventListener('click', function () {
-        advance(btn.getAttribute('data-calc-v3-jump'));
+        state.service = btn.getAttribute('data-key');
+        syncSelections();
+        updateMeta();
+        updateSummary();
+        updateLinks();
+        updateNav();
       });
     });
+
+    supportButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        state.support = btn.getAttribute('data-key');
+        syncSelections();
+        updateMeta();
+        updateSummary();
+        updateLinks();
+        updateNav();
+      });
+    });
+
+    if (analyticsInput) {
+      analyticsInput.addEventListener('change', function () {
+        state.analytics = analyticsAllowed() && analyticsInput.checked;
+        syncSelections();
+        updateMeta();
+        updateSummary();
+        updateLinks();
+      });
+    }
 
     if (backBtn) {
       backBtn.addEventListener('click', function () {
-        if (history.length <= 1) return;
-        history.pop();
-        goTo(history[history.length - 1]);
+        var idx = stepOrder.indexOf(activeStep);
+        if (idx <= 0) return;
+        goTo(stepOrder[idx - 1]);
       });
     }
 
-    goTo('pages');
-    updatePrice();
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function () {
+        var idx = stepOrder.indexOf(activeStep);
+        if (idx === -1 || idx >= stepOrder.length - 1 || !canContinue(activeStep)) return;
+        goTo(stepOrder[idx + 1]);
+      });
+    }
+
+    syncSelections();
+    goTo('service');
   }
 
   function initEditorialServices() {
     var items = Array.prototype.slice.call(document.querySelectorAll('[data-services-item]'));
     var previews = Array.prototype.slice.call(document.querySelectorAll('[data-service-preview-card]'));
+    var stage = document.querySelector('[data-service-preview-stage]');
     if (!items.length) return;
 
     function activate(item) {
@@ -1220,6 +1443,42 @@
 
         activate(item);
       });
+    });
+
+    if (!stage || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var interactionZone = stage.parentElement || stage;
+
+    var rafId = null;
+    var pointerX = 0;
+    var pointerY = 0;
+
+    function paintPreviewMotion() {
+      rafId = null;
+      stage.style.setProperty('--preview-rotate-x', (pointerY * -5).toFixed(2) + 'deg');
+      stage.style.setProperty('--preview-rotate-y', (pointerX * 6).toFixed(2) + 'deg');
+      stage.style.setProperty('--preview-shift-x', (pointerX * 8).toFixed(2) + 'px');
+      stage.style.setProperty('--preview-shift-y', (pointerY * 6).toFixed(2) + 'px');
+      stage.style.setProperty('--preview-pan-x', (pointerX * -10).toFixed(2) + 'px');
+      stage.style.setProperty('--preview-pan-y', (pointerY * -12).toFixed(2) + 'px');
+    }
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
+
+    interactionZone.addEventListener('mousemove', function (event) {
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      var rect = stage.getBoundingClientRect();
+      pointerX = clamp(((event.clientX - rect.left) / rect.width - 0.5) * 2, -1, 1);
+      pointerY = clamp(((event.clientY - rect.top) / rect.height - 0.5) * 2, -1, 1);
+      if (!rafId) rafId = window.requestAnimationFrame(paintPreviewMotion);
+    });
+
+    interactionZone.addEventListener('mouseleave', function () {
+      pointerX = 0;
+      pointerY = 0;
+      if (!rafId) rafId = window.requestAnimationFrame(paintPreviewMotion);
     });
   }
 
@@ -1379,7 +1638,7 @@
        leave the calculator, services hover, page transitions, and portfolio
        popup uninitialized with no error. initReveal() has its own internal
        double-RAF for its specific paint-timing needs. */
-    initCalculatorV3();
+    initServiceEstimator();
     initHeroParallax();
     initEditorialServices();
     initPageTransition();
