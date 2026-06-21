@@ -134,7 +134,7 @@
           <li><a href="#inicio" class="nav__link" data-i18n="navHome">Inicio</a></li>
           <li><a href="servicios.html" class="nav__link" data-i18n="navServices" data-page-transition="services">Servicios</a></li>
           <li><a href="portfolio.html" class="nav__link" data-i18n="navPortfolio">Portfolio</a></li>
-          <li><a href="proceso.html" class="nav__link" data-i18n="navProcess">Proceso</a></li>
+          <li><a href="proceso.html" class="nav__link" data-i18n="navProcess">FAQ</a></li>
           <li><a href="blog/" class="nav__link">Blog</a></li>
           <li><a href="#contacto" class="nav__link" data-i18n="navContact">Contacto</a></li>
         </ul>
@@ -180,7 +180,7 @@
         </div>
         <div class="hero__cin-badge" aria-hidden="true">
           <span class="hero__cin-badge-num">+50</span>
-          <span class="hero__cin-badge-label">proyectos en la Costa</span>
+          <span class="hero__cin-badge-label">proyectos publicados</span>
         </div>
       </div>
       <div class="hero__cin-scroll" aria-hidden="true">
@@ -258,7 +258,7 @@
             <span class="services-editorial__arrow" aria-hidden="true">+</span>
           </button>
         </div>
-        <div class="services-preview" aria-hidden="true">
+        <div class="services-preview" aria-hidden="true" data-service-preview-stage>
           <figure class="services-preview__card is-active" data-service-preview-card="lite">
             <img src="img/agama.webp" alt="" width="800" height="800" loading="lazy" decoding="async">
           </figure>
@@ -502,7 +502,7 @@
 
         </div>
         <div style="text-align:center;margin-top:2.5rem;">
-          <a href="proceso.html" class="btn btn--outline btn--lg">Ver el proceso completo</a>
+          <a href="proceso.html" class="btn btn--outline btn--lg">Ver preguntas frecuentes</a>
         </div>
       </div>
     </section>
@@ -600,136 +600,197 @@
     <section class="cta-final" id="contacto">
       <div class="container cta-final__inner">
         <div class="cta-final__content cta-final__content--calculator">
-          <div class="calc-v3" data-calc-v3>
-
-            <div class="calc-v3__head">
+          <div class="estimator" data-estimator>
+            <div class="estimator__head">
               <span class="section-label">Calculadora</span>
-              <h2 class="cta-final__title">Calcula tu presupuesto en 3 pasos</h2>
-              <p class="cta-final__sub">Responde unas preguntas rápidas y verás el precio actualizarse al instante.</p>
+              <h2 class="cta-final__title">Calcula qué web encaja mejor con tu negocio</h2>
+              <p class="cta-final__sub">Elige el nivel de web, el tipo de seguimiento y los extras opcionales. Verás una estimación clara con inversión inicial y costes de continuidad.</p>
             </div>
 
-            <div class="calc-v3__card">
-              <div class="calc-v3__top">
-                <button type="button" class="calc-v3__back" data-calc-v3-back hidden>← Atrás</button>
-                <div class="calc-v3__progress" data-calc-v3-progress>
-                  <span class="calc-v3__dot is-active" data-step-dot="pages"></span>
-                  <span class="calc-v3__dot" data-step-dot="maintenance"></span>
-                  <span class="calc-v3__dot" data-step-dot="extras"></span>
-                  <span class="calc-v3__dot" data-step-dot="summary"></span>
+            <div class="estimator__shell">
+              <div class="estimator__orb estimator__orb--one" aria-hidden="true"></div>
+              <div class="estimator__orb estimator__orb--two" aria-hidden="true"></div>
+
+              <div class="estimator__meta">
+                <div>
+                  <span class="estimator__meta-label">Paso actual</span>
+                  <strong class="estimator__meta-value" data-estimator-step-label>1 de 4 · Tipo de web</strong>
+                </div>
+                <div>
+                  <span class="estimator__meta-label">Estimación actual</span>
+                  <strong class="estimator__meta-value" data-estimator-mini-price>200€ + IVA</strong>
                 </div>
               </div>
 
-              <div class="calc-v3__stage">
-
-                <!-- STEP 1: páginas -->
-                <div class="calc-v3__step is-active" data-calc-v3-step="pages">
-                  <h3 class="calc-v3__question">¿Cuántas páginas necesitas?</h3>
-                  <div class="calc-v3__grid">
-                    <button type="button" class="calc-v3__opt" data-pages-opt data-price="200">
-                      <span class="calc-v3__opt-num">1</span>
-                      <span class="calc-v3__opt-label">página</span>
-                    </button>
-                    <button type="button" class="calc-v3__opt" data-pages-opt data-price="250">
-                      <span class="calc-v3__opt-num">2</span>
-                      <span class="calc-v3__opt-label">páginas</span>
-                    </button>
-                    <button type="button" class="calc-v3__opt" data-pages-opt data-price="300">
-                      <span class="calc-v3__opt-num">3</span>
-                      <span class="calc-v3__opt-label">páginas</span>
-                    </button>
-                    <button type="button" class="calc-v3__opt" data-pages-opt data-price="600">
-                      <span class="calc-v3__opt-num">4+</span>
-                      <span class="calc-v3__opt-label">páginas</span>
-                    </button>
-                  </div>
-                  <div class="calc-v3__alt">
-                    <button type="button" class="calc-v3__alt-link" data-calc-v3-jump="custom">¿Necesitas usuarios o pasarela de pagos? Algo personalizado →</button>
-                    <button type="button" class="calc-v3__alt-link" data-calc-v3-jump="optimize">¿Quieres optimizar tu negocio con IA? →</button>
-                  </div>
-                </div>
-
-                <!-- STEP 2: mantenimiento -->
-                <div class="calc-v3__step" data-calc-v3-step="maintenance">
-                  <h3 class="calc-v3__question">¿Qué servicios de mantenimiento necesitas?</h3>
-                  <div class="calc-v3__list">
-                    <button type="button" class="calc-v3__row" data-maint-opt data-price="0">
-                      <span class="calc-v3__row-name">Sin mantenimiento</span>
-                      <span class="calc-v3__row-price">incluido</span>
-                    </button>
-                    <button type="button" class="calc-v3__row" data-maint-opt data-price="50">
-                      <span class="calc-v3__row-name">Básico — hasta 5 cambios menores al mes</span>
-                      <span class="calc-v3__row-price">+50€/mes</span>
-                    </button>
-                    <button type="button" class="calc-v3__row" data-maint-opt data-price="100">
-                      <span class="calc-v3__row-name">Avanzado — hasta 10 cambios + 2 modificaciones de estilo</span>
-                      <span class="calc-v3__row-price">+100€/mes</span>
-                    </button>
-                  </div>
-                </div>
-
-                <!-- STEP 3: extras -->
-                <div class="calc-v3__step" data-calc-v3-step="extras">
-                  <h3 class="calc-v3__question">¿Algún extra más?</h3>
-                  <div class="calc-v3__list">
-                    <label class="calc-v3__row calc-v3__row--check">
-                      <input type="checkbox" data-extra-opt data-price="25">
-                      <span class="calc-v3__row-name">Google Site — gestión de ficha de Google Business</span>
-                      <span class="calc-v3__row-price">+25€/mes</span>
-                    </label>
-                    <label class="calc-v3__row calc-v3__row--check">
-                      <input type="checkbox" data-extra-opt data-price="25">
-                      <span class="calc-v3__row-name">Analíticas — seguimiento mensual de visitas e informe</span>
-                      <span class="calc-v3__row-price">+25€/mes</span>
-                    </label>
-                  </div>
-                  <button type="button" class="btn btn--primary btn--lg calc-v3__continue" data-calc-v3-continue>Continuar</button>
-                </div>
-
-                <!-- STEP 4: resumen -->
-                <div class="calc-v3__step" data-calc-v3-step="summary">
-                  <h3 class="calc-v3__question">Tu presupuesto está listo</h3>
-                  <p class="calc-v3__summary-note">Precio orientativo. El coste final se cierra en la reunión inicial.</p>
-                  <div class="calc-v3__summary-actions">
-                    <a href="#" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener noreferrer" data-calc-v3-wa>
-                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-                      Pedir este presupuesto
-                    </a>
-                    <a href="mailto:info@webfuengirola.com?subject=Presupuesto%20web%20WF%20Studio" class="btn btn--outline btn--lg" data-calc-v3-email>
-                      Enviar por email
-                    </a>
-                  </div>
-                </div>
-
-                <!-- ALT: personalizado -->
-                <div class="calc-v3__step calc-v3__step--alt" data-calc-v3-step="custom">
-                  <p class="calc-v3__alt-eyebrow">Proyecto personalizado</p>
-                  <h3 class="calc-v3__question">Cuéntanos qué tienes en mente</h3>
-                  <p class="calc-v3__alt-desc">Usuarios, pasarela de pagos, lógica a medida... Para proyectos especiales hacemos una reunión gratuita para entender bien lo que necesitas y darte un presupuesto real.</p>
-                  <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20hablar%20sobre%20un%20proyecto%20personalizado" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-                    Escribirnos por WhatsApp
-                  </a>
-                </div>
-
-                <!-- ALT: optimizar -->
-                <div class="calc-v3__step calc-v3__step--alt" data-calc-v3-step="optimize">
-                  <p class="calc-v3__alt-eyebrow">Optimización con IA</p>
-                  <h3 class="calc-v3__question">Concierta una cita gratuita</h3>
-                  <p class="calc-v3__alt-desc">Analizamos tus flujos de trabajo actuales y encontramos dónde puedes ahorrar tiempo y dinero con automatizaciones, chatbots o herramientas a medida.</p>
-                  <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20concertar%20una%20cita%20para%20optimizar%20mi%20negocio" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">
-                    Concertar cita gratuita
-                  </a>
-                </div>
-
+              <div class="estimator__progress" aria-hidden="true">
+                <span class="estimator__progress-bar is-active" data-estimator-dot="service"></span>
+                <span class="estimator__progress-bar" data-estimator-dot="support"></span>
+                <span class="estimator__progress-bar" data-estimator-dot="extras"></span>
+                <span class="estimator__progress-bar" data-estimator-dot="summary"></span>
               </div>
 
-              <div class="calc-v3__price" data-calc-v3-price-wrap hidden>
-                <span class="calc-v3__price-label">Total estimado</span>
-                <strong class="calc-v3__price-value" data-calc-v3-price>0€</strong>
-                <span class="calc-v3__price-monthly" data-calc-v3-monthly></span>
+              <div class="estimator__stage">
+                <section class="estimator__step is-active" data-estimator-step="service">
+                  <div class="estimator__intro">
+                    <p class="estimator__eyebrow">1. Tipo de web</p>
+                    <h3 class="estimator__title">Empieza por el nivel que mejor representa tu momento</h3>
+                    <p class="estimator__sub">No hace falta sobredimensionar el proyecto. Aquí ordenamos la decisión entre presencia simple, web corporativa, web avanzada y desarrollo a medida.</p>
+                  </div>
+
+                  <div class="estimator__grid estimator__grid--services">
+                    <button type="button" class="estimator-card estimator-card--service is-selected" data-estimator-choice="service" data-key="lite">
+                      <span class="estimator-card__topline">Presencia online</span>
+                      <span class="estimator-card__title">Web Lite</span>
+                      <span class="estimator-card__price">200€ + IVA</span>
+                      <span class="estimator-card__desc">Monopágina profesional para estar online, generar confianza y facilitar el contacto.</span>
+                      <span class="estimator-card__meta">Hosting 35€/año · dominio no incluido</span>
+                    </button>
+
+                    <button type="button" class="estimator-card estimator-card--service" data-estimator-choice="service" data-key="express">
+                      <span class="estimator-card__topline">Web corporativa</span>
+                      <span class="estimator-card__title">Web Express</span>
+                      <span class="estimator-card__price">350€ + IVA</span>
+                      <span class="estimator-card__desc">Multipágina para negocios que necesitan explicar mejor servicios, instalaciones y quiénes son.</span>
+                      <span class="estimator-card__meta">Hosting 50€/año · dominio no incluido</span>
+                    </button>
+
+                    <button type="button" class="estimator-card estimator-card--service" data-estimator-choice="service" data-key="pro">
+                      <span class="estimator-card__topline">Captación y autogestión</span>
+                      <span class="estimator-card__title">Web Pro</span>
+                      <span class="estimator-card__price">600€ + IVA</span>
+                      <span class="estimator-card__desc">Web corporativa avanzada con captación de contactos, panel básico y contenidos autogestionables.</span>
+                      <span class="estimator-card__meta">Primer año de hosting y dominio incluido</span>
+                    </button>
+
+                    <button type="button" class="estimator-card estimator-card--service" data-estimator-choice="service" data-key="custom">
+                      <span class="estimator-card__topline">Desarrollo a medida</span>
+                      <span class="estimator-card__title">Web Personalizada</span>
+                      <span class="estimator-card__price">Desde 600€ + IVA</span>
+                      <span class="estimator-card__desc">Para reservas, áreas privadas, automatizaciones, integraciones o procesos concretos del negocio.</span>
+                      <span class="estimator-card__meta">Precio final según alcance real</span>
+                    </button>
+                  </div>
+                </section>
+
+                <section class="estimator__step" data-estimator-step="support">
+                  <div class="estimator__intro">
+                    <p class="estimator__eyebrow">2. Seguimiento</p>
+                    <h3 class="estimator__title">Decide si quieres continuidad o solo capacidad de reacción</h3>
+                    <p class="estimator__sub">Los mantenimientos están pensados para seguimiento continuado. Los bonos sirven para ejecutar acciones concretas cuando las necesites.</p>
+                  </div>
+
+                  <div class="estimator__grid estimator__grid--support">
+                    <button type="button" class="estimator-card estimator-card--support is-selected" data-estimator-choice="support" data-key="none">
+                      <span class="estimator-card__title">Sin mantenimiento</span>
+                      <span class="estimator-card__price">Sin cuota fija</span>
+                      <span class="estimator-card__desc">Ideal si por ahora solo necesitas publicar la web y revisar más adelante.</span>
+                    </button>
+
+                    <button type="button" class="estimator-card estimator-card--support" data-estimator-choice="support" data-key="marketing">
+                      <span class="estimator-card__title">Marketing y Presencia Digital</span>
+                      <span class="estimator-card__price">300€/mes</span>
+                      <span class="estimator-card__desc">Google Business Profile, reseñas, publicaciones, SEO local y revisión periódica.</span>
+                    </button>
+
+                    <button type="button" class="estimator-card estimator-card--support estimator-card--accent" data-estimator-choice="support" data-key="carefree">
+                      <span class="estimator-card__title">Cero Preocupaciones</span>
+                      <span class="estimator-card__price">400€/mes</span>
+                      <span class="estimator-card__desc">Todo lo anterior más actualización de contenidos, seguimiento técnico y soporte prioritario.</span>
+                    </button>
+
+                    <button type="button" class="estimator-card estimator-card--support" data-estimator-choice="support" data-key="flex">
+                      <span class="estimator-card__title">Bono Flexible</span>
+                      <span class="estimator-card__price">400€</span>
+                      <span class="estimator-card__desc">Bolsa de 10 horas para mejoras, SEO local, landing pages, integraciones o nuevas acciones.</span>
+                    </button>
+
+                    <button type="button" class="estimator-card estimator-card--support" data-estimator-choice="support" data-key="priority">
+                      <span class="estimator-card__title">Bono Prioritario</span>
+                      <span class="estimator-card__price">550€</span>
+                      <span class="estimator-card__desc">10 horas con atención preferente y objetivo de respuesta rápida en tareas pequeñas y medianas.</span>
+                    </button>
+                  </div>
+                </section>
+
+                <section class="estimator__step" data-estimator-step="extras">
+                  <div class="estimator__intro">
+                    <p class="estimator__eyebrow">3. Extras y publicación</p>
+                    <h3 class="estimator__title">Añade solo lo que realmente suma a tu proyecto</h3>
+                    <p class="estimator__sub">Mostramos aparte los extras opcionales y las condiciones de renovación para que el alcance quede claro desde el principio.</p>
+                  </div>
+
+                  <div class="estimator__extras-layout">
+                    <div class="estimator__extras-main">
+                      <label class="estimator-toggle" data-estimator-extra-card>
+                        <input type="checkbox" data-estimator-extra="analytics">
+                        <span class="estimator-toggle__box">
+                          <span class="estimator-toggle__title">Configurar Google Analytics y Search Console</span>
+                          <span class="estimator-toggle__price">+50€ + IVA</span>
+                          <span class="estimator-toggle__desc">Disponible si el proyecto encaja con medición básica y el cliente aporta acceso a su cuenta.</span>
+                        </span>
+                      </label>
+
+                      <div class="estimator-note" data-estimator-analytics-note>
+                        Este extra encaja especialmente con Web Pro y proyectos personalizados orientados a captación o seguimiento básico.
+                      </div>
+                    </div>
+
+                    <aside class="estimator-sidecard">
+                      <p class="estimator-sidecard__eyebrow">Renovación orientativa</p>
+                      <div class="estimator-sidecard__service" data-estimator-renewal-service>Web Lite</div>
+                      <div class="estimator-sidecard__price" data-estimator-renewal-price>35€/año de hosting</div>
+                      <p class="estimator-sidecard__copy" data-estimator-renewal-copy>El dominio va aparte. Web Lite está pensada para una presencia sencilla y publicada sin complicaciones.</p>
+                    </aside>
+                  </div>
+                </section>
+
+                <section class="estimator__step" data-estimator-step="summary">
+                  <div class="estimator__intro">
+                    <p class="estimator__eyebrow">4. Resumen</p>
+                    <h3 class="estimator__title">Tu estimación ya está lista</h3>
+                    <p class="estimator__sub">Es una referencia comercial útil para empezar la conversación. El precio final se cierra al confirmar material, alcance y necesidades reales.</p>
+                  </div>
+
+                  <div class="estimator-summary">
+                    <div class="estimator-summary__panel" data-estimator-summary></div>
+
+                    <div class="estimator-summary__totals">
+                      <div class="estimator-summary__total">
+                        <span class="estimator-summary__label">Inversión inicial</span>
+                        <strong class="estimator-summary__value" data-estimator-total-once>200€ + IVA</strong>
+                      </div>
+                      <div class="estimator-summary__total">
+                        <span class="estimator-summary__label">Seguimiento continuado</span>
+                        <strong class="estimator-summary__value" data-estimator-total-recurring>Sin cuota mensual</strong>
+                      </div>
+                    </div>
+
+                    <div class="estimator-summary__actions">
+                      <a href="#" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener noreferrer" data-estimator-wa>
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                        Pedir esta estimación
+                      </a>
+                      <a href="mailto:info@webfuengirola.com?subject=Estimaci%C3%B3n%20web%20WF%20Studio" class="btn btn--outline btn--lg" data-estimator-email>
+                        Enviar por email
+                      </a>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <div class="estimator__bar">
+                <div class="estimator__bar-price">
+                  <span class="estimator__bar-label">Inversión estimada</span>
+                  <strong class="estimator__bar-value" data-estimator-bar-once>200€ + IVA</strong>
+                  <span class="estimator__bar-hint" data-estimator-bar-recurring>Hosting 35€/año · dominio no incluido</span>
+                </div>
+
+                <div class="estimator__bar-actions">
+                  <button type="button" class="estimator__ghost" data-estimator-back hidden>← Atrás</button>
+                  <button type="button" class="estimator__primary" data-estimator-next>Siguiente →</button>
+                </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -746,7 +807,7 @@
         <a href="#inicio" class="logo logo--light" aria-label="WF Studio">
           <img src="img/logo-wf.webp" alt="WF Studio" class="logo__img" width="36" height="36" loading="lazy"/>
         </a>
-        <p class="footer__tagline" data-i18n="footerTagline">Webs para comercios locales en la Costa del Sol.</p>
+        <p class="footer__tagline" data-i18n="footerTagline">Webs para negocios locales con una presencia clara y profesional.</p>
       </div>
 
       <div class="footer__col">
@@ -809,7 +870,10 @@
       <span></span>
       <span></span>
     </div>
-    <div class="page-transition__brand">WF STUDIO</div>
+    <div class="page-transition__brand">
+      <img src="img/logo-wf.webp" alt="" class="page-transition__logo" width="54" height="54" loading="eager" aria-hidden="true">
+      <span class="page-transition__wordmark">WF Studio</span>
+    </div>
   </div>
 </body>
 </html>

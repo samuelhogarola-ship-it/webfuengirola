@@ -26,6 +26,9 @@ Convertir `webfuengirola.com` en una web más consistente, más confiable y más
   - Resultado: `Web Lite / Web Express / Web personalizada`.
   - Captura de lead con resumen de respuestas.
   - Base interna ya definida en `core/web-project-intake.md` y `core/web-project-brief-template.md`.
+- Mantener la misma entrada visual de `servicios.html` independientemente de la página de origen.
+  - Ahora la transición/arranque se siente más potente cuando se llega desde `index.html`.
+  - Revisar navegación desde `portfolio.html` y otras páginas internas para conservar ese mismo efecto de llegada.
 - Añadir enlazado interno más estratégico entre blog, servicios, productos y portfolio.
 - Preparar un patrón reusable para nuevas páginas de blog.
   - Metadatos SEO.
