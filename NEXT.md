@@ -83,6 +83,11 @@ Convertir `webfuengirola.com` en una web más consistente, más confiable y más
   - Construir el área cliente como módulo separado (`/clientes/`) con backend ligero.
   - Candidatos razonables para MVP: Supabase Auth + tabla simple de proyectos.
 
+## Studio Panel — Pendiente
+
+- **[deploy]** Variables `NEXT_PUBLIC_*` se incrustan en el bundle en build time. En Coolify deben estar disponibles durante el build, no solo como vars de runtime del contenedor. Configurar antes del primer deploy: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `NEXT_PUBLIC_APP_URL`.
+- **[validación]** No se ha probado la app contra Supabase ni Resend en vivo. Primera validación real: cargar credenciales en `.env.local`, arrancar con `npm run dev` desde `apps/studio-panel` y verificar login admin, magic link y envío de email.
+
 ## Siguiente Arranque Recomendado
 
 1. Extender el estándar SEO del blog a páginas principales y productos.

@@ -1,6 +1,9 @@
 .claude/
 node_modules/
+.next/
 test-results/
 playwright-report/
 .tools/
 .DS_Store
+.env.local
+tsconfig.tsbuildinfo
