@@ -12,6 +12,8 @@ export default [
       ".tools/**",
       "img/**",
       "**/*.min.js",
+      "madamebleuewatches-preview/**",
+      "madamebleuewatches-preview-src/**",
     ],
   },
   js.configs.recommended,
