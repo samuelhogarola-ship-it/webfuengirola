@@ -15,6 +15,7 @@ export default [
       "madamebleuewatches-preview/**",
       "madamebleuewatches-preview-src/**",
       ".claude/**",
+      "apps/studio-panel/.next/**",
     ],
   },
   js.configs.recommended,
