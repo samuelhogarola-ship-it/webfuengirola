@@ -6580,10 +6580,11 @@ body.is-transitioning {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   overflow: hidden;
   background: #090909;
   color: #fff;
+  padding-top: 80px;
   padding-bottom: 72px;
 }
 
