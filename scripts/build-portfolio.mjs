@@ -5,6 +5,8 @@ import {
   portfolioProjects,
   productCategories,
 } from "../portfolio/projects-data.mjs";
+import { services } from "../data/services-data.mjs";
+import { cases } from "../data/cases-data.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -78,10 +80,11 @@ function assetHref(prefix, href) {
 function renderHeader(prefix, activePage) {
   const navItems = [
     { href: "index.html", label: "Inicio", key: "home" },
-    { href: "servicios.html", label: "Servicios", key: "services" },
-    { href: "portfolio.html", label: "Portfolio", key: "portfolio" },
-    { href: "proceso.html", label: "Proceso", key: "process" },
+    { href: "servicios/", label: "Servicios", key: "services" },
+    { href: "casos/", label: "Casos de éxito", key: "casos" },
     { href: "blog/", label: "Blog", key: "blog" },
+    { href: "recursos/", label: "Recursos", key: "recursos" },
+    { href: "sobre-nosotros/", label: "Sobre nosotros", key: "sobre" },
   ];
 
   return `
@@ -94,7 +97,6 @@ function renderHeader(prefix, activePage) {
       <nav class="nav" id="nav" aria-label="Navegación principal">
         <ul class="nav__list">
           ${navItems.map((item) => `<li><a href="${navHref(prefix, item.href)}" class="nav__link${item.key === activePage ? " nav__link--active" : ""}">${item.label}</a></li>`).join("\n          ")}
-          <li><a href="${navHref(prefix, "index.html#contacto")}" class="nav__link">Contacto</a></li>
         </ul>
       </nav>
 
@@ -132,11 +134,20 @@ function renderFooter(
       <div class="footer__col">
         <h4 class="footer__col-title">Servicios</h4>
         <ul class="footer__links">
-          <li><a href="${navHref(prefix, "servicios.html#web-express")}">Web Express</a></li>
-          <li><a href="${navHref(prefix, "servicios.html#web-pro")}">Web Pro</a></li>
-          <li><a href="${navHref(prefix, "servicios.html#react-automatizacion")}">React, chatbots y automatización</a></li>
-          <li><a href="${navHref(prefix, "servicios.html#apps-medida")}">Apps y herramientas a medida</a></li>
-          <li><a href="${navHref(prefix, "index.html#mantenimiento")}">Mantenimiento</a></li>
+          <li><a href="${navHref(prefix, "servicios/diseno-web/")}">Diseño Web</a></li>
+          <li><a href="${navHref(prefix, "servicios/seo-local/")}">SEO Local</a></li>
+          <li><a href="${navHref(prefix, "servicios/mantenimiento/")}">Mantenimiento</a></li>
+          <li><a href="${navHref(prefix, "servicios/automatizacion/")}">Automatización e IA</a></li>
+          <li><a href="${navHref(prefix, "servicios/aplicaciones-web/")}">Apps a medida</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4 class="footer__col-title">Empresa</h4>
+        <ul class="footer__links">
+          <li><a href="${navHref(prefix, "sobre-nosotros/")}">Sobre nosotros</a></li>
+          <li><a href="${navHref(prefix, "como-trabajamos/")}">Cómo trabajamos</a></li>
+          <li><a href="${navHref(prefix, "casos/")}">Casos de éxito</a></li>
+          <li><a href="${navHref(prefix, "recursos/")}">Recursos</a></li>
         </ul>
       </div>
       <div class="footer__col">
@@ -150,6 +161,7 @@ function renderFooter(
       <div class="footer__col">
         <h4 class="footer__col-title">Contacto</h4>
         <ul class="footer__links">
+          <li><a href="${navHref(prefix, "contacto/")}">Página de contacto</a></li>
           <li><a href="https://wa.me/34622923988" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
           <li><a href="mailto:info@webfuengirola.com">info@webfuengirola.com</a></li>
           <li><a href="${whatsappHref}" target="_blank" rel="noopener noreferrer">Pedir presupuesto</a></li>
@@ -678,6 +690,24 @@ function renderSitemap() {
     })),
     { loc: "https://webfuengirola.com/proceso.html", lastmod: today },
     { loc: "https://webfuengirola.com/legal.html", lastmod: today },
+    // New sections (FASE 0B)
+    { loc: "https://webfuengirola.com/servicios/", lastmod: today },
+    ...services.map((s) => ({
+      loc: `https://webfuengirola.com/servicios/${s.slug}/`,
+      lastmod: today,
+    })),
+    { loc: "https://webfuengirola.com/casos/", lastmod: today },
+    ...cases.map((c) => ({
+      loc: `https://webfuengirola.com/casos/${c.slug}/`,
+      lastmod: today,
+    })),
+    { loc: "https://webfuengirola.com/recursos/", lastmod: today },
+    { loc: "https://webfuengirola.com/recursos/herramientas/", lastmod: today },
+    { loc: "https://webfuengirola.com/recursos/guias/", lastmod: today },
+    { loc: "https://webfuengirola.com/recursos/checklists/", lastmod: today },
+    { loc: "https://webfuengirola.com/sobre-nosotros/", lastmod: today },
+    { loc: "https://webfuengirola.com/como-trabajamos/", lastmod: today },
+    { loc: "https://webfuengirola.com/contacto/", lastmod: today },
   ];
 
   return `<?xml version="1.0" encoding="UTF-8"?>
