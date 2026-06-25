@@ -275,7 +275,7 @@ ${renderHead({
   ogImage: service.ogImage,
   ogAlt: service.ogAlt,
   prefix,
-  noindex: true,
+  noindex: !service.bodyHtml,
 })}
 <body>
 ${renderHeader(prefix, "services")}
@@ -305,6 +305,9 @@ ${renderHeader(prefix, "services")}
       </div>
     </section>
 
+    ${
+      service.bodyHtml ||
+      `
     <section class="section" style="background: var(--color-surface-warm)">
       <div class="container">
         <div class="section-header">
@@ -316,7 +319,8 @@ ${renderHeader(prefix, "services")}
           <a href="https://wa.me/34622923988?text=${encodeURIComponent(service.whatsappText)}" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp →</a>
         </div>
       </div>
-    </section>
+    </section>`
+    }
 
     ${relatedCasesHtml}
   </main>

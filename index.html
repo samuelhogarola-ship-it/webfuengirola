@@ -198,83 +198,55 @@
           <span class="section-label" data-i18n="servicesLabel">Servicios</span>
           <h2 class="section-title" data-i18n="servicesTitle">Oferta clara para negocio local y desarrollo a medida</h2>
         </div>
-        <div class="services-editorial" data-services-editorial>
-          <button type="button" class="services-editorial__item is-active" data-services-item data-service-preview="lite" aria-expanded="true">
-            <span class="services-editorial__index" aria-hidden="true">01</span>
-            <span class="services-editorial__main">
-              <span class="services-editorial__title" data-i18n="serviceLiteTitle">Página Web Lite</span>
-              <span class="services-editorial__price">200€ <span data-i18n="vatLabel">+ IVA</span></span>
-            </span>
-            <span class="services-editorial__meta">
-              <span class="services-editorial__summary" data-i18n="serviceLiteDesc">Una página sencilla para tener escaparate online cuanto antes. Pensada para negocios que ya tienen su clientela y solo necesitan estar bien visibles.</span>
-            </span>
-            <span class="services-editorial__arrow" aria-hidden="true">+</span>
-          </button>
-
-          <button type="button" class="services-editorial__item" data-services-item data-service-preview="express" aria-expanded="false">
-            <span class="services-editorial__index" aria-hidden="true">02</span>
-            <span class="services-editorial__main">
-              <span class="services-editorial__title" data-i18n="service1Title">Web Express</span>
-              <span class="services-editorial__price">350€ <span data-i18n="vatLabel">+ IVA</span></span>
-            </span>
-            <span class="services-editorial__meta">
-              <span class="services-editorial__summary" data-i18n="service1Desc">Web multipágina para negocios que necesitan algo más que una presencia básica: mejor estructura, más espacio para explicar servicios y una imagen más sólida.</span>
-            </span>
-            <span class="services-editorial__arrow" aria-hidden="true">+</span>
-          </button>
-
-          <button type="button" class="services-editorial__item" data-services-item data-service-preview="pro" aria-expanded="false">
-            <span class="services-editorial__index" aria-hidden="true">03</span>
-            <span class="services-editorial__main">
-              <span class="services-editorial__title" data-i18n="service2Title">Web Pro</span>
-              <span class="services-editorial__price">600€ <span data-i18n="vatLabel">+ IVA</span></span>
-            </span>
-            <span class="services-editorial__meta">
-              <span class="services-editorial__summary" data-i18n="service2Desc">La web corporativa más avanzada dentro de la oferta base: pensada para captar contactos, medir lo básico y autogestionar determinados contenidos sin convertir el proyecto en una aplicación a medida.</span>
-            </span>
-            <span class="services-editorial__arrow" aria-hidden="true">+</span>
-          </button>
-
-          <button type="button" class="services-editorial__item" data-services-item data-service-preview="react" aria-expanded="false">
-            <span class="services-editorial__index" aria-hidden="true">04</span>
-            <span class="services-editorial__main">
-              <span class="services-editorial__title" data-i18n="service3Title">React, chatbots y automatización</span>
-              <span class="services-editorial__price" data-i18n-html="service3PriceHtml">300€ implantación <span>+ 50€ / mes</span></span>
-            </span>
-            <span class="services-editorial__meta">
-              <span class="services-editorial__summary" data-i18n="service3Desc">Bloques técnicos para empresas que ya no necesitan solo una web, sino interacción, eficiencia y captación automatizada.</span>
-            </span>
-            <span class="services-editorial__arrow" aria-hidden="true">+</span>
-          </button>
-
-          <button type="button" class="services-editorial__item" data-services-item data-service-preview="apps" aria-expanded="false">
-            <span class="services-editorial__index" aria-hidden="true">05</span>
-            <span class="services-editorial__main">
-              <span class="services-editorial__title" data-i18n="service4Title">Apps y herramientas a medida</span>
-              <span class="services-editorial__price">2500€ <span data-i18n="vatLabel">+ IVA</span></span>
-            </span>
-            <span class="services-editorial__meta">
-              <span class="services-editorial__summary" data-i18n="service4Desc">Web apps, proyectos con Node, apps Android y herramientas internas para operaciones, reservas o gestión de clientes.</span>
-            </span>
-            <span class="services-editorial__arrow" aria-hidden="true">+</span>
-          </button>
-        </div>
-        <div class="services-preview" aria-hidden="true" data-service-preview-stage>
-          <figure class="services-preview__card is-active" data-service-preview-card="lite">
-            <img src="img/agama.webp" alt="" width="800" height="800" loading="lazy" decoding="async">
-          </figure>
-          <figure class="services-preview__card" data-service-preview-card="express">
-            <img src="img/personal-trainer.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-          </figure>
-          <figure class="services-preview__card" data-service-preview-card="pro">
-            <img src="img/clinica-demo-v2.webp" alt="" width="1600" height="900" loading="lazy" decoding="async">
-          </figure>
-          <figure class="services-preview__card" data-service-preview-card="react">
-            <img src="img/chatbots-illustration.svg" alt="" width="800" height="600" loading="lazy" decoding="async">
-          </figure>
-          <figure class="services-preview__card" data-service-preview-card="apps">
-            <img src="img/apps-phone-illustration.svg" alt="" width="800" height="600" loading="lazy" decoding="async">
-          </figure>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2.5rem">
+          <a href="servicios/diseno-web/" class="portfolio-card" style="text-decoration:none;display:block">
+            <div class="portfolio-card__body">
+              <h3 class="portfolio-card__title">Diseño Web</h3>
+              <p class="portfolio-card__desc">Para negocios locales que necesitan presencia digital profesional en la Costa del Sol.</p>
+              <p style="margin-top:0.75rem;font-weight:600;font-size:0.9rem">Desde 200€</p>
+            </div>
+            <div class="portfolio-card__footer"><span class="btn btn--outline">Ver servicio →</span></div>
+          </a>
+          <a href="servicios/seo-local/" class="portfolio-card" style="text-decoration:none;display:block">
+            <div class="portfolio-card__body">
+              <h3 class="portfolio-card__title">SEO Local</h3>
+              <p class="portfolio-card__desc">Mejora tu visibilidad en Google cuando alguien en Fuengirola busca lo que ofreces.</p>
+              <p style="margin-top:0.75rem;font-weight:600;font-size:0.9rem">Desde 150€/mes</p>
+            </div>
+            <div class="portfolio-card__footer"><span class="btn btn--outline">Ver servicio →</span></div>
+          </a>
+          <a href="servicios/mantenimiento/" class="portfolio-card" style="text-decoration:none;display:block">
+            <div class="portfolio-card__body">
+              <h3 class="portfolio-card__title">Mantenimiento</h3>
+              <p class="portfolio-card__desc">Tu web actualizada, segura y funcionando sin que tengas que preocuparte.</p>
+              <p style="margin-top:0.75rem;font-weight:600;font-size:0.9rem">Desde 29€/mes</p>
+            </div>
+            <div class="portfolio-card__footer"><span class="btn btn--outline">Ver servicio →</span></div>
+          </a>
+          <a href="servicios/hosting/" class="portfolio-card" style="text-decoration:none;display:block">
+            <div class="portfolio-card__body">
+              <h3 class="portfolio-card__title">Hosting Gestionado</h3>
+              <p class="portfolio-card__desc">Hosting con soporte en español para que tu web tenga una base técnica estable.</p>
+              <p style="margin-top:0.75rem;font-weight:600;font-size:0.9rem">Desde 10€/mes</p>
+            </div>
+            <div class="portfolio-card__footer"><span class="btn btn--outline">Ver servicio →</span></div>
+          </a>
+          <a href="servicios/automatizacion/" class="portfolio-card" style="text-decoration:none;display:block">
+            <div class="portfolio-card__body">
+              <h3 class="portfolio-card__title">Automatización e IA</h3>
+              <p class="portfolio-card__desc">Chatbots, flujos automáticos y herramientas con IA para ahorrar tiempo en tu negocio.</p>
+              <p style="margin-top:0.75rem;font-weight:600;font-size:0.9rem">Desde 300€ + 50€/mes</p>
+            </div>
+            <div class="portfolio-card__footer"><span class="btn btn--outline">Ver servicio →</span></div>
+          </a>
+          <a href="servicios/aplicaciones-web/" class="portfolio-card" style="text-decoration:none;display:block">
+            <div class="portfolio-card__body">
+              <h3 class="portfolio-card__title">Apps a medida</h3>
+              <p class="portfolio-card__desc">Herramientas y aplicaciones web desarrolladas exactamente para lo que necesita tu negocio.</p>
+              <p style="margin-top:0.75rem;font-weight:600;font-size:0.9rem">Desde 2.500€</p>
+            </div>
+            <div class="portfolio-card__footer"><span class="btn btn--outline">Ver servicio →</span></div>
+          </a>
         </div>
         <div style="text-align:center;margin-top:2.5rem;">
           <a href="servicios/" class="btn btn--outline btn--lg">Ver catálogo completo de servicios →</a>

@@ -333,6 +333,8 @@ ${renderHeader(prefix, "casos")}
       </div>
     </section>
 
+    ${caso.bodyHtml || ""}
+
     <section class="section" style="background: var(--color-surface-warm)">
       <div class="container">
         <div class="section-header">
