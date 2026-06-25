@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /madamebleuewatches-preview/
 
 Sitemap: https://webfuengirola.com/sitemap.xml
