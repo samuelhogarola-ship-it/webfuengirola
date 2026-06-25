@@ -196,6 +196,72 @@ export const services = [
     ogAlt: "Mantenimiento web profesional para negocios locales",
     relatedCases: [],
     whatsappText: "Hola, me interesa el servicio de mantenimiento web",
+    bodyHtml: `
+    <section class="section">
+      <div class="container">
+        <div style="max-width: 680px; margin-bottom: 3rem">
+          <span class="section-label">Planes disponibles</span>
+          <h2 class="section-title" style="margin-top: 1rem; font-size: clamp(1.5rem, 3vw, 2rem)">Los mantenimientos mantienen. Los bonos impulsan.</h2>
+          <p style="color: var(--color-text-muted); line-height: 1.75; margin-top: 1rem">Los mantenimientos están pensados para el seguimiento continuado de tu presencia digital. Los bonos sirven para ejecutar acciones concretas cuando las necesitas, sin compromiso mensual.</p>
+        </div>
+        <div class="maintenance__grid">
+          <div class="maintenance__plan">
+            <h3 class="maintenance__plan-title">Marketing y Presencia Digital</h3>
+            <p class="maintenance__plan-desc">300 €/mes. Para negocios que quieren mantener una presencia digital activa y profesional de forma continuada.</p>
+            <ul class="maintenance__list">
+              <li>Gestión de Google Business Profile y seguimiento de reseñas</li>
+              <li>Publicaciones periódicas y optimización continua del perfil</li>
+              <li>Seguimiento SEO local y detección de oportunidades de mejora</li>
+              <li>Revisión periódica de la web, informe mensual y recomendaciones</li>
+            </ul>
+            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20el%20mantenimiento%20Marketing%20y%20Presencia%20Digital" class="btn btn--ghost btn--sm" target="_blank" rel="noopener noreferrer">Consultar</a>
+          </div>
+          <div class="maintenance__plan maintenance__plan--highlight">
+            <h3 class="maintenance__plan-title">Cero Preocupaciones</h3>
+            <p class="maintenance__plan-desc">400 €/mes. Para negocios que quieren delegar completamente la gestión digital habitual.</p>
+            <ul class="maintenance__list">
+              <li>Todo lo incluido en Marketing y Presencia Digital</li>
+              <li>Actualización de contenidos web e información comercial</li>
+              <li>Seguimiento técnico de la web y coordinación de mejoras</li>
+              <li>Soporte prioritario, supervisión continua e informes periódicos</li>
+            </ul>
+            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20el%20mantenimiento%20Cero%20Preocupaciones" class="btn btn--primary btn--sm" target="_blank" rel="noopener noreferrer">Consultar</a>
+          </div>
+          <div class="maintenance__plan">
+            <h3 class="maintenance__plan-title">Bono Flexible</h3>
+            <p class="maintenance__plan-desc">10 horas · 400 €. Para negocios que necesitan ejecutar acciones concretas con flexibilidad y rapidez.</p>
+            <ul class="maintenance__list">
+              <li>Ideal para SEO local, Google Business, mejoras web, landing pages o automatizaciones</li>
+              <li>Panel de seguimiento, Change Log e historial de actuaciones</li>
+              <li>Control de tareas realizadas y horas disponibles</li>
+              <li>Plazo orientativo de hasta 7 días laborables. Validez 12 meses</li>
+            </ul>
+            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20el%20Bono%20Flexible%20de%2010%20horas" class="btn btn--ghost btn--sm" target="_blank" rel="noopener noreferrer">Consultar</a>
+          </div>
+          <div class="maintenance__plan">
+            <h3 class="maintenance__plan-title">Bono Prioritario</h3>
+            <p class="maintenance__plan-desc">10 horas · 550 €. Para negocios que necesitan capacidad de reacción rápida y atención preferente.</p>
+            <ul class="maintenance__list">
+              <li>Todo lo incluido en el Bono Flexible</li>
+              <li>Atención prioritaria frente a solicitudes estándar</li>
+              <li>Resolución objetivo en 48 horas laborables para tareas pequeñas y medianas</li>
+              <li>Validez de 12 meses</li>
+            </ul>
+            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20el%20Bono%20Prioritario%20de%2010%20horas" class="btn btn--ghost btn--sm" target="_blank" rel="noopener noreferrer">Consultar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--color-surface-warm)">
+      <div class="container" style="text-align: center; max-width: 600px">
+        <span class="section-label">¿Tienes dudas?</span>
+        <h2 class="section-title" style="font-size: clamp(1.5rem, 3vw, 2rem); margin-top: 1rem">Sin compromiso, cuéntanos qué necesitas</h2>
+        <p style="color: var(--color-text-muted); margin: 1rem 0 2rem">Una llamada o mensaje de WhatsApp es suficiente para saber qué plan encaja mejor con tu negocio.</p>
+        <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20el%20servicio%20de%20mantenimiento%20web" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp →</a>
+      </div>
+    </section>
+    `,
   },
   {
     slug: "hosting",
@@ -213,6 +279,69 @@ export const services = [
     ogAlt: "Hosting web gestionado para negocios en Fuengirola",
     relatedCases: [],
     whatsappText: "Hola, me interesa el hosting web gestionado",
+    bodyHtml: `
+    <section class="section">
+      <div class="container">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start">
+          <div>
+            <span class="section-label">¿Qué incluye?</span>
+            <h2 class="section-title" style="margin-top: 1rem; font-size: clamp(1.25rem, 2.5vw, 1.75rem)">Todo lo que necesita tu web para funcionar bien</h2>
+            <p style="color: var(--color-text-muted); line-height: 1.75; margin-top: 1rem">El hosting no debería ser algo de lo que preocuparse. Con nuestro plan gestionado, nos ocupamos de la infraestructura para que tu web esté siempre disponible, rápida y segura.</p>
+            <p style="color: var(--color-text-muted); line-height: 1.75; margin-top: 1rem">Soporte en español, sin paneles técnicos complicados, sin facturas sorpresa. Solo tu web funcionando.</p>
+          </div>
+          <div>
+            <span class="section-label">Servicios incluidos</span>
+            <ul style="margin-top: 1.5rem; list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1.25rem">
+              <li style="border-top: 1px solid var(--color-border, #e5e5e5); padding-top: 1rem">
+                <strong style="display:block; margin-bottom: 0.25rem">Servidor rápido y fiable</strong>
+                <span style="color: var(--color-text-muted); font-size: 0.9rem">Infraestructura en Europa con alta disponibilidad y tiempo de carga optimizado.</span>
+              </li>
+              <li style="border-top: 1px solid var(--color-border, #e5e5e5); padding-top: 1rem">
+                <strong style="display:block; margin-bottom: 0.25rem">Certificado SSL incluido</strong>
+                <span style="color: var(--color-text-muted); font-size: 0.9rem">Tu web con HTTPS desde el primer día. Necesario para el SEO y la confianza del visitante.</span>
+              </li>
+              <li style="border-top: 1px solid var(--color-border, #e5e5e5); padding-top: 1rem">
+                <strong style="display:block; margin-bottom: 0.25rem">Copias de seguridad automáticas</strong>
+                <span style="color: var(--color-text-muted); font-size: 0.9rem">Backups diarios para poder recuperar cualquier versión sin perder trabajo.</span>
+              </li>
+              <li style="border-top: 1px solid var(--color-border, #e5e5e5); padding-top: 1rem">
+                <strong style="display:block; margin-bottom: 0.25rem">Soporte en español</strong>
+                <span style="color: var(--color-text-muted); font-size: 0.9rem">Si hay algún problema, nos encargamos nosotros. Sin tickets en inglés ni tiempos de espera interminables.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--color-surface-warm)">
+      <div class="container" style="max-width: 680px">
+        <span class="section-label">Precios orientativos</span>
+        <h2 class="section-title" style="margin-top: 1rem; font-size: clamp(1.5rem, 3vw, 2rem)">Sin sorpresas al renovar</h2>
+        <ul style="margin-top: 1.5rem; list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1rem">
+          <li style="display:flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border, #e5e5e5); padding-top: 1rem">
+            <span style="font-weight: 500">Hosting básico (web estática)</span>
+            <span style="font-weight: 700; white-space: nowrap">35€/año</span>
+          </li>
+          <li style="display:flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border, #e5e5e5); padding-top: 1rem">
+            <span style="font-weight: 500">Hosting con WordPress o blog</span>
+            <span style="font-weight: 700; white-space: nowrap">50€/año</span>
+          </li>
+          <li style="display:flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border, #e5e5e5); padding-top: 1rem">
+            <span style="font-weight: 500">Hosting para app o proyecto a medida</span>
+            <span style="font-weight: 700; white-space: nowrap">Desde 10€/mes</span>
+          </li>
+          <li style="display:flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border, #e5e5e5); padding-top: 1rem">
+            <span style="font-weight: 500">Dominio (.com, .es, .org)</span>
+            <span style="font-weight: 700; white-space: nowrap">10–15€/año</span>
+          </li>
+        </ul>
+        <div style="margin-top: 2rem">
+          <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20el%20hosting%20web%20gestionado" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Consultar →</a>
+        </div>
+      </div>
+    </section>
+    `,
   },
   {
     slug: "automatizacion",
