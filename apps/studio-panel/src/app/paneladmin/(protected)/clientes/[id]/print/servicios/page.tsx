@@ -96,7 +96,7 @@ export default async function ClientServiciosReportPage({ params }: { params: Pr
                           <div>
                             <p style={{ fontWeight: 800, fontSize: '17px', margin: '0 0 4px' }}>{pack.name}</p>
                             <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.55)', margin: 0 }}>
-                              Contratado: {formatDate(pack.purchase_date)}
+                              {new Date(pack.purchase_date).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })}
                               {pack.renewal_date ? `  ·  Renueva: ${formatDate(pack.renewal_date)}` : ''}
                             </p>
                           </div>
@@ -140,7 +140,7 @@ export default async function ClientServiciosReportPage({ params }: { params: Pr
                           <div>
                             <p style={{ fontWeight: 700, fontSize: '15px', margin: '0 0 5px', color: BRAND }}>{pack.name}</p>
                             <p style={{ fontSize: '13px', color: '#767690', margin: 0 }}>
-                              Contratado: {formatDate(pack.purchase_date)}
+                              {new Date(pack.purchase_date).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })}
                             </p>
                             {pack.renewal_date && (
                               <p style={{ fontSize: '13px', margin: '3px 0 0', color: isExpiring ? '#b45309' : '#767690', fontWeight: isExpiring ? 700 : 400 }}>
