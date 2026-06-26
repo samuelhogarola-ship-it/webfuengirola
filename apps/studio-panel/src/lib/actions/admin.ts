@@ -5,7 +5,7 @@ import { z } from 'zod'
 
 import { requireAdmin } from '@/lib/auth'
 import { ACTIVITY_TYPES } from '@/lib/activity-types'
-import { sendActivityNotificationEmail } from '@/lib/email'
+import { sendActivityNotificationEmail, sendPackDepletedEmail } from '@/lib/email'
 import { getSupabaseAdminClient } from '@/lib/supabase/admin'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
@@ -286,6 +286,36 @@ export async function createActivityAction(_prevState: AdminFormState, formData:
       success = 'Actividad registrada y email enviado correctamente.'
     } catch {
       success = 'Actividad registrada, pero el email no se pudo enviar.'
+    }
+  }
+
+  // Auto-envío de historial cuando el pack se agota
+  if (pack.pack_type === 'hours' && pack.clients?.email) {
+    const { data: packSummary } = await supabase
+      .from('pack_summary')
+      .select('remaining_minutes, minutes_used')
+      .eq('pack_id', payload.pack_id)
+      .maybeSingle()
+
+    if (packSummary && Number(packSummary.remaining_minutes) <= 0) {
+      const { data: packActivities } = await supabase
+        .from('activities')
+        .select('title, activity_type, minutes_used, work_date')
+        .eq('pack_id', payload.pack_id)
+        .order('work_date', { ascending: false })
+
+      if (packActivities?.length) {
+        try {
+          await sendPackDepletedEmail({
+            clientEmail: pack.clients.email,
+            clientName: pack.clients.name ?? 'cliente',
+            packName: pack.name,
+            activities: packActivities,
+          })
+        } catch {
+          // fallo silencioso — el email se enviará cuando DNS esté configurado
+        }
+      }
     }
   }
 

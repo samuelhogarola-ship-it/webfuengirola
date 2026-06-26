@@ -54,13 +54,22 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
         <Link href="/paneladmin/clientes" className="text-sm font-semibold text-brand hover:underline">
           ← {t(locale, 'clientDetail.back')}
         </Link>
-        <Link
-          href={`/paneladmin/clientes/${client.id}/print`}
-          target="_blank"
-          className="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200 transition-colors"
-        >
-          Generar informe →
-        </Link>
+        <div className="flex gap-2">
+          <Link
+            href={`/paneladmin/clientes/${client.id}/print/servicios`}
+            target="_blank"
+            className="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200 transition-colors"
+          >
+            Informe servicios →
+          </Link>
+          <Link
+            href={`/paneladmin/clientes/${client.id}/print/historial`}
+            target="_blank"
+            className="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200 transition-colors"
+          >
+            Informe historial →
+          </Link>
+        </div>
       </div>
 
       {/* Client info */}

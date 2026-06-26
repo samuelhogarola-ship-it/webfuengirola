@@ -158,6 +158,16 @@ export const getClientDetailPageData = cache(async (clientId: string) => {
   }
 })
 
+export async function getClientFullHistory(clientId: string) {
+  const supabase = await createSupabaseServerClient()
+  const { data } = await supabase
+    .from('activities')
+    .select('id, title, activity_type, minutes_used, work_date, description, packs(id, name)')
+    .eq('client_id', clientId)
+    .order('work_date', { ascending: false })
+  return data ?? []
+}
+
 export const getAdminActivitiesPageData = cache(async () => {
   const supabase = await createSupabaseServerClient()
 
