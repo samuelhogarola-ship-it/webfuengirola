@@ -293,7 +293,7 @@ export async function createActivityAction(_prevState: AdminFormState, formData:
   if (pack.pack_type === 'hours' && pack.clients?.email) {
     const { data: packSummary } = await supabase
       .from('pack_summary')
-      .select('remaining_minutes, minutes_used')
+      .select('remaining_minutes')
       .eq('pack_id', payload.pack_id)
       .maybeSingle()
 
