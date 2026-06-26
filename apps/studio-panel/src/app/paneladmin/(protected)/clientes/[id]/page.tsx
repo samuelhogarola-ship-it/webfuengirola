@@ -116,41 +116,40 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
       </div>
 
       {/* Active packs by section */}
-      <div className="mb-6 flex flex-col gap-6">
-        {PACK_TYPE_ORDER.filter((type) => grouped[type].length > 0).map((type) => {
+      <Card className="mb-6 overflow-hidden">
+        {PACK_TYPE_ORDER.filter((type) => grouped[type].length > 0).map((type, sectionIdx, arr) => {
           const items = grouped[type]
           return (
-            <Card key={type} id={`section-${type}`} className="overflow-hidden scroll-mt-4">
-              <div className="border-b border-line px-5 py-4">
-                <h3 className="font-bold text-foreground">{t(locale, SECTION_KEY[type])}</h3>
+            <div key={type} id={`section-${type}`} className={`scroll-mt-4 ${sectionIdx < arr.length - 1 ? 'border-b border-line' : ''}`}>
+              <div className="px-5 py-3 bg-slate-50">
+                <h3 className="text-xs font-bold uppercase tracking-[0.1em] text-muted">{t(locale, SECTION_KEY[type])}</h3>
               </div>
               <div className="divide-y divide-line">
                 {items.map((pack) => {
                   const summary = summaryMap.get(pack.id)
                   return (
-                    <div key={pack.id} className="px-5 py-4">
-                      <p className="font-semibold text-foreground">{pack.name}</p>
-                      <p className="mt-1 text-xs text-muted">{t(locale, 'clientDetail.contracted')}: {formatDate(pack.purchase_date)}</p>
-                      {pack.renewal_date && (
-                        <p className="text-xs text-muted">{t(locale, 'clientDetail.renewal')}: {formatDate(pack.renewal_date)}</p>
-                      )}
-                      {type === 'hours' && (
-                        <div className="mt-2 flex gap-4 text-xs">
-                          <span className="font-medium text-emerald-700">{t(locale, 'clientDetail.remaining')}: {formatDuration(summary?.remaining_minutes ?? 0)}</span>
-                          <span className="text-muted">{t(locale, 'clientDetail.total')}: {formatDuration(pack.minutes_total)}</span>
+                    <div key={pack.id} className="flex items-center justify-between gap-4 px-5 py-3">
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-semibold text-foreground">{pack.name}</p>
+                        <div className="flex flex-wrap gap-x-3 text-xs text-muted">
+                          <span>{t(locale, 'clientDetail.contracted')}: {formatDate(pack.purchase_date)}</span>
+                          {pack.renewal_date && <span>{(type === 'domain' || type === 'hosting') ? 'Caduca' : 'Renueva'}: {formatDate(pack.renewal_date)}</span>}
                         </div>
-                      )}
-                      {pack.price && (
-                        <p className="mt-1 text-xs text-muted">{pack.price.toFixed(2)} €</p>
-                      )}
+                      </div>
+                      <div className="flex shrink-0 items-center gap-4 text-xs">
+                        {type === 'hours' && (
+                          <span className="font-medium text-emerald-700">{formatDuration(summary?.remaining_minutes ?? 0)} restantes</span>
+                        )}
+                        {pack.price && <span className="font-semibold text-foreground">{pack.price.toFixed(2)} €</span>}
+                      </div>
                     </div>
                   )
                 })}
               </div>
-            </Card>
+            </div>
           )
         })}
-      </div>
+      </Card>
 
       {/* Recent activities */}
       {recentActivities.length > 0 && (
