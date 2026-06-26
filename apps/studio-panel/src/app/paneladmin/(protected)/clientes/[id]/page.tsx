@@ -23,6 +23,14 @@ const SECTION_KEY: Record<PackType, 'clientDetail.section.bonos' | 'clientDetail
   service: 'clientDetail.section.services',
 }
 
+const SECTION_NAV_LABEL: Record<PackType, string> = {
+  hours: 'Bonos',
+  tasks: 'Tareas',
+  domain: 'Dominios',
+  hosting: 'Hosting',
+  service: 'Servicios',
+}
+
 export default async function ClientDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const identity = await requireAdmin()
   const { id } = await params
@@ -73,7 +81,7 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
       </div>
 
       {/* Client info */}
-      <Card className="mb-6 p-6">
+      <Card className="mb-4 p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <h2 className="text-xl font-bold text-foreground">{client.name}</h2>
@@ -88,42 +96,57 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
         </div>
       </Card>
 
+      {/* Section nav */}
+      <div className="mb-6 flex gap-1 overflow-x-auto rounded-xl border border-line bg-white p-1.5">
+        {PACK_TYPE_ORDER.filter((type) => grouped[type].length > 0).map((type) => (
+          <a
+            key={type}
+            href={`#section-${type}`}
+            className="whitespace-nowrap rounded-lg px-4 py-2 text-sm font-semibold text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
+          >
+            {SECTION_NAV_LABEL[type]}
+            <span className="ml-1.5 rounded-full bg-slate-100 px-1.5 py-0.5 text-xs font-bold text-slate-500">{grouped[type].length}</span>
+          </a>
+        ))}
+        {recentActivities.length > 0 && (
+          <a href="#section-actividad" className="whitespace-nowrap rounded-lg px-4 py-2 text-sm font-semibold text-slate-500 transition hover:bg-slate-100 hover:text-slate-700">
+            Actividad
+          </a>
+        )}
+      </div>
+
       {/* Active packs by section */}
-      <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3 mb-6">
-        {PACK_TYPE_ORDER.map((type) => {
+      <div className="mb-6 flex flex-col gap-6">
+        {PACK_TYPE_ORDER.filter((type) => grouped[type].length > 0).map((type) => {
           const items = grouped[type]
           return (
-            <Card key={type} className="overflow-hidden">
+            <Card key={type} id={`section-${type}`} className="overflow-hidden scroll-mt-4">
               <div className="border-b border-line px-5 py-4">
                 <h3 className="font-bold text-foreground">{t(locale, SECTION_KEY[type])}</h3>
               </div>
-              {items.length === 0 ? (
-                <p className="px-5 py-4 text-sm text-muted">{t(locale, 'clientDetail.empty')}</p>
-              ) : (
-                <div className="divide-y divide-line">
-                  {items.map((pack) => {
-                    const summary = summaryMap.get(pack.id)
-                    return (
-                      <div key={pack.id} className="px-5 py-4">
-                        <p className="font-semibold text-foreground">{pack.name}</p>
-                        <p className="mt-1 text-xs text-muted">{t(locale, 'clientDetail.contracted')}: {formatDate(pack.purchase_date)}</p>
-                        {pack.renewal_date && (
-                          <p className="text-xs text-muted">{t(locale, 'clientDetail.renewal')}: {formatDate(pack.renewal_date)}</p>
-                        )}
-                        {type === 'hours' && (
-                          <div className="mt-2 flex gap-4 text-xs">
-                            <span className="font-medium text-emerald-700">{t(locale, 'clientDetail.remaining')}: {formatDuration(summary?.remaining_minutes ?? 0)}</span>
-                            <span className="text-muted">{t(locale, 'clientDetail.total')}: {formatDuration(pack.minutes_total)}</span>
-                          </div>
-                        )}
-                        {pack.price && (
-                          <p className="mt-1 text-xs text-muted">{pack.price.toFixed(2)} €</p>
-                        )}
-                      </div>
-                    )
-                  })}
-                </div>
-              )}
+              <div className="divide-y divide-line">
+                {items.map((pack) => {
+                  const summary = summaryMap.get(pack.id)
+                  return (
+                    <div key={pack.id} className="px-5 py-4">
+                      <p className="font-semibold text-foreground">{pack.name}</p>
+                      <p className="mt-1 text-xs text-muted">{t(locale, 'clientDetail.contracted')}: {formatDate(pack.purchase_date)}</p>
+                      {pack.renewal_date && (
+                        <p className="text-xs text-muted">{t(locale, 'clientDetail.renewal')}: {formatDate(pack.renewal_date)}</p>
+                      )}
+                      {type === 'hours' && (
+                        <div className="mt-2 flex gap-4 text-xs">
+                          <span className="font-medium text-emerald-700">{t(locale, 'clientDetail.remaining')}: {formatDuration(summary?.remaining_minutes ?? 0)}</span>
+                          <span className="text-muted">{t(locale, 'clientDetail.total')}: {formatDuration(pack.minutes_total)}</span>
+                        </div>
+                      )}
+                      {pack.price && (
+                        <p className="mt-1 text-xs text-muted">{pack.price.toFixed(2)} €</p>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
             </Card>
           )
         })}
@@ -131,7 +154,7 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
 
       {/* Recent activities */}
       {recentActivities.length > 0 && (
-        <Card className="overflow-hidden">
+        <Card id="section-actividad" className="overflow-hidden scroll-mt-4">
           <div className="border-b border-line px-6 py-4">
             <h3 className="font-bold text-foreground">Actividad reciente</h3>
           </div>
