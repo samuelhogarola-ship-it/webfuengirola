@@ -9,6 +9,7 @@ import { getClientDetailPageData } from '@/lib/data/admin'
 import { getLocale } from '@/lib/locale'
 import { t } from '@/lib/i18n'
 import { formatDate, formatDuration } from '@/lib/utils'
+import { togglePackPaidAction, togglePackStatusAction } from '@/lib/actions/admin'
 
 export const dynamic = 'force-dynamic'
 
@@ -130,16 +131,41 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
                   return (
                     <div key={pack.id} className="flex items-center justify-between gap-4 px-5 py-3">
                       <div className="min-w-0">
-                        <p className="truncate text-sm font-semibold text-foreground">{pack.name}</p>
+                        <div className="flex items-center gap-2">
+                          <p className="truncate text-sm font-semibold text-foreground">{pack.name}</p>
+                          {pack.billing_cycle === 'monthly' && (
+                            <span className="shrink-0 rounded-full bg-indigo-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-indigo-600">Mensual</span>
+                          )}
+                        </div>
                         {pack.renewal_date && (
                           <p className="text-xs text-muted">{(type === 'domain' || type === 'hosting') ? 'Caduca' : 'Renueva'}: {formatDate(pack.renewal_date)}</p>
                         )}
                       </div>
-                      <div className="flex shrink-0 items-center gap-4 text-xs">
+                      <div className="flex shrink-0 items-center gap-2 text-xs">
                         {type === 'hours' && (
                           <span className="font-medium text-emerald-700">{formatDuration(summary?.remaining_minutes ?? 0)} restantes</span>
                         )}
                         {pack.price && <span className="font-semibold text-foreground">{pack.price.toFixed(2)} €</span>}
+                        {/* Status toggle (solo para servicios one_time) */}
+                        {(type === 'service' || type === 'tasks') && pack.billing_cycle !== 'monthly' && (
+                          <form action={togglePackStatusAction}>
+                            <input type="hidden" name="pack_id" value={pack.id} />
+                            <input type="hidden" name="status" value={pack.status} />
+                            <input type="hidden" name="client_id" value={client.id} />
+                            <button type="submit" className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide transition ${pack.status === 'active' ? 'bg-amber-50 text-amber-700 hover:bg-amber-100' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}`}>
+                              {pack.status === 'active' ? 'En progreso' : 'Completado'}
+                            </button>
+                          </form>
+                        )}
+                        {/* Paid toggle */}
+                        <form action={togglePackPaidAction}>
+                          <input type="hidden" name="pack_id" value={pack.id} />
+                          <input type="hidden" name="paid" value={String(pack.paid)} />
+                          <input type="hidden" name="client_id" value={client.id} />
+                          <button type="submit" className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide transition ${pack.paid ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-red-50 text-red-500 hover:bg-red-100'}`}>
+                            {pack.paid ? 'Pagado' : 'No pagado'}
+                          </button>
+                        </form>
                       </div>
                     </div>
                   )

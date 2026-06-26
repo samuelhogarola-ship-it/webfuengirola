@@ -417,3 +417,24 @@ export async function upsertServiceAction(_prevState: AdminFormState, formData: 
   revalidatePath('/paneladmin/servicios')
   return { success: id ? 'Servicio actualizado.' : 'Servicio registrado correctamente.' }
 }
+
+export async function togglePackPaidAction(formData: FormData): Promise<void> {
+  await requireAdmin()
+  const supabase = await createSupabaseServerClient()
+  const packId = String(formData.get('pack_id'))
+  const currentPaid = formData.get('paid') === 'true'
+  const clientId = String(formData.get('client_id'))
+  await supabase.from('packs').update({ paid: !currentPaid }).eq('id', packId)
+  revalidatePath(`/paneladmin/clientes/${clientId}`)
+}
+
+export async function togglePackStatusAction(formData: FormData): Promise<void> {
+  await requireAdmin()
+  const supabase = await createSupabaseServerClient()
+  const packId = String(formData.get('pack_id'))
+  const currentStatus = String(formData.get('status'))
+  const clientId = String(formData.get('client_id'))
+  const newStatus = currentStatus === 'active' ? 'inactive' : 'active'
+  await supabase.from('packs').update({ status: newStatus }).eq('id', packId)
+  revalidatePath(`/paneladmin/clientes/${clientId}`)
+}
