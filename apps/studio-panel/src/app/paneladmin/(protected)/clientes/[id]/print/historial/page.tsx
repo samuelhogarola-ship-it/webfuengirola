@@ -105,12 +105,21 @@ export default async function ClientHistorialReportPage({ params }: { params: Pr
                 </thead>
                 <tbody>
                   {packActivities.map((a, i) => (
-                    <tr key={a.id} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
-                      <td style={{ padding: '8px 10px', fontWeight: 600 }}>{a.title}</td>
-                      <td style={{ padding: '8px 10px', color: '#767676' }}>{a.activity_type}</td>
-                      <td style={{ padding: '8px 10px', color: '#767676' }}>{a.minutes_used > 0 ? formatDuration(a.minutes_used) : '—'}</td>
-                      <td style={{ padding: '8px 10px', color: '#767676', whiteSpace: 'nowrap' }}>{formatDate(a.work_date)}</td>
-                    </tr>
+                    <>
+                      <tr key={a.id} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                        <td style={{ padding: '8px 10px', fontWeight: 600 }}>{a.title}</td>
+                        <td style={{ padding: '8px 10px', color: '#767676' }}>{a.activity_type}</td>
+                        <td style={{ padding: '8px 10px', color: '#767676' }}>{a.minutes_used > 0 ? formatDuration(a.minutes_used) : '—'}</td>
+                        <td style={{ padding: '8px 10px', color: '#767676', whiteSpace: 'nowrap' }}>{formatDate(a.work_date)}</td>
+                      </tr>
+                      {a.description && (
+                        <tr key={`${a.id}-desc`} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                          <td colSpan={4} style={{ padding: '0 10px 10px 10px', color: '#767676', fontSize: '12px', fontStyle: 'italic', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical' }}>
+                            {a.description}
+                          </td>
+                        </tr>
+                      )}
+                    </>
                   ))}
                 </tbody>
               </table>

@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { ActivityForm } from '@/components/admin/activity-form'
 import { AdminShell } from '@/components/layout/app-shell'
 import { Badge } from '@/components/ui/badge'
@@ -54,6 +56,31 @@ export default async function AdminActivitiesPage() {
           </div>
         </Card>
       </div>
+
+      <Card className="mt-6 overflow-hidden">
+        <div className="border-b border-line px-6 py-5">
+          <h2 className="text-xl font-bold text-foreground">Informes</h2>
+          <p className="text-sm text-muted">Informes disponibles por cliente. Se generan automáticamente.</p>
+        </div>
+        <div className="divide-y divide-line">
+          {data.clients.map((client) => (
+            <div key={client.id} className="flex items-center justify-between px-6 py-4">
+              <div>
+                <p className="font-semibold text-foreground">{client.name}</p>
+                <p className="text-xs text-muted">{client.email}</p>
+              </div>
+              <div className="flex gap-2">
+                <Link href={`/paneladmin/clientes/${client.id}/print/servicios`} target="_blank" className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-200 transition-colors">
+                  Servicios →
+                </Link>
+                <Link href={`/paneladmin/clientes/${client.id}/print/historial`} target="_blank" className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-200 transition-colors">
+                  Historial →
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Card>
     </AdminShell>
   )
 }
