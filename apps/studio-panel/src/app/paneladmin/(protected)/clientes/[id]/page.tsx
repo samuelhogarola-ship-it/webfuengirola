@@ -131,10 +131,9 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
                     <div key={pack.id} className="flex items-center justify-between gap-4 px-5 py-3">
                       <div className="min-w-0">
                         <p className="truncate text-sm font-semibold text-foreground">{pack.name}</p>
-                        <div className="flex flex-wrap gap-x-3 text-xs text-muted">
-                          <span>{t(locale, 'clientDetail.contracted')}: {formatDate(pack.purchase_date)}</span>
-                          {pack.renewal_date && <span>{(type === 'domain' || type === 'hosting') ? 'Caduca' : 'Renueva'}: {formatDate(pack.renewal_date)}</span>}
-                        </div>
+                        {pack.renewal_date && (
+                          <p className="text-xs text-muted">{(type === 'domain' || type === 'hosting') ? 'Caduca' : 'Renueva'}: {formatDate(pack.renewal_date)}</p>
+                        )}
                       </div>
                       <div className="flex shrink-0 items-center gap-4 text-xs">
                         {type === 'hours' && (
