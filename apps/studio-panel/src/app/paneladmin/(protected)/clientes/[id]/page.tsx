@@ -152,8 +152,8 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
                             <input type="hidden" name="pack_id" value={pack.id} />
                             <input type="hidden" name="status" value={pack.status} />
                             <input type="hidden" name="client_id" value={client.id} />
-                            <button type="submit" className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide transition ${pack.status === 'active' ? 'bg-amber-50 text-amber-700 hover:bg-amber-100' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}`}>
-                              {pack.status === 'active' ? 'En progreso' : 'Completado'}
+                            <button type="submit" title="Cambiar estado" className={`cursor-pointer rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide transition hover:opacity-70 ${pack.status === 'active' ? 'border-amber-200 bg-amber-50 text-amber-700' : 'border-slate-200 bg-slate-100 text-slate-500'}`}>
+                              {pack.status === 'active' ? '⏳ En progreso' : '✓ Completado'}
                             </button>
                           </form>
                         )}
@@ -162,8 +162,8 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
                           <input type="hidden" name="pack_id" value={pack.id} />
                           <input type="hidden" name="paid" value={String(pack.paid)} />
                           <input type="hidden" name="client_id" value={client.id} />
-                          <button type="submit" className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide transition ${pack.paid ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-red-50 text-red-500 hover:bg-red-100'}`}>
-                            {pack.paid ? 'Pagado' : 'No pagado'}
+                          <button type="submit" title="Marcar como pagado / no pagado" className={`cursor-pointer rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide transition hover:opacity-70 ${pack.paid ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-red-200 bg-red-50 text-red-500'}`}>
+                            {pack.paid ? '✓ Pagado' : '✗ No pagado'}
                           </button>
                         </form>
                       </div>
