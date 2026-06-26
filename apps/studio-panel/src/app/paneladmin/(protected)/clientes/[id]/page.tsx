@@ -50,9 +50,16 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
       userEmail={identity.email}
       locale={locale}
     >
-      <div className="mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <Link href="/paneladmin/clientes" className="text-sm font-semibold text-brand hover:underline">
           ← {t(locale, 'clientDetail.back')}
+        </Link>
+        <Link
+          href={`/paneladmin/clientes/${client.id}/print`}
+          target="_blank"
+          className="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200 transition-colors"
+        >
+          Generar informe →
         </Link>
       </div>
 
