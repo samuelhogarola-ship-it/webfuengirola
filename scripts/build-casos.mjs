@@ -30,6 +30,7 @@ function renderHead({
   ogImage,
   ogAlt,
   prefix,
+  jsonLd = "",
 }) {
   return `
 <head>
@@ -55,6 +56,7 @@ function renderHead({
   <meta name="twitter:title" content="${escapeHtml(ogTitle)}" />
   <meta name="twitter:description" content="${escapeHtml(ogDescription)}" />
   <meta name="twitter:image" content="${ogImage}" />
+  ${jsonLd}
   <link rel="stylesheet" href="${prefix}style.css?v=9" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -172,6 +174,42 @@ function renderFooter(
 function buildCasosHub() {
   const prefix = "../";
   const canonical = "https://webfuengirola.com/casos/";
+  const jsonLd = `<script type="application/ld+json">
+  ${JSON.stringify(
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": ["Organization", "LocalBusiness"],
+          "@id": "https://webfuengirola.com/#organization",
+          name: "Web Fuengirola Studio",
+          url: "https://webfuengirola.com/",
+          telephone: "+34622923988",
+          email: "info@webfuengirola.com",
+        },
+        {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Inicio",
+              item: "https://webfuengirola.com/",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Casos de éxito",
+              item: canonical,
+            },
+          ],
+        },
+      ],
+    },
+    null,
+    2,
+  )}
+  </script>`;
 
   const caseCards = cases
     .map(
@@ -209,6 +247,7 @@ ${renderHead({
   ogImage: "https://webfuengirola.com/img/og-cover.webp",
   ogAlt: "Casos de éxito Web Fuengirola Studio",
   prefix,
+  jsonLd,
 })}
 <body>
 ${renderHeader(prefix, "casos")}
@@ -250,6 +289,59 @@ function buildCasePage(caso) {
   const prefix = "../../";
   const canonical = `https://webfuengirola.com/casos/${caso.slug}/`;
   const dir = path.join(casosDir, caso.slug);
+  const jsonLd = `<script type="application/ld+json">
+  ${JSON.stringify(
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": ["Organization", "LocalBusiness"],
+          "@id": "https://webfuengirola.com/#organization",
+          name: "Web Fuengirola Studio",
+          url: "https://webfuengirola.com/",
+          telephone: "+34622923988",
+          email: "info@webfuengirola.com",
+        },
+        {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Inicio",
+              item: "https://webfuengirola.com/",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Casos de éxito",
+              item: "https://webfuengirola.com/casos/",
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: caso.title,
+              item: canonical,
+            },
+          ],
+        },
+        {
+          "@type": "CreativeWork",
+          "@id": `${canonical}#case-study`,
+          name: caso.title,
+          headline: caso.headline,
+          description: caso.metaDescription,
+          image: caso.ogImage,
+          url: canonical,
+          about: caso.serviceLabel,
+          creator: { "@id": "https://webfuengirola.com/#organization" },
+        },
+      ],
+    },
+    null,
+    2,
+  )}
+  </script>`;
 
   const relatedCases = cases
     .filter((c) => c.slug !== caso.slug && c.service === caso.service)
@@ -295,6 +387,7 @@ ${renderHead({
   ogImage: caso.ogImage,
   ogAlt: caso.ogAlt,
   prefix,
+  jsonLd,
 })}
 <body>
 ${renderHeader(prefix, "casos")}
