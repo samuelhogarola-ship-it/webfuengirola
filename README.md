@@ -167,3 +167,45 @@ En `index.html`, dentro del `<head>`, localiza:
 ## Contacto del desarrollador
 
 Web Fuengirola · webfuengirola@pm.me
+
+---
+
+## Deployment Checklist
+
+El formulario de `/contacto/` no funciona solo con el estático. También necesita el panel/API desplegado para exponer:
+
+- `/api/contact/config`
+- `/api/contact`
+
+### Variables del formulario
+
+Configura estas variables en `apps/studio-panel`:
+
+- `NEXT_PUBLIC_TURNSTILE_SITE_KEY`
+- `TURNSTILE_SECRET_KEY`
+- `RESEND_API_KEY`
+- `RESEND_FROM_EMAIL`
+
+Variables adicionales del panel:
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `SUPABASE_SECRET_KEY`
+- `NEXT_PUBLIC_APP_URL`
+
+### Dependencia actual del frontend
+
+[`contacto/index.html`](/private/tmp/webfuengirola-form-release/contacto/index.html) usa `data-api-base="https://admin.webfuengirola.com"`.
+
+Eso significa que el formulario espera estos endpoints en producción:
+
+- `https://admin.webfuengirola.com/api/contact/config`
+- `https://admin.webfuengirola.com/api/contact`
+
+### Verificación rápida postdeploy
+
+```bash
+curl -s -i -H 'Origin: https://webfuengirola.com' https://admin.webfuengirola.com/api/contact/config
+curl -s -i -H 'Origin: https://www.webfuengirola.com' https://admin.webfuengirola.com/api/contact/config
+curl -s -i -H 'Origin: https://evil.example' https://admin.webfuengirola.com/api/contact/config
+```

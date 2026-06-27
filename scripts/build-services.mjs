@@ -31,6 +31,7 @@ function renderHead({
   ogAlt,
   prefix,
   noindex = false,
+  jsonLd = "",
 }) {
   const robotsContent = noindex
     ? "noindex, follow"
@@ -59,6 +60,7 @@ function renderHead({
   <meta name="twitter:title" content="${escapeHtml(ogTitle)}" />
   <meta name="twitter:description" content="${escapeHtml(ogDescription)}" />
   <meta name="twitter:image" content="${ogImage}" />
+  ${jsonLd}
   <link rel="stylesheet" href="${prefix}style.css?v=9" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -176,6 +178,44 @@ function renderFooter(
 function buildServiceHub() {
   const prefix = "../";
   const canonical = "https://webfuengirola.com/servicios/";
+  const jsonLd = `<script type="application/ld+json">
+  ${JSON.stringify(
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": ["Organization", "LocalBusiness"],
+          "@id": "https://webfuengirola.com/#organization",
+          name: "Web Fuengirola Studio",
+          url: "https://webfuengirola.com/",
+          image: "https://webfuengirola.com/img/og-cover.jpg",
+          telephone: "+34622923988",
+          email: "info@webfuengirola.com",
+          areaServed: ["Fuengirola", "Costa del Sol", "España"],
+        },
+        {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Inicio",
+              item: "https://webfuengirola.com/",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Servicios",
+              item: canonical,
+            },
+          ],
+        },
+      ],
+    },
+    null,
+    2,
+  )}
+  </script>`;
 
   const serviceCards = services
     .map(
@@ -206,6 +246,7 @@ ${renderHead({
   ogImage: "https://webfuengirola.com/img/og-cover.webp",
   ogAlt: "Servicios Web Fuengirola Studio",
   prefix,
+  jsonLd,
 })}
 <body>
 ${renderHeader(prefix, "services")}
@@ -247,6 +288,63 @@ function buildServicePage(service) {
   const prefix = "../../";
   const canonical = `https://webfuengirola.com/servicios/${service.slug}/`;
   const dir = path.join(servicesDir, service.slug);
+  const jsonLd = `<script type="application/ld+json">
+  ${JSON.stringify(
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": ["Organization", "LocalBusiness"],
+          "@id": "https://webfuengirola.com/#organization",
+          name: "Web Fuengirola Studio",
+          url: "https://webfuengirola.com/",
+          telephone: "+34622923988",
+          email: "info@webfuengirola.com",
+        },
+        {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Inicio",
+              item: "https://webfuengirola.com/",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Servicios",
+              item: "https://webfuengirola.com/servicios/",
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: service.shortTitle,
+              item: canonical,
+            },
+          ],
+        },
+        {
+          "@type": "Service",
+          "@id": `${canonical}#service`,
+          name: service.shortTitle,
+          serviceType: service.shortTitle,
+          description: service.metaDescription,
+          provider: { "@id": "https://webfuengirola.com/#organization" },
+          areaServed: ["Fuengirola", "Costa del Sol"],
+          url: canonical,
+          offers: {
+            "@type": "Offer",
+            priceCurrency: "EUR",
+            description: service.price,
+          },
+        },
+      ],
+    },
+    null,
+    2,
+  )}
+  </script>`;
 
   const relatedCasesHtml =
     service.relatedCases.length > 0
@@ -276,6 +374,7 @@ ${renderHead({
   ogAlt: service.ogAlt,
   prefix,
   noindex: !service.bodyHtml,
+  jsonLd,
 })}
 <body>
 ${renderHeader(prefix, "services")}

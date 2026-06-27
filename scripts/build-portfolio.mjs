@@ -311,7 +311,7 @@ function renderPortfolioListing() {
 ${renderHead({
   title: portfolioIntro.title,
   description: portfolioIntro.description,
-  canonical: "https://webfuengirola.com/portfolio.html",
+  canonical: "https://webfuengirola.com/casos/",
   ogTitle: portfolioIntro.ogTitle,
   ogDescription: portfolioIntro.ogDescription,
   ogImage: "https://webfuengirola.com/img/og-cover.jpg",
@@ -472,7 +472,7 @@ ${renderHeader(prefix, "portfolio")}
     <section class="subpage-hero project-subhero">
       <div class="container project-subhero__inner">
         <nav class="project-breadcrumb" aria-label="Breadcrumb">
-          <a href="${navHref(prefix, "portfolio.html")}">Portfolio</a>
+          <a href="${navHref(prefix, "casos/")}">Casos de éxito</a>
           <span>/</span>
           <span>${escapeHtml(project.title)}</span>
         </nav>
@@ -543,7 +543,7 @@ ${renderHeader(prefix, "portfolio")}
           </div>
           <div class="project-detail__cta-actions">
             <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20una%20web%20parecida%20a%20${encodeURIComponent(project.title)}" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">Pedir una web similar</a>
-            <a href="${navHref(prefix, "portfolio.html")}" class="btn btn--ghost btn--lg">Volver al portfolio</a>
+            <a href="${navHref(prefix, "casos/")}" class="btn btn--ghost btn--lg">Volver a casos</a>
           </div>
         </section>
 
@@ -608,7 +608,7 @@ ${renderHeader(prefix, "services")}
     <section class="subpage-hero project-subhero">
       <div class="container project-subhero__inner">
         <nav class="project-breadcrumb" aria-label="Breadcrumb">
-          <a href="${navHref(prefix, "servicios.html")}">Servicios</a>
+          <a href="${navHref(prefix, "servicios/")}">Servicios</a>
           <span>/</span>
           <span>${escapeHtml(category.label)}</span>
         </nav>
@@ -654,7 +654,7 @@ ${cards}
           </div>
           <div class="project-detail__cta-actions">
             <a href="https://wa.me/34622923988?text=${encodeURIComponent(category.whatsappText)}" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">Pedir algo parecido</a>
-            <a href="${navHref(prefix, "portfolio.html")}" class="btn btn--ghost btn--lg">Ver todo el portfolio</a>
+            <a href="${navHref(prefix, "casos/")}" class="btn btn--ghost btn--lg">Ver todos los casos</a>
           </div>
         </section>
 
@@ -676,10 +676,9 @@ ${renderFooter(prefix, category.whatsappText)}
  * @returns {string}
  */
 function renderSitemap() {
+  const indexableServices = services.filter((service) => service.bodyHtml);
   const urls = [
     { loc: "https://webfuengirola.com/", lastmod: today },
-    { loc: "https://webfuengirola.com/servicios.html", lastmod: today },
-    { loc: "https://webfuengirola.com/portfolio.html", lastmod: today },
     ...productCategories.map((category) => ({
       loc: `https://webfuengirola.com/productos/${category.slug}/`,
       lastmod: today,
@@ -688,11 +687,10 @@ function renderSitemap() {
       loc: `https://webfuengirola.com/portfolio/${project.slug}/`,
       lastmod: today,
     })),
-    { loc: "https://webfuengirola.com/proceso.html", lastmod: today },
     { loc: "https://webfuengirola.com/legal.html", lastmod: today },
     // New sections (FASE 0B)
     { loc: "https://webfuengirola.com/servicios/", lastmod: today },
-    ...services.map((s) => ({
+    ...indexableServices.map((s) => ({
       loc: `https://webfuengirola.com/servicios/${s.slug}/`,
       lastmod: today,
     })),
@@ -702,9 +700,6 @@ function renderSitemap() {
       lastmod: today,
     })),
     { loc: "https://webfuengirola.com/recursos/", lastmod: today },
-    { loc: "https://webfuengirola.com/recursos/herramientas/", lastmod: today },
-    { loc: "https://webfuengirola.com/recursos/guias/", lastmod: today },
-    { loc: "https://webfuengirola.com/recursos/checklists/", lastmod: today },
     { loc: "https://webfuengirola.com/sobre-nosotros/", lastmod: today },
     { loc: "https://webfuengirola.com/como-trabajamos/", lastmod: today },
     { loc: "https://webfuengirola.com/contacto/", lastmod: today },
