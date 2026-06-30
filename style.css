@@ -4783,10 +4783,107 @@ body.is-menu-open {
   margin-top: 36px;
 }
 
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.contact-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 28px;
+}
+
+.contact-card--info {
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+}
+
+.contact-card--form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contact-card__aside {
+  border-top: 1px solid var(--color-border);
+  padding-top: 20px;
+}
+
 .contact-form__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 14px;
+}
+
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.contact-field label {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.contact-field input,
+.contact-field textarea {
+  width: 100%;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: 14px 16px;
+  font: inherit;
+  transition:
+    border-color var(--ease-duration) var(--ease),
+    box-shadow var(--ease-duration) var(--ease);
+}
+
+.contact-field input:focus,
+.contact-field textarea:focus {
+  outline: none;
+  border-color: rgba(0, 0, 0, 0.32);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+}
+
+.contact-field textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.contact-field--hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contact-form__turnstile {
+  margin-top: 18px;
+}
+
+.contact-form__status {
+  min-height: 1.5em;
+  margin-top: 16px;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+}
+
+.contact-form__status.is-error {
+  color: #9d2f2f;
+}
+
+.contact-form__status.is-success {
+  color: #17633d;
 }
 
 .contact-form__field {
@@ -4894,6 +4991,14 @@ body.is-menu-open {
   .price-calculator__intro {
     position: static;
   }
+
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-card--info {
+    position: static;
+  }
 }
 
 @media (max-width: 720px) {
@@ -4918,6 +5023,10 @@ body.is-menu-open {
 
   .contact-form__grid {
     grid-template-columns: 1fr;
+  }
+
+  .contact-card {
+    padding: 22px;
   }
 
   .hero__actions,
