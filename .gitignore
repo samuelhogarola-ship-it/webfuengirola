@@ -8,3 +8,6 @@ playwright-report/
 .env.local
 tsconfig.tsbuildinfo
 .tools
+MARKETING/
+saulofitness/
+testing/
