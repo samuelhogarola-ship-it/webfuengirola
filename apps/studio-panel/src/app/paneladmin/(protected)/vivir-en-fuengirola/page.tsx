@@ -7,14 +7,14 @@ export default async function Page() {
   const locale = await getLocale()
   return (
     <AdminShell
-      title="Vokabel-World"
-      description="Gestión de apps de vocabulario"
-      currentPath="/paneladmin/vokabel-world"
+      title="Vivir en Fuengirola"
+      description="Gestión de contenido de Vivir en Fuengirola"
+      currentPath="/paneladmin/vivir-en-fuengirola"
       userEmail={identity.email}
       locale={locale}
     >
       <div className="flex items-center justify-center rounded-xl border border-dashed border-line h-64">
-        <p className="text-sm text-muted">Selecciona una app del menú lateral.</p>
+        <p className="text-sm text-muted">Esta sección está en desarrollo.</p>
       </div>
     </AdminShell>
   )
