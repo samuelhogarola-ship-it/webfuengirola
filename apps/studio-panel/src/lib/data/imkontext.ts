@@ -2,6 +2,23 @@ import { cache } from 'react'
 
 import { createImKontextAdminClient } from '@/lib/supabase/server'
 
+export const getVokabelLabData = cache(async () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const db = createImKontextAdminClient() as any
+
+  const [{ data: catalog }, { count: lemmasTotal }, { count: vocabTotal }] = await Promise.all([
+    db.from('apps_catalog').select('id, name, slug, status, visibility, launch_url').order('sort_order'),
+    db.from('vocabulary_lemmas').select('*', { count: 'exact', head: true }),
+    db.from('vocabulario').select('*', { count: 'exact', head: true }),
+  ])
+
+  return {
+    catalog: (catalog ?? []) as { id: string; name: string; slug: string; status: string; visibility: string; launch_url: string }[],
+    lemmasTotal: lemmasTotal ?? 0,
+    vocabTotal: vocabTotal ?? 0,
+  }
+})
+
 export const getImKontextData = cache(async () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const db = createImKontextAdminClient() as any
