@@ -4605,6 +4605,23 @@ body.is-menu-open {
 .cta-final__content--calculator {
   max-width: 1320px;
   padding: 64px;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: #fff;
+}
+
+.cta-final__content--calculator .section-label {
+  color: rgba(255, 255, 255, 0.58);
+  border-left-color: rgba(255, 255, 255, 0.3);
+}
+
+.cta-final__content--calculator .cta-final__title {
+  color: #fff;
+}
+
+.cta-final__content--calculator .cta-final__sub {
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .cta-final__title {
@@ -6631,9 +6648,6 @@ body.is-transitioning {
 @media (max-width: 720px) {
   .cta-final__content--calculator {
     padding: 0;
-    background: transparent;
-    border: 0;
-    box-shadow: none;
   }
 
   .estimator__meta,
