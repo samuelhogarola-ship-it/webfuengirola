@@ -2404,7 +2404,8 @@ body.is-menu-open {
   .hamburger {
     display: flex;
   }
-  .header__cta {
+  .header__cta,
+  .client-access-btn {
     display: none;
   }
   .header__inner {
@@ -2426,9 +2427,9 @@ body.is-menu-open {
     top: var(--header-h);
     left: 0;
     right: 0;
-    bottom: 0;
+    height: calc(100dvh - var(--header-h));
     z-index: 95;
-    background: rgba(249, 248, 246, 0.98);
+    background: var(--color-bg, #f9f8f6);
     border-bottom: 1px solid var(--color-border);
     padding: 20px 24px 28px;
     box-shadow: var(--shadow-lg);
@@ -5964,11 +5965,11 @@ body.is-transitioning {
   }
 }
 
-/* ─── Hero cinematic keyframe animations (pure CSS, no JS) ──────── */
-@keyframes hero-fade-up {
+/* ─── Hero cinematic entrance (single block, runs once) ──────── */
+@keyframes hero-enter-down {
   from {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(-60px);
   }
   to {
     opacity: 1;
@@ -5976,35 +5977,31 @@ body.is-transitioning {
   }
 }
 
-.hero__cin-label {
-  animation: hero-fade-up 700ms var(--ease) both;
+@keyframes hero-enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
-.hero__cin-title {
-  animation: hero-fade-up 800ms var(--ease) 100ms both;
-}
-
-.hero__cin-sub {
-  animation: hero-fade-up 700ms var(--ease) 200ms both;
-}
-
-.hero__cin-actions {
-  animation: hero-fade-up 700ms var(--ease) 340ms both;
+.hero__cin-content {
+  animation: hero-enter-down 1s cubic-bezier(0.16, 1, 0.3, 1) 200ms both;
 }
 
 .hero__cin-badge {
-  animation: hero-fade-up 700ms var(--ease) 480ms both;
+  animation: hero-enter-up 1s cubic-bezier(0.16, 1, 0.3, 1) 350ms both;
 }
 
 .hero__cin-scroll {
-  animation: hero-fade-up 600ms var(--ease) 900ms both;
+  animation: hero-enter-up 800ms cubic-bezier(0.16, 1, 0.3, 1) 500ms both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero__cin-label,
-  .hero__cin-title,
-  .hero__cin-sub,
-  .hero__cin-actions,
+  .hero__cin-content,
   .hero__cin-badge,
   .hero__cin-scroll {
     animation: none;
@@ -6720,6 +6717,36 @@ body.is-transitioning {
 
   .estimator-summary__actions {
     flex-direction: column;
+  }
+
+  .estimator__sub {
+    font-size: 0.88rem;
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+
+  .estimator__grid {
+    gap: 10px;
+  }
+
+  .estimator-card {
+    min-height: 0;
+    padding: 16px;
+    gap: 6px;
+    border-radius: 18px;
+  }
+
+  .estimator-card__topline {
+    font-size: 0.65rem;
+  }
+
+  .estimator-card__title {
+    font-size: 1.1rem;
+  }
+
+  .estimator-card__desc {
+    font-size: 0.82rem;
+    line-height: 1.45;
   }
 }
 
