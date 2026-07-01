@@ -6178,6 +6178,10 @@ body.is-transitioning {
   padding: 28px 34px 148px;
 }
 
+.estimator.is-on-summary .estimator__stage {
+  padding-bottom: 40px;
+}
+
 .estimator__step {
   display: none;
   animation: estimator-step-in 380ms var(--ease) both;
@@ -6227,8 +6231,22 @@ body.is-transitioning {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.estimator__grid--support {
+.estimator__grid--two {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.estimator__grid--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.estimator__bar-step-indicator {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+[data-estimator-bar][hidden] {
+  display: none;
 }
 
 .estimator-card {
@@ -6634,8 +6652,8 @@ body.is-transitioning {
 
 @media (max-width: 980px) {
   .estimator__grid--services,
-  .estimator__grid--support,
-  .estimator__extras-layout,
+  .estimator__grid--two,
+  .estimator__grid--three,
   .estimator-summary__totals {
     grid-template-columns: 1fr;
   }

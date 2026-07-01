@@ -1300,12 +1300,13 @@
 
     var WA_BASE = "https://wa.me/34622923988?text=";
     var EMAIL = "info@webfuengirola.com";
-    var stepOrder = ["service", "support", "extras", "summary"];
+    var stepOrder = ["pages", "blog", "changes", "tracking", "summary"];
     var stepLabels = {
-      service: "1 de 4 · Tipo de web",
-      support: "2 de 4 · Seguimiento",
-      extras: "3 de 4 · Extras y publicación",
-      summary: "4 de 4 · Resumen",
+      pages: "1 de 4 · Páginas",
+      blog: "2 de 4 · Blog",
+      changes: "3 de 4 · Actualizaciones",
+      tracking: "4 de 4 · Seguimiento",
+      summary: "Recomendación",
     };
 
     var services = {
@@ -1432,12 +1433,13 @@
     };
 
     var state = {
-      service: "lite",
-      support: "none",
-      analytics: false,
+      pages: null,
+      blog: null,
+      changes: null,
+      tracking: null,
     };
 
-    var activeStep = "service";
+    var activeStep = "pages";
     var steps = {};
     Array.prototype.slice
       .call(root.querySelectorAll("[data-estimator-step]"))
@@ -1445,36 +1447,21 @@
         steps[el.getAttribute("data-estimator-step")] = el;
       });
 
-    var serviceButtons = Array.prototype.slice.call(
-      root.querySelectorAll('[data-estimator-choice="service"]'),
-    );
-    var supportButtons = Array.prototype.slice.call(
-      root.querySelectorAll('[data-estimator-choice="support"]'),
-    );
-    var analyticsInput = root.querySelector(
-      '[data-estimator-extra="analytics"]',
-    );
-    var analyticsCard = root.querySelector("[data-estimator-extra-card]");
-    var analyticsNote = root.querySelector("[data-estimator-analytics-note]");
     var dots = Array.prototype.slice.call(
       root.querySelectorAll("[data-estimator-dot]"),
     );
     var stepLabelEl = root.querySelector("[data-estimator-step-label]");
-    var miniPriceEl = root.querySelector("[data-estimator-mini-price]");
-    var renewalServiceEl = root.querySelector(
-      "[data-estimator-renewal-service]",
-    );
-    var renewalPriceEl = root.querySelector("[data-estimator-renewal-price]");
-    var renewalCopyEl = root.querySelector("[data-estimator-renewal-copy]");
+    var barStepEl = root.querySelector("[data-estimator-bar-step]");
+    var barOnceEl = root.querySelector("[data-estimator-bar-once]");
+    var barEl = root.querySelector("[data-estimator-bar]");
     var summaryEl = root.querySelector("[data-estimator-summary]");
     var totalOnceEl = root.querySelector("[data-estimator-total-once]");
     var totalRecurringEl = root.querySelector(
       "[data-estimator-total-recurring]",
     );
-    var barOnceEl = root.querySelector("[data-estimator-bar-once]");
-    var barRecurringEl = root.querySelector("[data-estimator-bar-recurring]");
     var backBtn = root.querySelector("[data-estimator-back]");
     var nextBtn = root.querySelector("[data-estimator-next]");
+    var restartBtn = root.querySelector("[data-estimator-restart]");
     var whatsappBtn = root.querySelector("[data-estimator-wa]");
     var emailBtn = root.querySelector("[data-estimator-email]");
 
@@ -1482,131 +1469,119 @@
       return (isFrom ? "Desde " : "") + amount + "€ + IVA";
     }
 
-    function getCurrentService() {
-      return services[state.service];
-    }
+    function getCurrentEstimate() {
+      var pages = state.pages || "one";
+      var blog = state.blog || "no";
+      var changes = state.changes || "rarely";
+      var tracking = state.tracking || "basic";
 
-    function getCurrentSupport() {
-      return supportPlans[state.support];
-    }
+      var serviceKey;
+      if (pages === "one") serviceKey = "lite";
+      else if (pages === "few") serviceKey = "express";
+      else if (pages === "many") serviceKey = "pro";
+      else serviceKey = "custom";
 
-    function analyticsAllowed() {
-      return state.service === "pro" || state.service === "custom";
-    }
+      // Blog only forces an upgrade if the chosen service doesn't already include it
+      if (blog === "yes" && serviceKey === "lite") serviceKey = "express";
 
-    function getTotals() {
-      var service = getCurrentService();
-      var support = getCurrentSupport();
+      var supportKey;
+      if (tracking === "full") {
+        supportKey = "carefree";
+      } else if (tracking === "monitoring") {
+        supportKey = changes === "rarely" ? "flex" : "marketing";
+      } else {
+        supportKey = changes === "rarely" ? "none" : "flex";
+      }
+
+      var includeAnalytics =
+        (serviceKey === "pro" || serviceKey === "custom") &&
+        (tracking === "monitoring" || tracking === "full");
+      var service = services[serviceKey];
+      var support = supportPlans[supportKey];
       var once =
         service.basePrice +
         support.oneTime +
-        (state.analytics && analyticsAllowed() ? extras.analytics.price : 0);
-      var monthly = support.monthly;
+        (includeAnalytics ? extras.analytics.price : 0);
+
       return {
         once: once,
-        monthly: monthly,
-        hasFromPrefix: state.service === "custom",
+        monthly: support.monthly,
+        hasFromPrefix: serviceKey === "custom",
       };
     }
 
-    function getRecurringHint() {
-      var service = getCurrentService();
-      var support = getCurrentSupport();
-      var parts = [];
+    function deriveRecommendation() {
+      var serviceKey;
+      if (state.pages === "one") serviceKey = "lite";
+      else if (state.pages === "few") serviceKey = "express";
+      else if (state.pages === "many") serviceKey = "pro";
+      else serviceKey = "custom";
 
-      if (support.monthly) parts.push(support.monthly + "€/mes de seguimiento");
-      else if (support.type === "pack" && support.oneTime)
-        parts.push("Bono de " + support.oneTime + "€ incluido en el arranque");
+      if (state.blog === "yes" && serviceKey === "lite") serviceKey = "express";
 
-      parts.push(service.renewalLabel);
-      return parts.join(" · ");
+      var supportKey;
+      if (state.tracking === "full") {
+        supportKey = "carefree";
+      } else if (state.tracking === "monitoring") {
+        supportKey = state.changes === "rarely" ? "flex" : "marketing";
+      } else {
+        supportKey = state.changes === "rarely" ? "none" : "flex";
+      }
+
+      var includeAnalytics =
+        (serviceKey === "pro" || serviceKey === "custom") &&
+        (state.tracking === "monitoring" || state.tracking === "full");
+
+      return {
+        service: serviceKey,
+        support: supportKey,
+        analytics: includeAnalytics,
+      };
     }
 
     function syncSelections() {
-      serviceButtons.forEach(function (btn) {
-        btn.classList.toggle(
-          "is-selected",
-          btn.getAttribute("data-key") === state.service,
-        );
+      ["pages", "blog", "changes", "tracking"].forEach(function (field) {
+        Array.prototype.slice
+          .call(
+            root.querySelectorAll('[data-estimator-choice="' + field + '"]'),
+          )
+          .forEach(function (btn) {
+            btn.classList.toggle(
+              "is-selected",
+              btn.getAttribute("data-key") === state[field],
+            );
+          });
       });
-
-      supportButtons.forEach(function (btn) {
-        btn.classList.toggle(
-          "is-selected",
-          btn.getAttribute("data-key") === state.support,
-        );
-      });
-
-      if (analyticsInput) {
-        if (!analyticsAllowed()) {
-          analyticsInput.checked = false;
-          analyticsInput.disabled = true;
-          state.analytics = false;
-        } else {
-          analyticsInput.disabled = false;
-          analyticsInput.checked = state.analytics;
-        }
-      }
-
-      if (analyticsCard)
-        analyticsCard.classList.toggle(
-          "is-selected",
-          !!state.analytics && analyticsAllowed(),
-        );
-      if (analyticsCard)
-        analyticsCard.classList.toggle("is-disabled", !analyticsAllowed());
-      if (analyticsNote) {
-        analyticsNote.classList.toggle("is-disabled", !analyticsAllowed());
-        analyticsNote.textContent = analyticsAllowed()
-          ? "Este extra encaja especialmente con Web Pro y proyectos personalizados orientados a captación o seguimiento básico."
-          : "Este extra se ofrece dentro de Web Pro o en proyectos personalizados donde tenga sentido medir resultados desde el arranque.";
-      }
-    }
-
-    function updateMeta() {
-      var service = getCurrentService();
-      var totals = getTotals();
-
-      if (stepLabelEl) stepLabelEl.textContent = stepLabels[activeStep];
-      if (miniPriceEl)
-        miniPriceEl.textContent = formatOneTime(
-          totals.once,
-          totals.hasFromPrefix,
-        );
-      if (renewalServiceEl) renewalServiceEl.textContent = service.title;
-      if (renewalPriceEl) renewalPriceEl.textContent = service.renewalSidePrice;
-      if (renewalCopyEl) renewalCopyEl.textContent = service.renewalCopy;
-      if (barOnceEl)
-        barOnceEl.textContent = formatOneTime(
-          totals.once,
-          totals.hasFromPrefix,
-        );
-      if (barRecurringEl) barRecurringEl.textContent = getRecurringHint();
     }
 
     function updateSummary() {
-      var service = getCurrentService();
-      var support = getCurrentSupport();
-      var totals = getTotals();
-      var extraLines =
-        state.analytics && analyticsAllowed()
-          ? '<div class="estimator-summary__line"><span>' +
-            extras.analytics.title +
-            "</span><strong>" +
-            extras.analytics.label +
-            "</strong></div>"
-          : '<div class="estimator-summary__line"><span>Extras opcionales</span><strong>Sin extras añadidos</strong></div>';
+      var rec = deriveRecommendation();
+      var service = services[rec.service];
+      var support = supportPlans[rec.support];
+      var once =
+        service.basePrice +
+        support.oneTime +
+        (rec.analytics ? extras.analytics.price : 0);
+      var hasFromPrefix = rec.service === "custom";
 
       var bulletsHtml = service.bullets
-        .map(function (bullet) {
-          return '<div class="estimator-summary__bullet">' + bullet + "</div>";
+        .map(function (b) {
+          return '<div class="estimator-summary__bullet">' + b + "</div>";
         })
         .join("");
+
+      var extraLine = rec.analytics
+        ? '<div class="estimator-summary__line"><span>' +
+          extras.analytics.title +
+          "</span><strong>" +
+          extras.analytics.label +
+          "</strong></div>"
+        : "";
 
       if (summaryEl) {
         summaryEl.innerHTML =
           '<div class="estimator-summary__group">' +
-          '<div class="estimator-summary__group-title">Servicio base</div>' +
+          '<div class="estimator-summary__group-title">Web recomendada</div>' +
           '<div class="estimator-summary__line"><span>' +
           service.title +
           "</span><strong>" +
@@ -1617,7 +1592,7 @@
           "</div>" +
           "</div>" +
           '<div class="estimator-summary__group">' +
-          '<div class="estimator-summary__group-title">Seguimiento elegido</div>' +
+          '<div class="estimator-summary__group-title">Seguimiento recomendado</div>' +
           '<div class="estimator-summary__line"><span>' +
           support.title +
           "</span><strong>" +
@@ -1628,19 +1603,16 @@
           "</div></div>" +
           "</div>" +
           '<div class="estimator-summary__group">' +
-          '<div class="estimator-summary__group-title">Extras y renovación</div>' +
-          extraLines +
-          '<div class="estimator-summary__line"><span>Renovación orientativa</span><strong>' +
+          '<div class="estimator-summary__group-title">Renovación orientativa</div>' +
+          extraLine +
+          '<div class="estimator-summary__line"><span>Costes anuales</span><strong>' +
           service.renewalLabel +
           "</strong></div>" +
           "</div>";
       }
 
       if (totalOnceEl)
-        totalOnceEl.textContent = formatOneTime(
-          totals.once,
-          totals.hasFromPrefix,
-        );
+        totalOnceEl.textContent = formatOneTime(once, hasFromPrefix);
       if (totalRecurringEl) {
         totalRecurringEl.textContent = support.monthly
           ? support.monthly + "€/mes"
@@ -1651,16 +1623,22 @@
     }
 
     function buildMessage() {
-      var service = getCurrentService();
-      var support = getCurrentSupport();
-      var totals = getTotals();
+      var rec = deriveRecommendation();
+      var service = services[rec.service];
+      var support = supportPlans[rec.support];
+      var once =
+        service.basePrice +
+        support.oneTime +
+        (rec.analytics ? extras.analytics.price : 0);
+      var hasFromPrefix = rec.service === "custom";
+
       var lines = [
-        "Hola, quiero pedir esta estimación web:",
-        "- Servicio: " + service.title + " (" + service.summaryPrice + ")",
+        "Hola, he usado la calculadora de WF Studio y esta es mi recomendación:",
+        "- Web: " + service.title + " (" + service.summaryPrice + ")",
         "- Seguimiento: " + support.title + " (" + support.label + ")",
       ];
 
-      if (state.analytics && analyticsAllowed()) {
+      if (rec.analytics) {
         lines.push(
           "- Extra: " +
             extras.analytics.title +
@@ -1671,10 +1649,10 @@
       }
 
       lines.push(
-        "- Inversión inicial estimada: " +
-          formatOneTime(totals.once, totals.hasFromPrefix),
+        "- Inversión inicial estimada: " + formatOneTime(once, hasFromPrefix),
       );
-      lines.push("- Continuidad / renovación: " + getRecurringHint());
+      if (support.monthly)
+        lines.push("- Cuota mensual: " + support.monthly + "€/mes");
       lines.push("Me gustaría comentar material, plazos y alcance real.");
       return lines.join("\n");
     }
@@ -1694,25 +1672,44 @@
     }
 
     function canContinue(stepKey) {
-      if (stepKey === "service") return !!state.service;
-      if (stepKey === "support") return !!state.support;
-      return true;
+      return stepKey !== "summary" && !!state[stepKey];
     }
 
     function updateNav() {
       var idx = stepOrder.indexOf(activeStep);
+      var isSummary = activeStep === "summary";
+
       dots.forEach(function (dot) {
         var dotIdx = stepOrder.indexOf(dot.getAttribute("data-estimator-dot"));
         dot.classList.toggle("is-active", dotIdx === idx);
         dot.classList.toggle("is-done", dotIdx < idx);
       });
 
+      if (stepLabelEl) stepLabelEl.textContent = stepLabels[activeStep];
+
+      root.classList.toggle("is-on-summary", isSummary);
+      if (barEl) barEl.hidden = isSummary;
+
+      if (!isSummary) {
+        var qIdx = ["pages", "blog", "changes", "tracking"].indexOf(activeStep);
+        if (barStepEl)
+          barStepEl.textContent = "Pregunta " + (qIdx + 1) + " de 4";
+        if (barOnceEl) {
+          if (!state.pages) {
+            barOnceEl.textContent = "—";
+          } else {
+            var est = getCurrentEstimate();
+            barOnceEl.textContent = formatOneTime(est.once, est.hasFromPrefix);
+          }
+        }
+      }
+
       if (backBtn) backBtn.hidden = idx === 0;
       if (nextBtn) {
-        nextBtn.hidden = activeStep === "summary";
+        nextBtn.hidden = isSummary;
         nextBtn.disabled = !canContinue(activeStep);
         nextBtn.textContent =
-          activeStep === "extras" ? "Ver resumen →" : "Siguiente →";
+          activeStep === "tracking" ? "Ver recomendación →" : "Siguiente →";
       }
     }
 
@@ -1722,43 +1719,25 @@
         steps[key].classList.toggle("is-active", key === stepKey);
       });
 
-      updateMeta();
-      updateSummary();
-      updateLinks();
+      syncSelections();
+      if (stepKey === "summary") {
+        updateSummary();
+        updateLinks();
+      }
       updateNav();
     }
 
-    serviceButtons.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        state.service = btn.getAttribute("data-key");
-        syncSelections();
-        updateMeta();
-        updateSummary();
-        updateLinks();
-        updateNav();
-      });
+    ["pages", "blog", "changes", "tracking"].forEach(function (field) {
+      Array.prototype.slice
+        .call(root.querySelectorAll('[data-estimator-choice="' + field + '"]'))
+        .forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            state[field] = btn.getAttribute("data-key");
+            syncSelections();
+            updateNav();
+          });
+        });
     });
-
-    supportButtons.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        state.support = btn.getAttribute("data-key");
-        syncSelections();
-        updateMeta();
-        updateSummary();
-        updateLinks();
-        updateNav();
-      });
-    });
-
-    if (analyticsInput) {
-      analyticsInput.addEventListener("change", function () {
-        state.analytics = analyticsAllowed() && analyticsInput.checked;
-        syncSelections();
-        updateMeta();
-        updateSummary();
-        updateLinks();
-      });
-    }
 
     if (backBtn) {
       backBtn.addEventListener("click", function () {
@@ -1781,8 +1760,14 @@
       });
     }
 
-    syncSelections();
-    goTo("service");
+    if (restartBtn) {
+      restartBtn.addEventListener("click", function () {
+        state = { pages: null, blog: null, changes: null, tracking: null };
+        goTo("pages");
+      });
+    }
+
+    goTo("pages");
   }
 
   function initEditorialServices() {
