@@ -4605,6 +4605,23 @@ body.is-menu-open {
 .cta-final__content--calculator {
   max-width: 1320px;
   padding: 64px;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: #fff;
+}
+
+.cta-final__content--calculator .section-label {
+  color: rgba(255, 255, 255, 0.58);
+  border-left-color: rgba(255, 255, 255, 0.3);
+}
+
+.cta-final__content--calculator .cta-final__title {
+  color: #fff;
+}
+
+.cta-final__content--calculator .cta-final__sub {
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .cta-final__title {
@@ -6161,6 +6178,10 @@ body.is-transitioning {
   padding: 28px 34px 148px;
 }
 
+.estimator.is-on-summary .estimator__stage {
+  padding-bottom: 40px;
+}
+
 .estimator__step {
   display: none;
   animation: estimator-step-in 380ms var(--ease) both;
@@ -6210,8 +6231,22 @@ body.is-transitioning {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.estimator__grid--support {
+.estimator__grid--two {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.estimator__grid--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.estimator__bar-step-indicator {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+[data-estimator-bar][hidden] {
+  display: none;
 }
 
 .estimator-card {
@@ -6617,8 +6652,8 @@ body.is-transitioning {
 
 @media (max-width: 980px) {
   .estimator__grid--services,
-  .estimator__grid--support,
-  .estimator__extras-layout,
+  .estimator__grid--two,
+  .estimator__grid--three,
   .estimator-summary__totals {
     grid-template-columns: 1fr;
   }
@@ -6631,9 +6666,6 @@ body.is-transitioning {
 @media (max-width: 720px) {
   .cta-final__content--calculator {
     padding: 0;
-    background: transparent;
-    border: 0;
-    box-shadow: none;
   }
 
   .estimator__meta,
