@@ -1469,7 +1469,7 @@
       return (isFrom ? "Desde " : "") + amount + "€ + IVA";
     }
 
-    function getCurrentEstimate() {
+    function deriveRecommendation() {
       var pages = state.pages || "one";
       var blog = state.blog || "no";
       var changes = state.changes || "rarely";
@@ -1481,7 +1481,6 @@
       else if (pages === "many") serviceKey = "pro";
       else serviceKey = "custom";
 
-      // Blog only forces an upgrade if the chosen service doesn't already include it
       if (blog === "yes" && serviceKey === "lite") serviceKey = "express";
 
       var supportKey;
@@ -1496,47 +1495,29 @@
       var includeAnalytics =
         (serviceKey === "pro" || serviceKey === "custom") &&
         (tracking === "monitoring" || tracking === "full");
-      var service = services[serviceKey];
-      var support = supportPlans[supportKey];
-      var once =
-        service.basePrice +
-        support.oneTime +
-        (includeAnalytics ? extras.analytics.price : 0);
-
-      return {
-        once: once,
-        monthly: support.monthly,
-        hasFromPrefix: serviceKey === "custom",
-      };
-    }
-
-    function deriveRecommendation() {
-      var serviceKey;
-      if (state.pages === "one") serviceKey = "lite";
-      else if (state.pages === "few") serviceKey = "express";
-      else if (state.pages === "many") serviceKey = "pro";
-      else serviceKey = "custom";
-
-      if (state.blog === "yes" && serviceKey === "lite") serviceKey = "express";
-
-      var supportKey;
-      if (state.tracking === "full") {
-        supportKey = "carefree";
-      } else if (state.tracking === "monitoring") {
-        supportKey = state.changes === "rarely" ? "flex" : "marketing";
-      } else {
-        supportKey = state.changes === "rarely" ? "none" : "flex";
-      }
-
-      var includeAnalytics =
-        (serviceKey === "pro" || serviceKey === "custom") &&
-        (state.tracking === "monitoring" || state.tracking === "full");
 
       return {
         service: serviceKey,
         support: supportKey,
         analytics: includeAnalytics,
       };
+    }
+
+    function computeTotals(rec) {
+      var service = services[rec.service];
+      var support = supportPlans[rec.support];
+      return {
+        once:
+          service.basePrice +
+          support.oneTime +
+          (rec.analytics ? extras.analytics.price : 0),
+        monthly: support.monthly,
+        hasFromPrefix: rec.service === "custom",
+      };
+    }
+
+    function getCurrentEstimate() {
+      return computeTotals(deriveRecommendation());
     }
 
     function syncSelections() {
@@ -1556,13 +1537,11 @@
 
     function updateSummary() {
       var rec = deriveRecommendation();
+      var totals = computeTotals(rec);
       var service = services[rec.service];
       var support = supportPlans[rec.support];
-      var once =
-        service.basePrice +
-        support.oneTime +
-        (rec.analytics ? extras.analytics.price : 0);
-      var hasFromPrefix = rec.service === "custom";
+      var once = totals.once;
+      var hasFromPrefix = totals.hasFromPrefix;
 
       var bulletsHtml = service.bullets
         .map(function (b) {
@@ -1587,6 +1566,7 @@
           "</span><strong>" +
           service.summaryPrice +
           "</strong></div>" +
+          extraLine +
           '<div class="estimator-summary__bullets">' +
           bulletsHtml +
           "</div>" +
@@ -1604,7 +1584,6 @@
           "</div>" +
           '<div class="estimator-summary__group">' +
           '<div class="estimator-summary__group-title">Renovación orientativa</div>' +
-          extraLine +
           '<div class="estimator-summary__line"><span>Costes anuales</span><strong>' +
           service.renewalLabel +
           "</strong></div>" +
@@ -1624,13 +1603,11 @@
 
     function buildMessage() {
       var rec = deriveRecommendation();
+      var totals = computeTotals(rec);
       var service = services[rec.service];
       var support = supportPlans[rec.support];
-      var once =
-        service.basePrice +
-        support.oneTime +
-        (rec.analytics ? extras.analytics.price : 0);
-      var hasFromPrefix = rec.service === "custom";
+      var once = totals.once;
+      var hasFromPrefix = totals.hasFromPrefix;
 
       var lines = [
         "Hola, he usado la calculadora de WF Studio y esta es mi recomendación:",
