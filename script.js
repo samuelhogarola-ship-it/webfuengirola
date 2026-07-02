@@ -1195,10 +1195,13 @@
   }
   /* ---- Stacked cards on scroll (scale compress as next card slides over) ---- */
   function initStackCards() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     var cards = Array.prototype.slice.call(
       document.querySelectorAll(".stack-cards-track .stack-card"),
     );
     if (cards.length < 2) return;
+    var ticking = false;
 
     function update() {
       for (var i = 0; i < cards.length - 1; i++) {
@@ -1206,16 +1209,37 @@
         var next = cards[i + 1];
         var cardRect = card.getBoundingClientRect();
         var nextRect = next.getBoundingClientRect();
-        /* how far next card has slid over this one (0→1) */
+        /* How far the next card has slid over this one (0 to 1). */
         var overlap = Math.max(0, cardRect.bottom - nextRect.top);
-        var progress = Math.min(1, overlap / cardRect.height);
+        var progress = Math.min(
+          1,
+          overlap / Math.max(cardRect.height * 0.38, 1),
+        );
+        var scale = 1 - progress * 0.045;
+        var lift = progress * -18;
+        var tilt = progress * -0.45;
+
         card.style.transform =
-          "scale(" + (1 - progress * 0.04).toFixed(4) + ")";
-        card.style.transformOrigin = "top center";
+          "translate3d(0, " +
+          lift.toFixed(2) +
+          "px, 0) rotateX(" +
+          tilt.toFixed(2) +
+          "deg) scale(" +
+          scale.toFixed(4) +
+          ")";
+        card.classList.toggle("is-stacked", progress > 0.02);
       }
+      ticking = false;
     }
 
-    window.addEventListener("scroll", update, { passive: true });
+    function requestUpdate() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
     update();
   }
 
