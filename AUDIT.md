@@ -112,3 +112,84 @@ Recomendación:
 ## Current Focus
 
 Subir consistencia entre SEO, UX comercial y arquitectura futura para que el proyecto escale sin rehacerlo entero dentro de dos meses.
+
+## Cierre Técnico · 2026-07-01
+
+### Alcance revisado
+
+La revisión técnica ejecutada se ha centrado en la parte de mayor riesgo operativo del repo:
+
+- `apps/studio-panel`
+- `supabase/migrations`
+- documentación y CI vinculados al panel
+
+La web pública sigue teniendo un perfil de riesgo mucho menor porque es mayoritariamente estática. Por eso el foco de remediación se ha puesto en autenticación, redirecciones, esquema de datos y reproducibilidad de despliegue.
+
+### Estado ejecutivo
+
+- `Cerrado` Seguridad crítica de autenticación y redirección.
+- `Cerrado` Consistencia principal entre código del panel, migraciones y documentación de despliegue.
+- `Cerrado` Cobertura mínima automatizada para evitar regresiones de seguridad y de esquema.
+- `Residual` Validación contra una base Supabase completamente limpia y prueba E2E autenticada del panel.
+
+### Remediaciones ya aplicadas
+
+#### P0 · Seguridad crítica
+
+- Se bloqueó el `open redirect` en `/auth/callback` mediante sanitización centralizada de `next`.
+- Se eliminó la dependencia de `host` y `x-forwarded-host` para generar magic links.
+- La URL canónica del panel pasa a depender de `APP_URL`, con `NEXT_PUBLIC_APP_URL` alineada como espejo público.
+- Se amplió la protección del `middleware` para cubrir rutas protegidas actuales del panel.
+
+#### P1 · Despliegue y consistencia de datos
+
+- Se añadió una migración incremental de compatibilidad para introducir `minutes_total` y `minutes_used` antes de que otras migraciones los consuman.
+- Se corrigió la vista `client_summary` para evitar dobles conteos al agregar packs y actividades.
+- Se incorporó la migración hardening que normaliza piezas activas del modelo (`messages`, `services`, `invoices`, `next_invoice_number`, estados y RLS relacionados).
+- Se actualizó la documentación del panel y del repo para que la configuración de variables y el despliegue respondan a la arquitectura real.
+
+#### P2 · Control de acceso y calidad
+
+- Se añadieron tests de seguridad para callback, redirecciones internas y URL canónica de auth.
+- Se añadieron tests para el alta pública de clientes con estado `pending` y rollback de usuario Auth si falla el insert de negocio.
+- Se añadieron tests estructurales de migraciones para detectar roturas en la cadena SQL del panel.
+- El workflow de CI del panel ejecuta `lint`, `typecheck`, `test` y `build`.
+
+#### P3 · Endurecimiento operativo
+
+- Se añadió `metadataBase` para evitar defaults incorrectos durante el build.
+- Se limpiaron warnings relevantes del panel que degradaban la señal de CI.
+- Se alineó la guía de despliegue del formulario público con los endpoints y variables reales del panel/API.
+
+### Validación ejecutada
+
+Se han verificado con éxito estas comprobaciones en `apps/studio-panel`:
+
+- `npm run lint`
+- `npm run typecheck`
+- `npm test`
+- `npm run build`
+
+Además, la documentación de entorno ahora refleja explícitamente:
+
+- `APP_URL` como referencia canónica de servidor
+- `NEXT_PUBLIC_APP_URL` como equivalente público alineado
+- dependencias reales del formulario `/contacto/`
+- orden esperado de validación en CI
+
+### Riesgo residual real
+
+No quedan hallazgos abiertos del nivel `P0` o `P1` dentro del alcance revisado, pero sí quedan dos validaciones recomendables antes de dar el cierre máximo:
+
+- Ejecutar las migraciones sobre una base Supabase limpia real para validar el recorrido completo, no solo por inspección y tests de archivos.
+- Añadir una prueba E2E autenticada del panel para cubrir login, ruta protegida y un flujo mínimo de negocio.
+
+### Conclusión
+
+El repo ya no está en una situación de “panel frágil con riesgo de auth y despliegue”. La base actual es razonablemente segura, reproducible y verificable para seguir iterando.
+
+La siguiente fase ya no debería ser otra ronda de contención, sino consolidación:
+
+- una validación real de bootstrap Supabase
+- una suite E2E mínima del panel
+- evolución de producto y UX sobre una base técnica mucho más estable
