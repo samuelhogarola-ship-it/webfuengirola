@@ -17,6 +17,13 @@ const today = new Date().toISOString().slice(0, 10);
 const productCategoryMap = new Map(
   productCategories.map((category) => [category.slug, category]),
 );
+const caseByPortfolioSlug = new Map(
+  cases.map((item) => [item.portfolioSlug ?? item.slug, item]),
+);
+const legacyPortfolioFallbackMap = new Map([
+  ["im-kontext-vokabellab", "vokabellab"],
+  ["der-die-das-vokabellab", "vokabellab"],
+]);
 
 const portfolioIntro = {
   title: "Portfolio de Diseño Web en Fuengirola | Casos Reales",
@@ -214,14 +221,18 @@ function renderHead({
   ogAlt,
   preloadImage,
   prefix,
+  noindex = false,
 }) {
+  const robotsContent = noindex
+    ? "noindex, follow, max-image-preview:large"
+    : "index, follow, max-image-preview:large";
   return `
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}" />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="robots" content="${robotsContent}" />
   <link rel="canonical" href="${canonical}" />
   <link rel="icon" type="image/png" href="https://webfuengirola.com/favicon.png" sizes="48x48" />
   <link rel="shortcut icon" href="https://webfuengirola.com/favicon.png" />
@@ -281,7 +292,7 @@ function renderPortfolioCard(project, options = {}) {
   const productTag = productCategory
     ? `<span class="tag">${escapeHtml(productCategory.shortLabel)}</span>`
     : "";
-  const detailHref = options.detailHref ?? `portfolio/${project.slug}/`;
+  const detailHref = options.detailHref ?? `casos/${project.slug}/`;
   const imagePrefix = options.imagePrefix ?? "";
 
   return `
@@ -300,136 +311,44 @@ function renderPortfolioCard(project, options = {}) {
           </article>`;
 }
 
-/**
- * Renders the main portfolio listing page.
- * @returns {string}
- */
-function renderPortfolioListing() {
-  const cards = portfolioProjects.map(renderPortfolioCard).join("\n");
+function renderLegacyRedirectPage({
+  title,
+  description,
+  canonical,
+  targetPath,
+  ogImage,
+  ogAlt,
+}) {
   return `<!DOCTYPE html>
 <html lang="es">
-${renderHead({
-  title: portfolioIntro.title,
-  description: portfolioIntro.description,
-  canonical: "https://webfuengirola.com/casos/",
-  ogTitle: portfolioIntro.ogTitle,
-  ogDescription: portfolioIntro.ogDescription,
-  ogImage: "https://webfuengirola.com/img/og-cover.jpg",
-  ogAlt: "Portfolio de Web Fuengirola con proyectos para negocios locales",
-  preloadImage: "img/og-cover.webp",
-  prefix: "",
-})}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${escapeHtml(title)}</title>
+  <meta name="description" content="${escapeHtml(description)}" />
+  <meta name="robots" content="noindex, follow, max-image-preview:large" />
+  <link rel="canonical" href="${canonical}" />
+  <meta http-equiv="refresh" content="0; url=${targetPath}" />
+  <meta property="og:title" content="${escapeHtml(title)}" />
+  <meta property="og:description" content="${escapeHtml(description)}" />
+  <meta property="og:url" content="${canonical}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Web Fuengirola" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:image" content="${ogImage}" />
+  <meta property="og:image:secure_url" content="${ogImage}" />
+  <meta property="og:image:alt" content="${escapeHtml(ogAlt)}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="${escapeHtml(title)}" />
+  <meta name="twitter:description" content="${escapeHtml(description)}" />
+  <meta name="twitter:image" content="${ogImage}" />
+</head>
 <body>
-${renderHeader("", "portfolio")}
-
-  <main>
-    <section class="subpage-hero">
-      <div class="container">
-        <span class="badge">Portfolio</span>
-        <h1 class="subpage-hero__title">Proyectos reales con criterio comercial y técnico</h1>
-        <p class="subpage-hero__sub">Mostramos tanto captación local como producto digital. La idea no es enseñar cantidad, sino demostrar rango y ejecución.</p>
-      </div>
-    </section>
-
-    <section class="portfolio" id="proyectos" style="padding-top:80px;">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label">Proyectos</span>
-          <h2 class="section-title">Webs que hemos creado</h2>
-          <p class="section-sub">Cada proyecto tiene ahora su propia ficha para enseñar mejor el contexto, el trabajo realizado y el valor que aporta.</p>
-        </div>
-
-        <div class="portfolio__grid">
-${cards}
-        </div>
-      </div>
-    </section>
-
-    <section class="service-detail" style="padding-bottom:0;">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label">Tipos de web</span>
-          <h2 class="section-title">¿Qué tipo de web necesitas?</h2>
-          <p class="section-sub">No todos los encargos exigen el mismo nivel de complejidad. Estos son los formatos donde más valor aportamos.</p>
-        </div>
-
-        <div class="benefits__grid" style="margin-top:3rem;">
-          <div class="benefit__item">
-            <div class="benefit__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="1.5" rx="2"/><path d="M8 10h8M8 14h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-            <div>
-              <h3 class="benefit__title">Landing de captación</h3>
-              <p class="benefit__text">Una sola página, mensaje enfocado y CTA visibles. Perfecta para negocio local, profesionales y marcas que necesitan convertir sin sobrecomplicar la web.</p>
-            </div>
-          </div>
-          <div class="benefit__item">
-            <div class="benefit__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 9h18M9 21V9" stroke="currentColor" stroke-width="1.5"/></svg>
-            </div>
-            <div>
-              <h3 class="benefit__title">Web corporativa</h3>
-              <p class="benefit__text">Varias páginas, más contexto, mejor jerarquía SEO y una narrativa de marca más completa. Ideal para empresas con más de una línea de servicio.</p>
-            </div>
-          </div>
-          <div class="benefit__item">
-            <div class="benefit__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M6 2h12l2 6H4L6 2z" stroke="currentColor" stroke-width="1.5"/><path d="M4 8v13h16V8" stroke="currentColor" stroke-width="1.5"/><path d="M9 14h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-            <div>
-              <h3 class="benefit__title">Tienda online</h3>
-              <p class="benefit__text">Catálogo, pagos y estructura comercial más compleja. Encaja cuando la web debe convertirse en un canal de venta real.</p>
-            </div>
-          </div>
-          <div class="benefit__item">
-            <div class="benefit__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M9 18h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-            <div>
-              <h3 class="benefit__title">Web app / plataforma</h3>
-              <p class="benefit__text">Herramientas interactivas, paneles, reservas o sistemas propios. Aquí ya hablamos de producto digital y no solo de presencia online.</p>
-            </div>
-          </div>
-          <div class="benefit__item">
-            <div class="benefit__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-            <div>
-              <h3 class="benefit__title">Web de captación</h3>
-              <p class="benefit__text">Cada bloque está orientado a conseguir una acción concreta: contacto, reserva o lead. Es el formato base de nuestro servicio productizado.</p>
-            </div>
-          </div>
-          <div class="benefit__item">
-            <div class="benefit__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-            <div>
-              <h3 class="benefit__title">SEO local</h3>
-              <p class="benefit__text">Diseño y estructura pensados para competir mejor en búsquedas locales y conectar la web con la captación real del negocio.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta-final" id="contacto" style="margin-top:40px;">
-      <div class="container cta-final__inner">
-        <div class="cta-final__content">
-          <h2 class="cta-final__title">¿Tu negocio podría ser el siguiente?</h2>
-          <p class="cta-final__sub">Cuéntanos qué haces y te decimos cómo podemos ayudarte. Sin compromiso, sin tecnicismos.</p>
-          <div class="cta-final__actions">
-            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-              <span>Hablar por WhatsApp</span>
-            </a>
-            <a href="mailto:info@webfuengirola.com" class="btn btn--outline btn--lg">Enviar un email</a>
-          </div>
-        </div>
-      </div>
-    </section>
+  <main style="font-family: Inter, Arial, sans-serif; padding: 2rem; max-width: 720px; margin: 0 auto; line-height: 1.6">
+    <h1 style="font-size: 1.5rem; margin-bottom: 0.75rem">Redirigiendo al caso actualizado</h1>
+    <p>Esta URL legacy de portfolio se ha consolidado en la sección de casos de éxito.</p>
+    <p><a href="${targetPath}">Continuar a ${escapeHtml(targetPath)}</a></p>
   </main>
-
-${renderFooter("")}
 </body>
 </html>`;
 }
@@ -440,124 +359,23 @@ ${renderFooter("")}
  * @returns {string}
  */
 function renderDetailPage(project) {
-  const prefix = "../../";
-  const canonical = `https://webfuengirola.com/portfolio/${project.slug}/`;
-  const productCategory = getProductCategory(project);
-  const siblingLinks = portfolioProjects
-    .filter((item) => item.slug !== project.slug)
-    .slice(0, 3)
-    .map(
-      (item) =>
-        `<a href="../${item.slug}/" class="project-detail__related-link">${escapeHtml(item.title)}</a>`,
-    )
-    .join("");
+  const mappedCase =
+    caseByPortfolioSlug.get(project.slug) ??
+    caseByPortfolioSlug.get(legacyPortfolioFallbackMap.get(project.slug));
+  const targetSlug = mappedCase?.slug;
+  const targetPath = targetSlug ? `/casos/${targetSlug}/` : "/casos/";
+  const canonical = targetSlug
+    ? `https://webfuengirola.com/casos/${targetSlug}/`
+    : "https://webfuengirola.com/casos/";
 
-  return `<!DOCTYPE html>
-<html lang="es">
-${renderHead({
-  title: project.seoTitle,
-  description: project.seoDescription,
-  canonical,
-  ogTitle: project.seoTitle,
-  ogDescription: project.seoDescription,
-  ogImage: project.ogImage,
-  ogAlt: project.ogAlt,
-  preloadImage: project.image,
-  prefix,
-})}
-<body>
-${renderHeader(prefix, "portfolio")}
-
-  <main class="project-page">
-    <section class="subpage-hero project-subhero">
-      <div class="container project-subhero__inner">
-        <nav class="project-breadcrumb" aria-label="Breadcrumb">
-          <a href="${navHref(prefix, "casos/")}">Casos de éxito</a>
-          <span>/</span>
-          <span>${escapeHtml(project.title)}</span>
-        </nav>
-        <span class="badge">${escapeHtml(project.heroLabel)}</span>
-        <h1 class="subpage-hero__title">${escapeHtml(project.title)}</h1>
-        <p class="subpage-hero__sub">${escapeHtml(project.description)}</p>
-        <div class="project-subhero__actions">
-          <a href="${escapeHtml(project.url)}" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">${escapeHtml(project.urlLabel)}</a>
-          <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20algo%20como%20${encodeURIComponent(project.title)}%20para%20mi%20negocio" class="btn btn--outline btn--lg" target="_blank" rel="noopener noreferrer">Quiero algo as&iacute;</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="service-detail project-detail">
-      <div class="container">
-        <div class="project-detail__hero">
-          <a href="${escapeHtml(project.url)}" class="project-detail__image-card" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(project.urlLabel)}: ${escapeHtml(project.title)}">
-            <img src="${assetHref(prefix, project.image)}" alt="${escapeHtml(project.imageAlt)}" width="${project.imageWidth}" height="${project.imageHeight}" class="project-detail__image" loading="eager" decoding="async" />
-          </a>
-          <aside class="project-detail__summary-card">
-            <span class="section-label">Resumen del proyecto</span>
-            <h2 class="project-detail__summary-title">${escapeHtml(project.brand)}</h2>
-            <ul class="project-detail__facts">
-              ${productCategory ? `<li><strong>Producto</strong><span>${escapeHtml(productCategory.label)}</span></li>` : ""}
-              <li><strong>Tipo</strong><span>${escapeHtml(project.category)}</span></li>
-              <li><strong>Cliente / marca</strong><span>${escapeHtml(project.client)}</span></li>
-              <li><strong>Tecnologías</strong><span>${escapeHtml(project.tech.join(" · "))}</span></li>
-              <li><strong>Entrega principal</strong><span>${escapeHtml(project.services.join(" · "))}</span></li>
-            </ul>
-          </aside>
-        </div>
-
-        <div class="project-detail__grid">
-          <section class="project-detail__panel">
-            <span class="section-label">Resumen</span>
-            <h2 class="section-title">Qué es este proyecto</h2>
-            <p class="project-detail__copy">${escapeHtml(project.longDescription)}</p>
-          </section>
-
-          <section class="project-detail__panel">
-            <span class="section-label">Trabajo realizado</span>
-            <h2 class="section-title">Qué se hizo</h2>
-            <ul class="project-detail__list">
-              ${project.services.map((service) => `<li>${escapeHtml(service)}</li>`).join("")}
-            </ul>
-          </section>
-
-          <section class="project-detail__panel">
-            <span class="section-label">Stack</span>
-            <h2 class="section-title">Tecnologías principales</h2>
-            <div class="project-detail__tags">
-              ${project.tech.map((item) => `<span class="tag">${escapeHtml(item)}</span>`).join("")}
-            </div>
-          </section>
-
-          <section class="project-detail__panel">
-            <span class="section-label">Resultado</span>
-            <h2 class="section-title">Valor aportado</h2>
-            <p class="project-detail__copy">${escapeHtml(project.result)}</p>
-          </section>
-        </div>
-
-        <section class="project-detail__cta">
-          <div class="project-detail__cta-copy">
-            <span class="section-label">Siguiente paso</span>
-            <h2 class="section-title">¿Quieres algo de este nivel para tu negocio?</h2>
-            <p class="project-detail__copy">Podemos plantearlo como landing local, web corporativa o producto digital según tu caso. La idea es adaptar la solución, no forzarte al formato equivocado.</p>
-          </div>
-          <div class="project-detail__cta-actions">
-            <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20una%20web%20parecida%20a%20${encodeURIComponent(project.title)}" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">Pedir una web similar</a>
-            <a href="${navHref(prefix, "casos/")}" class="btn btn--ghost btn--lg">Volver a casos</a>
-          </div>
-        </section>
-
-        <section class="project-detail__related">
-          <span class="section-label">Más proyectos</span>
-          <div class="project-detail__related-links">${siblingLinks}</div>
-        </section>
-      </div>
-    </section>
-  </main>
-
-${renderFooter(prefix)}
-</body>
-</html>`;
+  return renderLegacyRedirectPage({
+    title: `${project.seoTitle} | Redirección`,
+    description: `La ficha legacy de ${project.title} se ha consolidado en /casos/.`,
+    canonical,
+    targetPath,
+    ogImage: project.ogImage,
+    ogAlt: project.ogAlt,
+  });
 }
 
 /**
@@ -574,7 +392,7 @@ function renderProductCategoryPage(category) {
   const cards = categoryProjects
     .map((project) =>
       renderPortfolioCard(project, {
-        detailHref: `${prefix}portfolio/${project.slug}/`,
+        detailHref: `${prefix}casos/${project.slug}/`,
         imagePrefix: prefix,
       }),
     )
@@ -677,18 +495,23 @@ ${renderFooter(prefix, category.whatsappText)}
  */
 function renderSitemap() {
   const indexableServices = services.filter((service) => service.bodyHtml);
+  const indexableResourceUrls = [
+    "https://webfuengirola.com/recursos/herramientas/",
+    "https://webfuengirola.com/recursos/guias/",
+    "https://webfuengirola.com/recursos/checklists/",
+  ];
+  const blogUrls = [
+    "https://webfuengirola.com/blog/",
+    "https://webfuengirola.com/blog/por-que-crear-una-web-en-2026/",
+    "https://webfuengirola.com/blog/sabias-que-cada-vez-mas-gente-usa-ia-para-encontrar-un-servicio/",
+  ];
   const urls = [
     { loc: "https://webfuengirola.com/", lastmod: today },
     ...productCategories.map((category) => ({
       loc: `https://webfuengirola.com/productos/${category.slug}/`,
       lastmod: today,
     })),
-    ...portfolioProjects.map((project) => ({
-      loc: `https://webfuengirola.com/portfolio/${project.slug}/`,
-      lastmod: today,
-    })),
     { loc: "https://webfuengirola.com/legal.html", lastmod: today },
-    // New sections (FASE 0B)
     { loc: "https://webfuengirola.com/servicios/", lastmod: today },
     ...indexableServices.map((s) => ({
       loc: `https://webfuengirola.com/servicios/${s.slug}/`,
@@ -699,7 +522,9 @@ function renderSitemap() {
       loc: `https://webfuengirola.com/casos/${c.slug}/`,
       lastmod: today,
     })),
+    ...blogUrls.map((loc) => ({ loc, lastmod: today })),
     { loc: "https://webfuengirola.com/recursos/", lastmod: today },
+    ...indexableResourceUrls.map((loc) => ({ loc, lastmod: today })),
     { loc: "https://webfuengirola.com/sobre-nosotros/", lastmod: today },
     { loc: "https://webfuengirola.com/como-trabajamos/", lastmod: today },
     { loc: "https://webfuengirola.com/contacto/", lastmod: today },
@@ -720,7 +545,15 @@ function build() {
   ensureDir(productsDir);
   fs.writeFileSync(
     path.join(rootDir, "portfolio.html"),
-    renderPortfolioListing(),
+    renderLegacyRedirectPage({
+      title: `${portfolioIntro.title} | Redirección`,
+      description:
+        "La sección legacy de portfolio se ha consolidado en /casos/.",
+      canonical: "https://webfuengirola.com/casos/",
+      targetPath: "/casos/",
+      ogImage: "https://webfuengirola.com/img/og-cover.jpg",
+      ogAlt: "Casos de éxito de Web Fuengirola",
+    }),
     "utf8",
   );
 
