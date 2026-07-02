@@ -32,7 +32,6 @@ RUN cp -R \
   /app/productos \
   /app/proceso.html \
   /app/recursos \
-  /app/saulofitness \
   /app/servicios \
   /app/servicios.html \
   /app/sobre-nosotros \
