@@ -191,11 +191,14 @@ Variables adicionales del panel:
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 - `SUPABASE_SECRET_KEY`
+- `APP_URL`
 - `NEXT_PUBLIC_APP_URL`
+
+`APP_URL` debe ser la URL canónica del panel y coincidir con `NEXT_PUBLIC_APP_URL` en producción para que magic links, callbacks y metadata apunten al dominio correcto.
 
 ### Dependencia actual del frontend
 
-[`contacto/index.html`](/private/tmp/webfuengirola-form-release/contacto/index.html) usa `data-api-base="https://admin.webfuengirola.com"`.
+[`contacto/index.html`](/Users/sam/Desktop/webs/web%20fuengirola/contacto/index.html) usa `data-api-base="https://admin.webfuengirola.com"`.
 
 Eso significa que el formulario espera estos endpoints en producción:
 
