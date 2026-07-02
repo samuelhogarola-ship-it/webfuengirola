@@ -1193,6 +1193,32 @@
       header.classList.remove("scrolled");
     }
   }
+  /* ---- Stacked cards on scroll (scale compress as next card slides over) ---- */
+  function initStackCards() {
+    var cards = Array.prototype.slice.call(
+      document.querySelectorAll(".stack-cards-track .stack-card"),
+    );
+    if (cards.length < 2) return;
+
+    function update() {
+      for (var i = 0; i < cards.length - 1; i++) {
+        var card = cards[i];
+        var next = cards[i + 1];
+        var cardRect = card.getBoundingClientRect();
+        var nextRect = next.getBoundingClientRect();
+        /* how far next card has slid over this one (0→1) */
+        var overlap = Math.max(0, cardRect.bottom - nextRect.top);
+        var progress = Math.min(1, overlap / cardRect.height);
+        card.style.transform =
+          "scale(" + (1 - progress * 0.04).toFixed(4) + ")";
+        card.style.transformOrigin = "top center";
+      }
+    }
+
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+  }
+
   /* ---- Elegant scroll reveal ---- */
   function initReveal() {
     var els = Array.prototype.slice.call(
@@ -2076,6 +2102,7 @@
     initPageTransition();
     initReveal();
     initPortfolioPopup();
+    initStackCards();
     scalePreviewIframes();
     window.addEventListener("resize", scalePreviewIframes, { passive: true });
   }
