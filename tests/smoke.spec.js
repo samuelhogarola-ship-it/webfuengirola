@@ -46,3 +46,32 @@ test("servicios presenta las cuatro categorías principales", async ({
       .first(),
   ).toBeVisible();
 });
+
+test("recursos muestra secciones publicadas sin etiquetas de próximamente", async ({
+  page,
+}) => {
+  await page.goto("/recursos/");
+
+  await expect(page).toHaveTitle(/recursos para negocios locales/i);
+  await expect(
+    page.getByRole("link", { name: /herramientas/i }).first(),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: /guías/i }).first(),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: /checklists/i }).first(),
+  ).toBeVisible();
+  await expect(page.locator("body")).not.toContainText(/próximamente/i);
+});
+
+test("servicios servido no mantiene enlaces a la taxonomía portfolio", async ({
+  request,
+}) => {
+  const response = await request.get("/servicios.html");
+  expect(response.ok()).toBeTruthy();
+  const html = await response.text();
+
+  expect(html).toContain('href="../casos/"');
+  expect(html).not.toContain("portfolio/");
+});
