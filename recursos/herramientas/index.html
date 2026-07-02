@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Herramientas Gratuitas para Negocios | Web Fuengirola Studio</title>
   <meta name="description" content="Herramientas gratuitas para negocios locales: calculadora de precio web, auditoría gratuita y calculadora de ROI. Toma mejores decisiones sobre tu presencia digital." />
-  <meta name="robots" content="noindex, follow" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://webfuengirola.com/recursos/herramientas/" />
   <link rel="icon" type="image/png" href="https://webfuengirola.com/favicon.png" sizes="48x48" />
   <link rel="shortcut icon" href="https://webfuengirola.com/favicon.png" />
@@ -18,6 +18,31 @@
   <meta property="og:locale" content="es_ES" />
   <meta property="og:image" content="https://webfuengirola.com/img/og-cover.webp" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Herramientas Gratuitas para Negocios | Web Fuengirola Studio" />
+  <meta name="twitter:description" content="Calculadoras y auditores gratuitos para tomar mejores decisiones sobre tu presencia digital." />
+  <meta name="twitter:image" content="https://webfuengirola.com/img/og-cover.webp" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://webfuengirola.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Recursos", "item": "https://webfuengirola.com/recursos/" },
+          { "@type": "ListItem", "position": 3, "name": "Herramientas", "item": "https://webfuengirola.com/recursos/herramientas/" }
+        ]
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": "https://webfuengirola.com/recursos/herramientas/#collection",
+        "url": "https://webfuengirola.com/recursos/herramientas/",
+        "name": "Herramientas Gratuitas para Negocios | Web Fuengirola Studio",
+        "description": "Calculadoras y auditores gratuitos para tomar mejores decisiones sobre tu presencia digital."
+      }
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="../../style.css?v=9" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -72,39 +97,59 @@
           <div class="portfolio-card">
             <div class="portfolio-card__body">
               <div style="font-size:1.5rem;margin-bottom:0.75rem">🧮</div>
-              <span class="tag tag--blue" style="margin-bottom:0.75rem;display:inline-block">Próximamente</span>
               <h2 class="portfolio-card__title">Calculadora de precio web</h2>
               <p class="portfolio-card__desc">Estima cuánto debería costar tu web según el tipo de negocio, funcionalidades y nivel de complejidad. En menos de 2 minutos.</p>
             </div>
             <div class="portfolio-card__footer">
-              <span class="btn btn--outline" style="opacity:0.5;cursor:default">Disponible pronto</span>
+              <a href="#precio-web" class="btn btn--outline">Ver criterio</a>
             </div>
           </div>
 
           <div class="portfolio-card">
             <div class="portfolio-card__body">
               <div style="font-size:1.5rem;margin-bottom:0.75rem">🔍</div>
-              <span class="tag tag--blue" style="margin-bottom:0.75rem;display:inline-block">Próximamente</span>
               <h2 class="portfolio-card__title">Auditoría gratuita</h2>
               <p class="portfolio-card__desc">Analiza tu web actual y descubre qué está fallando: velocidad, SEO básico, formularios, llamadas a la acción y más.</p>
             </div>
             <div class="portfolio-card__footer">
-              <span class="btn btn--outline" style="opacity:0.5;cursor:default">Disponible pronto</span>
+              <a href="#auditoria-gratuita" class="btn btn--outline">Ver enfoque</a>
             </div>
           </div>
 
           <div class="portfolio-card">
             <div class="portfolio-card__body">
               <div style="font-size:1.5rem;margin-bottom:0.75rem">📈</div>
-              <span class="tag tag--blue" style="margin-bottom:0.75rem;display:inline-block">Próximamente</span>
               <h2 class="portfolio-card__title">Calculadora de ROI</h2>
               <p class="portfolio-card__desc">¿Cuánto te cuesta no tener web? Introduce tus datos y descubre el retorno potencial de invertir en presencia digital.</p>
             </div>
             <div class="portfolio-card__footer">
-              <span class="btn btn--outline" style="opacity:0.5;cursor:default">Disponible pronto</span>
+              <a href="#roi-web" class="btn btn--outline">Ver fórmula</a>
             </div>
           </div>
 
+        </div>
+
+        <div style="margin-top: 3rem; display:grid; gap:1.5rem">
+          <article id="precio-web" style="padding:1.5rem;border:1px solid var(--color-border,#e5e5e5);border-radius:var(--radius-md);background:var(--color-bg,#fff)">
+            <h2 style="font-size:1.1rem;font-weight:700">Qué encarece una web</h2>
+            <ul style="margin-top:1rem; padding-left:1.25rem; color:var(--color-text-muted); line-height:1.7">
+              <li>Número de páginas y nivel de personalización real.</li>
+              <li>Idiomas, blog, formularios y paneles internos.</li>
+              <li>Integraciones o flujos a medida fuera de una web corporativa estándar.</li>
+            </ul>
+          </article>
+          <article id="auditoria-gratuita" style="padding:1.5rem;border:1px solid var(--color-border,#e5e5e5);border-radius:var(--radius-md);background:var(--color-bg,#fff)">
+            <h2 style="font-size:1.1rem;font-weight:700">Qué miramos en una auditoría rápida</h2>
+            <ul style="margin-top:1rem; padding-left:1.25rem; color:var(--color-text-muted); line-height:1.7">
+              <li>Claridad comercial del hero y de la oferta.</li>
+              <li>SEO básico, velocidad y señales de confianza.</li>
+              <li>Capacidad real de convertir visitas en contactos.</li>
+            </ul>
+          </article>
+          <article id="roi-web" style="padding:1.5rem;border:1px solid var(--color-border,#e5e5e5);border-radius:var(--radius-md);background:var(--color-bg,#fff)">
+            <h2 style="font-size:1.1rem;font-weight:700">Cálculo simple de ROI</h2>
+            <p style="margin-top:1rem; color:var(--color-text-muted); line-height:1.7">Multiplica el valor medio de un cliente por los contactos mensuales extra que podría generarte una web mejor resuelta. Si el retorno de 2 o 3 meses ya cubre la inversión, la decisión deja de ser estética y pasa a ser operativa.</p>
+          </article>
         </div>
 
         <div style="margin-top: 3rem; padding: 2rem; background: var(--color-surface-warm); border-radius: var(--radius-md); text-align:center">
