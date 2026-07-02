@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { createClient } from '@supabase/supabase-js'
 
 const supabase = createClient(
@@ -29,11 +29,7 @@ export default function PremiumCodesPage() {
   })
   const [message, setMessage] = useState('')
 
-  useEffect(() => {
-    loadCodes()
-  }, [filter])
-
-  const loadCodes = async () => {
+  const loadCodes = useCallback(async () => {
     setLoading(true)
     try {
       const { data, error } = await supabase.rpc('list_premium_codes', {
@@ -41,11 +37,16 @@ export default function PremiumCodesPage() {
       })
       if (error) throw error
       setCodes(data || [])
-    } catch (err: any) {
-      setMessage('❌ Error cargando códigos: ' + err.message)
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : 'Unknown error'
+      setMessage('❌ Error cargando códigos: ' + errorMsg)
     }
     setLoading(false)
-  }
+  }, [filter])
+
+  useEffect(() => {
+    loadCodes()
+  }, [loadCodes])
 
   const generateCode = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -61,8 +62,9 @@ export default function PremiumCodesPage() {
       setMessage(`✅ Código generado: ${code}`)
       setForm({ email: '', duration: '30', createdByType: 'studio-panel' })
       loadCodes()
-    } catch (err: any) {
-      setMessage('❌ Error: ' + err.message)
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : 'Unknown error'
+      setMessage('❌ Error: ' + errorMsg)
     }
     setLoading(false)
   }
@@ -79,8 +81,9 @@ export default function PremiumCodesPage() {
       if (error) throw error
       setMessage('✅ Código cancelado')
       loadCodes()
-    } catch (err: any) {
-      setMessage('❌ Error al cancelar: ' + err.message)
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : 'Unknown error'
+      setMessage('❌ Error al cancelar: ' + errorMsg)
     }
     setLoading(false)
   }
