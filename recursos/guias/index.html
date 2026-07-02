@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Guías para Negocios Locales | Web Fuengirola Studio</title>
   <meta name="description" content="Guías descargables en PDF para negocios locales en Fuengirola: cómo elegir tu primera web, qué necesitas para el SEO local y cómo preparar tu lanzamiento digital." />
-  <meta name="robots" content="noindex, follow" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://webfuengirola.com/recursos/guias/" />
   <link rel="icon" type="image/png" href="https://webfuengirola.com/favicon.png" sizes="48x48" />
   <link rel="shortcut icon" href="https://webfuengirola.com/favicon.png" />
@@ -18,6 +18,31 @@
   <meta property="og:locale" content="es_ES" />
   <meta property="og:image" content="https://webfuengirola.com/img/og-cover.webp" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Guías para Negocios Locales | Web Fuengirola Studio" />
+  <meta name="twitter:description" content="Guías prácticas para entender qué necesita tu negocio digitalmente y cómo dar el primer paso." />
+  <meta name="twitter:image" content="https://webfuengirola.com/img/og-cover.webp" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://webfuengirola.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Recursos", "item": "https://webfuengirola.com/recursos/" },
+          { "@type": "ListItem", "position": 3, "name": "Guías", "item": "https://webfuengirola.com/recursos/guias/" }
+        ]
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": "https://webfuengirola.com/recursos/guias/#collection",
+        "url": "https://webfuengirola.com/recursos/guias/",
+        "name": "Guías para Negocios Locales | Web Fuengirola Studio",
+        "description": "Guías prácticas para negocios locales que quieren mejorar su presencia digital."
+      }
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="../../style.css?v=9" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -71,28 +96,45 @@
 
           <div class="portfolio-card">
             <div class="portfolio-card__body">
-              <span class="tag tag--blue" style="margin-bottom:0.75rem;display:inline-block">Próximamente</span>
               <h2 class="portfolio-card__title">Guía: Tu primera web en Fuengirola</h2>
               <p class="portfolio-card__desc">Todo lo que necesitas saber antes de encargar tu primera web: qué preguntar, qué evitar y qué debe incluir sí o sí.</p>
               <p style="font-size:0.8rem;color:var(--color-text-muted);margin-top:0.5rem">PDF · 15 páginas · Gratuito</p>
             </div>
             <div class="portfolio-card__footer">
-              <span class="btn btn--outline" style="opacity:0.5;cursor:default">Disponible pronto</span>
+              <a href="#guia-primera-web" class="btn btn--outline">Ver guía rápida</a>
             </div>
           </div>
 
           <div class="portfolio-card">
             <div class="portfolio-card__body">
-              <span class="tag tag--blue" style="margin-bottom:0.75rem;display:inline-block">Próximamente</span>
               <h2 class="portfolio-card__title">Guía: SEO local para negocios en la Costa del Sol</h2>
               <p class="portfolio-card__desc">Cómo aparecer en Google cuando alguien busca lo que ofreces cerca. Sin tecnicismos, con pasos concretos para hacer tú mismo.</p>
               <p style="font-size:0.8rem;color:var(--color-text-muted);margin-top:0.5rem">PDF · 20 páginas · Gratuito</p>
             </div>
             <div class="portfolio-card__footer">
-              <span class="btn btn--outline" style="opacity:0.5;cursor:default">Disponible pronto</span>
+              <a href="#guia-seo-local" class="btn btn--outline">Ver guía rápida</a>
             </div>
           </div>
 
+        </div>
+
+        <div style="margin-top: 3rem; display:grid; gap:1.5rem">
+          <article id="guia-primera-web" style="padding:1.5rem;border:1px solid var(--color-border,#e5e5e5);border-radius:var(--radius-md);background:var(--color-bg,#fff)">
+            <h2 style="font-size:1.1rem;font-weight:700">Guía rápida: tu primera web</h2>
+            <ul style="margin-top:1rem; padding-left:1.25rem; color:var(--color-text-muted); line-height:1.7">
+              <li>Define si necesitas presencia básica, web corporativa o herramienta interna.</li>
+              <li>Pide siempre alcance, plazos, revisiones y costes externos por separado.</li>
+              <li>Comprueba que la web incluya versión móvil, SEO base y formulario funcional.</li>
+            </ul>
+          </article>
+          <article id="guia-seo-local" style="padding:1.5rem;border:1px solid var(--color-border,#e5e5e5);border-radius:var(--radius-md);background:var(--color-bg,#fff)">
+            <h2 style="font-size:1.1rem;font-weight:700">Guía rápida: SEO local</h2>
+            <ul style="margin-top:1rem; padding-left:1.25rem; color:var(--color-text-muted); line-height:1.7">
+              <li>Optimiza tu ficha de Google Business Profile antes de pensar en “SEO avanzado”.</li>
+              <li>Mantén NAP consistente: nombre, dirección y teléfono iguales en todos los sitios.</li>
+              <li>Crea páginas de servicio útiles antes de expandirte a ciudades extra.</li>
+            </ul>
+          </article>
         </div>
 
         <div style="margin-top: 3rem; padding: 2rem; background: var(--color-surface-warm); border-radius: var(--radius-md); text-align:center">

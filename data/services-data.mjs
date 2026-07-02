@@ -360,6 +360,63 @@ export const services = [
     ogAlt: "Automatización e IA para negocios locales",
     relatedCases: ["vokabellab"],
     whatsappText: "Hola, me interesa automatizar procesos con IA en mi negocio",
+    bodyHtml: `
+    <section class="section">
+      <div class="container">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start">
+          <div>
+            <span class="section-label">Qué resolvemos</span>
+            <h2 class="section-title" style="margin-top: 1rem; font-size: clamp(1.25rem, 2.5vw, 1.75rem)">Menos tareas repetidas, más tiempo para vender y atender</h2>
+            <p style="color: var(--color-text-muted); line-height: 1.75; margin-top: 1rem">La mayoría de negocios pierde horas en responder siempre lo mismo, perseguir datos repartidos o repetir procesos manuales entre WhatsApp, email y formularios. La automatización sirve para quitar fricción real, no para poner “IA” por marketing.</p>
+            <p style="color: var(--color-text-muted); line-height: 1.75; margin-top: 1rem">Trabajamos solo sobre casos donde la automatización aporta ahorro, velocidad o mejor experiencia al cliente: cualificación de leads, respuestas iniciales, clasificación de mensajes, seguimiento interno o generación asistida de contenido útil.</p>
+          </div>
+          <div>
+            <span class="section-label">Casos típicos</span>
+            <ul style="margin-top: 1.5rem; list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1.25rem">
+              <li style="border-top: 1px solid var(--color-border, #e5e5e5); padding-top: 1rem">
+                <strong style="display:block; margin-bottom: 0.25rem">Chatbots y formularios inteligentes</strong>
+                <span style="color: var(--color-text-muted); font-size: 0.9rem">Para orientar al usuario, filtrar consultas y llevar mejores datos al negocio antes del primer contacto humano.</span>
+              </li>
+              <li style="border-top: 1px solid var(--color-border, #e5e5e5); padding-top: 1rem">
+                <strong style="display:block; margin-bottom: 0.25rem">Automatización de seguimiento</strong>
+                <span style="color: var(--color-text-muted); font-size: 0.9rem">Recordatorios, confirmaciones, tareas internas y pequeños flujos para no perder oportunidades por olvido.</span>
+              </li>
+              <li style="border-top: 1px solid var(--color-border, #e5e5e5); padding-top: 1rem">
+                <strong style="display:block; margin-bottom: 0.25rem">Herramientas con IA enfocadas</strong>
+                <span style="color: var(--color-text-muted); font-size: 0.9rem">Clasificación, ayuda al usuario, sugerencias o generación asistida cuando de verdad mejora la operativa.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--color-surface-warm)">
+      <div class="container" style="max-width: 760px">
+        <span class="section-label">Cómo lo planteamos</span>
+        <h2 class="section-title" style="margin-top: 1rem; font-size: clamp(1.5rem, 3vw, 2rem)">Primero se define el cuello de botella. Después la herramienta.</h2>
+        <p style="color: var(--color-text-muted); line-height: 1.75; margin-top: 1rem">No partimos de una tecnología cerrada. Partimos del proceso real: qué entra, quién lo toca, dónde se atasca y qué salida se necesita. A partir de ahí diseñamos una solución ligera o más ambiciosa según el caso.</p>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 2rem">
+          <div style="background: var(--color-bg, #fff); border-radius: var(--radius-md); padding: 1.25rem; border: 1px solid var(--color-border, #e5e5e5)">
+            <strong>Diagnóstico</strong>
+            <p style="margin-top:0.5rem; color:var(--color-text-muted); font-size:0.9rem">Qué proceso conviene automatizar y qué no.</p>
+          </div>
+          <div style="background: var(--color-bg, #fff); border-radius: var(--radius-md); padding: 1.25rem; border: 1px solid var(--color-border, #e5e5e5)">
+            <strong>Prototipo útil</strong>
+            <p style="margin-top:0.5rem; color:var(--color-text-muted); font-size:0.9rem">Una primera versión enfocada en el resultado real.</p>
+          </div>
+          <div style="background: var(--color-bg, #fff); border-radius: var(--radius-md); padding: 1.25rem; border: 1px solid var(--color-border, #e5e5e5)">
+            <strong>Medición</strong>
+            <p style="margin-top:0.5rem; color:var(--color-text-muted); font-size:0.9rem">Tiempo ahorrado, calidad de lead o fricción eliminada.</p>
+          </div>
+        </div>
+        <div style="margin-top: 2rem; display:flex; gap: 1rem; flex-wrap: wrap">
+          <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20automatizar%20procesos%20con%20IA%20en%20mi%20negocio" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Consultar automatización →</a>
+          <a href="../../casos/vokabellab/" class="btn btn--outline">Ver caso relacionado</a>
+        </div>
+      </div>
+    </section>
+    `,
   },
   {
     slug: "aplicaciones-web",
@@ -379,5 +436,62 @@ export const services = [
     relatedCases: ["agama", "fisioapp-panel-clinica"],
     whatsappText:
       "Hola, me interesa una aplicación web a medida para mi negocio",
+    bodyHtml: `
+    <section class="section">
+      <div class="container">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start">
+          <div>
+            <span class="section-label">Cuándo encaja</span>
+            <h2 class="section-title" style="margin-top: 1rem; font-size: clamp(1.25rem, 2.5vw, 1.75rem)">Cuando una web normal ya no resuelve el problema</h2>
+            <p style="color: var(--color-text-muted); line-height: 1.75; margin-top: 1rem">Hay negocios que no necesitan más páginas, sino una herramienta: un panel interno, una operativa para clientes, una gestión de servicios o una lógica específica que no encaja en WordPress ni en plugins genéricos.</p>
+            <p style="color: var(--color-text-muted); line-height: 1.75; margin-top: 1rem">Aquí trabajamos como producto digital: definimos usuarios, tareas, vistas y flujo real para que la herramienta se adapte al negocio, no al revés.</p>
+          </div>
+          <div>
+            <span class="section-label">Qué solemos construir</span>
+            <ul style="margin-top: 1.5rem; list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1.25rem">
+              <li style="border-top: 1px solid var(--color-border, #e5e5e5); padding-top: 1rem">
+                <strong style="display:block; margin-bottom: 0.25rem">Paneles de gestión</strong>
+                <span style="color: var(--color-text-muted); font-size: 0.9rem">Clientes, servicios, renovaciones, comunicaciones o tareas operativas internas.</span>
+              </li>
+              <li style="border-top: 1px solid var(--color-border, #e5e5e5); padding-top: 1rem">
+                <strong style="display:block; margin-bottom: 0.25rem">Portales privados</strong>
+                <span style="color: var(--color-text-muted); font-size: 0.9rem">Áreas de cliente, seguimiento de entregas o visibilidad de estado de proyecto.</span>
+              </li>
+              <li style="border-top: 1px solid var(--color-border, #e5e5e5); padding-top: 1rem">
+                <strong style="display:block; margin-bottom: 0.25rem">Herramientas operativas</strong>
+                <span style="color: var(--color-text-muted); font-size: 0.9rem">Flujos internos o interfaces de trabajo para ahorrar tiempo y reducir errores.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--color-surface-warm)">
+      <div class="container" style="max-width: 760px">
+        <span class="section-label">Proceso</span>
+        <h2 class="section-title" style="margin-top: 1rem; font-size: clamp(1.5rem, 3vw, 2rem)">Se diseña alrededor del flujo real del negocio</h2>
+        <p style="color: var(--color-text-muted); line-height: 1.75; margin-top: 1rem">Primero definimos qué información entra, quién la usa y qué decisiones se toman dentro de la herramienta. Después planteamos estructura, permisos, pantallas y evolución futura para que no se quede pequeña al primer cambio.</p>
+        <div style="margin-top: 2rem; display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem">
+          <div style="background: var(--color-bg, #fff); border-radius: var(--radius-md); padding: 1.25rem; border: 1px solid var(--color-border, #e5e5e5)">
+            <strong>Mapa de operativa</strong>
+            <p style="margin-top:0.5rem; color:var(--color-text-muted); font-size:0.9rem">Qué tareas y decisiones debe soportar la app.</p>
+          </div>
+          <div style="background: var(--color-bg, #fff); border-radius: var(--radius-md); padding: 1.25rem; border: 1px solid var(--color-border, #e5e5e5)">
+            <strong>Interfaz priorizada</strong>
+            <p style="margin-top:0.5rem; color:var(--color-text-muted); font-size:0.9rem">Primero lo que se usa cada día, no los extras.</p>
+          </div>
+          <div style="background: var(--color-bg, #fff); border-radius: var(--radius-md); padding: 1.25rem; border: 1px solid var(--color-border, #e5e5e5)">
+            <strong>Evolución por fases</strong>
+            <p style="margin-top:0.5rem; color:var(--color-text-muted); font-size:0.9rem">Empezar útil y ampliar solo donde aporta valor.</p>
+          </div>
+        </div>
+        <div style="margin-top: 2rem; display:flex; gap: 1rem; flex-wrap: wrap">
+          <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20aplicaci%C3%B3n%20web%20a%20medida%20para%20mi%20negocio" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Plantear una app a medida →</a>
+          <a href="../../casos/agama/" class="btn btn--outline">Ver caso Agama</a>
+        </div>
+      </div>
+    </section>
+    `,
   },
 ];
