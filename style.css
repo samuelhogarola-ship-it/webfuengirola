@@ -6237,6 +6237,10 @@ body.is-transitioning {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.estimator__grid--changes {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .estimator__bar-hint[data-estimator-bar-step] {
   font-size: 0.88rem;
   font-weight: 600;
@@ -6651,6 +6655,7 @@ body.is-transitioning {
   .estimator__grid--services,
   .estimator__grid--two,
   .estimator__grid--three,
+  .estimator__grid--changes,
   .estimator-summary__totals {
     grid-template-columns: 1fr;
   }
@@ -6681,7 +6686,7 @@ body.is-transitioning {
   .estimator__stage {
     min-height: auto;
     padding-top: 22px;
-    padding-bottom: 170px;
+    padding-bottom: 28px;
   }
 
   .estimator__title {
@@ -6697,9 +6702,8 @@ body.is-transitioning {
   }
 
   .estimator__bar {
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
+    position: static;
+    margin: 0 14px 14px;
     flex-direction: column;
     align-items: stretch;
     padding: 16px;
