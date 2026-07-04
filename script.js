@@ -1365,10 +1365,12 @@
         basePrice: 200,
         priceLabel: "200€ + IVA",
         summaryPrice: "200€ + IVA",
-        renewalLabel: "Hosting 35€/año · dominio no incluido",
-        renewalSidePrice: "35€/año de hosting",
+        infraOneTime: 50,
+        infraLabel: "Hosting 35€/año + dominio 15€/año",
+        renewalLabel: "Hosting 35€/año + dominio 15€/año",
+        renewalSidePrice: "50€/año entre hosting y dominio",
         renewalCopy:
-          "El dominio va aparte. Web Lite está pensada para una presencia sencilla y publicada sin complicaciones.",
+          "La estimación incluye la puesta online inicial. Después, la renovación prevista para Lite es 35€/año de hosting y 15€/año de dominio.",
         bullets: [
           "Landing page monopágina con hasta 5 secciones.",
           "Diseño responsive, legal básico y contacto visible.",
@@ -1380,10 +1382,12 @@
         basePrice: 350,
         priceLabel: "350€ + IVA",
         summaryPrice: "350€ + IVA",
-        renewalLabel: "Hosting 50€/año · dominio no incluido",
-        renewalSidePrice: "50€/año de hosting",
+        infraOneTime: 50,
+        infraLabel: "Hosting 35€/año + dominio 15€/año",
+        renewalLabel: "Hosting 35€/año + dominio 15€/año",
+        renewalSidePrice: "50€/año entre hosting y dominio",
         renewalCopy:
-          "Ideal para una web corporativa multipágina con más espacio para explicar servicios, instalaciones y quiénes sois.",
+          "La estimación incluye la puesta online inicial. Después, la renovación prevista para Express es 35€/año de hosting y 15€/año de dominio.",
         bullets: [
           "Hasta 5 páginas más blog.",
           "SEO medio inicial orientado a estructura e indexación.",
@@ -1395,6 +1399,8 @@
         basePrice: 600,
         priceLabel: "600€ + IVA",
         summaryPrice: "600€ + IVA",
+        infraOneTime: 0,
+        infraLabel: "",
         renewalLabel:
           "Renovación anual: hosting 60€ IVA incl. + dominio 15€ IVA incl.",
         renewalSidePrice: "Primer año incluido",
@@ -1411,6 +1417,8 @@
         basePrice: 600,
         priceLabel: "Desde 600€ + IVA",
         summaryPrice: "Desde 600€ + IVA",
+        infraOneTime: 0,
+        infraLabel: "",
         renewalLabel:
           "Renovación anual orientativa: hosting 80€ IVA incl. + dominio 15€ IVA incl.",
         renewalSidePrice: "Primer año incluido",
@@ -1482,6 +1490,36 @@
       },
     };
 
+    var changesPlans = {
+      rarely: {
+        title: "Mantenimiento mínimo",
+        oneTime: 50,
+        label: "+50€",
+        summary: "Incluye 1 hora flexible al año para algún cambio puntual.",
+      },
+      light: {
+        title: "Mantenimiento básico",
+        oneTime: 150,
+        label: "+150€",
+        summary:
+          "Incluye 1 a 3 cambios por semana y 2 a 3 publicaciones mensuales como pack base de mantenimiento.",
+      },
+      sometimes: {
+        title: "Actualizaciones ocasionales",
+        oneTime: 0,
+        label: "A medida",
+        summary:
+          "La web queda preparada para cambios puntuales, pero el ritmo real se valora aparte según volumen.",
+      },
+      often: {
+        title: "Bono flexible",
+        oneTime: 0,
+        label: "A medida",
+        summary:
+          "Pensado para negocios que algunas semanas necesitan muchos cambios y en otras muy pocos, con una bolsa flexible en lugar de una cuota fija.",
+      },
+    };
+
     var state = {
       pages: null,
       blog: null,
@@ -1514,6 +1552,7 @@
     var restartBtn = root.querySelector("[data-estimator-restart]");
     var whatsappBtn = root.querySelector("[data-estimator-wa]");
     var emailBtn = root.querySelector("[data-estimator-email]");
+    var autoAdvanceTimer;
 
     function formatOneTime(amount, isFrom) {
       return (isFrom ? "Desde " : "") + amount + "€ + IVA";
@@ -1524,6 +1563,7 @@
       var blog = state.blog || "no";
       var changes = state.changes || "rarely";
       var tracking = state.tracking || "basic";
+      var changesPlan = changesPlans[changes] ? changes : "rarely";
 
       var serviceKey;
       if (pages === "one") serviceKey = "lite";
@@ -1539,7 +1579,8 @@
       } else if (tracking === "monitoring") {
         supportKey = changes === "rarely" ? "flex" : "marketing";
       } else {
-        supportKey = changes === "rarely" ? "none" : "flex";
+        supportKey =
+          changes === "rarely" || changes === "light" ? "none" : "flex";
       }
 
       var includeAnalytics =
@@ -1550,15 +1591,19 @@
         service: serviceKey,
         support: supportKey,
         analytics: includeAnalytics,
+        changesPlan: changesPlan,
       };
     }
 
     function computeTotals(rec) {
       var service = services[rec.service];
       var support = supportPlans[rec.support];
+      var changesPlan = changesPlans[rec.changesPlan];
       return {
         once:
           service.basePrice +
+          (service.infraOneTime || 0) +
+          changesPlan.oneTime +
           support.oneTime +
           (rec.analytics ? extras.analytics.price : 0),
         monthly: support.monthly,
@@ -1590,6 +1635,7 @@
       var totals = computeTotals(rec);
       var service = services[rec.service];
       var support = supportPlans[rec.support];
+      var changesPlan = changesPlans[rec.changesPlan];
       var once = totals.once;
       var hasFromPrefix = totals.hasFromPrefix;
 
@@ -1607,6 +1653,21 @@
           "</strong></div>"
         : "";
 
+      var infraLine = service.infraOneTime
+        ? '<div class="estimator-summary__line"><span>Puesta online inicial</span><strong>' +
+          service.infraOneTime +
+          "€ + IVA</strong></div>"
+        : "";
+
+      var changesLine =
+        changesPlan.oneTime || changesPlan.label === "A medida"
+          ? '<div class="estimator-summary__line"><span>' +
+            changesPlan.title +
+            "</span><strong>" +
+            changesPlan.label +
+            "</strong></div>"
+          : "";
+
       if (summaryEl) {
         summaryEl.innerHTML =
           '<div class="estimator-summary__group">' +
@@ -1616,10 +1677,18 @@
           "</span><strong>" +
           service.summaryPrice +
           "</strong></div>" +
+          infraLine +
           extraLine +
           '<div class="estimator-summary__bullets">' +
           bulletsHtml +
           "</div>" +
+          "</div>" +
+          '<div class="estimator-summary__group">' +
+          '<div class="estimator-summary__group-title">Mantenimiento de contenidos</div>' +
+          changesLine +
+          '<div class="estimator-summary__bullets"><div class="estimator-summary__bullet">' +
+          changesPlan.summary +
+          "</div></div>" +
           "</div>" +
           '<div class="estimator-summary__group">' +
           '<div class="estimator-summary__group-title">Seguimiento recomendado</div>' +
@@ -1656,12 +1725,18 @@
       var totals = computeTotals(rec);
       var service = services[rec.service];
       var support = supportPlans[rec.support];
+      var changesPlan = changesPlans[rec.changesPlan];
       var once = totals.once;
       var hasFromPrefix = totals.hasFromPrefix;
 
       var lines = [
         "Hola, he usado la calculadora de WF Studio y esta es mi recomendación:",
         "- Web: " + service.title + " (" + service.summaryPrice + ")",
+        "- Mantenimiento de contenidos: " +
+          changesPlan.title +
+          " (" +
+          changesPlan.label +
+          ")",
         "- Seguimiento: " + support.title + " (" + support.label + ")",
       ];
 
@@ -1735,12 +1810,17 @@
       if (nextBtn) {
         nextBtn.hidden = isSummary;
         nextBtn.disabled = !canContinue(activeStep);
-        nextBtn.textContent =
-          activeStep === "tracking" ? "Ver recomendación →" : "Siguiente →";
+        if (!canContinue(activeStep)) {
+          nextBtn.textContent = "Elige una opción";
+        } else {
+          nextBtn.textContent =
+            activeStep === "tracking" ? "Ver recomendación →" : "Siguiente →";
+        }
       }
     }
 
     function goTo(stepKey) {
+      window.clearTimeout(autoAdvanceTimer);
       activeStep = stepKey;
       Object.keys(steps).forEach(function (key) {
         steps[key].classList.toggle("is-active", key === stepKey);
@@ -1754,6 +1834,16 @@
       updateNav();
     }
 
+    function queueAutoAdvance(field) {
+      window.clearTimeout(autoAdvanceTimer);
+      autoAdvanceTimer = window.setTimeout(function () {
+        if (activeStep !== field || !canContinue(field)) return;
+        var idx = stepOrder.indexOf(field);
+        if (idx === -1 || idx >= stepOrder.length - 1) return;
+        goTo(stepOrder[idx + 1]);
+      }, 280);
+    }
+
     ["pages", "blog", "changes", "tracking"].forEach(function (field) {
       Array.prototype.slice
         .call(root.querySelectorAll('[data-estimator-choice="' + field + '"]'))
@@ -1762,6 +1852,7 @@
             state[field] = btn.getAttribute("data-key");
             syncSelections();
             updateNav();
+            queueAutoAdvance(field);
           });
         });
     });
