@@ -1,99 +1,158 @@
 # NEXT
 
-## Current Focus
+## Contexto Actual
 
-Convertir `webfuengirola.com` en una web más consistente, más confiable y más fácil de convertir, sin perder la ventaja actual de velocidad del stack estático.
+Este repo ya no es solo una landing estática.
+
+Hoy conviven dos sistemas distintos dentro del mismo proyecto:
+
+- la web pública estática de `webfuengirola.com`
+- la subapp `apps/studio-panel`, construida con Next.js 15 + Supabase
+
+El siguiente arranque debe partir de esa realidad para no mezclar prioridades ni romper despliegues.
+
+## Estructura Real del Proyecto
+
+### 1. Web pública estática
+
+La raíz del repo sigue siendo la web comercial principal:
+
+- `index.html`
+- `style.css`
+- `script.js`
+- páginas internas en carpetas como:
+  - `servicios/`
+  - `casos/`
+  - `portfolio/`
+  - `blog/`
+  - `contacto/`
+  - `productos/`
+  - `recursos/`
+
+También viven aquí:
+
+- `robots.txt`
+- `sitemap.xml`
+- `legal.html`
+- `Dockerfile.web`
+- scripts de build estático para portfolio, servicios y casos
+
+### 2. Panel / backend web
+
+La parte dinámica está en `apps/studio-panel/`.
+
+Stack actual:
+
+- Next.js 15
+- React 19
+- App Router
+- TypeScript
+- Tailwind CSS
+- Supabase SSR/Auth/Database
+- Resend
+
+Piezas principales:
+
+- `src/app/`
+  - rutas públicas
+  - rutas protegidas de admin y cliente
+  - APIs como `/api/contact`
+  - callback auth
+- `src/lib/`
+  - auth
+  - env
+  - supabase
+  - data access
+  - server actions
+  - seguridad de redirects
+- `src/components/`
+  - UI base
+  - formularios auth
+  - formularios admin/cliente
+- `tests/`
+  - auth
+  - seguridad
+  - migraciones
+
+### 3. Base de datos / Supabase
+
+La estructura SQL compartida está en:
+
+- `supabase/migrations/`
+- `supabase/policies/`
+
+Migraciones clave ya presentes:
+
+- `202606210001_studio_panel.sql`
+- `202606220001_minutes_columns_compat.sql`
+- `202606230001_add_pack_type_to_packs.sql`
+- `202606300001_studio_panel_hardening.sql`
+
+### 4. Core reusable
+
+La base reutilizable para futuros proyectos sigue en:
+
+- `core/README.md`
+- `core/web-project-intake.md`
+- `core/web-project-questionnaire.md`
+- `core/web-project-brief-template.md`
+
+## Estado Técnico Resumido
+
+### Web pública
+
+- stack estático rápido y simple
+- blog, portfolio, casos y servicios ya generados como HTML
+- calculadora comercial ya mejorada recientemente
+- SEO mejor en blog que en algunas páginas corporativas
+
+### Studio Panel
+
+- ya tiene endurecimiento reciente en auth, redirects y documentación
+- depende de variables `NEXT_PUBLIC_*` disponibles en build time
+- da soporte al formulario público vía:
+  - `/api/contact/config`
+  - `/api/contact`
+- `next.config.ts` es mínimo y solo define `outputFileTracingRoot`
+
+## Riesgos que no hay que olvidar
+
+- no mezclar cambios de la web estática con cambios del panel sin una razón clara
+- el formulario público depende del panel, no solo del HTML estático
+- las variables de entorno del panel en Coolify tienen impacto directo en auth y contacto
+- la documentación raíz (`README.md`) ya no refleja bien toda la estructura real del repo
 
 ## Prioridad Alta
 
-- Unificar SEO técnico en todas las páginas principales.
-  - Llevar el mismo estándar del blog a `servicios.html`, `portfolio.html`, `proceso.html`, `legal.html`, productos y proyectos.
-  - Estándar objetivo: `favicon.webp`, `manifest`, `robots` completo con `max-snippet` y `max-video-preview`, `og:image:alt`, Twitter Card y canonical revisado.
-- Mejorar el `sitemap.xml` cada vez que se publiquen posts, productos o nuevos casos de portfolio.
-- Revisar el home para subir intención comercial y claridad.
-  - Hero más directo sobre resultado para negocio local.
-  - Mejor jerarquía entre prueba social, servicios y CTA.
-  - Añadir una señal visual clara de “qué incluye” y “para quién es”.
-- Reforzar UI/UX del blog.
-  - Mejorar jerarquía entre portada, artículos relacionados y CTA.
-  - Mantener imágenes destacadas en `.webp` dentro del render del post.
-  - Revisar espaciados de héroes y bloques largos para que no “floten”.
+- unificar la documentación del repo para reflejar:
+  - web pública estática
+  - panel Next en `apps/studio-panel`
+  - dependencias entre ambos
+- seguir extendiendo el estándar SEO del blog al resto de páginas clave
+- revisar despliegue y variables del `studio-panel` cuando se toque auth, contacto o callbacks
+- mantener separadas las validaciones:
+  - web pública: smoke/SEO/render
+  - panel: lint/typecheck/test/build
 
 ## Prioridad Media
 
-- Crear un cuestionario corto para recomendar tipo de web.
-  - Flujo de 1 pantalla o pasos mínimos.
-  - Resultado: `Web Lite / Web Express / Web personalizada`.
-  - Captura de lead con resumen de respuestas.
-  - Base interna ya definida en `core/web-project-intake.md` y `core/web-project-brief-template.md`.
-- Mantener la misma entrada visual de `servicios.html` independientemente de la página de origen.
-  - Ahora la transición/arranque se siente más potente cuando se llega desde `index.html`.
-  - Revisar navegación desde `portfolio.html` y otras páginas internas para conservar ese mismo efecto de llegada.
-- Añadir enlazado interno más estratégico entre blog, servicios, productos y portfolio.
-- Preparar un patrón reusable para nuevas páginas de blog.
-  - Metadatos SEO.
-  - JSON-LD.
-  - Imagen OG.
-  - CTA interno.
-- Revisar `README.md`.
-  - Ahora no refleja la estructura real del proyecto ni el despliegue actual.
+- actualizar `README.md` raíz para dejar de describir el proyecto como una simple landing de 3 archivos
+- definir mejor la frontera entre:
+  - contenido comercial público
+  - panel interno / portal cliente
+  - APIs compartidas
+- preparar automatización más fiable de `sitemap.xml`
+- revisar si el panel necesita ya upgrade controlado de Next dentro de `apps/studio-panel`
 
 ## Prioridad Baja
 
-- Automatizar generación de `sitemap.xml` y chequeos básicos antes de publicar.
-- Preparar versión futura del blog para migración a WordPress sin romper URLs ni SEO.
-- Valorar mini hub de recursos descargables o guías cortas para captar leads.
-
-## SEO Review Rápida
-
-- Bien resuelto:
-  - Blog estático con URLs limpias.
-  - Canonicals correctos en blog.
-  - Open Graph y Twitter Cards en posts.
-  - JSON-LD en home y blog.
-  - Imágenes `.webp` ya preparadas para render visual.
-- Mejoras pendientes:
-  - El estándar SEO del blog todavía no está extendido al resto del sitio.
-  - `sitemap.xml` debe incluir siempre blog, posts y futuras páginas nuevas.
-  - Falta revisar interlinking contextual desde home y servicios hacia artículos.
-  - Conviene revisar títulos y descripciones de páginas de producto con enfoque más local/comercial.
-
-## UI/UX Review Rápida
-
-- Lo que ya funciona:
-  - Dirección visual limpia y premium.
-  - Portfolio y blog transmiten más seriedad que una landing genérica.
-  - Las cards y CTAs ya tienen una base sólida.
-- Donde conviene apretar:
-  - La home todavía puede vender mejor desde el primer pantallazo.
-  - Hay páginas con jerarquía visual menos consistente que el blog nuevo.
-  - Falta una pieza interactiva que ayude al usuario indeciso a avanzar solo.
-
-## Futuro: Área Cliente Básica
-
-- Objetivo:
-  - Dar acceso simple a clientes para ver en qué estado está su proyecto y qué incluye su servicio.
-- MVP recomendado:
-  - Acceso por email + enlace mágico o login simple.
-  - Panel con:
-    - estado del proyecto: `pendiente`, `en diseño`, `en revisión`, `publicado`
-    - resumen de lo contratado
-    - entregables o enlaces clave
-    - próximos pasos
-    - forma rápida de contacto
-- Recomendación técnica:
-  - Mantener la web pública estática.
-  - Construir el área cliente como módulo separado (`/clientes/`) con backend ligero.
-  - Candidatos razonables para MVP: Supabase Auth + tabla simple de proyectos.
-
-## Studio Panel — Pendiente
-
-- **[deploy]** Variables `NEXT_PUBLIC_*` se incrustan en el bundle en build time. En Coolify deben estar disponibles durante el build, no solo como vars de runtime del contenedor. Configurar antes del primer deploy: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `NEXT_PUBLIC_APP_URL`.
-- **[validación]** No se ha probado la app contra Supabase ni Resend en vivo. Primera validación real: cargar credenciales en `.env.local`, arrancar con `npm run dev` desde `apps/studio-panel` y verificar login admin, magic link y envío de email.
+- automatizar chequeos previos a publish para páginas nuevas
+- ordenar previews y demos antiguas para reducir ruido del repo
+- separar mejor artefactos generados y código fuente cuando convenga
 
 ## Siguiente Arranque Recomendado
 
-1. Extender el estándar SEO del blog a páginas principales y productos.
-2. Mejorar la home con foco en claridad comercial y prueba social.
-3. Diseñar el flujo del cuestionario recomendador.
-4. Definir arquitectura mínima del área cliente antes de picar código.
+1. Actualizar `README.md` raíz para que refleje la estructura completa del proyecto.
+2. Si se trabaja en el panel, entrar directamente por `apps/studio-panel/package.json`, `README.md` y `src/app/`.
+3. Si se trabaja en la web pública, entrar por `index.html`, `style.css`, `script.js`, `data/` y las carpetas de páginas.
+4. Antes de tocar deploy o auth, revisar siempre `apps/studio-panel/README.md` y `supabase/migrations/`.
