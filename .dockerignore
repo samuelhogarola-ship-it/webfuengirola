@@ -1,0 +1,9 @@
+node_modules
+.git
+.github
+.env
+.env.*
+apps/studio-panel/.env
+apps/studio-panel/.env.*
+apps/studio-panel/node_modules
+apps/studio-panel/.next
