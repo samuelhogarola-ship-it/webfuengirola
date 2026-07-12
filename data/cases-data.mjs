@@ -13,8 +13,8 @@ export const cases = [
     result: "Web publicada en 5 días. Reservas directas desde el primer mes.",
     image: "img/sport-massage-fuengirola.webp",
     ogImage: "https://webfuengirola.com/img/sport-massage-fuengirola.webp",
-    ogAlt: "Sport Massage Fuengirola — caso de éxito Web Fuengirola Studio",
-    metaTitle: "Caso: Sport Massage Fuengirola | Web Fuengirola Studio",
+    ogAlt: "Sport Massage Fuengirola — caso de éxito de Web Fuengirola",
+    metaTitle: "Caso: Sport Massage Fuengirola | Web Fuengirola",
     metaDescription:
       "Cómo Sport Massage Fuengirola empezó a recibir reservas directas con su nueva web en 5 días.",
     whatsappText:
@@ -34,8 +34,8 @@ export const cases = [
     result: "Web publicada en 7 días con formulario de contacto directo.",
     image: "img/personal-trainer.webp",
     ogImage: "https://webfuengirola.com/img/personal-trainer.webp",
-    ogAlt: "Personal Trainer Fuengirola — caso de éxito Web Fuengirola Studio",
-    metaTitle: "Caso: Personal Trainer Fuengirola | Web Fuengirola Studio",
+    ogAlt: "Personal Trainer Fuengirola — caso de éxito de Web Fuengirola",
+    metaTitle: "Caso: Personal Trainer Fuengirola | Web Fuengirola",
     metaDescription:
       "Cómo un entrenador personal en Fuengirola empezó a captar clientes directamente con su nueva web.",
     whatsappText:
@@ -104,8 +104,8 @@ export const cases = [
     `,
     image: "img/agama.webp",
     ogImage: "https://webfuengirola.com/img/agama.webp",
-    ogAlt: "Agama — caso de éxito Web Fuengirola Studio",
-    metaTitle: "Caso: Agama | Web Fuengirola Studio",
+    ogAlt: "Agama — caso de éxito de Web Fuengirola",
+    metaTitle: "Caso: Agama | Web Fuengirola",
     metaDescription:
       "Cómo Agama digitalizó su gestión de clientes con un panel web a medida desarrollado en Next.js.",
     whatsappText: "Hola, me interesa un panel de gestión similar al de Agama",
@@ -124,8 +124,8 @@ export const cases = [
     result: "Plataforma web con usuarios activos y contenido propio publicado.",
     image: "img/samuel-coach.webp",
     ogImage: "https://webfuengirola.com/img/samuel-coach.webp",
-    ogAlt: "Samuel Coach Alemán — caso de éxito Web Fuengirola Studio",
-    metaTitle: "Caso: Samuel Coach Alemán | Web Fuengirola Studio",
+    ogAlt: "Samuel Coach Alemán — caso de éxito de Web Fuengirola",
+    metaTitle: "Caso: Samuel Coach Alemán | Web Fuengirola",
     metaDescription:
       "Plataforma de aprendizaje de alemán construida a medida para un coach de idiomas con usuarios activos.",
     whatsappText:
@@ -146,8 +146,8 @@ export const cases = [
       "Panel operativo adaptado al flujo de trabajo exacto de la clínica.",
     image: "img/clinica-demo-v2.webp",
     ogImage: "https://webfuengirola.com/img/clinica-demo-v2.webp",
-    ogAlt: "FisioApp Panel Clínica — caso de éxito Web Fuengirola Studio",
-    metaTitle: "Caso: FisioApp Panel Clínica | Web Fuengirola Studio",
+    ogAlt: "FisioApp Panel Clínica — caso de éxito de Web Fuengirola",
+    metaTitle: "Caso: FisioApp Panel Clínica | Web Fuengirola",
     metaDescription:
       "Panel de gestión digital para clínica de fisioterapia con seguimiento de pacientes y sesiones a medida.",
     whatsappText: "Hola, me interesa un panel de gestión similar a FisioApp",
@@ -167,8 +167,8 @@ export const cases = [
     result: "Suite de tres herramientas activas con usuarios recurrentes.",
     image: "img/vokabellab.webp",
     ogImage: "https://webfuengirola.com/img/vokabellab.webp",
-    ogAlt: "Vokabellab — caso de éxito Web Fuengirola Studio",
-    metaTitle: "Caso: Vokabellab | Web Fuengirola Studio",
+    ogAlt: "Vokabellab — caso de éxito de Web Fuengirola",
+    metaTitle: "Caso: Vokabellab | Web Fuengirola",
     metaDescription:
       "Plataforma educativa de alemán con herramientas interactivas de vocabulario y IA construidas a medida.",
     whatsappText:

@@ -1,16 +1,17 @@
 export const services = [
   {
     slug: "diseno-web",
-    title: "Diseño Web en Fuengirola",
+    title: "Servicio de Diseño Web",
     shortTitle: "Diseño Web",
     subtitle:
-      "Para negocios locales que necesitan presencia digital profesional en la Costa del Sol",
-    metaTitle: "Diseño Web en Fuengirola | Web Fuengirola Studio",
+      "Servicio de diseño web para negocios locales que necesitan una base clara para captar mejor",
+    metaTitle: "Servicio de Diseño Web | Web Fuengirola",
     metaDescription:
-      "Diseño web profesional para negocios locales en Fuengirola y la Costa del Sol. Páginas web que generan contactos reales, desde 200€.",
-    heroHeadline: "Tu web lista en días, no en semanas",
+      "Servicio de diseño web para negocios locales que necesitan una web clara, rápida y preparada para captar contactos reales.",
+    heroHeadline:
+      "Servicio de diseño web para negocios locales que quieren captar mejor",
     heroSubtitle:
-      "Diseño web profesional para negocios locales en Fuengirola y la Costa del Sol. Sin plantillas genéricas. Sin mensualidades sorpresa.",
+      "Este hub resume el servicio general de diseño web: qué resuelve, qué formatos suelen tener sentido y cómo elegir bien el alcance antes de cerrar una ruta local más exacta.",
     price: "Desde 200€",
     ogImage: "https://webfuengirola.com/img/og-cover.webp",
     ogAlt: "Diseño web profesional en Fuengirola para negocios locales",
@@ -63,40 +64,122 @@ export const services = [
       <div class="container">
         <span class="section-label">Opciones</span>
         <h2 class="section-title" style="margin-top: 1rem; font-size: clamp(1.5rem, 3vw, 2rem)">Elige el que encaja con tu negocio</h2>
-        <p style="color: var(--color-text-muted); margin-top: 0.75rem; margin-bottom: 2.5rem">Todos incluyen diseño propio, hosting el primer año y soporte post-entrega.</p>
+        <p style="color: var(--color-text-muted); margin-top: 0.75rem; margin-bottom: 2.5rem">Cada formato cambia por alcance. La idea es elegir la estructura mínima que te ayude a captar mejor sin sobredimensionar el proyecto.</p>
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem">
           <div style="background: var(--color-bg, #fff); border-radius: var(--radius-md); padding: 1.75rem; border: 1px solid var(--color-border, #e5e5e5)">
             <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); margin-bottom: 0.5rem">Web Lite</p>
             <p style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem">200€ <span style="font-size: 0.9rem; font-weight: 400; color: var(--color-text-muted)">+ IVA</span></p>
             <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.6rem">
-              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ 1 página</li>
-              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Formulario de contacto</li>
-              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Diseño propio</li>
-              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Lista en 5 días</li>
+              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ 1 página enfocada a conversión</li>
+              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ WhatsApp y formulario bien resueltos</li>
+              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ SEO base y estructura clara</li>
+              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Salida rápida para un servicio principal</li>
             </ul>
           </div>
           <div style="background: var(--color-bg, #fff); border-radius: var(--radius-md); padding: 1.75rem; border: 2px solid var(--color-primary, #111)">
             <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-primary, #111); font-weight: 600; margin-bottom: 0.5rem">Web Express — Más popular</p>
             <p style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem">350€ <span style="font-size: 0.9rem; font-weight: 400; color: var(--color-text-muted)">+ IVA</span></p>
             <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.6rem">
-              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Hasta 5 páginas</li>
-              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Formulario + sección de servicios</li>
-              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Diseño propio + multilingüe</li>
-              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Lista en 7-10 días</li>
+              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Hasta 5 páginas y opción de blog</li>
+              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Servicios, FAQs y contacto mejor planteados</li>
+              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Más espacio para explicar bien lo que haces</li>
+              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Buen punto medio para negocios con varios frentes</li>
             </ul>
           </div>
           <div style="background: var(--color-bg, #fff); border-radius: var(--radius-md); padding: 1.75rem; border: 1px solid var(--color-border, #e5e5e5)">
             <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); margin-bottom: 0.5rem">Web Pro</p>
             <p style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem">600€ <span style="font-size: 0.9rem; font-weight: 400; color: var(--color-text-muted)">+ IVA</span></p>
             <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.6rem">
-              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Páginas ilimitadas</li>
-              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Blog + formularios avanzados</li>
-              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ SEO extendido + analítica</li>
-              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Lista en 10-15 días</li>
+              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Hasta 10 páginas o estructura más completa</li>
+              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Formularios más avanzados y recorridos de captación</li>
+              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Analítica y bloques pensados para crecer después</li>
+              <li style="color: var(--color-text-muted); font-size: 0.9rem">✓ Más recorrido sin saltar aún a un proyecto a medida</li>
             </ul>
           </div>
         </div>
         <p style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--color-text-muted)">¿No sabes cuál necesitas? Cuéntanos tu negocio y te lo decimos en 24h.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div style="display:grid; grid-template-columns: 1.05fr 0.95fr; gap: 3rem; align-items:start">
+          <div>
+            <span class="section-label">Cuándo suele compensar</span>
+            <h2 class="section-title" style="margin-top:1rem; font-size:clamp(1.5rem, 3vw, 2rem)">Suele tener sentido empezar por una web nueva cuando el negocio ya necesita explicar mejor lo que hace y convertir visitas en contacto.</h2>
+            <p style="color:var(--color-text-muted); line-height:1.75; margin-top:1rem">No siempre hace falta una web grande. Muchas veces lo rentable es salir con una estructura clara, móvil bien resuelto y un mensaje que no obligue al visitante a adivinar qué haces ni cómo escribirte.</p>
+            <p style="color:var(--color-text-muted); line-height:1.75; margin-top:1rem">Si hoy dependes demasiado de Instagram, de una web antigua o de un perfil de Google que no termina de cerrar la decisión, una base web mejor planteada suele ordenar mucho más que cualquier parche suelto.</p>
+          </div>
+          <div>
+            <div style="padding:1.5rem; border:1px solid var(--color-border, #e5e5e5); border-radius:var(--radius-lg); background:var(--color-bg, #fff)">
+              <p style="font-size:0.85rem; font-weight:600; margin:0 0 1rem">Encaja especialmente bien si ahora mismo te pasa una de estas</p>
+              <ul style="padding-left:1.1rem; display:flex; flex-direction:column; gap:0.75rem; color:var(--color-text-muted); margin:0">
+                <li>Tienes un negocio local y tu web actual no transmite confianza ni deja claro el siguiente paso.</li>
+                <li>Te escriben poco aunque haya visitas o te encuentran más por recomendación que por una presencia digital sólida.</li>
+                <li>Necesitas una base mejor antes de trabajar SEO local, campañas o seguimiento con más intención.</li>
+                <li>Quieres decidir si basta con una web simple, una estructura más completa o un proyecto con más recorrido.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div style="max-width:760px; margin-bottom:2rem">
+          <span class="section-label">Rutas prioritarias</span>
+          <h2 class="section-title" style="margin-top:1rem; font-size:clamp(1.5rem, 3vw, 2rem)">Si ya sabes la ciudad o el nivel de competencia, entra por la ruta más directa</h2>
+          <p style="color:var(--color-text-muted); line-height:1.75; margin-top:1rem">Esta página sirve para entender el servicio general. Si ya vienes con una ciudad o una búsqueda exacta, aquí tienes la ruta corta para entrar por intención local cerrada.</p>
+        </div>
+        <div class="services-routes__grid" style="justify-content:flex-start">
+          <a href="../../diseno-web-fuengirola/" class="services-routes__link">Diseño web en Fuengirola</a>
+          <a href="../../diseno-web-malaga/" class="services-routes__link">Diseño web en Málaga</a>
+          <a href="../../casos/sport-massage-fuengirola/" class="services-routes__link">Caso Sport Massage Fuengirola</a>
+          <a href="../../casos/personal-trainer-fuengirola/" class="services-routes__link">Caso Personal Trainer Fuengirola</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div style="max-width:760px; margin-bottom:2rem">
+          <span class="section-label">Pruebas cercanas</span>
+          <h2 class="section-title" style="margin-top:1rem; font-size:clamp(1.5rem, 3vw, 2rem)">Antes de hablar de “diseño”, interesa ver si la base ya ayuda a vender mejor o sigue dejando dudas.</h2>
+          <p style="color:var(--color-text-muted); line-height:1.75; margin-top:1rem">Estas piezas sirven para ver el tipo de salida que suele tener sentido: una web clara para reservas directas, una estructura mejor para contacto rápido y una guía útil para entender cuánto cambia el alcance según el tipo de proyecto.</p>
+        </div>
+        <div class="portfolio__grid" style="margin-top:2rem">
+          <article class="portfolio-card">
+            <div class="portfolio-card__body">
+              <span class="tag tag--blue" style="margin-bottom:0.75rem;display:inline-block">Caso local</span>
+              <h3 class="portfolio-card__title">Sport Massage Fuengirola</h3>
+              <p class="portfolio-card__desc">Una web enfocada a reservas directas y a una decisión rápida sin depender de plataformas externas.</p>
+            </div>
+            <div class="portfolio-card__footer">
+              <a href="../../casos/sport-massage-fuengirola/" class="btn btn--outline">Ver caso →</a>
+            </div>
+          </article>
+          <article class="portfolio-card">
+            <div class="portfolio-card__body">
+              <span class="tag tag--red" style="margin-bottom:0.75rem;display:inline-block">Caso local</span>
+              <h3 class="portfolio-card__title">Personal Trainer Fuengirola</h3>
+              <p class="portfolio-card__desc">Un ejemplo claro de estructura web pensada para explicar servicio y facilitar el contacto desde móvil y buscador.</p>
+            </div>
+            <div class="portfolio-card__footer">
+              <a href="../../casos/personal-trainer-fuengirola/" class="btn btn--outline">Ver caso →</a>
+            </div>
+          </article>
+          <article class="portfolio-card">
+            <div class="portfolio-card__body">
+              <span class="tag tag--green" style="margin-bottom:0.75rem;display:inline-block">Guía práctica</span>
+              <h3 class="portfolio-card__title">Cuánto cuesta una página web</h3>
+              <p class="portfolio-card__desc">Una forma útil de entender qué cambia por alcance, por estructura y por necesidad real antes de pedir algo sobredimensionado.</p>
+            </div>
+            <div class="portfolio-card__footer">
+              <a href="../../blog/cuanto-cuesta-una-pagina-web-en-fuengirola-y-malaga/" class="btn btn--outline">Ver guía →</a>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -115,16 +198,17 @@ export const services = [
   },
   {
     slug: "seo-local",
-    title: "SEO Local en Fuengirola",
+    title: "Servicio de SEO Local",
     shortTitle: "SEO Local",
     subtitle:
-      "Mejorar tu visibilidad en Google cuando alguien en Fuengirola busca lo que ofreces",
-    metaTitle: "SEO Local en Fuengirola | Web Fuengirola Studio",
+      "Servicio de SEO local para negocios que necesitan visibilidad útil antes de abrir más frentes",
+    metaTitle: "Servicio de SEO Local | Web Fuengirola",
     metaDescription:
-      "Posicionamiento SEO local para negocios en Fuengirola. Mejora tu visibilidad cuando tus clientes buscan en Google Maps y buscadores.",
-    heroHeadline: "Que te encuentren cuando buscan en Google",
+      "Servicio de SEO local para negocios que necesitan mejorar visibilidad en Google Maps y búsquedas cercanas con intención real.",
+    heroHeadline:
+      "Servicio de SEO local para negocios que necesitan visibilidad real",
     heroSubtitle:
-      "SEO local para negocios en Fuengirola y la Costa del Sol. Más visibilidad, más contactos, más clientes.",
+      "Este hub resume el servicio general de SEO local: qué señales se trabajan, cuándo suele compensar empezar y cómo decidir si tu prioridad ahora es ordenar la base o empujar una intención local exacta.",
     price: "Desde 150€/mes",
     ogImage: "https://webfuengirola.com/img/og-cover.webp",
     ogAlt: "SEO local para negocios en Fuengirola",
@@ -177,6 +261,88 @@ export const services = [
         </div>
       </div>
     </section>
+
+    <section class="section">
+      <div class="container">
+        <div style="display:grid; grid-template-columns: 1.05fr 0.95fr; gap: 3rem; align-items:start">
+          <div>
+            <span class="section-label">Cuándo suele compensar</span>
+            <h2 class="section-title" style="margin-top:1rem; font-size:clamp(1.5rem, 3vw, 2rem)">Suele tener sentido empezar por SEO local cuando el negocio ya depende de búsquedas cercanas para captar.</h2>
+            <p style="color:var(--color-text-muted); line-height:1.75; margin-top:1rem">No todos los negocios necesitan empujar SEO local desde el minuto uno. Normalmente merece más la pena cuando ya existe una oferta clara, una zona real de trabajo y una necesidad visible de aparecer mejor en Google o en Maps.</p>
+            <p style="color:var(--color-text-muted); line-height:1.75; margin-top:1rem">Si hoy tu web no explica bien el servicio o la ficha de Google está medio abandonada, el trabajo más rentable suele empezar por ordenar esa base y después seguir con constancia.</p>
+          </div>
+          <div>
+            <div style="padding:1.5rem; border:1px solid var(--color-border, #e5e5e5); border-radius:var(--radius-lg); background:var(--color-bg, #fff)">
+              <p style="font-size:0.85rem; font-weight:600; margin:0 0 1rem">Encaja especialmente bien si ahora mismo te pasa una de estas</p>
+              <ul style="padding-left:1.1rem; display:flex; flex-direction:column; gap:0.75rem; color:var(--color-text-muted); margin:0">
+                <li>Tu negocio vive de llamadas, WhatsApp o formularios que suelen empezar por Google o por Maps.</li>
+                <li>Tienes ficha y web, pero no aparecen con la fuerza que deberían en búsquedas locales.</li>
+                <li>Compites cerca de otros negocios parecidos y necesitas una presencia más ordenada para no perder clics fáciles.</li>
+                <li>Quieres saber si conviene optimizar la base actual o rehacer primero la parte que está frenando la captación.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div style="max-width:760px; margin-bottom:2rem">
+          <span class="section-label">Rutas prioritarias</span>
+          <h2 class="section-title" style="margin-top:1rem; font-size:clamp(1.5rem, 3vw, 2rem)">Si ya vienes con una ciudad o una necesidad concreta, entra por el camino más corto</h2>
+          <p style="color:var(--color-text-muted); line-height:1.75; margin-top:1rem">Esta página sirve para entender el servicio general. Si ya vienes con una ciudad o una búsqueda local cerrada, aquí tienes las rutas más útiles para entrar por intención exacta.</p>
+        </div>
+        <div class="services-routes__grid" style="justify-content:flex-start">
+          <a href="../../seo-local-fuengirola/" class="services-routes__link">SEO local en Fuengirola</a>
+          <a href="../../seo-local-malaga/" class="services-routes__link">SEO local en Málaga</a>
+          <a href="../../blog/como-salir-en-google-maps-en-fuengirola-y-malaga/" class="services-routes__link">Guía para Google Maps</a>
+          <a href="../../recursos/checklists/" class="services-routes__link">Checklist SEO local</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div style="max-width:760px; margin-bottom:2rem">
+          <span class="section-label">Pruebas cercanas</span>
+          <h2 class="section-title" style="margin-top:1rem; font-size:clamp(1.5rem, 3vw, 2rem)">Antes de prometer crecimiento, nos interesa ver si las señales cercanas ya sostienen la decisión.</h2>
+          <p style="color:var(--color-text-muted); line-height:1.75; margin-top:1rem">Estas piezas no son “resultados mágicos”. Sirven para ver el tipo de base que suele ayudar: una web más clara, una guía útil para Google Maps y un checklist local para detectar frenos obvios antes de seguir empujando.</p>
+        </div>
+        <div class="portfolio__grid" style="margin-top:2rem">
+          <article class="portfolio-card">
+            <div class="portfolio-card__body">
+              <span class="tag tag--blue" style="margin-bottom:0.75rem;display:inline-block">Caso local</span>
+              <h3 class="portfolio-card__title">Sport Massage Fuengirola</h3>
+              <p class="portfolio-card__desc">Un ejemplo útil de base clara para captar reservas directas y no depender solo de plataformas externas.</p>
+            </div>
+            <div class="portfolio-card__footer">
+              <a href="../../casos/sport-massage-fuengirola/" class="btn btn--outline">Ver caso →</a>
+            </div>
+          </article>
+          <article class="portfolio-card">
+            <div class="portfolio-card__body">
+              <span class="tag tag--green" style="margin-bottom:0.75rem;display:inline-block">Guía práctica</span>
+              <h3 class="portfolio-card__title">Cómo salir en Google Maps</h3>
+              <p class="portfolio-card__desc">Qué señales suelen mover más la visibilidad local en Fuengirola y Málaga cuando la ficha y la web trabajan juntas.</p>
+            </div>
+            <div class="portfolio-card__footer">
+              <a href="../../blog/como-salir-en-google-maps-en-fuengirola-y-malaga/" class="btn btn--outline">Ver guía →</a>
+            </div>
+          </article>
+          <article class="portfolio-card">
+            <div class="portfolio-card__body">
+              <span class="tag tag--orange" style="margin-bottom:0.75rem;display:inline-block">Checklist</span>
+              <h3 class="portfolio-card__title">Checklist SEO local</h3>
+              <p class="portfolio-card__desc">Un repaso rápido para ver si ficha, reseñas, NAP y páginas locales están ayudando o frenando tu visibilidad.</p>
+            </div>
+            <div class="portfolio-card__footer">
+              <a href="../../recursos/checklists/" class="btn btn--outline">Ver checklist →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
     `,
   },
   {
@@ -185,7 +351,7 @@ export const services = [
     shortTitle: "Mantenimiento",
     subtitle:
       "Tu web actualizada, segura y funcionando sin que tengas que preocuparte",
-    metaTitle: "Mantenimiento Web | Web Fuengirola Studio",
+    metaTitle: "Mantenimiento Web | Web Fuengirola",
     metaDescription:
       "Mantenimiento web profesional para negocios locales. Actualizaciones, seguridad, copias de seguridad y soporte técnico mensual.",
     heroHeadline: "Tu web en manos expertas",
@@ -268,7 +434,7 @@ export const services = [
     title: "Hosting Gestionado",
     shortTitle: "Hosting",
     subtitle: "Hosting gestionado con soporte en español para negocios locales",
-    metaTitle: "Hosting Web Gestionado | Web Fuengirola Studio",
+    metaTitle: "Hosting Web Gestionado | Web Fuengirola",
     metaDescription:
       "Hosting web gestionado con soporte en español para negocios locales en la Costa del Sol. Sin tecnicismos ni sorpresas.",
     heroHeadline: "Hosting sin complicaciones",
@@ -349,7 +515,7 @@ export const services = [
     shortTitle: "Automatización e IA",
     subtitle:
       "Chatbots, flujos automáticos y herramientas con IA para ahorrar tiempo",
-    metaTitle: "Automatización e IA para Negocios | Web Fuengirola Studio",
+    metaTitle: "Automatización e IA para Negocios | Web Fuengirola",
     metaDescription:
       "Chatbots, automatizaciones y herramientas con IA adaptadas a tu negocio. Sin tecnicismos, con resultados concretos.",
     heroHeadline: "Ahorra tiempo con tecnología inteligente",
@@ -424,7 +590,7 @@ export const services = [
     shortTitle: "Apps a medida",
     subtitle:
       "Herramientas y aplicaciones web desarrolladas exactamente para lo que necesita tu negocio",
-    metaTitle: "Aplicaciones Web a Medida | Web Fuengirola Studio",
+    metaTitle: "Aplicaciones Web a Medida | Web Fuengirola",
     metaDescription:
       "Desarrollo de aplicaciones web a medida para negocios. Paneles de gestión, herramientas internas y soluciones digitales personalizadas.",
     heroHeadline: "La herramienta exacta para tu negocio",

@@ -81,8 +81,8 @@ function renderHeader(prefix, activePage) {
   return `
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="${prefix}index.html" class="logo" aria-label="WF Studio">
-        <img src="${prefix}img/logo-wf.webp" alt="WF Studio" class="logo__img" width="36" height="36" loading="eager"/>
+      <a href="${prefix}index.html" class="logo" aria-label="Web Fuengirola">
+        <img src="${prefix}img/logo-wf.webp" alt="Web Fuengirola" class="logo__img" width="36" height="36" loading="eager"/>
       </a>
       <nav class="nav" id="nav" aria-label="Navegación principal">
         <ul class="nav__list">
@@ -112,10 +112,10 @@ function renderFooter(
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <a href="${prefix}index.html" class="logo logo--light" aria-label="WF Studio">
-          <img src="${prefix}img/logo-wf.webp" alt="WF Studio" class="logo__img" width="36" height="36" loading="lazy"/>
+        <a href="${prefix}index.html" class="logo logo--light" aria-label="Web Fuengirola">
+          <img src="${prefix}img/logo-wf.webp" alt="Web Fuengirola" class="logo__img" width="36" height="36" loading="lazy"/>
         </a>
-        <p class="footer__tagline">Webs para comercios locales en la Costa del Sol.</p>
+        <p class="footer__tagline">Webs, SEO local y automatización para negocios locales en la Costa del Sol.</p>
       </div>
       <div class="footer__col">
         <h4 class="footer__col-title">Servicios</h4>
@@ -186,7 +186,7 @@ function buildServiceHub() {
         {
           "@type": ["Organization", "LocalBusiness"],
           "@id": "https://webfuengirola.com/#organization",
-          name: "Web Fuengirola Studio",
+          name: "Web Fuengirola",
           url: "https://webfuengirola.com/",
           image: "https://webfuengirola.com/img/og-cover.jpg",
           telephone: "+34622923988",
@@ -236,15 +236,15 @@ function buildServiceHub() {
   const html = `<!doctype html>
 <html lang="es">
 ${renderHead({
-  title: "Servicios de Diseño Web en Fuengirola | Web Fuengirola Studio",
+  title: "Servicios Web en Fuengirola | Diseño Web, SEO Local y Automatización",
   description:
-    "Servicios de diseño web, SEO local, mantenimiento, hosting, automatización e IA y apps a medida para negocios en Fuengirola y la Costa del Sol.",
+    "Diseño web, SEO local, mantenimiento, automatización útil y herramientas a medida para negocios en Fuengirola y la Costa del Sol.",
   canonical,
-  ogTitle: "Servicios de Diseño Web en Fuengirola | Web Fuengirola Studio",
+  ogTitle: "Servicios Web en Fuengirola | Web Fuengirola",
   ogDescription:
-    "Diseño web, SEO, mantenimiento, hosting y apps a medida para negocios locales en la Costa del Sol.",
+    "Diseño web, SEO local, automatización y soporte técnico para negocios locales en la Costa del Sol.",
   ogImage: "https://webfuengirola.com/img/og-cover.webp",
-  ogAlt: "Servicios Web Fuengirola Studio",
+  ogAlt: "Servicios Web Fuengirola",
   prefix,
   jsonLd,
 })}
@@ -256,8 +256,8 @@ ${renderHeader(prefix, "services")}
       <div class="container">
         <div class="section-header">
           <span class="section-label">Servicios</span>
-          <h1 class="section-title">Lo que hacemos</h1>
-          <p class="section-desc">Soluciones digitales para negocios locales en Fuengirola y la Costa del Sol. Sin tecnicismos, con resultados concretos.</p>
+          <h1 class="section-title">Servicios web en Fuengirola para negocios que quieren vender mejor online</h1>
+          <p class="section-desc">Diseño web, SEO local, mantenimiento, automatización útil y herramientas a medida para negocios de Fuengirola y la Costa del Sol.</p>
         </div>
         <div class="portfolio__grid" style="margin-top: 3rem">
           ${serviceCards}
@@ -296,7 +296,7 @@ function buildServicePage(service) {
         {
           "@type": ["Organization", "LocalBusiness"],
           "@id": "https://webfuengirola.com/#organization",
-          name: "Web Fuengirola Studio",
+          name: "Web Fuengirola",
           url: "https://webfuengirola.com/",
           telephone: "+34622923988",
           email: "info@webfuengirola.com",
@@ -410,9 +410,9 @@ ${renderHeader(prefix, "services")}
     <section class="section" style="background: var(--color-surface-warm)">
       <div class="container">
         <div class="section-header">
-          <span class="section-label">En construcción</span>
-          <h2 class="section-title">Contenido completo próximamente</h2>
-          <p class="section-desc">Esta página está siendo preparada. Mientras tanto, puedes contactarnos directamente para cualquier consulta sobre este servicio.</p>
+          <span class="section-label">Servicio disponible</span>
+          <h2 class="section-title">Te orientamos sobre este servicio de forma directa</h2>
+          <p class="section-desc">Si esta página aún no necesita más detalle público, puedes escribirnos y te diremos rápido si este servicio encaja con tu negocio, con qué alcance y por dónde tendría sentido empezar.</p>
         </div>
         <div style="margin-top: 2rem; text-align: center">
           <a href="https://wa.me/34622923988?text=${encodeURIComponent(service.whatsappText)}" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp →</a>

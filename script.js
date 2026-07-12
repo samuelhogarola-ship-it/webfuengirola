@@ -9,21 +9,24 @@
     es: {
       title: "Web Fuengirola | Diseño Web en Fuengirola para Negocios Locales",
       metaDescription:
-        "Creamos páginas web en Fuengirola para negocios locales: landing pages, webs corporativas y automatización con diseño claro, SEO técnico y contacto directo.",
+        "Diseño web en Fuengirola para negocios locales: webs claras, rápidas y pensadas para captar contactos reales, con base sólida para SEO local.",
       ogTitle: "Diseño Web en Fuengirola | Web Fuengirola",
       ogDescription:
-        "Páginas web para negocios locales en Fuengirola: Página Web Lite, landing pages, webs corporativas y automatización con estructura clara y enfoque SEO.",
+        "Diseño web en Fuengirola para negocios locales: webs claras, rápidas y orientadas a captar mejor desde Google y desde el propio contacto directo.",
       navHome: "Inicio",
       navServices: "Servicios",
-      navPortfolio: "Portfolio",
+      navCases: "Casos de éxito",
+      navBlog: "Blog",
+      navResources: "Calculadora de precios",
+      navAbout: "Sobre nosotros",
       navProcess: "FAQ",
-      navPricing: "Precios",
       navContact: "Contacto",
       headerCta: "Pedir presupuesto",
-      heroBadge: "Webs claras para negocio local",
-      heroTitle: "La web que tu negocio se merece.",
+      heroBadge: "Diseño web en Fuengirola para negocio local",
+      heroTitle:
+        "Diseño web en Fuengirola para negocios que quieren más clientes.",
       heroSubtitle:
-        "Webs rápidas y profesionales con todo lo que necesitas para llegar a más clientes.",
+        "Creamos páginas web claras, rápidas y orientadas a captar contactos reales en Fuengirola y la Costa del Sol.",
       heroPrice: "Precio cerrado",
       heroPrimaryCta: "Pedir presupuesto",
       heroSecondaryCta: "Ver trabajos",
@@ -79,7 +82,7 @@
       benefit6Text:
         "Trabajamos con un proceso ordenado para publicar cada proyecto con rapidez, sin mezclar la velocidad con promesas que no encajan en todos los servicios.",
       servicesLabel: "Servicios",
-      servicesTitle: "Oferta clara para negocio local y desarrollo a medida",
+      servicesTitle: "Lo que solemos resolver para negocio local",
       servicePopular: "Más popular",
       vatLabel: "+ IVA",
       serviceLiteEyebrow: "Entrada rápida",
@@ -176,29 +179,6 @@
       process4Title: "Revisión final",
       process4Desc:
         "Te mostramos el resultado y hacemos una ronda de ajustes para que quedes completamente satisfecho antes de dar el visto bueno.",
-      pricingLabel: "Precios",
-      pricingTitle: "Servicios a medida, paga por lo que necesitas",
-      pricingMainLabel: "Producto de entrada",
-      pricingMainDesc:
-        "Una landing corporativa de una sola página para negocios que necesitan presencia clara, rápida y profesional.",
-      pricing1: "1 sola página con estructura cerrada",
-      pricing2: "1 ronda de revisiones incluida",
-      pricing3: "Responsive, SEO básico, WhatsApp y formulario",
-      pricing4: "Sin panel, sin login, sin reservas ni integraciones",
-      pricing5: "Publicación online según alcance y material",
-      pricingMainCta: "Solicitar esta web",
-      pricingNote:
-        "No incluye multiidioma real, blog, base de datos, React, Node, automatizaciones ni animaciones complejas. Eso pertenece a la línea avanzada.",
-      pricingProBudget: "Desde 600€",
-      pricingProCustom: "según alcance",
-      pricingProDesc:
-        "Para negocios que necesitan más recorrido que una web básica: estructura corporativa avanzada, captación de contactos y autogestión básica antes de pasar a un desarrollo a medida.",
-      pricingPro1:
-        "Web Pro con panel básico y registro de contactos desde 600€",
-      pricingPro2:
-        "Web personalizada cuando el alcance ya sale del marco cerrado",
-      pricingPro3: "Chatbots y automatización por 300€ + 50€ al mes",
-      pricingPro4: "Web apps, Node y herramientas internas desde 2500€",
       maintenanceLabel: "Mantenimiento",
       maintenanceTitle: "Mantén tu web al día sin preocupaciones",
       maintenanceSub:
@@ -223,10 +203,10 @@
       maintenance3Feature2: "Nuevas páginas y funcionalidades",
       maintenance3Feature3: "Respuesta en el mismo día",
       maintenance3Feature4: "Seguimiento SEO y analítica",
-      calcLabel: "Calculadora",
-      calcTitle: "Configura tu web y calcula una estimación rápida",
+      calcLabel: "Orientación rápida",
+      calcTitle: "Elige la forma más fácil<br>de dar el siguiente paso",
       calcSub:
-        "Selecciona los servicios que te interesan y verás cómo cambia el presupuesto al momento.",
+        "Si quieres una recomendación orientativa, responde 4 preguntas. Si ya lo tienes claro, entra por la ruta directa y no pierdas tiempo.",
       calcBaseLabel: "Servicios",
       calcPickHint: "Puedes combinar varias opciones",
       calcEstimateLabel: "Estimación actual",
@@ -236,37 +216,40 @@
       calcEmpty: "Selecciona uno o varios servicios para ver tu estimación.",
       ctaTitle: "¿Tienes un negocio local<br>y necesitas una web clara?",
       ctaSub:
-        "Cuéntanos qué haces y te decimos cómo podemos ayudarte. Sin compromiso, sin tecnicismos.",
+        "Cuéntanos qué haces y te diremos por dónde empezar, sin tecnicismos y sin obligarte a pedir una web grande desde el principio.",
       ctaWhatsapp: "Hablar por WhatsApp",
       ctaEmail: "Enviar un email",
       footerTagline:
-        "Webs para negocios locales con una presencia clara y profesional.",
+        "Diseño web en Fuengirola para negocios locales que necesitan una presencia clara, rápida y preparada para captar mejor.",
       footerLegal: "Legal",
       footerLegalNotice: "Aviso legal",
       footerPrivacy: "Política de privacidad",
       footerCookies: "Política de cookies",
       footerWhatsapp: "WhatsApp",
       footerRights:
-        "WF Studio — Diseño web en Fuengirola. Todos los derechos reservados.",
+        "Web Fuengirola — Diseño web en Fuengirola. Todos los derechos reservados.",
     },
     en: {
       title: "Web Fuengirola | Premium Web Design in Fuengirola",
       metaDescription:
-        "Landing pages from €300 + VAT and premium custom development in Fuengirola: corporate websites, React, Node, chatbots, web apps and workflow automation.",
-      ogTitle: "Web Fuengirola · Premium websites, apps and automation",
+        "Web design in Fuengirola for local businesses: clear, fast websites built to generate real enquiries with a solid base for local SEO.",
+      ogTitle: "Web Design in Fuengirola | Web Fuengirola",
       ogDescription:
-        "Clear entry product from €300 + VAT and advanced custom solutions in React, Node, chatbots, Android apps and workflow automation.",
+        "Web design in Fuengirola for local businesses: clear, fast websites built to convert better from Google and direct contact.",
       navHome: "Home",
       navServices: "Services",
-      navPortfolio: "Portfolio",
+      navCases: "Case studies",
+      navBlog: "Blog",
+      navResources: "Resources",
+      navAbout: "About us",
       navProcess: "FAQ",
-      navPricing: "Pricing",
       navContact: "Contact",
       headerCta: "Request a quote",
-      heroBadge: "Available in 48 hours",
-      heroTitle: "The website your business deserves.",
+      heroBadge: "Web design in Fuengirola for local businesses",
+      heroTitle:
+        "Web design in Fuengirola for businesses that want more customers.",
       heroSubtitle:
-        "Fast, professional websites with everything you need to reach more customers.",
+        "We build clear, fast websites focused on generating real enquiries in Fuengirola and across the Costa del Sol.",
       heroPrice: "Fixed price",
       heroPrimaryCta: "Request a quote",
       heroSecondaryCta: "See projects",
@@ -418,27 +401,6 @@
       process4Title: "Final review",
       process4Desc:
         "We show you the result and make one round of adjustments so you are fully happy before approval.",
-      pricingLabel: "Pricing",
-      pricingTitle: "Tailored services, pay for what you need",
-      pricingMainLabel: "Entry product",
-      pricingMainDesc:
-        "A one-page corporate landing for businesses that need a clear, fast and professional online presence.",
-      pricing1: "One page with a fixed structure",
-      pricing2: "1 revision round included",
-      pricing3: "Responsive, basic SEO, WhatsApp and contact form",
-      pricing4: "No admin panel, login, bookings or integrations",
-      pricing5: "Website published in 48 hours",
-      pricingMainCta: "Request this website",
-      pricingNote:
-        "Does not include real multilingual support, blog, database, React, Node, automations or complex animations. That belongs to the advanced line.",
-      pricingProBudget: "From €900",
-      pricingProCustom: "depending on scope",
-      pricingProDesc:
-        "For projects with logic, automation or real growth needs: corporate websites, React, Node, chatbots, apps and internal tools.",
-      pricingPro1: "Corporate / Pro website from €900",
-      pricingPro2: "Dynamic React pages from €1,400",
-      pricingPro3: "Chatbots and automation for €300 + €50 per month",
-      pricingPro4: "Web apps, Node and internal tools from €1,800",
       maintenanceLabel: "Maintenance",
       maintenanceTitle: "Keep your website updated without worries",
       maintenanceSub:
@@ -464,9 +426,9 @@
       maintenance3Feature3: "Same-day response",
       maintenance3Feature4: "SEO and analytics monitoring",
       calcLabel: "Calculator",
-      calcTitle: "Configure your website and get a quick estimate",
+      calcTitle: "Find the website setup that fits<br>your business best",
       calcSub:
-        "Select the services you are interested in and the budget updates instantly.",
+        "Answer 4 questions and you will get a practical recommendation for the website structure and level of support that make sense for your case.",
       calcBaseLabel: "Services",
       calcPickHint: "You can combine multiple options",
       calcEstimateLabel: "Current estimate",
@@ -476,18 +438,18 @@
       calcEmpty: "Select one or more services to see your estimate.",
       ctaTitle: "Do you run a local business<br>and need a clear website?",
       ctaSub:
-        "Tell us what you do and we will explain how we can help. No obligation, no jargon.",
+        "Tell us what you do and we will explain where to start. No obligation, no jargon, no pressure to begin with a huge website.",
       ctaWhatsapp: "Chat on WhatsApp",
       ctaEmail: "Send an email",
       footerTagline:
-        "Websites, apps and automation for local businesses with a clear professional presence.",
+        "Web design in Fuengirola for local businesses that need a clear, fast presence built to win more enquiries.",
       footerLegal: "Legal",
       footerLegalNotice: "Legal notice",
       footerPrivacy: "Privacy policy",
       footerCookies: "Cookie policy",
       footerWhatsapp: "WhatsApp",
       footerRights:
-        "WF Studio — Web design in Fuengirola. All rights reserved.",
+        "Web Fuengirola — Web design in Fuengirola. All rights reserved.",
     },
     de: {
       title: "Web Fuengirola | Premium Webdesign in Fuengirola",
@@ -498,15 +460,18 @@
         "Wir erstellen einfache, klare und professionelle Webseiten, damit Ihre Kunden sofort verstehen, was Sie tun, wo Sie sind und wie sie Sie kontaktieren können. Ab 300 € zzgl. MwSt.",
       navHome: "Start",
       navServices: "Leistungen",
-      navPortfolio: "Portfolio",
+      navCases: "Fallstudien",
+      navBlog: "Blog",
+      navResources: "Ressourcen",
+      navAbout: "Über uns",
       navProcess: "FAQ",
-      navPricing: "Preise",
       navContact: "Kontakt",
       headerCta: "Angebot anfragen",
-      heroBadge: "In 48 Stunden verfügbar",
-      heroTitle: "Die Website, die Ihr Unternehmen verdient.",
+      heroBadge: "Webdesign in Fuengirola für lokale Unternehmen",
+      heroTitle:
+        "Webdesign in Fuengirola für Unternehmen, die mehr Kunden gewinnen möchten.",
       heroSubtitle:
-        "Schnelle, professionelle Websites mit allem, was Sie brauchen, um mehr Kunden zu erreichen.",
+        "Wir erstellen klare, schnelle Websites, die in Fuengirola und an der Costa del Sol echte Anfragen erzeugen sollen.",
       heroPrice: "Festpreis",
       heroPrimaryCta: "Angebot anfragen",
       heroSecondaryCta: "Projekte ansehen",
@@ -660,27 +625,6 @@
       process4Title: "Abschließende Prüfung",
       process4Desc:
         "Wir zeigen Ihnen das Ergebnis und nehmen eine Korrekturrunde vor, damit Sie vor der Freigabe vollständig zufrieden sind.",
-      pricingLabel: "Preise",
-      pricingTitle: "Ein klarer Preis ohne Kleingedrucktes",
-      pricingMainLabel: "Unsere Hauptleistung",
-      pricingMainDesc:
-        "Alles, was Ihr Unternehmen braucht, um professionell online zu sein.",
-      pricing1: "Domain und Hosting im ersten Jahr",
-      pricing2: "1 Korrekturrunde inklusive",
-      pricing3: "Responsives Design für alle Geräte",
-      pricing4: "WhatsApp-Button und Kontaktformular",
-      pricing5: "Online-Veröffentlichung in 48 Stunden",
-      pricingMainCta: "Diese Webseite anfragen",
-      pricingNote:
-        "Spätere Änderungen, neue Bereiche und Wartung werden je nach Aufwand separat kalkuliert.",
-      pricingProBudget: "Angebot",
-      pricingProCustom: "individuell",
-      pricingProDesc:
-        "Für komplexere Projekte: Onlineshop, Buchungen, mehrere Seiten oder spezielle Integrationen.",
-      pricingPro1: "Alles aus der Local Express Website",
-      pricingPro2: "Erweiterte Funktionen nach Maß",
-      pricingPro3: "Mehr Korrekturrunden",
-      pricingPro4: "Priorisierter Support",
       maintenanceLabel: "Wartung",
       maintenanceTitle: "Halten Sie Ihre Webseite ohne Sorgen aktuell",
       maintenanceSub:
@@ -707,9 +651,9 @@
       maintenance3Feature4: "SEO- und Analyse-Monitoring",
       calcLabel: "Rechner",
       calcTitle:
-        "Stellen Sie Ihre Website zusammen und berechnen Sie schnell eine Schätzung",
+        "Finden Sie heraus, welche Website<br>am besten zu Ihrem Unternehmen passt",
       calcSub:
-        "Wählen Sie die Leistungen aus und der Preis aktualisiert sich sofort.",
+        "Beantworten Sie 4 Fragen und Sie erhalten eine praxisnahe Empfehlung zur Webstruktur und zum passenden Betreuungsniveau.",
       calcBaseLabel: "Leistungen",
       calcPickHint: "Mehrere Optionen sind kombinierbar",
       calcEstimateLabel: "Aktuelle Schätzung",
@@ -722,18 +666,18 @@
       ctaTitle:
         "Haben Sie ein lokales Unternehmen<br>und brauchen eine klare Webseite?",
       ctaSub:
-        "Erzählen Sie uns, was Sie tun, und wir sagen Ihnen, wie wir helfen können. Unverbindlich und ohne Fachsprache.",
+        "Erzählen Sie uns, was Sie tun, und wir sagen Ihnen, womit Sie sinnvoll starten können. Unverbindlich und ohne Fachsprache.",
       ctaWhatsapp: "Per WhatsApp schreiben",
       ctaEmail: "E-Mail senden",
       footerTagline:
-        "Webseiten für lokale Unternehmen mit einem klaren und professionellen Auftritt.",
+        "Webdesign in Fuengirola für lokale Unternehmen, die einen klaren, schnellen und überzeugenden Online-Auftritt brauchen.",
       footerLegal: "Rechtliches",
       footerLegalNotice: "Impressum",
       footerPrivacy: "Datenschutz",
       footerCookies: "Cookie-Richtlinie",
       footerWhatsapp: "WhatsApp",
       footerRights:
-        "WF Studio — Webdesign in Fuengirola. Alle Rechte vorbehalten.",
+        "Web Fuengirola — Webdesign in Fuengirola. Alle Rechte vorbehalten.",
     },
     fi: {
       title: "Web Fuengirola | Laadukkaat verkkosivut Fuengirolassa",
@@ -745,15 +689,18 @@
         "Rakennamme yksinkertaisia, selkeitä ja ammattimaisia verkkosivuja, jotta asiakkaasi ymmärtävät heti mitä teet, missä olet ja miten sinuun saa yhteyden. Alkaen 300 € + ALV.",
       navHome: "Etusivu",
       navServices: "Palvelut",
-      navPortfolio: "Portfolio",
+      navCases: "Case-esimerkit",
+      navBlog: "Blogi",
+      navResources: "Resurssit",
+      navAbout: "Meistä",
       navProcess: "FAQ",
-      navPricing: "Hinnat",
       navContact: "Yhteys",
       headerCta: "Pyydä tarjous",
-      heroBadge: "Valmis 48 tunnissa",
-      heroTitle: "Verkkosivusto, jonka yrityksesi ansaitsee.",
+      heroBadge: "Verkkosivut Fuengirolassa paikalliselle yritykselle",
+      heroTitle:
+        "Verkkosivut Fuengirolassa yrityksille, jotka haluavat enemmän asiakkaita.",
       heroSubtitle:
-        "Nopeat, ammattimaiset verkkosivut kaikella mitä tarvitset tavoittaaksesi enemmän asiakkaita.",
+        "Rakennamme selkeita ja nopeita verkkosivuja, jotka on suunniteltu tuomaan oikeita yhteydenottoja Fuengirolassa ja Costa del Solilla.",
       heroPrice: "Kiinteä hinta",
       heroPrimaryCta: "Pyydä tarjous",
       heroSecondaryCta: "Katso työt",
@@ -904,27 +851,6 @@
       process4Title: "Lopullinen tarkistus",
       process4Desc:
         "Näytämme lopputuloksen ja teemme yhden korjauskierroksen, jotta olet täysin tyytyväinen ennen hyväksyntää.",
-      pricingLabel: "Hinnat",
-      pricingTitle: "Selkeä hinta ilman piiloehtoja",
-      pricingMainLabel: "Pääpalvelumme",
-      pricingMainDesc:
-        "Kaikki mitä yrityksesi tarvitsee ammattimaiseen verkkonäkyvyyteen.",
-      pricing1: "Domain ja hosting ensimmäiseksi vuodeksi",
-      pricing2: "1 tarkistuskierros sisältyy",
-      pricing3: "Responsiivinen design kaikille laitteille",
-      pricing4: "WhatsApp-painike ja yhteydenottolomake",
-      pricing5: "Sivusto julkaistaan 48 tunnissa",
-      pricingMainCta: "Pyydä tämä sivu",
-      pricingNote:
-        "Myöhemmät muutokset, uudet osiot ja ylläpito hinnoitellaan erikseen työn määrän mukaan.",
-      pricingProBudget: "Tarjous",
-      pricingProCustom: "räätälöity",
-      pricingProDesc:
-        "Monimutkaisempiin projekteihin: verkkokauppa, varaukset, useita sivuja tai erikoisintegraatiot.",
-      pricingPro1: "Kaikki Local Express -paketista",
-      pricingPro2: "Edistyneet räätälöidyt toiminnot",
-      pricingPro3: "Useampia tarkistuskierroksia",
-      pricingPro4: "Priorisoitu tuki",
       maintenanceLabel: "Ylläpito",
       maintenanceTitle: "Pidä verkkosivusi ajan tasalla ilman huolia",
       maintenanceSub:
@@ -950,8 +876,10 @@
       maintenance3Feature3: "Vastaus saman päivän aikana",
       maintenance3Feature4: "SEO- ja analytiikkaseuranta",
       calcLabel: "Laskuri",
-      calcTitle: "Rakenna verkkosivusi ja laske nopea arvio",
-      calcSub: "Valitse kiinnostavat palvelut ja arvio päivittyy heti.",
+      calcTitle:
+        "Selvitä, millainen verkkosivu<br>sopii yrityksellesi parhaiten",
+      calcSub:
+        "Vastaa 4 kysymykseen ja saat käytännöllisen suosituksen sivuston rakenteesta ja sopivasta tuen tasosta.",
       calcBaseLabel: "Palvelut",
       calcPickHint: "Voit yhdistää useita vaihtoehtoja",
       calcEstimateLabel: "Nykyinen arvio",
@@ -963,18 +891,18 @@
       ctaTitle:
         "Onko sinulla paikallinen yritys<br>ja tarvitset selkeät verkkosivut?",
       ctaSub:
-        "Kerro mitä teet, niin kerromme miten voimme auttaa. Ei sitoumuksia eikä teknistä jargonia.",
+        "Kerro mitä teet, niin kerromme mistä kannattaa aloittaa. Ei sitoumuksia eikä teknistä jargonia.",
       ctaWhatsapp: "Keskustele WhatsAppissa",
       ctaEmail: "Lähetä sähköposti",
       footerTagline:
-        "Verkkosivut paikallisille yrityksille selkeällä ja ammattimaisella ilmeellä.",
+        "Verkkosivusuunnittelu Fuengirolassa paikallisille yrityksille, jotka tarvitsevat selkeän, nopean ja paremmin konvertoivan läsnäolon.",
       footerLegal: "Lakiasiat",
       footerLegalNotice: "Lakiteksti",
       footerPrivacy: "Tietosuojakäytäntö",
       footerCookies: "Evästekäytäntö",
       footerWhatsapp: "WhatsApp",
       footerRights:
-        "WF Studio — Verkkosuunnittelu Fuengirolassa. Kaikki oikeudet pidätetään.",
+        "Web Fuengirola — Verkkosuunnittelu Fuengirolassa. Kaikki oikeudet pidätetään.",
     },
   };
 
@@ -1730,7 +1658,7 @@
       var hasFromPrefix = totals.hasFromPrefix;
 
       var lines = [
-        "Hola, he usado la calculadora de WF Studio y esta es mi recomendación:",
+        "Hola, he usado la calculadora de Web Fuengirola y esta es mi recomendación:",
         "- Web: " + service.title + " (" + service.summaryPrice + ")",
         "- Mantenimiento de contenidos: " +
           changesPlan.title +
@@ -1767,7 +1695,7 @@
           "mailto:" +
           EMAIL +
           "?subject=" +
-          encodeURIComponent("Estimación web WF Studio") +
+          encodeURIComponent("Estimación web Web Fuengirola") +
           "&body=" +
           encodeURIComponent(message);
       }
@@ -2203,8 +2131,12 @@
       });
 
     /* ---- Initial language ---- */
-    var savedLang = window.localStorage.getItem("webfuengirola-language");
-    setLanguage(savedLang || defaultLang);
+    if (langButtons.length > 0) {
+      var savedLang = window.localStorage.getItem("webfuengirola-language");
+      setLanguage(savedLang || defaultLang);
+    } else {
+      applyTranslations(defaultLang);
+    }
 
     /* Run directly (not inside requestAnimationFrame): rAF can be throttled
        indefinitely for backgrounded/non-visible tabs, which would silently

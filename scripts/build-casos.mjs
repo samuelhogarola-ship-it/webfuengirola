@@ -77,8 +77,8 @@ function renderHeader(prefix, activePage) {
   return `
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="${prefix}index.html" class="logo" aria-label="WF Studio">
-        <img src="${prefix}img/logo-wf.webp" alt="WF Studio" class="logo__img" width="36" height="36" loading="eager"/>
+      <a href="${prefix}index.html" class="logo" aria-label="Web Fuengirola">
+        <img src="${prefix}img/logo-wf.webp" alt="Web Fuengirola" class="logo__img" width="36" height="36" loading="eager"/>
       </a>
       <nav class="nav" id="nav" aria-label="Navegación principal">
         <ul class="nav__list">
@@ -108,8 +108,8 @@ function renderFooter(
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <a href="${prefix}index.html" class="logo logo--light" aria-label="WF Studio">
-          <img src="${prefix}img/logo-wf.webp" alt="WF Studio" class="logo__img" width="36" height="36" loading="lazy"/>
+        <a href="${prefix}index.html" class="logo logo--light" aria-label="Web Fuengirola">
+          <img src="${prefix}img/logo-wf.webp" alt="Web Fuengirola" class="logo__img" width="36" height="36" loading="lazy"/>
         </a>
         <p class="footer__tagline">Webs para comercios locales en la Costa del Sol.</p>
       </div>
@@ -182,7 +182,7 @@ function buildCasosHub() {
         {
           "@type": ["Organization", "LocalBusiness"],
           "@id": "https://webfuengirola.com/#organization",
-          name: "Web Fuengirola Studio",
+          name: "Web Fuengirola",
           url: "https://webfuengirola.com/",
           telephone: "+34622923988",
           email: "info@webfuengirola.com",
@@ -237,15 +237,15 @@ function buildCasosHub() {
   const html = `<!doctype html>
 <html lang="es">
 ${renderHead({
-  title: "Casos de Éxito | Web Fuengirola Studio",
+  title: "Casos de Éxito | Web Fuengirola",
   description:
-    "Casos de éxito reales de negocios locales en Fuengirola que han mejorado su presencia digital con Web Fuengirola Studio.",
+    "Casos de éxito reales de negocios locales en Fuengirola que han mejorado su presencia digital con Web Fuengirola.",
   canonical,
-  ogTitle: "Casos de Éxito | Web Fuengirola Studio",
+  ogTitle: "Casos de Éxito | Web Fuengirola",
   ogDescription:
     "Negocios locales reales con resultados concretos. Diseño web, apps a medida y automatización para la Costa del Sol.",
   ogImage: "https://webfuengirola.com/img/og-cover.webp",
-  ogAlt: "Casos de éxito Web Fuengirola Studio",
+  ogAlt: "Casos de éxito Web Fuengirola",
   prefix,
   jsonLd,
 })}
@@ -297,7 +297,7 @@ function buildCasePage(caso) {
         {
           "@type": ["Organization", "LocalBusiness"],
           "@id": "https://webfuengirola.com/#organization",
-          name: "Web Fuengirola Studio",
+          name: "Web Fuengirola",
           url: "https://webfuengirola.com/",
           telephone: "+34622923988",
           email: "info@webfuengirola.com",
