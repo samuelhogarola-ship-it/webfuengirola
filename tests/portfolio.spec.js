@@ -193,6 +193,12 @@ test("sitemap incluye casos, categorías de producto y excluye páginas no index
   expect(xml).toContain(
     "https://webfuengirola.com/servicios/aplicaciones-web/",
   );
+  expect(xml).toContain("https://webfuengirola.com/diseno-web-fuengirola/");
+  expect(xml).toContain("https://webfuengirola.com/diseno-web-malaga/");
+  expect(xml).toContain("https://webfuengirola.com/seo-local-fuengirola/");
+  expect(xml).toContain("https://webfuengirola.com/seo-local-malaga/");
+  expect(xml).toContain("https://webfuengirola.com/publicidad-ia-fuengirola/");
+  expect(xml).toContain("https://webfuengirola.com/publicidad-ia-malaga/");
   expect(xml).toContain("https://webfuengirola.com/recursos/herramientas/");
   expect(xml).toContain("https://webfuengirola.com/recursos/guias/");
   expect(xml).toContain("https://webfuengirola.com/recursos/checklists/");
@@ -200,6 +206,11 @@ test("sitemap incluye casos, categorías de producto y excluye páginas no index
   expect(xml).not.toContain(
     "https://webfuengirola.com/portfolio/sport-massage-fuengirola/",
   );
+  expect(xml).not.toContain("https://webfuengirola.com/blog/og-blog-home.html");
+  expect(xml).not.toContain(
+    "https://webfuengirola.com/blog/og-ia-servicios.html",
+  );
+  expect(xml).not.toContain("https://webfuengirola.com/blog/og-web-2026.html");
 });
 
 test("ficha de proyecto mantiene CTA visible en móvil", async ({ page }) => {
@@ -222,11 +233,11 @@ test("la ficha de FisioApp expone imagen indexable y CTA de servicio", async ({
   );
   await expect(
     page.locator(
-      'main img[alt="FisioApp Panel Clínica — caso de éxito Web Fuengirola Studio"]',
+      'main img[alt="FisioApp Panel Clínica — caso de éxito de Web Fuengirola"]',
     ),
   ).toHaveAttribute(
     "alt",
-    "FisioApp Panel Clínica — caso de éxito Web Fuengirola Studio",
+    "FisioApp Panel Clínica — caso de éxito de Web Fuengirola",
   );
   await expect(
     page.getByRole("link", { name: /ver servicio/i }),

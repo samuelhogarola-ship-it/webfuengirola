@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /madamebleuewatches-preview/
+Disallow: /madamebleuewatches-preview-src/
+Disallow: /saulofitness/
 
 Sitemap: https://webfuengirola.com/sitemap.xml

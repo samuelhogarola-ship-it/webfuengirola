@@ -97,8 +97,8 @@ function renderHeader(prefix, activePage) {
   return `
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="${navHref(prefix, "index.html")}" class="logo" aria-label="WF Studio">
-        <img src="${assetHref(prefix, "img/logo-wf.webp")}" alt="WF Studio" class="logo__img" width="36" height="36" loading="eager"/>
+      <a href="${navHref(prefix, "index.html")}" class="logo" aria-label="Web Fuengirola">
+        <img src="${assetHref(prefix, "img/logo-wf.webp")}" alt="Web Fuengirola" class="logo__img" width="36" height="36" loading="eager"/>
       </a>
 
       <nav class="nav" id="nav" aria-label="Navegación principal">
@@ -133,8 +133,8 @@ function renderFooter(
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <a href="${navHref(prefix, "index.html")}" class="logo logo--light" aria-label="WF Studio">
-          <img src="${assetHref(prefix, "img/logo-wf.webp")}" alt="WF Studio" class="logo__img" width="36" height="36" loading="lazy"/>
+        <a href="${navHref(prefix, "index.html")}" class="logo logo--light" aria-label="Web Fuengirola">
+          <img src="${assetHref(prefix, "img/logo-wf.webp")}" alt="Web Fuengirola" class="logo__img" width="36" height="36" loading="lazy"/>
         </a>
         <p class="footer__tagline">Webs para comercios locales en la Costa del Sol.</p>
       </div>

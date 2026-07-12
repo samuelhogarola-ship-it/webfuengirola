@@ -26,16 +26,26 @@ RUN cp -R \
   /app/casos \
   /app/como-trabajamos \
   /app/contacto \
+  /app/diseno-web-fuengirola \
+  /app/diseno-web-malaga \
   /app/img \
   /app/portfolio \
   /app/portfolio.html \
   /app/productos \
   /app/proceso.html \
+  /app/publicidad-ia-fuengirola \
+  /app/publicidad-ia-malaga \
   /app/recursos \
+  /app/seo-local-fuengirola \
+  /app/seo-local-malaga \
   /app/servicios \
   /app/servicios.html \
   /app/sobre-nosotros \
   /out/
+RUN rm -f \
+  /out/blog/og-blog-home.html \
+  /out/blog/og-ia-servicios.html \
+  /out/blog/og-web-2026.html
 
 FROM nginx:alpine
 COPY --from=builder /out/ /usr/share/nginx/html/
