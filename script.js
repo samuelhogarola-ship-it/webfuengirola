@@ -1273,8 +1273,19 @@
   }
 
   function initServiceEstimator() {
-    var root = document.querySelector("[data-estimator]");
-    if (!root) return;
+    var roots = Array.prototype.slice.call(
+      document.querySelectorAll("[data-estimator]"),
+    );
+    if (!roots.length) return;
+
+    roots.forEach(function (root) {
+      initEstimatorRoot(root);
+    });
+  }
+
+  function initEstimatorRoot(root) {
+    if (!root || root.getAttribute("data-estimator-ready") === "true") return;
+    root.setAttribute("data-estimator-ready", "true");
 
     var WA_BASE = "https://wa.me/34622923988?text=";
     var EMAIL = "info@webfuengirola.com";
@@ -1480,7 +1491,11 @@
     var restartBtn = root.querySelector("[data-estimator-restart]");
     var whatsappBtn = root.querySelector("[data-estimator-wa]");
     var emailBtn = root.querySelector("[data-estimator-email]");
+    var shareBtns = Array.prototype.slice.call(
+      root.querySelectorAll("[data-estimator-share]"),
+    );
     var autoAdvanceTimer;
+    var shareFeedbackTimer;
 
     function formatOneTime(amount, isFrom) {
       return (isFrom ? "Desde " : "") + amount + "€ + IVA";
@@ -1687,6 +1702,40 @@
       return lines.join("\n");
     }
 
+    function getShareUrl() {
+      var explicitUrl = root.getAttribute("data-estimator-share-url");
+      if (explicitUrl) return explicitUrl;
+      return window.location.origin + window.location.pathname;
+    }
+
+    function getSharePayload() {
+      var baseText =
+        "He usado la calculadora de precios de Web Fuengirola para orientar qué tipo de web encaja con mi negocio.";
+      var text =
+        activeStep === "summary"
+          ? baseText + "\n\n" + buildMessage()
+          : baseText;
+
+      return {
+        title: "Calculadora de precios web | Web Fuengirola",
+        text: text,
+        url: getShareUrl(),
+      };
+    }
+
+    function setShareButtonText(text) {
+      if (!shareBtns.length) return;
+      shareBtns.forEach(function (btn) {
+        btn.textContent = text;
+      });
+      window.clearTimeout(shareFeedbackTimer);
+      shareFeedbackTimer = window.setTimeout(function () {
+        shareBtns.forEach(function (btn) {
+          btn.textContent = "Compartir calculadora";
+        });
+      }, 2200);
+    }
+
     function updateLinks() {
       var message = buildMessage();
       if (whatsappBtn) whatsappBtn.href = WA_BASE + encodeURIComponent(message);
@@ -1810,6 +1859,53 @@
       restartBtn.addEventListener("click", function () {
         state = { pages: null, blog: null, changes: null, tracking: null };
         goTo("pages");
+      });
+    }
+
+    if (shareBtns.length) {
+      shareBtns.forEach(function (shareBtn) {
+        shareBtn.addEventListener("click", function () {
+          var payload = getSharePayload();
+
+          if (navigator.share) {
+            navigator
+              .share(payload)
+              .then(function () {
+                setShareButtonText("Compartida");
+              })
+              .catch(function (error) {
+                if (error && error.name === "AbortError") return;
+
+                if (navigator.clipboard && window.isSecureContext) {
+                  navigator.clipboard
+                    .writeText(payload.url)
+                    .then(function () {
+                      setShareButtonText("Enlace copiado");
+                    })
+                    .catch(function () {
+                      setShareButtonText("Copia manual");
+                    });
+                } else {
+                  setShareButtonText("Copia manual");
+                }
+              });
+            return;
+          }
+
+          if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard
+              .writeText(payload.url)
+              .then(function () {
+                setShareButtonText("Enlace copiado");
+              })
+              .catch(function () {
+                setShareButtonText("Copia manual");
+              });
+            return;
+          }
+
+          setShareButtonText("Copia manual");
+        });
       });
     }
 

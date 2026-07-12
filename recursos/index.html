@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calculadora de Precios Web | Web Fuengirola</title>
   <meta name="description" content="Calculadora de precios web para negocios locales. Descubre qué web necesita tu negocio, cuánto contenido vas a meter y si necesitas mantenimiento o SEO local." />
+  <meta name="keywords" content="calculadora precio web, presupuesto página web, precio diseño web, calculadora web negocio local, web Fuengirola" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0b0d12" />
   <link rel="canonical" href="https://webfuengirola.com/recursos/" />
   <link rel="icon" type="image/png" href="https://webfuengirola.com/favicon.png" sizes="48x48" />
   <link rel="shortcut icon" href="https://webfuengirola.com/favicon.png" />
@@ -17,10 +19,13 @@
   <meta property="og:site_name" content="Web Fuengirola" />
   <meta property="og:locale" content="es_ES" />
   <meta property="og:image" content="https://webfuengirola.com/img/og-cover.webp" />
+  <meta property="og:image:secure_url" content="https://webfuengirola.com/img/og-cover.webp" />
+  <meta property="og:image:alt" content="Calculadora de precios web para negocios locales de Web Fuengirola" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Calculadora de Precios Web | Web Fuengirola" />
   <meta name="twitter:description" content="Calcula qué web necesita tu negocio y aterriza inversión, contenido, mantenimiento y SEO local." />
   <meta name="twitter:image" content="https://webfuengirola.com/img/og-cover.webp" />
+  <meta name="twitter:image:alt" content="Calculadora de precios web para negocios locales de Web Fuengirola" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -49,6 +54,21 @@
         "name": "Calculadora de Precios Web | Web Fuengirola",
         "description": "Calculadora de precios web para negocios locales con orientación sobre contenido, mantenimiento y SEO local.",
         "inLanguage": "es"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://webfuengirola.com/recursos/#app",
+        "name": "Calculadora de precios web",
+        "url": "https://webfuengirola.com/recursos/",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "inLanguage": "es",
+        "description": "Herramienta gratuita para orientar qué web necesita un negocio local según contenido, mantenimiento y seguimiento.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR"
+        }
       }
     ]
   }
@@ -128,11 +148,15 @@
     <section class="cta-final" id="calculadora-precios">
       <div class="container cta-final__inner">
         <div class="cta-final__content cta-final__content--calculator">
-          <div class="estimator" data-estimator>
+          <div class="estimator" data-estimator data-estimator-share-url="https://webfuengirola.com/recursos/">
             <div class="estimator__head">
               <span class="section-label">Calculadora de precios</span>
               <h2 class="cta-final__title">Calcula qué web necesita tu negocio</h2>
               <p class="cta-final__sub">Responde en menos de un minuto y te llevas una orientación útil para saber si estás ante una web básica, una estructura más completa o un proyecto con SEO, mantenimiento o parte a medida.</p>
+              <div class="estimator__head-actions">
+                <a href="#calculadora-precios" class="btn btn--outline btn--sm">Ir a la calculadora</a>
+                <button type="button" class="btn btn--ghost btn--sm" data-estimator-share>Compartir calculadora</button>
+              </div>
             </div>
 
             <div class="estimator__shell">
@@ -295,6 +319,7 @@
                       <a href="mailto:info@webfuengirola.com?subject=Estimaci%C3%B3n%20web%20desde%20la%20calculadora%20de%20precios" class="btn btn--outline btn--lg" data-estimator-email>
                         Enviar por email
                       </a>
+                      <button type="button" class="btn btn--outline btn--lg" data-estimator-share>Compartir calculadora</button>
                       <button type="button" class="btn btn--ghost btn--lg" data-estimator-restart>← Modificar respuestas</button>
                     </div>
                   </div>
