@@ -91,7 +91,7 @@ function renderHeader(prefix, activePage) {
         </ul>
       </nav>
       <div class="lang-switcher" style="display:none"></div>
-      <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--primary header__cta" target="_blank" rel="noopener noreferrer">Pedir presupuesto</a>
+      <a href="https://portal.webfuengirola.com/cliente" class="btn btn--primary header__cta" target="_blank" rel="noopener noreferrer" aria-label="Acceso al área cliente">Área cliente</a>
       <button type="button" class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
         <span></span><span></span><span></span>
       </button>
