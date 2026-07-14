@@ -337,6 +337,19 @@ button {
   background: var(--color-surface-warm);
 }
 
+.nav__link--client {
+  border: 1px solid rgba(24, 32, 50, 0.14);
+  color: var(--color-text);
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.nav__link--client:hover {
+  border-color: rgba(24, 32, 50, 0.24);
+  background: var(--color-text);
+  color: #fff;
+}
+
 .lang-switcher {
   display: inline-flex;
   align-items: center;
@@ -3477,6 +3490,10 @@ body.is-menu-open {
     display: block;
     padding: 11px 14px;
     font-size: 0.97rem;
+  }
+  .nav__link--client {
+    margin-top: 8px;
+    text-align: center;
   }
 
   /* Hero */
