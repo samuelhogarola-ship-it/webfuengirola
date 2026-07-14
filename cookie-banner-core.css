@@ -5,7 +5,7 @@
   width: 100%;
   max-width: 420px;
   z-index: 999999;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .cookie-banner-card {
@@ -62,7 +62,9 @@
   font-weight: 700;
   cursor: pointer;
   font-family: inherit;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .cookie-btn:hover,
@@ -295,26 +297,70 @@
 
 @media (max-width: 640px) {
   .cookie-banner-wrapper {
+    left: 0;
     right: 0;
-    bottom: 0;
+    bottom: max(0px, env(safe-area-inset-bottom));
     max-width: 100%;
     padding: 0 12px 12px;
   }
 
   .cookie-banner-card {
-    border-radius: 16px;
+    padding: 16px;
+    border-radius: 18px;
+    max-height: min(78svh, 620px);
+    overflow-y: auto;
+  }
+
+  .cookie-banner-img-container {
+    margin-bottom: 10px;
+  }
+
+  .cookie-banner-img {
+    max-height: 56px;
+  }
+
+  .cookie-banner-card h2 {
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+  .cookie-banner-notice {
+    font-size: 12px;
+    line-height: 1.45;
   }
 
   .cookie-banner-buttons {
+    position: sticky;
+    bottom: 0;
     flex-direction: column;
+    margin-top: 16px;
+    padding-top: 10px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0), #fff 28%);
+  }
+
+  .cookie-btn {
+    min-height: 44px;
+    padding: 11px 16px;
+    font-size: 12px;
+  }
+
+  .cookie-banner-footer {
+    margin-top: 10px;
+  }
+
+  .cookie-config-link {
+    font-size: 10px;
   }
 
   .cookie-config-dialog {
     padding: 24px 18px 18px;
+    max-height: min(88svh, 720px);
+    overflow-y: auto;
   }
 
   .cookie-config-option {
     flex-direction: column;
+    padding: 14px;
   }
 
   .cookie-config-meta {
