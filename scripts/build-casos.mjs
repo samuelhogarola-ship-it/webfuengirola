@@ -260,6 +260,52 @@ ${renderHeader(prefix, "casos")}
           <h1 class="section-title">Negocios reales, resultados concretos</h1>
           <p class="section-desc">No vendemos promesas. Cada proyecto aquí tiene un negocio real detrás con un problema real que hemos resuelto.</p>
         </div>
+        <div class="content-grid content-grid--cards content-grid--offset">
+          <article class="portfolio-card category-visual-card">
+            <div class="category-visual-card__mockup">
+              <img src="${prefix}img/category-web-design.svg?v=2" alt="Ordenador con una web de Web Fuengirola clara y preparada para convertir" class="category-visual-card__image" width="960" height="620" loading="lazy" />
+            </div>
+            <div class="portfolio-card__body">
+              <span class="tag tag--blue inline-tag">Captación local</span>
+              <h2 class="portfolio-card__title">Web clara para vender mejor un servicio local</h2>
+              <p class="portfolio-card__desc">Aquí el caso sirve como referencia de estructura, mensaje y contacto directo. Lo visual debe parecer un ordenador con una web real bien planteada, no una miniatura de otro proyecto.</p>
+            </div>
+            <div class="portfolio-card__footer">
+              <a href="${prefix}servicios/diseno-web/" class="btn btn--outline">Ver diseño web →</a>
+            </div>
+          </article>
+          <article class="portfolio-card category-visual-card">
+            <div class="category-visual-card__mockup">
+              <img src="${prefix}img/category-custom-apps.svg?v=2" alt="Teléfono con una app operativa de Web Fuengirola para clientes, tareas y paneles" class="category-visual-card__image" width="960" height="620" loading="lazy" />
+            </div>
+            <div class="portfolio-card__body">
+              <span class="tag tag--purple inline-tag">Operativa interna</span>
+              <h2 class="portfolio-card__title">Interfaz operativa para clientes, tareas o paneles</h2>
+              <p class="portfolio-card__desc">Cuando el caso trata de operativa, el visual correcto es un teléfono con flujo de uso: tareas, estados, mensajes y acciones internas.</p>
+            </div>
+            <div class="portfolio-card__footer">
+              <a href="${prefix}servicios/aplicaciones-web/" class="btn btn--outline">Ver apps a medida →</a>
+            </div>
+          </article>
+          <article class="portfolio-card category-visual-card">
+            <div class="category-visual-card__mockup">
+              <img src="${prefix}img/category-local-seo.svg?v=2" alt="Google Maps y búsqueda local con posición útil y logo de Web Fuengirola" class="category-visual-card__image" width="960" height="620" loading="lazy" />
+            </div>
+            <div class="portfolio-card__body">
+              <span class="tag tag--green inline-tag">Visibilidad local</span>
+              <h2 class="portfolio-card__title">Aparecer en Google y Maps cuando ya te buscan</h2>
+              <p class="portfolio-card__desc">Para SEO local, la imagen tiene que enseñar búsqueda, mapa, ficha y posición útil. Tiene que aportar contexto, no repetir una captura de una web.</p>
+            </div>
+            <div class="portfolio-card__footer">
+              <a href="${prefix}servicios/seo-local/" class="btn btn--outline">Ver SEO local →</a>
+            </div>
+          </article>
+        </div>
+
+        <div style="margin-top:2rem;padding:1.5rem;border:1px solid var(--color-border);border-radius:var(--radius-md);background:var(--color-surface-warm);">
+          <p style="font-size:0.85rem;font-weight:600;margin:0 0 0.75rem">Cómo leer esta página para no perder tiempo</p>
+          <p style="margin:0;color:var(--color-text-muted);line-height:1.7">No hace falta que tu negocio se parezca exactamente a uno de estos proyectos. Lo útil es fijarse en el tipo de problema: captar mejor, explicar mejor, ordenar procesos o construir una herramienta propia. Si ves uno cercano, ese suele ser el mejor punto de partida para hablar.</p>
+        </div>
         <div class="portfolio__grid" style="margin-top: 3rem">
           ${caseCards}
         </div>
