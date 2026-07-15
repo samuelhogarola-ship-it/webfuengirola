@@ -1753,6 +1753,7 @@ body.is-menu-open {
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
+
 .portfolio-card {
   background: var(--color-bg);
   border: 1px solid var(--color-border);
@@ -6844,10 +6845,12 @@ body.is-transitioning {
 @keyframes hero-enter-down {
   from {
     opacity: 0;
-    transform: translateY(-60px);
+    filter: blur(14px);
+    transform: translateY(-42px) scale(0.985);
   }
   to {
     opacity: 1;
+    filter: blur(0);
     transform: none;
   }
 }
@@ -6855,31 +6858,56 @@ body.is-transitioning {
 @keyframes hero-enter-up {
   from {
     opacity: 0;
-    transform: translateY(60px);
+    filter: blur(14px);
+    transform: translateY(42px) scale(0.985);
   }
   to {
     opacity: 1;
+    filter: blur(0);
     transform: none;
   }
 }
 
 .hero__cin-content {
-  animation: hero-enter-down 1s cubic-bezier(0.16, 1, 0.3, 1) 200ms both;
+  animation: hero-enter-down 1.35s cubic-bezier(0.16, 1, 0.3, 1) 180ms both;
 }
 
 .hero__cin-badge {
-  animation: hero-enter-up 1s cubic-bezier(0.16, 1, 0.3, 1) 350ms both;
+  animation: hero-enter-up 1.25s cubic-bezier(0.16, 1, 0.3, 1) 420ms both;
 }
 
 .hero__cin-scroll {
-  animation: hero-enter-up 800ms cubic-bezier(0.16, 1, 0.3, 1) 500ms both;
+  animation: hero-enter-up 1s cubic-bezier(0.16, 1, 0.3, 1) 620ms both;
+}
+
+@keyframes page-main-enter {
+  from {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateY(34px) scale(0.988);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+
+[data-page-enter] {
+  animation: page-main-enter 1.45s cubic-bezier(0.16, 1, 0.3, 1)
+    var(--page-enter-delay, 120ms) both;
+  will-change: opacity, filter, transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero__cin-content,
   .hero__cin-badge,
-  .hero__cin-scroll {
+  .hero__cin-scroll,
+  [data-page-enter] {
     animation: none;
+    opacity: 1;
+    filter: none;
+    transform: none;
   }
 }
 
@@ -8128,5 +8156,83 @@ body.is-transitioning {
   .stack-card {
     transition: none;
     transform: none !important;
+  }
+}
+
+/* Final deck-stack layer: placed last so duplicated portfolio grid rules cannot override it. */
+.portfolio__grid.portfolio__grid--deck-stack {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(120px, 1fr));
+  gap: 0;
+  align-items: stretch;
+  perspective: 1400px;
+  padding: 28px 0 42px;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack > .portfolio-card {
+  grid-row: 1;
+  grid-column: calc(var(--deck-index) + 1) / span 2;
+  min-width: 0;
+  transform: translateY(var(--deck-y, 0)) rotate(var(--deck-rotate, 0deg));
+  transform-origin: 50% 100%;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.11);
+  z-index: calc(20 - var(--deck-index));
+}
+
+.portfolio__grid.portfolio__grid--deck-stack > .portfolio-card:nth-child(1) {
+  grid-column: 1 / span 2;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack > .portfolio-card:nth-child(2) {
+  grid-column: 2 / span 2;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack > .portfolio-card:nth-child(3) {
+  grid-column: 3 / span 2;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack > .portfolio-card:nth-child(4) {
+  grid-column: 4 / span 2;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack > .portfolio-card:nth-child(5) {
+  grid-column: 5 / span 2;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack
+  > .portfolio-card:nth-child(n + 6) {
+  grid-column: 5 / span 2;
+  transform: translateX(var(--deck-tail-x, 0))
+    translateY(var(--deck-tail-y, 28px)) rotate(var(--deck-tail-rotate, 0deg));
+}
+
+.portfolio__grid.portfolio__grid--deck-stack > .portfolio-card:hover {
+  transform: translateY(-12px) rotate(0deg) scale(1.02);
+  z-index: 40;
+}
+
+@media (max-width: 720px) {
+  .portfolio__grid.portfolio__grid--deck-stack {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 16px 24px 28px;
+    margin-inline: -24px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .portfolio__grid.portfolio__grid--deck-stack > .portfolio-card,
+  .portfolio__grid.portfolio__grid--deck-stack > .portfolio-card:nth-child(n) {
+    flex: 0 0 min(82vw, 340px);
+    transform: none;
+    scroll-snap-align: center;
+    box-shadow: var(--shadow-md);
+  }
+
+  .portfolio__grid.portfolio__grid--deck-stack > .portfolio-card:hover,
+  .portfolio__grid.portfolio__grid--deck-stack
+    > .portfolio-card:nth-child(n):hover {
+    transform: translateY(-4px);
   }
 }

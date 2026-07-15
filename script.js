@@ -1211,6 +1211,58 @@
     });
   }
 
+  /* ---- Page entrance + deck stack for dense screen grids ---- */
+  function initPageMotion() {
+    var entranceTargets = [
+      ".hero--cinematic .hero__cin-content",
+      ".hero--cinematic .hero__cin-badge",
+      ".subpage-hero > .container",
+      "main > .section:first-child .section-header",
+      "main > .section:first-child > .container",
+    ];
+
+    var seen = [];
+    entranceTargets.forEach(function (selector, index) {
+      document.querySelectorAll(selector).forEach(function (el) {
+        if (seen.indexOf(el) !== -1) return;
+        seen.push(el);
+        el.setAttribute("data-page-enter", "");
+        el.style.setProperty("--page-enter-delay", index * 90 + "ms");
+      });
+    });
+
+    document.querySelectorAll(".portfolio__grid").forEach(function (grid) {
+      var cards = Array.prototype.slice.call(
+        grid.querySelectorAll(":scope > .portfolio-card"),
+      );
+      if (cards.length < 4) return;
+
+      var imageCards = cards.filter(function (card) {
+        return card.querySelector(
+          ".portfolio-card__img, .portfolio-card__img-link",
+        );
+      });
+      if (imageCards.length < 3) return;
+
+      grid.classList.add("portfolio__grid--deck-stack");
+      cards.forEach(function (card, index) {
+        var tailIndex = Math.max(0, index - 4);
+        var centerOffset = index - (cards.length - 1) / 2;
+
+        card.style.setProperty("--deck-index", index);
+        card.style.setProperty("--deck-count", cards.length);
+        card.style.setProperty("--deck-y", index % 2 ? "18px" : "0px");
+        card.style.setProperty(
+          "--deck-rotate",
+          (centerOffset * -1.8).toFixed(2) + "deg",
+        );
+        card.style.setProperty("--deck-tail-x", tailIndex * 18 + "px");
+        card.style.setProperty("--deck-tail-y", 28 + tailIndex * 8 + "px");
+        card.style.setProperty("--deck-tail-rotate", tailIndex * 2 + "deg");
+      });
+    });
+  }
+
   /* ---- Portfolio hover popup ---- */
   function initPortfolioPopup() {
     var cards = Array.prototype.slice.call(
@@ -2247,6 +2299,7 @@
     initHeroParallax();
     initEditorialServices();
     initPageTransition();
+    initPageMotion();
     initReveal();
     initPortfolioPopup();
     initStackCards();
