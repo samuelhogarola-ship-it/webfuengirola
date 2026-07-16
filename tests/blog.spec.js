@@ -77,3 +77,50 @@ test("el post principal tiene SEO completo y enlaces internos clave", async ({
     /Web Fuengirola\. Todos los derechos reservados\./i,
   );
 });
+
+test("el blog existe en los idiomas disponibles y declara hreflang", async ({
+  page,
+}) => {
+  for (const lang of ["en", "de", "fi"]) {
+    await page.goto(`/${lang}/blog/`);
+    await expect(page.locator("html")).toHaveAttribute("lang", lang);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      "href",
+      `https://webfuengirola.com/${lang}/blog/`,
+    );
+    await expect(page.locator('link[hreflang="es"]')).toHaveAttribute(
+      "href",
+      "https://webfuengirola.com/blog/",
+    );
+    await expect(page.locator('link[hreflang="en"]')).toHaveAttribute(
+      "href",
+      "https://webfuengirola.com/en/blog/",
+    );
+    await expect(page.locator('link[hreflang="de"]')).toHaveAttribute(
+      "href",
+      "https://webfuengirola.com/de/blog/",
+    );
+    await expect(page.locator('link[hreflang="fi"]')).toHaveAttribute(
+      "href",
+      "https://webfuengirola.com/fi/blog/",
+    );
+    await expect(page.locator(".blog-card")).toHaveCount(21);
+  }
+
+  await page.goto("/en/blog/diseno-web-para-negocio-local-en-fuengirola/");
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    "href",
+    "https://webfuengirola.com/en/blog/diseno-web-para-negocio-local-en-fuengirola/",
+  );
+  await expect(
+    page.getByRole("heading", { name: /web design for local businesses/i }),
+  ).toBeVisible();
+  await expect
+    .poll(async () =>
+      page
+        .locator('script[type="application/ld+json"]')
+        .first()
+        .evaluate((node) => node.textContent),
+    )
+    .toContain("BlogPosting");
+});
