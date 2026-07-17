@@ -20,6 +20,18 @@ test("el blog carga y enlaza al artículo principal", async ({ page }) => {
   await expect(
     page.locator('a[href="./por-que-crear-una-web-en-2026/"]').first(),
   ).toBeVisible();
+  await expect(page.locator('a[href="../en/blog/"]')).toHaveAttribute(
+    "hreflang",
+    "en",
+  );
+  await expect(page.locator('a[href="../de/blog/"]')).toHaveAttribute(
+    "hreflang",
+    "de",
+  );
+  await expect(page.locator('a[href="../fi/blog/"]')).toHaveAttribute(
+    "hreflang",
+    "fi",
+  );
 });
 
 test("el post principal tiene SEO completo y enlaces internos clave", async ({
