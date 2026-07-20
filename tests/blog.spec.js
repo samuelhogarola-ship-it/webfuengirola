@@ -5,11 +5,11 @@ test("el blog carga y enlaza al artículo principal", async ({ page }) => {
   await expect(page).toHaveTitle(/blog de diseño web en fuengirola/i);
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
     "content",
-    "https://webfuengirola.com/img/blog-home-og.png",
+    "https://webfuengirola.com/img/blog-home-og.webp",
   );
   await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute(
     "content",
-    "https://webfuengirola.com/img/blog-home-og.png",
+    "https://webfuengirola.com/img/blog-home-og.webp",
   );
   await expect(
     page.getByRole("heading", {
@@ -57,7 +57,7 @@ test("el post principal tiene SEO completo y enlaces internos clave", async ({
   );
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
     "content",
-    "https://webfuengirola.com/img/blog-web-2026-og.png",
+    "https://webfuengirola.com/img/blog-web-2026-og.webp",
   );
   await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
     "content",
@@ -65,7 +65,7 @@ test("el post principal tiene SEO completo y enlaces internos clave", async ({
   );
   await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute(
     "content",
-    "https://webfuengirola.com/img/blog-web-2026-og.png",
+    "https://webfuengirola.com/img/blog-web-2026-og.webp",
   );
   await expect(page.locator('link[rel="manifest"]')).toHaveAttribute(
     "href",

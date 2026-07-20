@@ -95,7 +95,7 @@ const posts = [
     date: "2026-07-15",
     dateLabel: "15 julio 2026",
     minutes: "6 min",
-    image: "blog-local-web-fuengirola.png",
+    image: "blog-local-web-fuengirola.webp",
     tag: "SEO local",
     tagClass: "tag--blue",
     badge: "Diseño web local",
@@ -158,7 +158,7 @@ const posts = [
     date: "2026-07-16",
     dateLabel: "16 julio 2026",
     minutes: "6 min",
-    image: "blog-errores-web-local.png",
+    image: "blog-errores-web-local.webp",
     tag: "Checklist",
     tagClass: "tag--orange",
     badge: "Errores web",
@@ -217,7 +217,7 @@ const posts = [
     date: "2026-07-17",
     dateLabel: "17 julio 2026",
     minutes: "6 min",
-    image: "blog-google-business-web.png",
+    image: "blog-google-business-web.webp",
     tag: "Google Maps",
     tagClass: "tag--green",
     badge: "Google Business",
@@ -280,7 +280,7 @@ const posts = [
     date: "2026-07-18",
     dateLabel: "18 julio 2026",
     minutes: "5 min",
-    image: "blog-web-one-page.png",
+    image: "blog-web-one-page.webp",
     tag: "Web Lite",
     tagClass: "tag--blue",
     badge: "Web sencilla",
@@ -343,7 +343,7 @@ const posts = [
     date: "2026-07-19",
     dateLabel: "19 julio 2026",
     minutes: "6 min",
-    image: "blog-restaurante-fuengirola.png",
+    image: "blog-restaurante-fuengirola.webp",
     tag: "Hostelería",
     tagClass: "tag--orange",
     badge: "Restaurantes",
@@ -406,7 +406,7 @@ const posts = [
     date: "2026-07-20",
     dateLabel: "20 julio 2026",
     minutes: "6 min",
-    image: "blog-clinica-fisioterapia.png",
+    image: "blog-clinica-fisioterapia.webp",
     tag: "Clínicas",
     tagClass: "tag--green",
     badge: "Salud local",
@@ -469,7 +469,7 @@ const posts = [
     date: "2026-07-21",
     dateLabel: "21 julio 2026",
     minutes: "6 min",
-    image: "blog-servicios-domicilio.png",
+    image: "blog-servicios-domicilio.webp",
     tag: "SEO local",
     tagClass: "tag--blue",
     badge: "Servicios a domicilio",
@@ -532,7 +532,7 @@ const posts = [
     date: "2026-07-22",
     dateLabel: "22 julio 2026",
     minutes: "5 min",
-    image: "blog-whatsapp-web-clientes.png",
+    image: "blog-whatsapp-web-clientes.webp",
     tag: "Conversión",
     tagClass: "tag--green",
     badge: "WhatsApp",
@@ -595,7 +595,7 @@ const posts = [
     date: "2026-07-23",
     dateLabel: "23 julio 2026",
     minutes: "6 min",
-    image: "blog-velocidad-movil-seo.png",
+    image: "blog-velocidad-movil-seo.webp",
     tag: "Performance",
     tagClass: "tag--blue",
     badge: "Velocidad móvil",
@@ -654,7 +654,7 @@ const posts = [
     date: "2026-07-24",
     dateLabel: "24 julio 2026",
     minutes: "5 min",
-    image: "blog-resenas-google-web.png",
+    image: "blog-resenas-google-web.webp",
     tag: "Confianza",
     tagClass: "tag--orange",
     badge: "Reseñas",
@@ -717,7 +717,7 @@ const posts = [
     date: "2026-07-25",
     dateLabel: "25 julio 2026",
     minutes: "6 min",
-    image: "blog-ia-buscadores-locales.png",
+    image: "blog-ia-buscadores-locales.webp",
     tag: "IA",
     tagClass: "tag--blue",
     badge: "Búsqueda con IA",
@@ -729,7 +729,7 @@ const posts = [
     ],
     takeaways: [
       "La IA necesita información clara y verificable.",
-      "FAQ schema ayuda a estructurar dudas.",
+      "Las respuestas visibles ayudan a resolver dudas reales.",
       "La autoridad local seguirá importando.",
     ],
     faq: [
@@ -742,8 +742,8 @@ const posts = [
         "Preguntas frecuentes, servicios bien explicados, datos locales, casos y páginas con estructura limpia.",
       ],
       [
-        "¿FAQPage puede ayudar?",
-        "Sí, porque organiza preguntas y respuestas de forma fácil de interpretar por buscadores.",
+        "¿Las preguntas frecuentes pueden ayudar?",
+        "Sí, cuando responden dudas reales de forma visible y aportan contexto útil antes de contactar.",
       ],
     ],
     sections: [
@@ -757,7 +757,7 @@ const posts = [
       [
         "Datos estructurados y contenido útil",
         [
-          "Schema, FAQs, páginas de servicios y datos consistentes ayudan a que los sistemas entiendan mejor quién eres y qué ofreces.",
+          "Páginas de servicios, casos, respuestas útiles y datos consistentes ayudan a que los sistemas entiendan mejor quién eres y qué ofreces.",
           "No se trata de escribir para robots, sino de ordenar bien la información para humanos y máquinas.",
         ],
       ],
@@ -780,7 +780,7 @@ const posts = [
     date: "2026-07-26",
     dateLabel: "26 julio 2026",
     minutes: "6 min",
-    image: "blog-landing-ads.png",
+    image: "blog-landing-ads.webp",
     tag: "Publicidad",
     tagClass: "tag--green",
     badge: "Landing pages",
@@ -843,7 +843,7 @@ const posts = [
     date: "2026-07-27",
     dateLabel: "27 julio 2026",
     minutes: "5 min",
-    image: "blog-mantenimiento-web.png",
+    image: "blog-mantenimiento-web.webp",
     tag: "Mantenimiento",
     tagClass: "tag--orange",
     badge: "Mantenimiento",
@@ -906,7 +906,7 @@ const posts = [
     date: "2026-07-28",
     dateLabel: "28 julio 2026",
     minutes: "5 min",
-    image: "blog-dominio-hosting-correo.png",
+    image: "blog-dominio-hosting-correo.webp",
     tag: "Infraestructura",
     tagClass: "tag--blue",
     badge: "Dominio y hosting",
@@ -960,6 +960,22 @@ const posts = [
     ],
   },
 ];
+
+// The campaign is published as a real one-post-per-day sequence ending today.
+const campaignEnd = new Date("2026-07-18T12:00:00Z");
+const campaignStart = new Date(campaignEnd);
+campaignStart.setUTCDate(campaignEnd.getUTCDate() - posts.length + 1);
+for (const [index, post] of posts.entries()) {
+  const published = new Date(campaignStart);
+  published.setUTCDate(campaignStart.getUTCDate() + index);
+  post.date = published.toISOString().slice(0, 10);
+  post.dateLabel = new Intl.DateTimeFormat("es-ES", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(published);
+}
 
 function escapeHtml(value) {
   return String(value)
@@ -1031,7 +1047,13 @@ function article(post, relatedPosts) {
       image: `https://webfuengirola.com/img/${post.image}`,
       datePublished: post.date,
       dateModified: post.date,
-      author: { "@type": "Organization", name: "Web Fuengirola" },
+      author: {
+        "@type": "Person",
+        "@id": "https://webfuengirola.com/sobre-nosotros/#samuel",
+        name: "Samuel",
+        url: "https://webfuengirola.com/sobre-nosotros/",
+        worksFor: { "@id": "https://webfuengirola.com/#organization" },
+      },
       publisher: {
         "@type": "Organization",
         name: "Web Fuengirola",
@@ -1043,15 +1065,6 @@ function article(post, relatedPosts) {
       inLanguage: "es-ES",
       articleSection: post.section,
       keywords: post.keywords,
-    },
-    {
-      "@type": "FAQPage",
-      "@id": `https://webfuengirola.com/blog/${post.slug}/#faq`,
-      mainEntity: post.faq.map(([question, answer]) => ({
-        "@type": "Question",
-        name: question,
-        acceptedAnswer: { "@type": "Answer", text: answer },
-      })),
     },
   ];
 
@@ -1163,6 +1176,7 @@ function article(post, relatedPosts) {
         <div class="blog-meta">
           <span>Publicado el ${escapeHtml(post.dateLabel)}</span>
           <span>Lectura de ${escapeHtml(post.minutes)}</span>
+          <span>Por <a href="../../sobre-nosotros/">Samuel, Web Fuengirola</a></span>
         </div>
       </div>
     </section>
@@ -1308,7 +1322,7 @@ function buildIndex() {
       name: "Blog de Web Fuengirola",
       description:
         "Artículos sobre webs, Google, redes sociales, SEO local e IA para negocios locales.",
-      image: "https://webfuengirola.com/img/blog-home-og.png",
+      image: "https://webfuengirola.com/img/blog-home-og.webp",
       inLanguage: "es",
       publisher: {
         "@type": "Organization",
@@ -1348,9 +1362,9 @@ function buildIndex() {
   <meta property="og:title" content="Blog de diseño web en Fuengirola | Web Fuengirola" />
   <meta property="og:description" content="Artículos claros sobre webs, SEO local, Google, redes sociales e IA para negocios locales que quieren vender mejor online." />
   <meta property="og:url" content="https://webfuengirola.com/blog/" />
-  <meta property="og:image" content="https://webfuengirola.com/img/blog-home-og.png" />
-  <meta property="og:image:secure_url" content="https://webfuengirola.com/img/blog-home-og.png" />
-  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image" content="https://webfuengirola.com/img/blog-home-og.webp" />
+  <meta property="og:image:secure_url" content="https://webfuengirola.com/img/blog-home-og.webp" />
+  <meta property="og:image:type" content="image/webp" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Portada del blog de Web Fuengirola" />
@@ -1359,7 +1373,7 @@ function buildIndex() {
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Blog de diseño web en Fuengirola | Web Fuengirola" />
   <meta name="twitter:description" content="Artículos claros sobre webs, SEO local, Google, redes sociales e IA para negocios locales que quieren vender mejor online." />
-  <meta name="twitter:image" content="https://webfuengirola.com/img/blog-home-og.png" />
+  <meta name="twitter:image" content="https://webfuengirola.com/img/blog-home-og.webp" />
   <meta name="twitter:image:alt" content="Portada del blog de Web Fuengirola" />
   <link rel="stylesheet" href="../cookie-banner-core.css" />
   <link rel="stylesheet" href="../style.css?v=10" />
@@ -1401,6 +1415,12 @@ function buildIndex() {
           <span>/</span>
           <span>Blog</span>
         </nav>
+        <div class="lang-switcher" aria-label="Idioma del blog">
+          <a class="lang-switcher__btn is-active" href="./" hreflang="es">Español</a>
+          <a class="lang-switcher__btn" href="../en/blog/" hreflang="en">English</a>
+          <a class="lang-switcher__btn" href="../de/blog/" hreflang="de">Deutsch</a>
+          <a class="lang-switcher__btn" href="../fi/blog/" hreflang="fi">Suomi</a>
+        </div>
         <span class="badge">Blog para negocio local</span>
         <h1 class="subpage-hero__title">Ideas claras para que tu negocio venda mejor online</h1>
         <p class="subpage-hero__sub">Artículos breves, directos y pensados para negocios locales que quieren entender qué les conviene de verdad entre web, Google, redes sociales e IA.</p>
@@ -1417,7 +1437,7 @@ function buildIndex() {
         <div class="section-header">
           <span class="section-label">Plan editorial</span>
           <h2 class="section-title">14 artículos nuevos para atacar dudas de negocio local</h2>
-          <p class="section-sub">Una tanda pensada para publicar un artículo al día, reforzar búsquedas long tail y ganar rich results con FAQPage JSON-LD en cada post.</p>
+          <p class="section-sub">Una tanda publicada artículo a artículo para responder búsquedas concretas y conectar cada tema con una decisión real del negocio.</p>
         </div>
 
         <div class="blog-grid">
@@ -1500,32 +1520,6 @@ ${allCards}
 </html>`;
 }
 
-function updateSitemap() {
-  const sitemapPath = path.join(root, "sitemap.xml");
-  let sitemap = fs.readFileSync(sitemapPath, "utf8");
-  const entries = posts
-    .map(
-      (post) => `  <url>
-    <loc>https://webfuengirola.com/blog/${post.slug}/</loc>
-    <lastmod>2026-07-14</lastmod>
-  </url>`,
-    )
-    .join("\n");
-
-  for (const post of posts) {
-    sitemap = sitemap.replace(
-      new RegExp(
-        `\\s*<url>\\s*<loc>https://webfuengirola\\.com/blog/${post.slug}/</loc>[\\s\\S]*?</url>`,
-        "g",
-      ),
-      "",
-    );
-  }
-
-  sitemap = sitemap.replace("</urlset>", `${entries}\n</urlset>`);
-  fs.writeFileSync(sitemapPath, sitemap);
-}
-
 for (const [index, post] of posts.entries()) {
   const postDir = path.join(blogDir, post.slug);
   fs.mkdirSync(postDir, { recursive: true });
@@ -1538,8 +1532,5 @@ for (const [index, post] of posts.entries()) {
 }
 
 fs.writeFileSync(path.join(blogDir, "index.html"), buildIndex());
-updateSitemap();
 
-console.log(
-  `Generated ${posts.length} blog posts and updated blog index + sitemap.`,
-);
+console.log(`Generated ${posts.length} blog posts and updated the blog index.`);

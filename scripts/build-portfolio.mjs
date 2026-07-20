@@ -281,6 +281,13 @@ function getProductCategory(project) {
   return productCategoryMap.get(project.productCategorySlug);
 }
 
+function getPublishedCase(project) {
+  return (
+    caseByPortfolioSlug.get(project.slug) ??
+    caseByPortfolioSlug.get(legacyPortfolioFallbackMap.get(project.slug))
+  );
+}
+
 /**
  * Renders a single portfolio card with optional path overrides.
  * @param {object} project
@@ -359,9 +366,7 @@ function renderLegacyRedirectPage({
  * @returns {string}
  */
 function renderDetailPage(project) {
-  const mappedCase =
-    caseByPortfolioSlug.get(project.slug) ??
-    caseByPortfolioSlug.get(legacyPortfolioFallbackMap.get(project.slug));
+  const mappedCase = getPublishedCase(project);
   const targetSlug = mappedCase?.slug;
   const targetPath = targetSlug ? `/casos/${targetSlug}/` : "/casos/";
   const canonical = targetSlug
@@ -390,12 +395,16 @@ function renderProductCategoryPage(category) {
     (project) => project.productCategorySlug === category.slug,
   );
   const cards = categoryProjects
-    .map((project) =>
-      renderPortfolioCard(project, {
-        detailHref: `${prefix}casos/${project.slug}/`,
+    .map((project) => {
+      const publishedCase = getPublishedCase(project);
+      const detailHref = publishedCase
+        ? `${prefix}casos/${publishedCase.slug}/`
+        : `${prefix}casos/`;
+      return renderPortfolioCard(project, {
+        detailHref,
         imagePrefix: prefix,
-      }),
-    )
+      });
+    })
     .join("\n");
   const siblingLinks = productCategories
     .filter((item) => item.slug !== category.slug)

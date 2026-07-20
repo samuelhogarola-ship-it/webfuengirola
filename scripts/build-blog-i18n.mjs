@@ -32,6 +32,7 @@ const ui = {
     read: "Read article",
     minutes: "min",
     articleBadge: "Local business guide",
+    author: "By Samuel, Web Fuengirola",
     keyIdeas: "Key ideas",
     faqTitle: "Frequently asked questions",
     related: "Related articles",
@@ -73,6 +74,7 @@ const ui = {
     read: "Artikel lesen",
     minutes: "Min.",
     articleBadge: "Ratgeber für lokale Unternehmen",
+    author: "Von Samuel, Web Fuengirola",
     keyIdeas: "Wichtige Punkte",
     faqTitle: "Häufige Fragen",
     related: "Ähnliche Artikel",
@@ -114,6 +116,7 @@ const ui = {
     read: "Lue artikkeli",
     minutes: "min",
     articleBadge: "Opas paikalliselle yritykselle",
+    author: "Samuel, Web Fuengirola",
     keyIdeas: "Tärkeimmät ajatukset",
     faqTitle: "Usein kysytyt kysymykset",
     related: "Aiheeseen liittyvät artikkelit",
@@ -478,7 +481,7 @@ function extractSpanishPosts() {
     const image =
       html.match(
         /<meta property="og:image" content="https:\/\/webfuengirola\.com\/img\/([^"]+)"/,
-      )?.[1] || "blog-home-og.png";
+      )?.[1] || "blog-home-og.webp";
     const tag =
       html.match(/<span class="badge">([^<]+)<\/span>/)?.[1] || "Blog";
     posts.push({
@@ -506,6 +509,36 @@ function localizedPost(post, lang) {
     excerpt: description,
     minutes: post.minutes.replace("min", ui[lang].minutes),
   };
+}
+
+function relatedPostsFor(post, posts) {
+  const words = (value) =>
+    new Set(
+      value
+        .toLocaleLowerCase("es")
+        .normalize("NFD")
+        .replace(/\p{Diacritic}/gu, "")
+        .split(/[^a-z0-9]+/)
+        .filter((word) => word.length > 4),
+    );
+  const sourceWords = words(`${post.title} ${post.description}`);
+  return posts
+    .filter((candidate) => candidate.slug !== post.slug)
+    .map((candidate) => {
+      const overlap = [
+        ...words(`${candidate.title} ${candidate.description}`),
+      ].filter((word) => sourceWords.has(word)).length;
+      return {
+        candidate,
+        score: overlap + (candidate.tag === post.tag ? 4 : 0),
+      };
+    })
+    .sort(
+      (a, b) =>
+        b.score - a.score || b.candidate.date.localeCompare(a.candidate.date),
+    )
+    .slice(0, 3)
+    .map(({ candidate }) => candidate);
 }
 
 function hrefLangLinks(slug = "") {
@@ -615,6 +648,7 @@ ${hrefLangLinks(slug)}
   <meta property="og:url" content="${canonical}" />
   <meta property="og:image" content="${site}/img/${image}" />
   <meta property="og:image:secure_url" content="${site}/img/${image}" />
+  <meta property="og:image:type" content="image/webp" />
   <meta property="og:image:alt" content="${escapeHtml(title)}" />
   <meta property="og:site_name" content="Web Fuengirola" />
   <meta property="og:locale" content="${localeMeta[lang].og}" />
@@ -648,7 +682,7 @@ function blogIndex(lang, posts) {
 
   return `<!DOCTYPE html>
 <html lang="${lang}">
-${head({ lang, title: copy.blogTitle, description: copy.blogDescription, canonical, image: "blog-home-og.png", type: "blog" })}
+${head({ lang, title: copy.blogTitle, description: copy.blogDescription, canonical, image: "blog-home-og.webp", type: "blog" })}
 <body class="project-page blog-page">
   ${nav(lang, 2)}
   <main>
@@ -715,34 +749,18 @@ function articlePage(lang, post, relatedPosts) {
         datePublished: p.date,
         dateModified: p.date,
         inLanguage: lang,
-        author: { "@type": "Organization", name: "Web Fuengirola" },
+        author: {
+          "@type": "Person",
+          "@id": `${site}/sobre-nosotros/#samuel`,
+          name: "Samuel",
+          url: `${site}/sobre-nosotros/`,
+          worksFor: { "@id": `${site}/#organization` },
+        },
         publisher: {
           "@type": "Organization",
           name: "Web Fuengirola",
           logo: { "@type": "ImageObject", url: `${site}/img/logo-wf.webp` },
         },
-      },
-      {
-        "@type": "FAQPage",
-        "@id": `${canonical}#faq`,
-        inLanguage: lang,
-        mainEntity: [
-          {
-            "@type": "Question",
-            name: copy.q1,
-            acceptedAnswer: { "@type": "Answer", text: copy.a1 },
-          },
-          {
-            "@type": "Question",
-            name: copy.q2,
-            acceptedAnswer: { "@type": "Answer", text: copy.a2 },
-          },
-          {
-            "@type": "Question",
-            name: copy.q3,
-            acceptedAnswer: { "@type": "Answer", text: copy.a3 },
-          },
-        ],
       },
     ],
   };
@@ -769,7 +787,7 @@ ${head({ lang, title: p.title, description: p.description, canonical, image: p.i
           <span class="badge">${copy.articleBadge}</span>
           <h1 class="subpage-hero__title">${escapeHtml(p.title)}</h1>
           <p class="subpage-hero__sub">${escapeHtml(p.description)}</p>
-          <div class="blog-card__meta"><span>${escapeHtml(p.dateLabel)}</span><span>${escapeHtml(p.minutes)}</span></div>
+          <div class="blog-card__meta"><span>${escapeHtml(p.dateLabel)}</span><span>${escapeHtml(p.minutes)}</span><span><a href="../../../sobre-nosotros/">${escapeHtml(copy.author)}</a></span></div>
         </div>
       </section>
       <section class="service-detail">
@@ -833,7 +851,7 @@ function writeLocalizedPages(posts) {
     for (const post of posts) {
       const dir = path.join(base, post.slug);
       fs.mkdirSync(dir, { recursive: true });
-      const related = posts.filter((item) => item.slug !== post.slug);
+      const related = relatedPostsFor(post, posts);
       fs.writeFileSync(
         path.join(dir, "index.html"),
         articlePage(lang, post, related),
@@ -866,33 +884,7 @@ function addSpanishHreflang(posts) {
   }
 }
 
-function updateSitemap(posts) {
-  const sitemapFile = path.join(root, "sitemap.xml");
-  let xml = fs.readFileSync(sitemapFile, "utf8");
-  const additions = [];
-  for (const lang of langs) {
-    additions.push(`${site}/${lang}/blog/`);
-    for (const post of posts)
-      additions.push(`${site}/${lang}/blog/${post.slug}/`);
-  }
-  const existing = new Set(
-    [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]),
-  );
-  const blocks = additions
-    .filter((loc) => !existing.has(loc))
-    .map(
-      (loc) =>
-        `  <url>\n    <loc>${loc}</loc>\n    <lastmod>2026-07-16</lastmod>\n  </url>`,
-    )
-    .join("\n");
-  if (blocks) {
-    xml = xml.replace("</urlset>", `${blocks}\n</urlset>`);
-    fs.writeFileSync(sitemapFile, xml);
-  }
-}
-
 const posts = extractSpanishPosts();
 writeLocalizedPages(posts);
 addSpanishHreflang(posts);
-updateSitemap(posts);
 console.log(`Generated ${posts.length} blog posts in ${langs.join(", ")}.`);
