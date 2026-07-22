@@ -11,3 +11,5 @@ tsconfig.tsbuildinfo
 MARKETING/
 saulofitness/
 testing/
+output/
+tmp/

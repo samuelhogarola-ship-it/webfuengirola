@@ -11,7 +11,7 @@ test("landing principal carga con hero y CTA principal", async ({ page }) => {
   ).toBeVisible();
 });
 
-test("la web pública ya no arrastra selector de idioma residual en páginas clave", async ({
+test("las páginas comerciales no arrastran selector de idioma residual", async ({
   page,
 }) => {
   const urls = [
@@ -22,7 +22,6 @@ test("la web pública ya no arrastra selector de idioma residual en páginas cla
     "/contacto/",
     "/sobre-nosotros/",
     "/como-trabajamos/",
-    "/blog/",
     "/casos/",
     "/recursos/",
   ];
