@@ -2891,6 +2891,56 @@ body.is-menu-open {
   border-color: #fff;
 }
 
+/* ─── Contact form mini (home CTA) ──── */
+.contact-form-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+.contact-form-mini__input,
+.contact-form-mini__select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 0.88rem;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+.contact-form-mini__input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+.contact-form-mini__input:focus,
+.contact-form-mini__select:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+}
+.contact-form-mini__select option {
+  background: #1a1d23;
+  color: #fff;
+}
+.contact-form-mini__alt {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin-top: 6px;
+}
+.contact-form-mini__alt a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.contact-form-mini__textarea {
+  resize: vertical;
+  min-height: 52px;
+}
+.contact-form-mini__alt a:hover {
+  color: #fff;
+}
+
 /* ============================================================
    FOOTER
 ============================================================ */
@@ -7976,11 +8026,22 @@ body.is-transitioning {
 
 @media (max-width: 720px) {
   .hero--cinematic {
-    padding-bottom: 60px;
+    min-height: auto;
+    padding-top: 100px;
+    padding-bottom: 48px;
+  }
+
+  .hero__cin-label {
+    margin-bottom: 16px;
   }
 
   .hero__cin-title {
-    font-size: clamp(2.8rem, 12vw, 4rem);
+    font-size: clamp(2rem, 9vw, 3rem);
+    margin-bottom: 16px;
+  }
+
+  .hero__cin-sub {
+    margin-bottom: 24px;
   }
 
   .hero__cin-proof {
