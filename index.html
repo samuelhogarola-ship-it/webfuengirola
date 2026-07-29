@@ -110,9 +110,7 @@
         },
         "priceRange": "€€",
         "sameAs": [
-          "https://www.instagram.com/webfuengirola/",
-          "https://www.linkedin.com/company/webfuengirola/",
-          "https://www.facebook.com/webfuengirola/"
+          "https://www.instagram.com/webfuengirola/"
         ],
         "aggregateRating": {
           "@type": "AggregateRating",
@@ -790,18 +788,20 @@
                   <span class="tag tag--green inline-tag">Contacto rápido</span>
                   <h3 class="portfolio-card__title">Cuéntanos tu caso y te respondemos en 48h</h3>
                   <form class="contact-form-mini" id="contact-form-home" data-contact-form data-contact-source="home-cta">
-                    <input type="text" name="nombre" placeholder="Tu nombre" required class="contact-form-mini__input" autocomplete="name" />
+                    <input type="text" name="name" placeholder="Tu nombre" required class="contact-form-mini__input" autocomplete="name" />
                     <input type="email" name="email" placeholder="Tu email" required class="contact-form-mini__input" autocomplete="email" />
-                    <select name="interes" class="contact-form-mini__input contact-form-mini__select">
+                    <select name="interest" class="contact-form-mini__input contact-form-mini__select">
                       <option value="" disabled selected>¿Qué necesitas?</option>
-                      <option value="diseno-web">Diseño web</option>
-                      <option value="seo-local">SEO local</option>
-                      <option value="mantenimiento">Mantenimiento</option>
-                      <option value="otro">Otro</option>
+                      <option value="Diseño web">Diseño web</option>
+                      <option value="SEO local">SEO local</option>
+                      <option value="Mantenimiento">Mantenimiento</option>
+                      <option value="Otro">Otro</option>
                     </select>
-                    <textarea name="mensaje" placeholder="Cuéntanos brevemente tu caso (opcional)" rows="2" class="contact-form-mini__input contact-form-mini__textarea"></textarea>
+                    <textarea name="message" placeholder="Cuéntanos brevemente tu caso (opcional)" rows="2" class="contact-form-mini__input contact-form-mini__textarea"></textarea>
+                    <input type="text" name="website" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px" />
+                    <div data-turnstile class="contact-form-mini__turnstile"></div>
                     <div class="contact-form__status" data-contact-status></div>
-                    <button type="submit" class="btn btn--primary btn--sm">Enviar consulta →</button>
+                    <button type="submit" data-contact-submit class="btn btn--primary btn--sm">Enviar consulta →</button>
                   </form>
                   <p class="contact-form-mini__alt">O escribe directamente por <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20contaros%20mi%20caso" target="_blank" rel="noopener noreferrer">WhatsApp</a></p>
                 </div>
@@ -991,6 +991,42 @@
       </div>
     </section>
 
+    <!-- ============================================================
+         WEB SOLIDARIA
+    ============================================================ -->
+    <section class="solidaria" id="web-solidaria">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Impacto social</span>
+          <h2 class="section-title">Web Solidaria</h2>
+          <p class="section-sub">Creamos webs profesionales y optimizadas para el posicionamiento en Google, de forma altruista, para ONGs, asociaciones benéficas y activistas que trabajan por un mundo mejor.</p>
+        </div>
+
+        <div class="solidaria__grid">
+          <div class="solidaria__card">
+            <span class="solidaria__icon" aria-hidden="true">🌍</span>
+            <h3 class="solidaria__card-title">Web profesional gratis</h3>
+            <p class="solidaria__card-text">Diseñamos y desarrollamos tu página web sin coste. Solo pagas el hosting y dominio anual (desde ~50 €/año).</p>
+          </div>
+          <div class="solidaria__card">
+            <span class="solidaria__icon" aria-hidden="true">🔍</span>
+            <h3 class="solidaria__card-title">SEO incluido</h3>
+            <p class="solidaria__card-text">Tu web sale optimizada para aparecer en Google desde el primer día. Estructura, velocidad y contenido preparados para posicionar.</p>
+          </div>
+          <div class="solidaria__card">
+            <span class="solidaria__icon" aria-hidden="true">📍</span>
+            <h3 class="solidaria__card-title">Google Business Profile</h3>
+            <p class="solidaria__card-text">Te ayudamos a crear o mejorar tu ficha en Google para que la gente te encuentre en el mapa y pueda contactarte directamente.</p>
+          </div>
+        </div>
+
+        <div class="solidaria__cta">
+          <p class="solidaria__cta-text">¿Eres una ONG, asociación o activista con un proyecto que merece más visibilidad?</p>
+          <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20el%20programa%20Web%20Solidaria" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">Cuéntanos tu proyecto →</a>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- ============================================================
@@ -1023,6 +1059,7 @@
           <li><a href="sobre-nosotros/">Sobre nosotros</a></li>
           <li><a href="como-trabajamos/">Cómo trabajamos</a></li>
           <li><a href="casos/">Casos de éxito</a></li>
+          <li><a href="#web-solidaria">Web Solidaria</a></li>
           <li><a href="recursos/">Calculadora de precios</a></li>
           <li><a href="blog/">Blog en español</a></li>
           <li><a href="en/blog/" hreflang="en">Blog in English</a></li>

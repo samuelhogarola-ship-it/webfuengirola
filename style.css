@@ -2942,6 +2942,73 @@ body.is-menu-open {
 }
 
 /* ============================================================
+   WEB SOLIDARIA
+============================================================ */
+.solidaria {
+  padding: 6rem 0;
+  background: var(--color-surface-warm, #faf9f7);
+}
+
+.solidaria__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.solidaria__card {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease;
+}
+
+.solidaria__card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.solidaria__icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.solidaria__card-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-text, #0a0a0a);
+}
+
+.solidaria__card-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-text-muted, #555);
+}
+
+.solidaria__cta {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.solidaria__cta-text {
+  font-size: 1.1rem;
+  color: var(--color-text-muted, #555);
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 720px) {
+  .solidaria {
+    padding: 4rem 0;
+  }
+  .solidaria__grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+/* ============================================================
    FOOTER
 ============================================================ */
 .footer {
