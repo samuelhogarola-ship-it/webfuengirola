@@ -2915,9 +2915,13 @@ body.is-menu-open {
 }
 .contact-form-mini__input:focus,
 .contact-form-mini__select:focus {
-  outline: none;
   border-color: rgba(255, 255, 255, 0.5);
   background: rgba(255, 255, 255, 0.1);
+}
+.contact-form-mini__input:focus-visible,
+.contact-form-mini__select:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 .contact-form-mini__select option {
   background: #1a1d23;

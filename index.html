@@ -112,27 +112,6 @@
         "sameAs": [
           "https://www.instagram.com/webfuengirola/"
         ],
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "5.0",
-          "reviewCount": "12",
-          "bestRating": "5",
-          "worstRating": "1"
-        },
-        "review": [
-          {
-            "@type": "Review",
-            "author": { "@type": "Person", "name": "Sport Massage Fuengirola" },
-            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-            "reviewBody": "Web publicada en 5 días. Reservas directas desde el primer mes sin depender de plataformas externas."
-          },
-          {
-            "@type": "Review",
-            "author": { "@type": "Person", "name": "Personal Trainer Fuengirola" },
-            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-            "reviewBody": "Contactos desde el primer día. Estructura clara que transmite profesionalidad y facilita el contacto directo."
-          }
-        ],
         "contactPoint": {
           "@type": "ContactPoint",
           "contactType": "sales",
@@ -787,20 +766,20 @@
                 <div class="portfolio-card__body">
                   <span class="tag tag--green inline-tag">Contacto rápido</span>
                   <h3 class="portfolio-card__title">Cuéntanos tu caso y te respondemos en 48h</h3>
-                  <form class="contact-form-mini" id="contact-form-home" data-contact-form data-contact-source="home-cta">
-                    <input type="text" name="name" placeholder="Tu nombre" required class="contact-form-mini__input" autocomplete="name" />
-                    <input type="email" name="email" placeholder="Tu email" required class="contact-form-mini__input" autocomplete="email" />
-                    <select name="interest" class="contact-form-mini__input contact-form-mini__select">
+                  <form class="contact-form-mini" id="contact-form-home" action="https://admin.webfuengirola.com/api/contact" method="post" data-contact-form data-contact-source="home-cta">
+                    <input type="text" name="name" placeholder="Tu nombre" aria-label="Tu nombre" required class="contact-form-mini__input" autocomplete="name" />
+                    <input type="email" name="email" placeholder="Tu email" aria-label="Tu email" required class="contact-form-mini__input" autocomplete="email" />
+                    <select name="interest" aria-label="Qué necesitas" required class="contact-form-mini__input contact-form-mini__select">
                       <option value="" disabled selected>¿Qué necesitas?</option>
                       <option value="Diseño web">Diseño web</option>
                       <option value="SEO local">SEO local</option>
                       <option value="Mantenimiento">Mantenimiento</option>
                       <option value="Otro">Otro</option>
                     </select>
-                    <textarea name="message" placeholder="Cuéntanos brevemente tu caso (opcional)" rows="2" class="contact-form-mini__input contact-form-mini__textarea"></textarea>
+                    <textarea name="message" placeholder="Cuéntanos brevemente tu caso (opcional)" aria-label="Cuéntanos brevemente tu caso" rows="2" class="contact-form-mini__input contact-form-mini__textarea"></textarea>
                     <input type="text" name="website" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px" />
                     <div data-turnstile class="contact-form-mini__turnstile"></div>
-                    <div class="contact-form__status" data-contact-status></div>
+                    <div class="contact-form__status" data-contact-status role="status"></div>
                     <button type="submit" data-contact-submit class="btn btn--primary btn--sm">Enviar consulta →</button>
                   </form>
                   <p class="contact-form-mini__alt">O escribe directamente por <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20contaros%20mi%20caso" target="_blank" rel="noopener noreferrer">WhatsApp</a></p>
