@@ -14,8 +14,12 @@
     node.className = "contact-form__status" + (type ? " is-" + type : "");
   }
 
-  function loadTurnstile(siteKey, target, onReady) {
+  function loadTurnstile(siteKey, target, onReady, onError) {
     var widgetId = null;
+
+    function handleScriptError() {
+      if (typeof onError === "function") onError();
+    }
 
     function renderWidget() {
       if (!window.turnstile || !siteKey || !target) return;
@@ -41,11 +45,28 @@
       script.defer = true;
       script.dataset.turnstileScript = "true";
       script.onload = renderWidget;
+      script.onerror = function () {
+        script.dataset.turnstileFailed = "true";
+        handleScriptError();
+      };
       document.head.appendChild(script);
       return;
     }
 
+    if (script.dataset.turnstileFailed === "true") {
+      handleScriptError();
+      return;
+    }
+
     script.addEventListener("load", renderWidget, { once: true });
+    script.addEventListener(
+      "error",
+      function () {
+        script.dataset.turnstileFailed = "true";
+        handleScriptError();
+      },
+      { once: true },
+    );
   }
 
   function initContactForm(form) {
@@ -55,6 +76,15 @@
     var turnstileSlot = form.querySelector("[data-turnstile]");
     var honeypot = form.querySelector('input[name="website"]');
     var turnstileWidgetId = null;
+
+    function showUnavailable() {
+      setStatus(
+        statusNode,
+        "El formulario está temporalmente no disponible. Puedes escribirnos por WhatsApp o email.",
+        "error",
+      );
+      if (submitBtn) submitBtn.disabled = true;
+    }
 
     fetch(apiBase + "/api/contact/config", {
       headers: { Accept: "application/json" },
@@ -73,16 +103,10 @@
           function (widgetId) {
             turnstileWidgetId = widgetId;
           },
+          showUnavailable,
         );
       })
-      .catch(function () {
-        setStatus(
-          statusNode,
-          "El formulario está temporalmente no disponible. Puedes escribirnos por WhatsApp o email.",
-          "error",
-        );
-        if (submitBtn) submitBtn.disabled = true;
-      });
+      .catch(showUnavailable);
 
     form.addEventListener("submit", function (event) {
       event.preventDefault();

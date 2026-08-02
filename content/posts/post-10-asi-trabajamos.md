@@ -14,7 +14,7 @@ Así trabajamos en Web Fuengirola:
 
 1. Nos cuentas tu caso por WhatsApp o formulario.
 2. En 48h te decimos si encaja y cuánto costaría.
-3. Si adelante: definimos juntos qué necesita la web.
+3. Si seguimos adelante: definimos juntos qué necesita la web.
 4. Diseñamos, montamos y publicamos.
 5. Tú recibes la web funcionando y los clientes empiezan a llegar.
 
