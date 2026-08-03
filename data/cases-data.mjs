@@ -42,6 +42,76 @@ export const cases = [
       "Hola, me interesa una web similar a Personal Trainer Fuengirola",
   },
   {
+    slug: "gimnasio-nuevo-estilo",
+    portfolioSlug: "gimnasio-nuevo-estilo",
+    title: "Gimnasio Nuevo Estilo",
+    client: "Gimnasio Nuevo Estilo",
+    sector: "Fitness y deporte",
+    service: "diseno-web",
+    serviceLabel: "Diseño Web + SEO local",
+    headline: "Web local para captar alumnos en Fuengirola y Arroyo de la Miel",
+    summary:
+      "Gimnasio con presencia en Fuengirola y Arroyo de la Miel que necesitaba una web clara para presentar servicios, ubicaciones y facilitar el contacto desde móvil.",
+    result:
+      "Web publicada con estructura local para dos zonas y contacto directo por WhatsApp.",
+    bodyHtml: `
+      <section class="section">
+        <div class="container" style="max-width: 880px">
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start">
+            <div>
+              <span class="section-label">El reto</span>
+              <h2 class="section-title" style="margin-top: 1rem; font-size: clamp(1.25rem, 2.5vw, 1.75rem)">Presentar dos zonas sin complicar la web</h2>
+              <p style="color: var(--color-text-muted); line-height: 1.75; margin-top: 1rem">El gimnasio necesitaba una presencia online directa, fácil de entender desde móvil y preparada para captar búsquedas locales tanto en Fuengirola como en Arroyo de la Miel.</p>
+            </div>
+            <div>
+              <span class="section-label">La solución</span>
+              <h2 class="section-title" style="margin-top: 1rem; font-size: clamp(1.25rem, 2.5vw, 1.75rem)">Una web sencilla, rápida y orientada a contacto</h2>
+              <p style="color: var(--color-text-muted); line-height: 1.75; margin-top: 1rem">Construimos una web con mensaje claro, rutas diferenciadas por ubicación y llamadas a contacto directo para que la visita entienda rápido qué ofrece el gimnasio y cómo preguntar.</p>
+            </div>
+          </div>
+
+          <div style="margin-top: 3.5rem">
+            <span class="section-label">Qué incluye el trabajo</span>
+            <ul style="margin-top: 1.5rem; display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; list-style:none; padding:0">
+              <li style="display:flex; gap: 0.75rem; align-items: flex-start">
+                <span style="flex-shrink:0; width:20px; height:20px; border-radius:50%; background:var(--color-primary,#111); display:flex; align-items:center; justify-content:center; margin-top:2px">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span style="color:var(--color-text-muted); line-height:1.6">Estructura de páginas para Fuengirola y Arroyo de la Miel</span>
+              </li>
+              <li style="display:flex; gap: 0.75rem; align-items: flex-start">
+                <span style="flex-shrink:0; width:20px; height:20px; border-radius:50%; background:var(--color-primary,#111); display:flex; align-items:center; justify-content:center; margin-top:2px">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span style="color:var(--color-text-muted); line-height:1.6">Diseño responsive pensado para consulta rápida desde móvil</span>
+              </li>
+              <li style="display:flex; gap: 0.75rem; align-items: flex-start">
+                <span style="flex-shrink:0; width:20px; height:20px; border-radius:50%; background:var(--color-primary,#111); display:flex; align-items:center; justify-content:center; margin-top:2px">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span style="color:var(--color-text-muted); line-height:1.6">Mensajes claros para clases, gimnasio y contacto</span>
+              </li>
+              <li style="display:flex; gap: 0.75rem; align-items: flex-start">
+                <span style="flex-shrink:0; width:20px; height:20px; border-radius:50%; background:var(--color-primary,#111); display:flex; align-items:center; justify-content:center; margin-top:2px">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span style="color:var(--color-text-muted); line-height:1.6">Base técnica para posicionamiento local y futuras campañas</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    `,
+    image: "img/gimnasio-nuevo-estilo.webp",
+    ogImage: "https://webfuengirola.com/img/gimnasio-nuevo-estilo.webp",
+    ogAlt:
+      "Gimnasio Nuevo Estilo — caso de éxito de diseño web local de Web Fuengirola",
+    metaTitle: "Caso: Gimnasio Nuevo Estilo | Web Fuengirola",
+    metaDescription:
+      "Web local para Gimnasio Nuevo Estilo con estructura para Fuengirola y Arroyo de la Miel, contacto directo y base de SEO local.",
+    whatsappText: "Hola, me interesa una web similar a Gimnasio Nuevo Estilo",
+  },
+  {
     slug: "agama",
     portfolioSlug: "agama",
     title: "Agama",

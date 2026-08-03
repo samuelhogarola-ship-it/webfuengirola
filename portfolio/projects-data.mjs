@@ -331,6 +331,45 @@ export const portfolioProjects = [
     ],
   },
   {
+    slug: "gimnasio-nuevo-estilo",
+    title: "Gimnasio Nuevo Estilo",
+    client: "Gimnasio Nuevo Estilo",
+    brand: "Gimnasio Nuevo Estilo",
+    category: "Web local para gimnasio",
+    description:
+      "Web local para presentar el gimnasio, diferenciar Fuengirola y Arroyo de la Miel, y facilitar contacto directo desde móvil.",
+    longDescription:
+      "Gimnasio Nuevo Estilo necesitaba una web rápida y clara para ordenar su presencia online: servicios, ubicaciones y contacto directo. La estructura se planteó con foco local para cubrir Fuengirola y Arroyo de la Miel sin complicar la navegación.",
+    image: "img/gimnasio-nuevo-estilo.webp",
+    ogImage: "https://webfuengirola.com/img/gimnasio-nuevo-estilo.webp",
+    imageWidth: 1122,
+    imageHeight: 1402,
+    imageAlt:
+      "Captura de la web local de Gimnasio Nuevo Estilo para Fuengirola y Arroyo de la Miel",
+    ogAlt: "Vista previa del proyecto Gimnasio Nuevo Estilo",
+    url: "https://gimnasionuevoestilo.com",
+    urlLabel: "Ver web en vivo",
+    tech: ["HTML", "CSS", "JavaScript", "SEO local"],
+    services: [
+      "Diseño web local",
+      "Estructura por ubicación",
+      "Contacto directo",
+      "Optimización responsive",
+    ],
+    result:
+      "Una web local clara para enseñar el gimnasio, separar las zonas de trabajo y convertir visitas móviles en consultas directas.",
+    seoTitle: "Gimnasio Nuevo Estilo | Caso real de web local",
+    seoDescription:
+      "Proyecto real para Gimnasio Nuevo Estilo: web local para gimnasio con estructura para Fuengirola y Arroyo de la Miel.",
+    heroLabel: "Caso real · Fitness local",
+    productCategorySlug: "express-300-blog-wordpress",
+    cardTags: [
+      { label: "Diseño web", className: "tag--purple" },
+      { label: "Fitness", className: "tag--green" },
+      { label: "SEO local", className: "tag--orange" },
+    ],
+  },
+  {
     slug: "agama",
     title: "Agama",
     client: "Agama Pigmentos & Masterbatch",
