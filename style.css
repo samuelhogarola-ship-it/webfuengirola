@@ -7836,6 +7836,56 @@ body.is-transitioning {
     font-size: 0.82rem;
     line-height: 1.45;
   }
+
+  .estimator__intro {
+    margin-bottom: 16px;
+  }
+
+  .estimator__bar {
+    gap: 8px;
+    padding: 12px 14px;
+    margin: 0 10px 10px;
+    border-radius: 18px;
+  }
+
+  .estimator__bar-value {
+    font-size: 1.25rem;
+    margin-top: 4px;
+  }
+
+  .estimator__bar-hint {
+    font-size: 0.82rem;
+    margin-top: 2px;
+  }
+
+  .estimator__ghost,
+  .estimator__primary {
+    padding: 10px 18px;
+    font-size: 0.88rem;
+  }
+
+  .estimator-toggle__box {
+    min-height: 0;
+    padding: 16px 16px 16px 56px;
+  }
+
+  .estimator-toggle__box::before {
+    left: 16px;
+    top: 20px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .estimator-toggle__box::after {
+    left: 22px;
+    top: 26px;
+    width: 12px;
+    height: 12px;
+  }
+
+  .estimator-summary__totals {
+    padding: 16px;
+  }
 }
 
 /* ─── Hero cinematic (full-bleed, dark, animated) ────────────────── */
