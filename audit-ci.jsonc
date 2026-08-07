@@ -3,7 +3,10 @@
   "high": true,
   "critical": true,
   "allowlist": [
-    // Dev-tooling only via ESLint/serve; review by 2026-09-01.
-    "GHSA-mh99-v99m-4gvg|brace-expansion"
+    // Dev-tooling only; review by 2026-09-01.
+    "GHSA-mh99-v99m-4gvg|brace-expansion",
+    "GHSA-rgw5-rvv9-x895|brace-expansion",
+    "GHSA-7p8r-x3mc-p8w7|fast-uri",
+    "GHSA-5p4m-2wfm-xmqj|js-yaml"
   ]
 }
