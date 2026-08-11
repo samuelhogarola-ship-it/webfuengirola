@@ -8,7 +8,7 @@
     "build:casos": "node scripts/build-casos.mjs",
     "build:blog": "node scripts/build-blog-campaign.mjs && node scripts/build-blog-i18n.mjs",
     "build:sitemap": "node scripts/build-sitemap.mjs",
-    "build:all": "npm run build:blog && npm run build:sitemap",
+    "build:all": "npm run build:services && npm run build:casos && npm run build:portfolio && npm run build:blog && npm run build:sitemap",
     "content:social": "node scripts/prepare-social-campaign.mjs",
     "test": "playwright test",
     "test:headed": "playwright test --headed",

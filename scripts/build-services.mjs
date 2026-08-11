@@ -94,7 +94,6 @@ function renderHeader(prefix, activePage) {
             .join("\n          ")}
         </ul>
       </nav>
-      <div class="lang-switcher" style="display:none"></div>
       <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--primary header__cta" target="_blank" rel="noopener noreferrer">Pedir presupuesto</a>
       <button type="button" class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
         <span></span><span></span><span></span>
@@ -258,6 +257,8 @@ ${renderHeader(prefix, "services")}
           <span class="section-label">Servicios</span>
           <h1 class="section-title">Servicios web en Fuengirola para negocios que quieren vender mejor online</h1>
           <p class="section-desc">Diseño web, SEO local, mantenimiento, automatización útil y herramientas a medida para negocios de Fuengirola y la Costa del Sol.</p>
+          <p class="section-desc">Qué ruta suele encajar según el problema que tienes hoy: primero una base web clara, después visibilidad local, mantenimiento o una herramienta propia si el negocio ya lo pide.</p>
+          <p class="section-desc">La mayoría de negocios no necesitan “todos los servicios” a la vez. Necesitan saber qué capa toca ahora y cuál puede esperar.</p>
         </div>
         <div class="portfolio__grid" style="margin-top: 3rem">
           ${serviceCards}
@@ -270,7 +271,11 @@ ${renderHeader(prefix, "services")}
         <span class="section-label">¿No sabes cuál necesitas?</span>
         <h2 class="section-title" style="font-size: clamp(1.5rem, 3vw, 2rem); margin-top: 1rem">Cuéntanos tu situación y te orientamos</h2>
         <p style="color: var(--color-text-muted); margin: 1rem 0 2rem">Sin compromiso. Una conversación de 10 minutos es suficiente para saber qué te conviene.</p>
-        <a href="https://wa.me/34622923988?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20servicio%20necesito%20y%20me%20gustar%C3%ADa%20orientarme" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Hablar con nosotros →</a>
+        <p style="color: var(--color-text-muted); margin: -1rem 0 2rem">Lo que más suele preguntar un negocio antes de contratar es cuánto alcance necesita, qué se publica primero y qué mantenimiento tiene sentido.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+          <a href="${prefix}contacto/" class="btn btn--primary">Ir a contacto →</a>
+          <a href="https://wa.me/34622923988?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20servicio%20necesito%20y%20me%20gustar%C3%ADa%20orientarme" class="btn btn--outline" target="_blank" rel="noopener noreferrer">WhatsApp →</a>
+        </div>
       </div>
     </section>
   </main>

@@ -90,7 +90,6 @@ function renderHeader(prefix, activePage) {
             .join("\n          ")}
         </ul>
       </nav>
-      <div class="lang-switcher" style="display:none"></div>
       <a href="https://portal.webfuengirola.com/cliente" class="btn btn--primary header__cta" target="_blank" rel="noopener noreferrer" aria-label="Acceso al área cliente">Área cliente</a>
       <button type="button" class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
         <span></span><span></span><span></span>
@@ -111,7 +110,7 @@ function renderFooter(
         <a href="${prefix}index.html" class="logo logo--light" aria-label="Web Fuengirola">
           <img src="${prefix}img/logo-wf.webp" alt="Web Fuengirola" class="logo__img" width="36" height="36" loading="lazy"/>
         </a>
-        <p class="footer__tagline">Webs para comercios locales en la Costa del Sol.</p>
+        <p class="footer__tagline">Webs, SEO local y automatización para negocios locales en la Costa del Sol.</p>
       </div>
       <div class="footer__col">
         <h4 class="footer__col-title">Servicios</h4>
@@ -316,8 +315,12 @@ ${renderHeader(prefix, "casos")}
       <div class="container" style="text-align: center; max-width: 600px">
         <span class="section-label">¿Tu negocio es el siguiente?</span>
         <h2 class="section-title" style="font-size: clamp(1.5rem, 3vw, 2rem); margin-top: 1rem">Cuéntanos tu situación</h2>
-        <p style="color: var(--color-text-muted); margin: 1rem 0 2rem">Una conversación de 10 minutos es suficiente para saber si podemos ayudarte y cómo.</p>
-        <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20hablar%20sobre%20un%20proyecto%20para%20mi%20negocio" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Hablar con nosotros →</a>
+        <p style="color: var(--color-text-muted); margin: 1rem 0 1rem">Una conversación de 10 minutos es suficiente para saber si podemos ayudarte y cómo.</p>
+        <p style="color: var(--color-text-muted); margin: 0 0 2rem">Calcula qué web necesita tu negocio después de ver los casos, o entra directamente por WhatsApp si ya tienes claro el tipo de proyecto.</p>
+        <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap">
+          <a href="${prefix}recursos/" class="btn btn--outline">Calcular orientación →</a>
+          <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20hablar%20sobre%20un%20proyecto%20para%20mi%20negocio" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Hablar con nosotros →</a>
+        </div>
       </div>
     </section>
   </main>
@@ -467,7 +470,7 @@ ${renderHeader(prefix, "casos")}
         </div>
 
         <div style="margin-top: 2rem">
-          <img src="${prefix}${caso.image}" alt="${escapeHtml(caso.ogAlt)}" style="width:100%;border-radius:var(--radius-md);max-height:480px;object-fit:cover" loading="lazy" />
+          <img src="${prefix}${caso.image}" alt="${escapeHtml(caso.ogAlt)}" width="1120" height="640" style="width:100%;border-radius:var(--radius-md);max-height:480px;object-fit:cover" loading="lazy" />
         </div>
       </div>
     </section>
