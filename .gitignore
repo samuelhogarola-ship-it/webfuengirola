@@ -3,6 +3,7 @@ node_modules/
 .next/
 test-results/
 playwright-report/
+dist/
 .tools/
 .DS_Store
 .env.local

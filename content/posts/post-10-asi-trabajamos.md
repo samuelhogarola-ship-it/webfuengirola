@@ -1,6 +1,6 @@
 ---
 title: "Si tu negocio en Fuengirola necesita una web, esto es lo que puedes esperar"
-date: 2026-08-17
+date: 2026-08-30
 time: "10:00 CEST"
 post_number: 10
 platforms: [instagram, linkedin, facebook]

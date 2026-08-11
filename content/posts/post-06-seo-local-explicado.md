@@ -1,6 +1,6 @@
 ---
 title: "Qué es el SEO local y por qué tu competencia en Fuengirola ya lo está usando"
-date: 2026-08-08
+date: 2026-08-22
 time: "10:00 CEST"
 post_number: 6
 platforms: [instagram, linkedin, facebook]

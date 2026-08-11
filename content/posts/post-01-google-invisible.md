@@ -1,6 +1,6 @@
 ---
 title: "Tu negocio en Fuengirola no aparece en Google. Y no es casualidad."
-date: 2026-07-29
+date: 2026-08-12
 time: "10:00 CEST"
 post_number: 1
 platforms: [instagram, linkedin, facebook]

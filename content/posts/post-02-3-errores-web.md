@@ -1,6 +1,6 @@
 ---
 title: "3 errores que cometen las webs de negocios locales (y cómo les cuestan clientes)"
-date: 2026-07-31
+date: 2026-08-14
 time: "10:00 CEST"
 post_number: 2
 platforms: [instagram, linkedin, facebook]

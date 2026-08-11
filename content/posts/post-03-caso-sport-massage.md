@@ -1,6 +1,6 @@
 ---
 title: "Caso real: Sport Massage Fuengirola — de cero a reservas directas en 5 días"
-date: 2026-08-02
+date: 2026-08-16
 time: "10:00 CEST"
 post_number: 3
 platforms: [instagram, linkedin, facebook]

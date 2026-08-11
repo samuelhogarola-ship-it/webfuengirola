@@ -1,6 +1,6 @@
 ---
 title: "La IA ya cambia cómo la gente encuentra servicios locales. ¿Estás preparado?"
-date: 2026-08-14
+date: 2026-08-28
 time: "10:00 CEST"
 post_number: 9
 platforms: [instagram, linkedin, facebook]

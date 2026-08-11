@@ -1,6 +1,6 @@
 ---
 title: "Tu Instagram no es tu web. Y eso te está costando clientes."
-date: 2026-08-06
+date: 2026-08-20
 time: "10:00 CEST"
 post_number: 5
 platforms: [instagram, linkedin, facebook]

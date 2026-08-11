@@ -1,6 +1,6 @@
 ---
 title: "5 cosas que tu web debería tener si eres un negocio local en la Costa del Sol"
-date: 2026-08-12
+date: 2026-08-26
 time: "10:00 CEST"
 post_number: 8
 platforms: [instagram, linkedin, facebook]

@@ -1,6 +1,6 @@
 ---
 title: "Antes y después: lo que cambia cuando tu web deja de ser un folleto"
-date: 2026-08-10
+date: 2026-08-24
 time: "10:00 CEST"
 post_number: 7
 platforms: [instagram, linkedin, facebook]

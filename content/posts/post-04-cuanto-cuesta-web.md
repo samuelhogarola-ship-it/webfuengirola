@@ -1,6 +1,6 @@
 ---
 title: "¿Cuánto cuesta una web para un negocio local? (Sin letra pequeña)"
-date: 2026-08-04
+date: 2026-08-18
 time: "10:00 CEST"
 post_number: 4
 platforms: [instagram, linkedin, facebook]
