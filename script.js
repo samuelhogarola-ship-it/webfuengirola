@@ -24,10 +24,8 @@
       navContact: "Contacto",
       headerCta: "Pedir presupuesto",
       heroBadge: "Diseño web en Fuengirola para negocio local",
-      heroTitle:
-        "Diseño web en Fuengirola para negocios que quieren más clientes.",
-      heroSubtitle:
-        "Creamos páginas web claras, rápidas y orientadas a captar contactos reales en Fuengirola y la Costa del Sol.",
+      heroTitle: "La web que tu negocio se merece.",
+      heroSubtitle: "Orientadas a captar más clientes y a empujar tu negocio.",
       heroPrice: "Precio cerrado",
       heroPrimaryCta: "Pedir presupuesto",
       heroSecondaryCta: "Ver trabajos",
@@ -248,10 +246,9 @@
       navContact: "Contact",
       headerCta: "Request a quote",
       heroBadge: "Web design in Fuengirola for local businesses",
-      heroTitle:
-        "Web design in Fuengirola for businesses that want more customers.",
+      heroTitle: "The website your business deserves.",
       heroSubtitle:
-        "We build clear, fast websites focused on generating real enquiries in Fuengirola and across the Costa del Sol.",
+        "Built to attract more customers and push your business forward.",
       heroPrice: "Fixed price",
       heroPrimaryCta: "Request a quote",
       heroSecondaryCta: "See projects",
@@ -471,10 +468,9 @@
       navContact: "Kontakt",
       headerCta: "Angebot anfragen",
       heroBadge: "Webdesign in Fuengirola für lokale Unternehmen",
-      heroTitle:
-        "Webdesign in Fuengirola für Unternehmen, die mehr Kunden gewinnen möchten.",
+      heroTitle: "Die Website, die dein Unternehmen verdient.",
       heroSubtitle:
-        "Wir erstellen klare, schnelle Websites, die in Fuengirola und an der Costa del Sol echte Anfragen erzeugen sollen.",
+        "Darauf ausgelegt, mehr Kunden zu gewinnen und dein Unternehmen voranzubringen.",
       heroPrice: "Festpreis",
       heroPrimaryCta: "Angebot anfragen",
       heroSecondaryCta: "Projekte ansehen",
@@ -701,10 +697,9 @@
       navContact: "Yhteys",
       headerCta: "Pyydä tarjous",
       heroBadge: "Verkkosivut Fuengirolassa paikalliselle yritykselle",
-      heroTitle:
-        "Verkkosivut Fuengirolassa yrityksille, jotka haluavat enemmän asiakkaita.",
+      heroTitle: "Verkkosivut, jotka yrityksesi ansaitsee.",
       heroSubtitle:
-        "Rakennamme selkeita ja nopeita verkkosivuja, jotka on suunniteltu tuomaan oikeita yhteydenottoja Fuengirolassa ja Costa del Solilla.",
+        "Suunniteltu tuomaan lisää asiakkaita ja viemään yritystäsi eteenpäin.",
       heroPrice: "Kiinteä hinta",
       heroPrimaryCta: "Pyydä tarjous",
       heroSecondaryCta: "Katso työt",

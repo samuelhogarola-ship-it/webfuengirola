@@ -71,7 +71,9 @@ test("landing muestra los botones principales del hero", async ({ page }) => {
   await expect(
     page.getByRole("link", { name: /ir a seo local/i }),
   ).toBeVisible();
-  await expect(page.locator("h1")).toContainText(/diseño web en fuengirola/i);
+  await expect(page.locator("h1")).toContainText(
+    /la web que tu negocio se merece/i,
+  );
   await expect(
     page.locator(".services-home-card--spotlight .portfolio-card__title"),
   ).toHaveText(/servicio de diseño web para negocio local/i);
