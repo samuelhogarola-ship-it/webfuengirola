@@ -11,11 +11,30 @@ test("landing principal carga con hero y CTA principal", async ({ page }) => {
   ).toBeVisible();
 });
 
-test("las páginas comerciales no arrastran selector de idioma residual", async ({
+test("landing permite cambiar idioma desde la cabecera", async ({ page }) => {
+  await page.goto("/");
+
+  const switcher = page.getByRole("group", { name: /cambiar idioma/i });
+  await expect(switcher).toBeVisible();
+  await expect(switcher.getByRole("button", { name: "ES" })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+
+  await switcher.getByRole("button", { name: "EN" }).click();
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.locator("h1")).toContainText(
+    /the website your business deserves/i,
+  );
+  await expect(page.locator(".hero__cin-sub")).toContainText(
+    /attract more customers/i,
+  );
+});
+
+test("las páginas interiores no arrastran selector de idioma residual", async ({
   page,
 }) => {
   const urls = [
-    "/",
     "/servicios/",
     "/servicios/diseno-web/",
     "/servicios/seo-local/",
@@ -122,7 +141,7 @@ test("landing muestra los botones principales del hero", async ({ page }) => {
     }),
   ).toBeVisible();
   await expect(page.locator(".client-access-btn")).toHaveCount(0);
-  await expect(page.locator(".lang-switcher")).toHaveCount(0);
+  await expect(page.locator(".lang-switcher")).toHaveCount(1);
   await expect(page.locator("body")).toContainText(
     /samuel lleva el planteamiento, el diseño y la parte técnica del proyecto/i,
   );

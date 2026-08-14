@@ -281,6 +281,26 @@ button {
   border-color: rgba(255, 255, 255, 0.16);
 }
 
+.home-page .lang-switcher {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: none;
+}
+
+.home-page .lang-switcher__btn {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.home-page .lang-switcher__btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.home-page .lang-switcher__btn.is-active {
+  background: #fff;
+  color: #090909;
+}
+
 .home-page .hamburger span {
   background: #fff;
 }
