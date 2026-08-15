@@ -8542,3 +8542,89 @@ body.is-transitioning {
     transform: translateY(-4px);
   }
 }
+
+/* Homepage section rhythm: black / white / black / white. */
+.stack-cards-track,
+.services.stack-card {
+  background: #ffffff;
+}
+
+.credibility-deck {
+  padding: var(--section-gap) 0;
+  background: #090909;
+  color: #ffffff;
+}
+
+.credibility-deck__shell {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.credibility-deck .section-label,
+.credibility-deck .section-sub,
+.credibility-deck .support-note,
+.credibility-deck__text {
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.credibility-deck .section-label {
+  border-left-color: rgba(255, 255, 255, 0.3);
+}
+
+.credibility-deck .section-title,
+.credibility-deck__title {
+  color: #ffffff;
+}
+
+.credibility-deck__feature,
+.credibility-deck__feature--lead {
+  background: #151515;
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
+
+.credibility-deck__eyebrow,
+.credibility-deck__metric,
+.credibility-deck__feature--lead .credibility-deck__eyebrow {
+  color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.credibility-deck__link {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.credibility-deck__link:hover {
+  border-color: rgba(255, 255, 255, 0.36);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.credibility-deck .btn--outline,
+.credibility-deck .btn--ghost {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.credibility-deck .btn--outline:hover,
+.credibility-deck .btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.faq-home {
+  background: #ffffff;
+  color: var(--color-text);
+}
+
+.cta-final {
+  background: #090909;
+}
+
+.footer {
+  background: #ffffff;
+}
