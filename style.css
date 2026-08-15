@@ -864,7 +864,15 @@ body.is-menu-open {
 
 .results-strip {
   margin-top: 4rem;
-  padding: 2.5rem 0 0;
+  padding: 40px 40px 34px;
+  border: 1px solid rgba(24, 32, 50, 0.08);
+  border-bottom: 0;
+  border-radius: 32px 32px 0 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.98),
+    rgba(247, 243, 236, 0.96)
+  );
 }
 
 .section-header--compact {
@@ -1113,7 +1121,7 @@ body.is-menu-open {
 
 .credibility-deck__shell {
   padding: 40px;
-  border-radius: 32px;
+  border-radius: 0 0 32px 32px;
   background:
     radial-gradient(
       circle at top right,
@@ -1126,6 +1134,7 @@ body.is-menu-open {
       rgba(255, 255, 255, 0.98)
     );
   border: 1px solid rgba(24, 32, 50, 0.08);
+  border-top: 0;
   box-shadow: var(--shadow-md);
 }
 
@@ -1295,7 +1304,7 @@ body.is-menu-open {
    SERVICES
 ============================================================ */
 .services {
-  padding: var(--section-gap) 0;
+  padding: clamp(44px, 5vw, 72px) 0 var(--section-gap);
 }
 
 .trust-band {
@@ -1519,6 +1528,18 @@ body.is-menu-open {
   margin-top: 2.5rem;
 }
 
+.section-title__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.section-title__link:hover,
+.section-title__link:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.12em;
+}
+
 .services-home-group--secondary {
   margin-top: 2.25rem;
 }
@@ -1586,6 +1607,13 @@ body.is-menu-open {
 .services-home-support {
   display: grid;
   gap: 1.5rem;
+}
+
+.services-home-essentials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .services-home-card__tag {
@@ -3211,6 +3239,10 @@ body.is-menu-open {
   }
 
   .services-home-primary-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .services-home-essentials-grid {
     grid-template-columns: 1fr;
   }
 
@@ -6488,7 +6520,8 @@ body.is-menu-open {
 }
 
 .services {
-  padding-top: 96px;
+  padding-top: 48px;
+  padding-bottom: 0;
 }
 
 .page-transition {
@@ -8391,6 +8424,97 @@ body.is-transitioning {
 .portfolio__grid.portfolio__grid--deck-stack > .portfolio-card:hover {
   transform: translateY(-12px) rotate(0deg) scale(1.02);
   z-index: 40;
+}
+
+/* Keep every case CTA framed inside its card, even when the label is long. */
+.portfolio__grid.portfolio__grid--deck-stack > .portfolio-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__body {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__body > .btn {
+  width: 100%;
+  max-width: 100%;
+  min-height: 48px;
+  margin-top: auto;
+  padding-inline: 16px;
+  justify-content: center;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.25;
+}
+
+/* Each case shows its landing first and a different project proof on hover. */
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img-link {
+  position: relative;
+  background: #f2f2f2;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img--primary,
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img--secondary {
+  position: absolute;
+  inset: 0;
+  transition:
+    opacity 320ms var(--ease),
+    transform 500ms var(--ease-out);
+}
+
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img--secondary {
+  opacity: 0;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img--app {
+  object-fit: contain;
+  background: #090909;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img--maps {
+  object-position: 18% center;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack
+  > .portfolio-card:hover
+  .portfolio-card__img--primary {
+  opacity: 0;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack
+  > .portfolio-card:hover
+  .portfolio-card__img--secondary {
+  opacity: 1;
+}
+
+/* Nuevo Estilo: fachada in the resting card, Paco Mula Team when expanded. */
+.portfolio__grid.portfolio__grid--deck-stack
+  > .portfolio-card:nth-child(4):not(:hover)
+  .portfolio-card__img--primary {
+  opacity: 1;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack
+  > .portfolio-card:nth-child(4):not(:hover)
+  .portfolio-card__img--secondary {
+  opacity: 0;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack
+  > .portfolio-card:nth-child(4):hover
+  .portfolio-card__img--primary {
+  opacity: 0;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack
+  > .portfolio-card:nth-child(4):hover
+  .portfolio-card__img--secondary {
+  opacity: 1;
 }
 
 @media (max-width: 720px) {

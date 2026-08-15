@@ -83,7 +83,7 @@
       benefit6Text:
         "Trabajamos con un proceso ordenado para publicar cada proyecto con rapidez, sin mezclar la velocidad con promesas que no encajan en todos los servicios.",
       servicesLabel: "Servicios",
-      servicesTitle: "Lo que solemos resolver para negocio local",
+      servicesTitle: "¿Qué hacemos?",
       servicePopular: "Más popular",
       vatLabel: "+ IVA",
       serviceLiteEyebrow: "Entrada rápida",
@@ -141,7 +141,7 @@
       service4Feature5: "Presupuesto premium con alcance cerrado",
       consultPrice: "Consultar precio",
       servicesExplore: "Ver servicios",
-      portfolioTitle: "Proyectos para negocios locales",
+      portfolioTitle: "Casos de éxito",
       portfolioSub:
         "Cada web es diferente. Estas son algunas de las que hemos creado para comercios de la zona.",
       portfolio1Desc:
@@ -204,7 +204,7 @@
       maintenance3Feature2: "Nuevas páginas y funcionalidades",
       maintenance3Feature3: "Respuesta en el mismo día",
       maintenance3Feature4: "Seguimiento SEO y analítica",
-      calcLabel: "Orientación rápida",
+      calcLabel: "Calculadora de precios",
       calcTitle: "Elige la forma más fácil<br>de dar el siguiente paso",
       calcSub:
         "Si quieres una recomendación orientativa, responde 4 preguntas. Si ya lo tienes claro, entra por la ruta directa y no pierdas tiempo.",
@@ -427,7 +427,7 @@
       maintenance3Feature2: "New pages and features",
       maintenance3Feature3: "Same-day response",
       maintenance3Feature4: "SEO and analytics monitoring",
-      calcLabel: "Calculator",
+      calcLabel: "Price calculator",
       calcTitle: "Find the website setup that fits<br>your business best",
       calcSub:
         "Answer 4 questions and you will get a practical recommendation for the website structure and level of support that make sense for your case.",
@@ -652,7 +652,7 @@
       maintenance3Feature2: "Neue Seiten und Funktionen",
       maintenance3Feature3: "Antwort am selben Tag",
       maintenance3Feature4: "SEO- und Analyse-Monitoring",
-      calcLabel: "Rechner",
+      calcLabel: "Preisrechner",
       calcTitle:
         "Finden Sie heraus, welche Website<br>am besten zu Ihrem Unternehmen passt",
       calcSub:
@@ -879,7 +879,7 @@
       maintenance3Feature2: "Uusia sivuja ja toimintoja",
       maintenance3Feature3: "Vastaus saman päivän aikana",
       maintenance3Feature4: "SEO- ja analytiikkaseuranta",
-      calcLabel: "Laskuri",
+      calcLabel: "Hintalaskuri",
       calcTitle:
         "Selvitä, millainen verkkosivu<br>sopii yrityksellesi parhaiten",
       calcSub:
