@@ -864,7 +864,15 @@ body.is-menu-open {
 
 .results-strip {
   margin-top: 4rem;
-  padding: 2.5rem 0 0;
+  padding: 40px 40px 34px;
+  border: 1px solid rgba(24, 32, 50, 0.08);
+  border-bottom: 0;
+  border-radius: 32px 32px 0 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.98),
+    rgba(247, 243, 236, 0.96)
+  );
 }
 
 .section-header--compact {
@@ -1113,7 +1121,7 @@ body.is-menu-open {
 
 .credibility-deck__shell {
   padding: 40px;
-  border-radius: 32px;
+  border-radius: 0 0 32px 32px;
   background:
     radial-gradient(
       circle at top right,
@@ -1126,6 +1134,7 @@ body.is-menu-open {
       rgba(255, 255, 255, 0.98)
     );
   border: 1px solid rgba(24, 32, 50, 0.08);
+  border-top: 0;
   box-shadow: var(--shadow-md);
 }
 
@@ -1295,7 +1304,7 @@ body.is-menu-open {
    SERVICES
 ============================================================ */
 .services {
-  padding: var(--section-gap) 0;
+  padding: clamp(44px, 5vw, 72px) 0 var(--section-gap);
 }
 
 .trust-band {
@@ -1519,6 +1528,18 @@ body.is-menu-open {
   margin-top: 2.5rem;
 }
 
+.section-title__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.section-title__link:hover,
+.section-title__link:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.12em;
+}
+
 .services-home-group--secondary {
   margin-top: 2.25rem;
 }
@@ -1586,6 +1607,13 @@ body.is-menu-open {
 .services-home-support {
   display: grid;
   gap: 1.5rem;
+}
+
+.services-home-essentials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .services-home-card__tag {
@@ -3211,6 +3239,10 @@ body.is-menu-open {
   }
 
   .services-home-primary-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .services-home-essentials-grid {
     grid-template-columns: 1fr;
   }
 
@@ -5957,6 +5989,16 @@ body.is-menu-open {
   box-shadow: var(--shadow-lg);
 }
 
+.whatsapp-fab.whatsapp-fab--on-dark {
+  background: var(--color-whatsapp);
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.42);
+}
+
+.whatsapp-fab.whatsapp-fab--on-dark:hover {
+  background: var(--color-whatsapp-h);
+  box-shadow: 0 8px 28px rgba(37, 211, 102, 0.55);
+}
+
 @media (max-width: 1080px) {
   .hero__inner,
   .services__layout,
@@ -6488,7 +6530,8 @@ body.is-menu-open {
 }
 
 .services {
-  padding-top: 96px;
+  padding-top: 48px;
+  padding-bottom: 0;
 }
 
 .page-transition {
@@ -8393,6 +8436,109 @@ body.is-transitioning {
   z-index: 40;
 }
 
+/* Keep every case CTA framed inside its card, even when the label is long. */
+.portfolio__grid.portfolio__grid--deck-stack > .portfolio-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__body {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__body > .btn {
+  width: 100%;
+  max-width: 100%;
+  min-height: 48px;
+  margin-top: auto;
+  padding-inline: 16px;
+  justify-content: center;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.25;
+}
+
+/* Each case shows its landing first and a different project proof on hover. */
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img-link {
+  position: relative;
+  background: #f2f2f2;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img--primary,
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img--secondary {
+  position: absolute;
+  inset: 0;
+  transition:
+    opacity 320ms var(--ease),
+    transform 500ms var(--ease-out);
+}
+
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img--secondary {
+  opacity: 0;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img--app {
+  object-fit: contain;
+  background: #090909;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img--maps {
+  object-position: 18% center;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img--gym {
+  object-position: center 18%;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img--team {
+  object-position: center 26%;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img--vokabellab {
+  object-position: center top;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack
+  > .portfolio-card:hover
+  .portfolio-card__img--primary {
+  opacity: 0;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack
+  > .portfolio-card:hover
+  .portfolio-card__img--secondary {
+  opacity: 1;
+}
+
+/* Nuevo Estilo: fachada in the resting card, Paco Mula Team when expanded. */
+.portfolio__grid.portfolio__grid--deck-stack
+  > .portfolio-card:nth-child(4):not(:hover)
+  .portfolio-card__img--primary {
+  opacity: 1;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack
+  > .portfolio-card:nth-child(4):not(:hover)
+  .portfolio-card__img--secondary {
+  opacity: 0;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack
+  > .portfolio-card:nth-child(4):hover
+  .portfolio-card__img--primary {
+  opacity: 0;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack
+  > .portfolio-card:nth-child(4):hover
+  .portfolio-card__img--secondary {
+  opacity: 1;
+}
+
 @media (max-width: 720px) {
   .portfolio__grid.portfolio__grid--deck-stack {
     display: flex;
@@ -8416,5 +8562,271 @@ body.is-transitioning {
   .portfolio__grid.portfolio__grid--deck-stack
     > .portfolio-card:nth-child(n):hover {
     transform: translateY(-4px);
+  }
+}
+
+/* Homepage section rhythm: black / white / black / white. */
+.stack-cards-track,
+.services.stack-card {
+  background: #ffffff;
+}
+
+.credibility-deck {
+  padding: var(--section-gap) 0;
+  background: #090909;
+  color: #ffffff;
+}
+
+.credibility-deck__shell {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.credibility-deck .section-label,
+.credibility-deck .section-sub,
+.credibility-deck .support-note,
+.credibility-deck__text {
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.credibility-deck .section-label {
+  border-left-color: rgba(255, 255, 255, 0.3);
+}
+
+.credibility-deck .section-title,
+.credibility-deck__title {
+  color: #ffffff;
+}
+
+.credibility-deck__feature,
+.credibility-deck__feature--lead {
+  background: #151515;
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
+
+.credibility-deck__eyebrow,
+.credibility-deck__metric,
+.credibility-deck__feature--lead .credibility-deck__eyebrow {
+  color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.credibility-deck__link {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.credibility-deck__link:hover {
+  border-color: rgba(255, 255, 255, 0.36);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.credibility-deck .btn--outline,
+.credibility-deck .btn--ghost {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.credibility-deck .btn--outline:hover,
+.credibility-deck .btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.faq-home {
+  background: #ffffff;
+  color: var(--color-text);
+}
+
+.cta-final {
+  background: #090909;
+}
+
+.footer {
+  background: #ffffff;
+}
+
+/* Services deck: equal-height cards stack while scrolling and alternate tone. */
+.services.stack-card {
+  overflow: visible;
+}
+
+.services > .container > .section-header {
+  margin-bottom: 1.75rem;
+}
+
+.services > .container > .section-header .section-title {
+  font-size: clamp(2.15rem, 3.6vw, 3.65rem);
+}
+
+.services-home-group--deck {
+  margin-top: 0;
+}
+
+.services-home-group--deck > .services-home-group__header {
+  max-width: 900px;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.services-home-deck {
+  position: relative;
+  display: grid;
+  gap: 0;
+  counter-reset: service-card;
+}
+
+.services-home-deck__card {
+  counter-increment: service-card;
+  position: sticky;
+  top: clamp(104px, 14vh, 128px);
+  display: flex;
+  height: clamp(500px, 64vh, 580px);
+  margin-bottom: clamp(32px, 8vh, 72px);
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(10, 10, 10, 0.12);
+  border-radius: clamp(24px, 3vw, 38px);
+  background: #ffffff;
+  box-shadow: 0 24px 64px rgba(10, 10, 10, 0.14);
+  color: #090909;
+  transform-origin: top center;
+}
+
+.services-home-deck__card:nth-child(1) { z-index: 1; }
+.services-home-deck__card:nth-child(2) { z-index: 2; }
+.services-home-deck__card:nth-child(3) { z-index: 3; }
+.services-home-deck__card:nth-child(4) { z-index: 4; }
+.services-home-deck__card:nth-child(5) { z-index: 5; }
+.services-home-deck__card:nth-child(6) { z-index: 6; }
+
+.services-home-deck__card:last-child {
+  margin-bottom: 0;
+}
+
+.services-home-deck__card::after {
+  content: "0" counter(service-card);
+  position: absolute;
+  top: clamp(24px, 4vw, 42px);
+  right: clamp(24px, 4vw, 42px);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  opacity: 0.38;
+}
+
+.services-home-deck__card:nth-child(even) {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: #090909;
+  color: #ffffff;
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.28);
+}
+
+.services-home-deck__card .portfolio-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: clamp(28px, 5vw, 56px);
+  padding-right: clamp(70px, 9vw, 112px);
+}
+
+.services-home-deck__card .portfolio-card__title {
+  max-width: 760px;
+  margin-top: auto;
+  font-size: clamp(2rem, 5vw, 4.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  color: inherit;
+}
+
+.services-home-deck__card .portfolio-card__desc {
+  max-width: 760px;
+  margin-top: 1.25rem;
+}
+
+.services-home-deck__card:nth-child(even) .portfolio-card__desc,
+.services-home-deck__card:nth-child(even) .services-home-card__bullets li {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.services-home-deck__card:nth-child(even) .services-home-card__tag {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.services-home-deck__card:nth-child(even) .services-home-card__bullets li::before {
+  background: #ffffff;
+}
+
+.services-home-deck__meta {
+  display: flex;
+  min-height: 30px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.services-home-deck__meta .services-home-card__tag {
+  margin-bottom: 0;
+}
+
+.services-home-deck__card .services-home-card__price {
+  margin-top: 1.15rem;
+  color: inherit;
+}
+
+.services-home-deck__card .portfolio-card__footer {
+  padding: 0 clamp(28px, 5vw, 56px) clamp(28px, 4vw, 44px);
+  border-top: 0;
+}
+
+.services-home-deck__card .btn {
+  min-width: min(100%, 260px);
+  justify-content: center;
+}
+
+.services-home-deck__card:nth-child(even) .btn--outline {
+  border-color: rgba(255, 255, 255, 0.42);
+  color: #ffffff;
+}
+
+.services-home-deck__card:nth-child(even) .btn--outline:hover {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #090909;
+}
+
+@media (max-width: 720px) {
+  .services-home-deck__card {
+    top: 92px;
+    height: clamp(470px, 70vh, 540px);
+    margin-bottom: 28px;
+  }
+
+  .services-home-deck__card .portfolio-card__body {
+    padding: 28px 24px;
+    padding-right: 54px;
+  }
+
+  .services-home-deck__card .portfolio-card__title {
+    font-size: clamp(2rem, 10vw, 3.15rem);
+  }
+
+  .services-home-deck__card .portfolio-card__desc,
+  .services-home-deck__card .services-home-card__bullets li {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .services-home-deck__card .portfolio-card__footer {
+    padding: 0 24px 26px;
+  }
+
+  .services-home-deck__card::after {
+    top: 28px;
+    right: 22px;
   }
 }
