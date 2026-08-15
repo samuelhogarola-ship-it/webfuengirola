@@ -75,11 +75,13 @@ test("landing muestra los botones principales del hero", async ({ page }) => {
     }),
   ).toBeVisible();
   await expect(page.locator("body")).toContainText(
-    /lo principal para la mayoría/i,
+    /lo que interesa a la mayoría/i,
   );
-  await expect(page.locator("body")).toContainText(/si el proyecto lo pide/i);
   await expect(page.locator("body")).toContainText(
-    /casi siempre lo sensato empieza por una web clara/i,
+    /entra por la ruta específica/i,
+  );
+  await expect(page.locator("body")).toContainText(
+    /una web bien planteada no empieza por el diseño/i,
   );
   await expect(page.locator("body")).toContainText(
     /elige la forma más fácil[\s\S]*dar el siguiente paso/i,
@@ -94,14 +96,15 @@ test("landing muestra los botones principales del hero", async ({ page }) => {
     /la web que tu negocio se merece/i,
   );
   await expect(
-    page.locator(".services-home-card--spotlight .portfolio-card__title"),
-  ).toHaveText(/servicio de diseño web para negocio local/i);
+    page.getByRole("heading", { name: /el diseño web/i }),
+  ).toBeVisible();
   await expect(
     page.getByRole("heading", { name: /seo local/i }).first(),
   ).toBeVisible();
   await expect(page.locator("body")).toContainText(
-    /mantenimiento, hosting, automatización o apps no deberían robar el foco al principio/i,
+    /bonos y packs de mantenimiento/i,
   );
+  await expect(page.locator("body")).toContainText(/automatización e ia/i);
   await expect(
     page.getByRole("heading", {
       name: /qué suele cambiar cuando la web ya está bien planteada/i,

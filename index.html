@@ -192,7 +192,7 @@
           <li><a href="casos/" class="nav__link" data-i18n="navCases">Casos de éxito</a></li>
           <li><a href="blog/" class="nav__link" data-i18n="navBlog">Blog</a></li>
           <li><a href="recursos/" class="nav__link" data-i18n="navResources">Calculadora de precios</a></li>
-          <li><a href="sobre-nosotros/" class="nav__link" data-i18n="navAbout">Sobre nosotros</a></li>
+          <li><a href="web-solidaria/" class="nav__link">Web Solidaria</a></li>
           <li><a href="https://portal.webfuengirola.com/cliente" class="nav__link nav__link--client" target="_blank" rel="noopener noreferrer" data-i18n="navClientAccess" aria-label="Acceso al área cliente">Área cliente</a></li>
         </ul>
       </nav>
@@ -216,7 +216,7 @@
     <!-- ============================================================
          HERO
     ============================================================ -->
-    <section class="hero hero--cinematic" id="inicio">
+    <section class="hero hero--cinematic" id="inicio" data-fab-theme="dark">
       <!-- Background: replace div with <video autoplay muted loop playsinline> when ready -->
       <div class="hero__cin-bg" aria-hidden="true">
         <div class="hero__cin-anim"></div>
@@ -267,76 +267,74 @@
       <div class="container">
         <div class="section-header">
           <span class="section-label" data-i18n="servicesLabel">Servicios</span>
-          <h2 class="section-title" data-i18n="servicesTitle">Lo que solemos resolver para negocio local</h2>
+          <h2 class="section-title" data-i18n="servicesTitle">¿Qué hacemos?</h2>
         </div>
-        <div class="services-home-group">
+        <div class="services-home-group services-home-group--deck">
           <div class="services-home-group__header">
-            <span class="services-home-group__eyebrow">Lo principal para la mayoría</span>
-            <p class="services-home-group__intro">Si tienes un negocio local y quieres vender mejor online, casi siempre lo sensato empieza por una web clara. Después, si hace falta visibilidad, entra SEO local.</p>
+            <span class="services-home-group__eyebrow">Lo que interesa a la mayoría</span>
+            <p class="services-home-group__intro">Tienes un negocio. Lo impulsamos online para darle mayor visibilidad y hacemos que la inteligencia artificial y Google recomienden tu negocio a más clientes.</p>
           </div>
-          <div class="services-home-primary-layout">
-            <a href="servicios/diseno-web/" class="portfolio-card services-home-card services-home-card--primary services-home-card--spotlight">
+
+          <div class="services-home-deck">
+            <a href="servicios/diseno-web/" class="portfolio-card services-home-card services-home-deck__card">
               <div class="portfolio-card__body">
-                <span class="services-home-card__tag">Prioridad 1</span>
-                <h3 class="portfolio-card__title">Servicio de diseño web para negocio local</h3>
-                <p class="portfolio-card__desc">La base principal para que tu negocio se explique mejor, genere confianza y convierta visitas en contactos reales antes de abrir más capas.</p>
+                <div class="services-home-deck__meta">
+                  <span class="services-home-card__tag">Lo fundamental</span>
+                  <span class="services-home-card__tag">Fuengirola</span>
+                </div>
+                <h3 class="portfolio-card__title">El diseño web</h3>
+                <p class="portfolio-card__desc">Tu escaparate al mundo en internet. Muestra lo que haces y facilita que te encuentren. Convierte clics en clientes reales.</p>
                 <ul class="services-home-card__bullets" aria-label="Qué resuelve diseño web">
                   <li>Mensaje claro para quien llega desde Google, Maps o redes</li>
                   <li>Estructura preparada para móvil, contacto y captación local</li>
-                  <li>Salida profesional sin depender de una web antigua o improvisada</li>
                 </ul>
-                <p class="services-home-card__price">Desde 200€</p>
+                <p class="services-home-card__price">Desde 250€</p>
               </div>
-              <div class="portfolio-card__footer">
-                <span class="btn btn--outline">Diseño web para negocio local →</span>
-              </div>
+              <div class="portfolio-card__footer"><span class="btn btn--outline">Diseño web →</span></div>
             </a>
 
-            <div class="services-home-support">
-              <a href="servicios/seo-local/" class="portfolio-card services-home-card services-home-card--step">
-                <div class="portfolio-card__body">
-                  <span class="services-home-card__tag">Prioridad 2</span>
-                  <h3 class="portfolio-card__title">SEO local en Fuengirola y Málaga</h3>
-                  <p class="portfolio-card__desc">Cuando la web ya está clara, el siguiente paso natural es aparecer mejor en Google y Maps para búsquedas con intención real.</p>
-                  <p class="services-home-card__price">Desde 150€/mes</p>
-                </div>
-                <div class="portfolio-card__footer"><span class="btn btn--outline">SEO local para negocio en Fuengirola →</span></div>
-              </a>
-
-              <article class="services-home-side-note">
-                <span class="services-home-side-note__eyebrow">Después, si hace falta</span>
-                <h3 class="services-home-side-note__title">Mantenimiento, hosting, automatización o apps no deberían robar el foco al principio.</h3>
-                <p class="services-home-side-note__text">Son útiles cuando el negocio ya tiene una base clara o una necesidad técnica concreta. El mantenimiento puede trabajarse por bonos flexibles, packs o básicos, sin obligarte a meter otra capa antes de tiempo.</p>
-                <a href="servicios/mantenimiento/" class="services-home-side-note__link">Ver mantenimiento por bonos, packs o básicos →</a>
-              </article>
-            </div>
-          </div>
-        </div>
-
-        <div class="services-home-group services-home-group--secondary">
-          <div class="services-home-group__header">
-            <span class="services-home-group__eyebrow">Si el proyecto lo pide</span>
-            <p class="services-home-group__intro">Estas capacidades encajan cuando ya necesitas una capa técnica adicional o una herramienta más específica.</p>
-          </div>
-          <div class="services-home-grid services-home-grid--secondary">
-            <a href="servicios/hosting/" class="portfolio-card services-home-card services-home-card--secondary">
+            <a href="servicios/seo-local/" class="portfolio-card services-home-card services-home-deck__card">
               <div class="portfolio-card__body">
-                <h3 class="portfolio-card__title">Hosting Gestionado</h3>
-                <p class="portfolio-card__desc">Hosting con soporte en español para que tu web tenga una base técnica estable.</p>
+                <div class="services-home-deck__meta"><span class="services-home-card__tag">Lo interesante</span></div>
+                <h3 class="portfolio-card__title">SEO local</h3>
+                <p class="portfolio-card__desc">SEO local para Fuengirola, Málaga y cualquier lugar. Haz que más gente de tu zona te encuentre en internet: aparece en Google Maps y directorios locales.</p>
+                <p class="services-home-card__price">Desde 150€/mes</p>
+              </div>
+              <div class="portfolio-card__footer"><span class="btn btn--outline">SEO local →</span></div>
+            </a>
+
+            <a href="servicios/hosting/" class="portfolio-card services-home-card services-home-deck__card">
+              <div class="portfolio-card__body">
+                <div class="services-home-deck__meta"><span class="services-home-card__tag">Mantenlo funcionando</span></div>
+                <h3 class="portfolio-card__title">Hosting gestionado</h3>
+                <p class="portfolio-card__desc">Hosting con soporte en español para que tu web tenga una base técnica estable y no tengas que ocuparte de la parte técnica.</p>
                 <p class="services-home-card__price">30€ al año</p>
               </div>
               <div class="portfolio-card__footer"><span class="btn btn--outline">Ver hosting gestionado →</span></div>
             </a>
-            <a href="servicios/automatizacion/" class="portfolio-card services-home-card services-home-card--secondary">
+
+            <a href="servicios/mantenimiento/" class="portfolio-card services-home-card services-home-deck__card">
               <div class="portfolio-card__body">
+                <div class="services-home-deck__meta"><span class="services-home-card__tag">Para los más exigentes</span></div>
+                <h3 class="portfolio-card__title">Bonos y packs de mantenimiento</h3>
+                <p class="portfolio-card__desc">Opciones flexibles para mejoras continuas, cambios puntuales o rediseños completos.</p>
+              </div>
+              <div class="portfolio-card__footer"><span class="btn btn--outline">Ver bonos y packs →</span></div>
+            </a>
+
+            <a href="servicios/automatizacion/" class="portfolio-card services-home-card services-home-deck__card">
+              <div class="portfolio-card__body">
+                <div class="services-home-deck__meta"><span class="services-home-card__tag">Para los más exigentes</span></div>
                 <h3 class="portfolio-card__title">Automatización e IA</h3>
                 <p class="portfolio-card__desc">Chatbots, flujos automáticos y herramientas con IA para ahorrar tiempo en tu negocio.</p>
                 <p class="services-home-card__price">Desde 300€ + 50€/mes</p>
               </div>
               <div class="portfolio-card__footer"><span class="btn btn--outline">Ver automatización e IA →</span></div>
             </a>
-            <a href="servicios/aplicaciones-web/" class="portfolio-card services-home-card services-home-card--secondary">
+
+            <a href="servicios/aplicaciones-web/" class="portfolio-card services-home-card services-home-deck__card">
               <div class="portfolio-card__body">
+                <div class="services-home-deck__meta"><span class="services-home-card__tag">Para los más exigentes</span></div>
                 <h3 class="portfolio-card__title">Apps a medida</h3>
                 <p class="portfolio-card__desc">Herramientas y aplicaciones web desarrolladas exactamente para lo que necesita tu negocio.</p>
                 <p class="services-home-card__price">Desde 2.500€</p>
@@ -391,69 +389,75 @@
         <div class="stack-space-xl">
           <div class="section-header section-header--spaced">
             <span class="section-label" data-i18n="navCases">Proyectos recientes</span>
-            <h2 class="section-title" data-i18n="portfolioTitle">Proyectos para negocios locales</h2>
+            <h2 class="section-title"><a href="casos/" class="section-title__link" data-i18n="portfolioTitle">Casos de éxito</a></h2>
             <p class="section-sub" data-i18n="portfolioSub">Algunas referencias reales para ver cómo aterrizamos la captación según el tipo de negocio.</p>
           </div>
           <div class="portfolio__grid">
             <article class="portfolio-card" data-reveal>
               <a href="casos/sport-massage-fuengirola/" class="portfolio-card__img-link">
-                <img src="img/sport-massage-fuengirola.webp" alt="Diseño web para Sport Massage Fuengirola — web de masaje deportivo en la Costa del Sol con reservas directas" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
+                <img src="img/sport-massage-landing.png" alt="Landing real de Sport Massage Fuengirola" class="portfolio-card__img portfolio-card__img--primary" width="1179" height="1941" loading="lazy" decoding="async"/>
+                <img src="img/sport-massage-maps-ranking.png" alt="Sport Massage en la primera posición de Maps para masaje deportivo en Fuengirola" class="portfolio-card__img portfolio-card__img--secondary portfolio-card__img--maps" width="1672" height="941" loading="lazy" decoding="async"/>
               </a>
               <div class="portfolio-card__body">
                 <h3 class="portfolio-card__title">Sport Massage Fuengirola</h3>
-                <p class="portfolio-card__desc">Web publicada en 5 días. Reservas directas desde el primer mes sin comisión.</p>
+                <p class="portfolio-card__desc">Página web posicionada como nº 1 en Fuengirola en menos de un mes.</p>
                 <div class="portfolio-card__tags">
-                  <span class="tag tag--blue">Salud y bienestar</span>
                   <span class="tag tag--orange">Diseño Web</span>
+                  <span class="tag tag--blue">Web Lite</span>
                 </div>
-                <a href="casos/sport-massage-fuengirola/" class="btn btn--ghost btn--sm">Caso: web para masaje deportivo en Fuengirola →</a>
+                <a href="casos/sport-massage-fuengirola/" class="btn btn--ghost btn--sm">Ver la web →</a>
               </div>
             </article>
             <article class="portfolio-card" data-reveal>
               <a href="casos/personal-trainer-fuengirola/" class="portfolio-card__img-link">
-                <img src="img/personal-trainer.webp" alt="Diseño web para entrenador personal en Fuengirola — página web profesional de fitness con contacto directo" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
+                <img src="img/personal-trainer-landing-secondary.png" alt="Landing de Personal Trainer Fuengirola: Tu mejor versión no es opcional" class="portfolio-card__img portfolio-card__img--primary" width="1672" height="941" loading="lazy" decoding="async"/>
+                <img src="img/personal-trainer-real.webp" alt="Mujer realizando peso muerto en Personal Trainer Fuengirola" class="portfolio-card__img portfolio-card__img--secondary" width="1717" height="916" loading="lazy" decoding="async"/>
               </a>
               <div class="portfolio-card__body">
                 <h3 class="portfolio-card__title">Personal Trainer Fuengirola</h3>
-                <p class="portfolio-card__desc">Web para entrenador personal con formulario de contacto directo.</p>
+                <p class="portfolio-card__desc">Hemos recogido un mensaje claro y lo estamos posicionando.</p>
                 <div class="portfolio-card__tags">
                   <span class="tag tag--red">Fitness</span>
                   <span class="tag tag--orange">Diseño Web</span>
+                  <span class="tag tag--blue">Web Express</span>
                 </div>
-                <a href="casos/personal-trainer-fuengirola/" class="btn btn--ghost btn--sm">Caso: web para entrenador personal en Fuengirola →</a>
+                <a href="casos/personal-trainer-fuengirola/" class="btn btn--ghost btn--sm">Ver la web →</a>
               </div>
             </article>
             <article class="portfolio-card" data-reveal>
               <a href="casos/agama/" class="portfolio-card__img-link">
-                <img src="img/agama.webp" alt="Agama — panel de gestión a medida para empresa de servicios B2B desarrollado por Web Fuengirola" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
+                <img src="img/agama-real.png" alt="Landing real de Agama Pigmentos y Masterbatch" class="portfolio-card__img portfolio-card__img--primary" width="1731" height="909" loading="lazy" decoding="async"/>
+                <img src="img/agama-tienda-online.png" alt="Productos de la tienda online de Agama" class="portfolio-card__img portfolio-card__img--secondary portfolio-card__img--shop" width="1672" height="941" loading="lazy" decoding="async"/>
               </a>
               <div class="portfolio-card__body">
                 <h3 class="portfolio-card__title">Agama</h3>
-                <p class="portfolio-card__desc">Panel de gestión a medida para empresa de servicios B2B, desde cero.</p>
+                <p class="portfolio-card__desc">Proyecto para una empresa internacional con gran número de competidores y un sector muy competitivo.</p>
                 <div class="portfolio-card__tags">
-                  <span class="tag tag--blue">Servicios B2B</span>
-                  <span class="tag tag--purple">App a medida</span>
+                  <span class="tag tag--orange">Web profesional</span>
+                  <span class="tag tag--green">SEO prioritario</span>
                 </div>
-                <a href="casos/agama/" class="btn btn--ghost btn--sm">Caso: app de gestión B2B a medida →</a>
+                <a href="casos/agama/" class="btn btn--ghost btn--sm">Ver la web →</a>
               </div>
             </article>
             <article class="portfolio-card" data-reveal>
               <a href="casos/gimnasio-nuevo-estilo/" class="portfolio-card__img-link">
-                <img src="img/gimnasio-nuevo-estilo.webp" alt="Gimnasio Nuevo Estilo — diseño web local para gimnasio en Fuengirola y Arroyo de la Miel" class="portfolio-card__img" width="1122" height="1402" loading="lazy" decoding="async"/>
+                <img src="img/gimnasio-nuevo-estilo-real.webp?v=2" alt="Entrada real de Gimnasio Nuevo Estilo" class="portfolio-card__img portfolio-card__img--primary portfolio-card__img--gym" width="1122" height="1402" loading="lazy" decoding="async"/>
+                <img src="img/paco-mula-team.webp?v=2" alt="Paco Mula Team en Gimnasio Nuevo Estilo" class="portfolio-card__img portfolio-card__img--secondary portfolio-card__img--team" width="1800" height="1235" loading="lazy" decoding="async"/>
               </a>
               <div class="portfolio-card__body">
                 <h3 class="portfolio-card__title">Gimnasio Nuevo Estilo</h3>
                 <p class="portfolio-card__desc">Web local para captar alumnos en Fuengirola y Arroyo de la Miel.</p>
                 <div class="portfolio-card__tags">
-                  <span class="tag tag--red">Fitness</span>
+                  <span class="tag tag--orange">Web profesional</span>
                   <span class="tag tag--orange">SEO local</span>
                 </div>
-                <a href="casos/gimnasio-nuevo-estilo/" class="btn btn--ghost btn--sm">Caso: web para gimnasio local →</a>
+                <a href="casos/gimnasio-nuevo-estilo/" class="btn btn--ghost btn--sm">Ver la web →</a>
               </div>
             </article>
             <article class="portfolio-card" data-reveal>
               <a href="casos/vokabellab/" class="portfolio-card__img-link">
-                <img src="img/vokabellab.webp" alt="Vokabellab — plataforma educativa de alemán con herramientas de IA desarrollada por Web Fuengirola" class="portfolio-card__img" width="800" height="400" loading="lazy" decoding="async"/>
+                <img src="img/derdiedas-vokabellab.webp?v=2" alt="Landing real de DerDieDas, herramienta de Vokabellab" class="portfolio-card__img portfolio-card__img--primary portfolio-card__img--vokabellab" width="1600" height="900" loading="lazy" decoding="async"/>
+                <img src="img/imkontext.webp?v=2" alt="Pantalla real de imKontext, herramienta de Vokabellab" class="portfolio-card__img portfolio-card__img--secondary portfolio-card__img--vokabellab" width="800" height="400" loading="lazy" decoding="async"/>
               </a>
               <div class="portfolio-card__body">
                 <h3 class="portfolio-card__title">Vokabellab</h3>
@@ -462,7 +466,7 @@
                   <span class="tag tag--blue">EdTech</span>
                   <span class="tag tag--green">App + IA</span>
                 </div>
-                <a href="casos/vokabellab/" class="btn btn--ghost btn--sm">Caso: plataforma educativa con IA →</a>
+                <a href="casos/vokabellab/" class="btn btn--ghost btn--sm">Ver la web →</a>
               </div>
             </article>
           </div>
@@ -544,7 +548,7 @@
       </div>
     </section>
 
-    <section class="credibility-deck" aria-labelledby="credibility-deck-title">
+    <section class="credibility-deck" aria-labelledby="credibility-deck-title" data-fab-theme="dark">
       <div class="container">
         <div class="credibility-deck__shell">
           <div class="credibility-deck__intro">
@@ -605,40 +609,14 @@
     <!-- ============================================================
          CTA FINAL
     ============================================================ -->
-    <section class="cta-final" id="contacto">
+    <section class="cta-final" id="contacto" data-fab-theme="dark">
       <div class="container cta-final__inner">
         <div class="cta-final__content cta-final__content--calculator">
           <div class="estimator" data-estimator>
             <div class="estimator__head">
-              <span class="section-label" data-i18n="calcLabel">Orientación rápida</span>
+              <span class="section-label" data-i18n="calcLabel">Calculadora de precios</span>
               <h2 class="cta-final__title" data-i18n-html="calcTitle">Elige la forma más fácil<br>de dar el siguiente paso</h2>
               <p class="cta-final__sub" data-i18n="calcSub">Si quieres una recomendación orientativa, responde 4 preguntas. Si ya lo tienes claro, entra por la ruta directa y no pierdas tiempo.</p>
-            </div>
-
-            <div class="content-grid content-grid--cards content-grid--closing">
-              <article class="portfolio-card portfolio-card--contact-form" data-reveal>
-                <div class="portfolio-card__body">
-                  <span class="tag tag--green inline-tag">Contacto rápido</span>
-                  <h3 class="portfolio-card__title">Cuéntanos tu caso y te respondemos en 48h</h3>
-                  <form class="contact-form-mini" id="contact-form-home" action="https://admin.webfuengirola.com/api/contact" method="post" data-contact-form data-contact-source="home-cta">
-                    <input type="text" name="name" placeholder="Tu nombre" aria-label="Tu nombre" required class="contact-form-mini__input" autocomplete="name" />
-                    <input type="email" name="email" placeholder="Tu email" aria-label="Tu email" required class="contact-form-mini__input" autocomplete="email" />
-                    <select name="interest" aria-label="Qué necesitas" required class="contact-form-mini__input contact-form-mini__select">
-                      <option value="" disabled selected>¿Qué necesitas?</option>
-                      <option value="Diseño web">Diseño web</option>
-                      <option value="SEO local">SEO local</option>
-                      <option value="Mantenimiento">Mantenimiento</option>
-                      <option value="Otro">Otro</option>
-                    </select>
-                    <textarea name="message" placeholder="Cuéntanos brevemente tu caso (opcional)" aria-label="Cuéntanos brevemente tu caso" rows="2" class="contact-form-mini__input contact-form-mini__textarea"></textarea>
-                    <input type="text" name="website" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px" />
-                    <div data-turnstile class="contact-form-mini__turnstile"></div>
-                    <div class="contact-form__status" data-contact-status role="status"></div>
-                    <button type="submit" data-contact-submit class="btn btn--primary btn--sm">Enviar consulta →</button>
-                  </form>
-                  <p class="contact-form-mini__alt">O escribe directamente por <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20contaros%20mi%20caso" target="_blank" rel="noopener noreferrer">WhatsApp</a></p>
-                </div>
-              </article>
             </div>
 
             <div class="estimator__shell">
@@ -824,42 +802,6 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         WEB SOLIDARIA
-    ============================================================ -->
-    <section class="solidaria" id="web-solidaria">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label">Impacto social</span>
-          <h2 class="section-title">Web Solidaria</h2>
-          <p class="section-sub">Creamos webs profesionales y optimizadas para el posicionamiento en Google, de forma altruista, para ONGs, asociaciones benéficas y activistas que trabajan por un mundo mejor.</p>
-        </div>
-
-        <div class="solidaria__grid">
-          <div class="solidaria__card">
-            <span class="solidaria__icon" aria-hidden="true">🌍</span>
-            <h3 class="solidaria__card-title">Web profesional gratis</h3>
-            <p class="solidaria__card-text">Diseñamos y desarrollamos tu página web sin coste. Solo pagas el hosting y dominio anual (desde ~50 €/año).</p>
-          </div>
-          <div class="solidaria__card">
-            <span class="solidaria__icon" aria-hidden="true">🔍</span>
-            <h3 class="solidaria__card-title">SEO incluido</h3>
-            <p class="solidaria__card-text">Tu web sale optimizada para aparecer en Google desde el primer día. Estructura, velocidad y contenido preparados para posicionar.</p>
-          </div>
-          <div class="solidaria__card">
-            <span class="solidaria__icon" aria-hidden="true">📍</span>
-            <h3 class="solidaria__card-title">Google Business Profile</h3>
-            <p class="solidaria__card-text">Te ayudamos a crear o mejorar tu ficha en Google para que la gente te encuentre en el mapa y pueda contactarte directamente.</p>
-          </div>
-        </div>
-
-        <div class="solidaria__cta">
-          <p class="solidaria__cta-text">¿Eres una ONG, asociación o activista con un proyecto que merece más visibilidad?</p>
-          <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20el%20programa%20Web%20Solidaria" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">Cuéntanos tu proyecto →</a>
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <!-- ============================================================
@@ -892,7 +834,7 @@
           <li><a href="sobre-nosotros/">Sobre nosotros</a></li>
           <li><a href="como-trabajamos/">Cómo trabajamos</a></li>
           <li><a href="casos/">Casos de éxito</a></li>
-          <li><a href="#web-solidaria">Web Solidaria</a></li>
+          <li><a href="web-solidaria/">Web Solidaria</a></li>
           <li><a href="recursos/">Calculadora de precios</a></li>
           <li><a href="blog/">Blog en español</a></li>
           <li><a href="en/blog/" hreflang="en">Blog in English</a></li>
