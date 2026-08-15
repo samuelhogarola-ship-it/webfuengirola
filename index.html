@@ -257,16 +257,19 @@
           <span class="section-label" data-i18n="servicesLabel">Servicios</span>
           <h2 class="section-title" data-i18n="servicesTitle">¿Qué hacemos?</h2>
         </div>
-        <div class="services-home-group">
+        <div class="services-home-group services-home-group--deck">
           <div class="services-home-group__header">
             <span class="services-home-group__eyebrow">Lo que interesa a la mayoría</span>
             <p class="services-home-group__intro">Tienes un negocio. Lo impulsamos online para darle mayor visibilidad y hacemos que la inteligencia artificial y Google recomienden tu negocio a más clientes.</p>
           </div>
-          <div class="services-home-primary-layout">
-            <a href="servicios/diseno-web/" class="portfolio-card services-home-card services-home-card--primary services-home-card--spotlight">
+
+          <div class="services-home-deck">
+            <a href="servicios/diseno-web/" class="portfolio-card services-home-card services-home-deck__card">
               <div class="portfolio-card__body">
-                <span class="services-home-card__tag">Lo fundamental</span>
-                <span class="services-home-card__tag">Fuengirola</span>
+                <div class="services-home-deck__meta">
+                  <span class="services-home-card__tag">Lo fundamental</span>
+                  <span class="services-home-card__tag">Fuengirola</span>
+                </div>
                 <h3 class="portfolio-card__title">El diseño web</h3>
                 <p class="portfolio-card__desc">Tu escaparate al mundo en internet. Muestra lo que haces y facilita que te encuentren. Convierte clics en clientes reales.</p>
                 <ul class="services-home-card__bullets" aria-label="Qué resuelve diseño web">
@@ -275,64 +278,51 @@
                 </ul>
                 <p class="services-home-card__price">Desde 250€</p>
               </div>
-              <div class="portfolio-card__footer">
-                <span class="btn btn--outline">Diseño web →</span>
-              </div>
+              <div class="portfolio-card__footer"><span class="btn btn--outline">Diseño web →</span></div>
             </a>
 
-            <div class="services-home-support">
-              <a href="servicios/seo-local/" class="portfolio-card services-home-card services-home-card--step">
-                <div class="portfolio-card__body">
-                  <span class="services-home-card__tag">Lo interesante</span>
-                  <h3 class="portfolio-card__title">SEO local</h3>
-                  <p class="portfolio-card__desc">SEO local para Fuengirola, Málaga y cualquier lugar. Haz que más gente de tu zona te encuentre en internet: aparece en Google Maps y directorios locales. En definitiva, consigue que más personas conozcan tu negocio a través de internet.</p>
-                  <p class="services-home-card__price">Desde 150€/mes</p>
-                </div>
-                <div class="portfolio-card__footer"><span class="btn btn--outline">SEO local para negocio en Fuengirola →</span></div>
-              </a>
-            </div>
-          </div>
-
-          <div class="services-home-essentials-grid">
-              <article class="services-home-side-note">
-                <span class="services-home-side-note__eyebrow">Mantenlo funcionando</span>
-                <p class="services-home-side-note__text">Ya lo has conseguido. Ahora solo necesitas mantenerlo. Tenemos opciones que se adaptan a cada necesidad, desde cambios puntuales o continuos hasta rediseños completos.</p>
-              </article>
-
-              <a href="servicios/hosting/" class="portfolio-card services-home-card services-home-card--secondary">
-                <div class="portfolio-card__body">
-                  <h3 class="portfolio-card__title">Hosting Gestionado</h3>
-                  <p class="portfolio-card__desc">Hosting con soporte en español para que tu web tenga una base técnica estable.</p>
-                  <p class="services-home-card__price">30€ al año</p>
-                </div>
-                <div class="portfolio-card__footer"><span class="btn btn--outline">Ver hosting gestionado →</span></div>
-              </a>
-          </div>
-        </div>
-
-        <div class="services-home-group services-home-group--secondary">
-          <div class="services-home-group__header">
-            <span class="services-home-group__eyebrow">Para los más exigentes</span>
-            <p class="services-home-group__intro">Estas capacidades encajan cuando ya necesitas una capa técnica adicional o una herramienta más específica.</p>
-          </div>
-          <div class="services-home-grid services-home-grid--secondary">
-            <a href="servicios/mantenimiento/" class="portfolio-card services-home-card services-home-card--secondary">
+            <a href="servicios/seo-local/" class="portfolio-card services-home-card services-home-deck__card">
               <div class="portfolio-card__body">
+                <div class="services-home-deck__meta"><span class="services-home-card__tag">Lo interesante</span></div>
+                <h3 class="portfolio-card__title">SEO local</h3>
+                <p class="portfolio-card__desc">SEO local para Fuengirola, Málaga y cualquier lugar. Haz que más gente de tu zona te encuentre en internet: aparece en Google Maps y directorios locales.</p>
+                <p class="services-home-card__price">Desde 150€/mes</p>
+              </div>
+              <div class="portfolio-card__footer"><span class="btn btn--outline">SEO local →</span></div>
+            </a>
+
+            <a href="servicios/hosting/" class="portfolio-card services-home-card services-home-deck__card">
+              <div class="portfolio-card__body">
+                <div class="services-home-deck__meta"><span class="services-home-card__tag">Mantenlo funcionando</span></div>
+                <h3 class="portfolio-card__title">Hosting gestionado</h3>
+                <p class="portfolio-card__desc">Hosting con soporte en español para que tu web tenga una base técnica estable y no tengas que ocuparte de la parte técnica.</p>
+                <p class="services-home-card__price">30€ al año</p>
+              </div>
+              <div class="portfolio-card__footer"><span class="btn btn--outline">Ver hosting gestionado →</span></div>
+            </a>
+
+            <a href="servicios/mantenimiento/" class="portfolio-card services-home-card services-home-deck__card">
+              <div class="portfolio-card__body">
+                <div class="services-home-deck__meta"><span class="services-home-card__tag">Para los más exigentes</span></div>
                 <h3 class="portfolio-card__title">Bonos y packs de mantenimiento</h3>
                 <p class="portfolio-card__desc">Opciones flexibles para mejoras continuas, cambios puntuales o rediseños completos.</p>
               </div>
               <div class="portfolio-card__footer"><span class="btn btn--outline">Ver bonos y packs →</span></div>
             </a>
-            <a href="servicios/automatizacion/" class="portfolio-card services-home-card services-home-card--secondary">
+
+            <a href="servicios/automatizacion/" class="portfolio-card services-home-card services-home-deck__card">
               <div class="portfolio-card__body">
+                <div class="services-home-deck__meta"><span class="services-home-card__tag">Para los más exigentes</span></div>
                 <h3 class="portfolio-card__title">Automatización e IA</h3>
                 <p class="portfolio-card__desc">Chatbots, flujos automáticos y herramientas con IA para ahorrar tiempo en tu negocio.</p>
                 <p class="services-home-card__price">Desde 300€ + 50€/mes</p>
               </div>
               <div class="portfolio-card__footer"><span class="btn btn--outline">Ver automatización e IA →</span></div>
             </a>
-            <a href="servicios/aplicaciones-web/" class="portfolio-card services-home-card services-home-card--secondary">
+
+            <a href="servicios/aplicaciones-web/" class="portfolio-card services-home-card services-home-deck__card">
               <div class="portfolio-card__body">
+                <div class="services-home-deck__meta"><span class="services-home-card__tag">Para los más exigentes</span></div>
                 <h3 class="portfolio-card__title">Apps a medida</h3>
                 <p class="portfolio-card__desc">Herramientas y aplicaciones web desarrolladas exactamente para lo que necesita tu negocio.</p>
                 <p class="services-home-card__price">Desde 2.500€</p>

@@ -8650,3 +8650,183 @@ body.is-transitioning {
 .footer {
   background: #ffffff;
 }
+
+/* Services deck: equal-height cards stack while scrolling and alternate tone. */
+.services.stack-card {
+  overflow: visible;
+}
+
+.services > .container > .section-header {
+  margin-bottom: 1.75rem;
+}
+
+.services > .container > .section-header .section-title {
+  font-size: clamp(2.15rem, 3.6vw, 3.65rem);
+}
+
+.services-home-group--deck {
+  margin-top: 0;
+}
+
+.services-home-group--deck > .services-home-group__header {
+  max-width: 900px;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.services-home-deck {
+  position: relative;
+  display: grid;
+  gap: 0;
+  counter-reset: service-card;
+}
+
+.services-home-deck__card {
+  counter-increment: service-card;
+  position: sticky;
+  top: clamp(104px, 14vh, 128px);
+  display: flex;
+  height: clamp(500px, 64vh, 580px);
+  margin-bottom: clamp(32px, 8vh, 72px);
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(10, 10, 10, 0.12);
+  border-radius: clamp(24px, 3vw, 38px);
+  background: #ffffff;
+  box-shadow: 0 24px 64px rgba(10, 10, 10, 0.14);
+  color: #090909;
+  transform-origin: top center;
+}
+
+.services-home-deck__card:nth-child(1) { z-index: 1; }
+.services-home-deck__card:nth-child(2) { z-index: 2; }
+.services-home-deck__card:nth-child(3) { z-index: 3; }
+.services-home-deck__card:nth-child(4) { z-index: 4; }
+.services-home-deck__card:nth-child(5) { z-index: 5; }
+.services-home-deck__card:nth-child(6) { z-index: 6; }
+
+.services-home-deck__card:last-child {
+  margin-bottom: 0;
+}
+
+.services-home-deck__card::after {
+  content: "0" counter(service-card);
+  position: absolute;
+  top: clamp(24px, 4vw, 42px);
+  right: clamp(24px, 4vw, 42px);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  opacity: 0.38;
+}
+
+.services-home-deck__card:nth-child(even) {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: #090909;
+  color: #ffffff;
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.28);
+}
+
+.services-home-deck__card .portfolio-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: clamp(28px, 5vw, 56px);
+  padding-right: clamp(70px, 9vw, 112px);
+}
+
+.services-home-deck__card .portfolio-card__title {
+  max-width: 760px;
+  margin-top: auto;
+  font-size: clamp(2rem, 5vw, 4.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  color: inherit;
+}
+
+.services-home-deck__card .portfolio-card__desc {
+  max-width: 760px;
+  margin-top: 1.25rem;
+}
+
+.services-home-deck__card:nth-child(even) .portfolio-card__desc,
+.services-home-deck__card:nth-child(even) .services-home-card__bullets li {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.services-home-deck__card:nth-child(even) .services-home-card__tag {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.services-home-deck__card:nth-child(even) .services-home-card__bullets li::before {
+  background: #ffffff;
+}
+
+.services-home-deck__meta {
+  display: flex;
+  min-height: 30px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.services-home-deck__meta .services-home-card__tag {
+  margin-bottom: 0;
+}
+
+.services-home-deck__card .services-home-card__price {
+  margin-top: 1.15rem;
+  color: inherit;
+}
+
+.services-home-deck__card .portfolio-card__footer {
+  padding: 0 clamp(28px, 5vw, 56px) clamp(28px, 4vw, 44px);
+  border-top: 0;
+}
+
+.services-home-deck__card .btn {
+  min-width: min(100%, 260px);
+  justify-content: center;
+}
+
+.services-home-deck__card:nth-child(even) .btn--outline {
+  border-color: rgba(255, 255, 255, 0.42);
+  color: #ffffff;
+}
+
+.services-home-deck__card:nth-child(even) .btn--outline:hover {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #090909;
+}
+
+@media (max-width: 720px) {
+  .services-home-deck__card {
+    top: 92px;
+    height: clamp(470px, 70vh, 540px);
+    margin-bottom: 28px;
+  }
+
+  .services-home-deck__card .portfolio-card__body {
+    padding: 28px 24px;
+    padding-right: 54px;
+  }
+
+  .services-home-deck__card .portfolio-card__title {
+    font-size: clamp(2rem, 10vw, 3.15rem);
+  }
+
+  .services-home-deck__card .portfolio-card__desc,
+  .services-home-deck__card .services-home-card__bullets li {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .services-home-deck__card .portfolio-card__footer {
+    padding: 0 24px 26px;
+  }
+
+  .services-home-deck__card::after {
+    top: 28px;
+    right: 22px;
+  }
+}
