@@ -8490,6 +8490,18 @@ body.is-transitioning {
   object-position: 18% center;
 }
 
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img--gym {
+  object-position: center 18%;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img--team {
+  object-position: center 26%;
+}
+
+.portfolio__grid.portfolio__grid--deck-stack .portfolio-card__img--vokabellab {
+  object-position: center top;
+}
+
 .portfolio__grid.portfolio__grid--deck-stack
   > .portfolio-card:hover
   .portfolio-card__img--primary {
