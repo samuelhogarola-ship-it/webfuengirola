@@ -1125,6 +1125,39 @@
       header.classList.remove("scrolled");
     }
   }
+
+  /* ---- Match the WhatsApp FAB to the section beneath it ---- */
+  function initWhatsappFabTheme() {
+    var fab = document.querySelector(".whatsapp-fab");
+    var darkSections = Array.prototype.slice.call(
+      document.querySelectorAll('[data-fab-theme="dark"]'),
+    );
+    if (!fab || !darkSections.length) return;
+
+    var ticking = false;
+
+    function updateFabTheme() {
+      var fabRect = fab.getBoundingClientRect();
+      var fabCenterY = fabRect.top + fabRect.height / 2;
+      var isOnDark = darkSections.some(function (section) {
+        var sectionRect = section.getBoundingClientRect();
+        return sectionRect.top <= fabCenterY && sectionRect.bottom >= fabCenterY;
+      });
+
+      fab.classList.toggle("whatsapp-fab--on-dark", isOnDark);
+      ticking = false;
+    }
+
+    function requestFabUpdate() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(updateFabTheme);
+    }
+
+    window.addEventListener("scroll", requestFabUpdate, { passive: true });
+    window.addEventListener("resize", requestFabUpdate, { passive: true });
+    updateFabTheme();
+  }
   /* ---- Stacked cards on scroll (scale compress as next card slides over) ---- */
   function initStackCards() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -2303,6 +2336,7 @@
     initReveal();
     initPortfolioPopup();
     initStackCards();
+    initWhatsappFabTheme();
     scalePreviewIframes();
     window.addEventListener("resize", scalePreviewIframes, { passive: true });
   }
