@@ -1205,6 +1205,56 @@
     update();
   }
 
+  /* ---- Case proof windows: render outside transformed sections ---- */
+  function initCaseProofPortal() {
+    var items = document.querySelectorAll(".case-showcase__item");
+    if (!items.length) return;
+
+    var layer = document.createElement("div");
+    layer.className = "case-proof-portal";
+    layer.setAttribute("aria-hidden", "true");
+    document.body.appendChild(layer);
+
+    function clearProofs() {
+      layer.replaceChildren();
+    }
+
+    function showProofs(item) {
+      if (window.matchMedia("(max-width: 980px)").matches) {
+        clearProofs();
+        return;
+      }
+
+      clearProofs();
+      item.querySelectorAll(".case-proof").forEach(function (proof) {
+        var clone = proof.cloneNode(true);
+        clone.setAttribute("aria-hidden", "true");
+        layer.appendChild(clone);
+      });
+    }
+
+    items.forEach(function (item) {
+      item.addEventListener("pointerenter", function () {
+        showProofs(item);
+      });
+
+      item.addEventListener("pointerleave", clearProofs);
+
+      item.addEventListener("focusin", function () {
+        showProofs(item);
+      });
+
+      item.addEventListener("focusout", function () {
+        window.setTimeout(function () {
+          if (!item.contains(document.activeElement)) clearProofs();
+        }, 0);
+      });
+    });
+
+    window.addEventListener("resize", clearProofs, { passive: true });
+    window.addEventListener("scroll", clearProofs, { passive: true });
+  }
+
   /* ---- Elegant scroll reveal ---- */
   function initReveal() {
     var els = Array.prototype.slice.call(
@@ -2333,6 +2383,7 @@
     initReveal();
     initPortfolioPopup();
     initStackCards();
+    initCaseProofPortal();
     initWhatsappFabTheme();
     scalePreviewIframes();
     window.addEventListener("resize", scalePreviewIframes, { passive: true });
