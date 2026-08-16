@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prototipos casos de éxito | Web Fuengirola</title>
+    <link rel="stylesheet" href="style.css?v=9" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: #f4f3ef;
+        color: #090909;
+      }
+
+      .case-options-page {
+        padding: calc(var(--header-h) + 42px) 0 80px;
+      }
+
+      .case-option {
+        margin: 0 auto 56px;
+        max-width: 1280px;
+        overflow: hidden;
+        border: 1px solid rgba(17, 17, 17, 0.1);
+        border-radius: 34px;
+        background: #fff;
+        box-shadow: 0 28px 80px rgba(11, 16, 24, 0.08);
+      }
+
+      .case-option__label {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: rgba(255, 255, 255, 0.62);
+        font-size: 0.72rem;
+        font-weight: 900;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .case-option__label::before {
+        content: "";
+        width: 28px;
+        height: 1px;
+        background: currentColor;
+      }
+
+      .case-option--cinema {
+        min-height: 760px;
+        padding: clamp(28px, 4vw, 56px);
+        background:
+          radial-gradient(circle at 88% 16%, rgba(226, 181, 125, 0.2), transparent 26%),
+          linear-gradient(135deg, #080808 0%, #161616 54%, #050505 100%);
+        color: #fff;
+      }
+
+      .case-cinema {
+        display: grid;
+        grid-template-columns: minmax(280px, 0.86fr) minmax(0, 1.14fr);
+        gap: clamp(28px, 5vw, 72px);
+        align-items: center;
+      }
+
+      .case-cinema__copy h1 {
+        margin-top: 18px;
+        max-width: 650px;
+        font-size: clamp(3.2rem, 6.5vw, 7rem);
+        line-height: 0.88;
+        letter-spacing: -0.07em;
+      }
+
+      .case-cinema__copy p {
+        margin-top: 22px;
+        max-width: 520px;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: clamp(1.05rem, 1.35vw, 1.22rem);
+        line-height: 1.62;
+      }
+
+      .case-cinema__stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 34px;
+        max-width: 580px;
+      }
+
+      .case-cinema__stats span {
+        padding: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.07);
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.78rem;
+        line-height: 1.25;
+      }
+
+      .case-cinema__stats strong {
+        display: block;
+        margin-bottom: 5px;
+        color: #fff;
+        font-size: 1.15rem;
+      }
+
+      .case-cinema__stage {
+        position: relative;
+        min-height: 600px;
+      }
+
+      .case-cinema__card {
+        position: absolute;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 26px;
+        background: #111;
+        box-shadow: 0 32px 80px rgba(0, 0, 0, 0.42);
+      }
+
+      .case-cinema__card img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+
+      .case-cinema__card--main {
+        right: 4%;
+        top: 4%;
+        z-index: 3;
+        width: min(620px, 82%);
+        aspect-ratio: 16 / 10;
+      }
+
+      .case-cinema__card--main img {
+        object-position: center top;
+      }
+
+      .case-cinema__card--left {
+        left: 0;
+        top: 38%;
+        z-index: 4;
+        width: min(370px, 48%);
+        aspect-ratio: 4 / 3;
+        transform: rotate(-4deg);
+      }
+
+      .case-cinema__card--right {
+        right: 0;
+        bottom: 0;
+        z-index: 2;
+        width: min(410px, 52%);
+        aspect-ratio: 16 / 10;
+        transform: rotate(3deg);
+      }
+
+      .case-cinema__badge {
+        position: absolute;
+        left: 18%;
+        top: 18%;
+        z-index: 5;
+        width: min(280px, 42%);
+        padding: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.82);
+        color: #111;
+        box-shadow: 0 26px 60px rgba(0, 0, 0, 0.28);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+
+      .case-cinema__badge span {
+        display: block;
+        color: #777;
+        font-size: 0.68rem;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .case-cinema__badge strong {
+        display: block;
+        margin-top: 8px;
+        font-size: clamp(1.2rem, 2vw, 1.85rem);
+        line-height: 1;
+        letter-spacing: -0.05em;
+      }
+
+      .case-option--editorial {
+        padding: clamp(26px, 4vw, 46px);
+        background: #f7f6f2;
+      }
+
+      .case-list__head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 32px;
+        margin-bottom: 24px;
+      }
+
+      .case-list__head .case-option__label {
+        color: rgba(17, 17, 17, 0.48);
+      }
+
+      .case-list__head h2 {
+        margin-top: 12px;
+        max-width: 650px;
+        font-size: clamp(2rem, 4vw, 4.2rem);
+        line-height: 0.94;
+        letter-spacing: -0.065em;
+      }
+
+      .case-list__head p {
+        max-width: 430px;
+        color: #666;
+        line-height: 1.55;
+      }
+
+      .case-list {
+        display: grid;
+        gap: 14px;
+      }
+
+      .case-strip {
+        display: grid;
+        grid-template-columns: minmax(240px, 0.92fr) minmax(0, 1.08fr) minmax(170px, 0.36fr);
+        height: 286px;
+        min-height: 250px;
+        overflow: hidden;
+        border: 1px solid rgba(17, 17, 17, 0.1);
+        border-radius: 26px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 18px 48px rgba(11, 16, 24, 0.06);
+      }
+
+      .case-strip__media {
+        height: 100%;
+        min-height: 250px;
+        margin: 0;
+        overflow: hidden;
+        background: #111;
+      }
+
+      .case-strip__media img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: center top;
+      }
+
+      .case-strip__body {
+        align-self: center;
+        padding: clamp(22px, 3vw, 34px);
+      }
+
+      .case-strip__eyebrow {
+        display: inline-flex;
+        width: fit-content;
+        padding: 8px 10px;
+        border-radius: 999px;
+        background: rgba(17, 17, 17, 0.08);
+        color: #777;
+        font-size: 0.68rem;
+        font-weight: 900;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .case-strip h3 {
+        margin-top: 16px;
+        font-size: clamp(1.65rem, 2.8vw, 3rem);
+        line-height: 0.96;
+        letter-spacing: -0.06em;
+      }
+
+      .case-strip p {
+        margin-top: 14px;
+        max-width: 52ch;
+        color: #666;
+        line-height: 1.55;
+      }
+
+      .case-strip__result {
+        display: grid;
+        align-content: space-between;
+        gap: 18px;
+        padding: clamp(20px, 2.5vw, 30px);
+        background: #111;
+        color: #fff;
+      }
+
+      .case-strip__result span {
+        color: rgba(255, 255, 255, 0.56);
+        font-size: 0.68rem;
+        font-weight: 900;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .case-strip__result strong {
+        display: block;
+        margin-top: 10px;
+        font-size: clamp(1.45rem, 2.2vw, 2.4rem);
+        line-height: 0.95;
+        letter-spacing: -0.055em;
+      }
+
+      .case-strip__result a {
+        color: #fff;
+        font-weight: 900;
+      }
+
+      @media (max-width: 980px) {
+        .case-cinema {
+          grid-template-columns: 1fr;
+        }
+
+        .case-cinema__stage {
+          min-height: 520px;
+        }
+
+        .case-list__head {
+          display: block;
+        }
+
+        .case-list__head p {
+          margin-top: 14px;
+        }
+
+        .case-strip {
+          grid-template-columns: 1fr;
+          height: auto;
+        }
+
+        .case-strip__media {
+          height: auto;
+          min-height: 260px;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .case-option {
+          border-radius: 24px;
+        }
+
+        .case-option--cinema,
+        .case-option--editorial {
+          padding: 22px;
+        }
+
+        .case-cinema__stats {
+          grid-template-columns: 1fr;
+        }
+
+        .case-cinema__stage {
+          min-height: 430px;
+        }
+
+        .case-cinema__card--main {
+          width: 94%;
+        }
+
+        .case-cinema__card--left,
+        .case-cinema__card--right {
+          width: 62%;
+        }
+
+        .case-cinema__badge {
+          left: 8%;
+          width: 70%;
+        }
+
+        .case-strip__media {
+          min-height: 210px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header" id="header">
+      <div class="container header__inner">
+        <a href="index.html" class="logo" aria-label="Web Fuengirola">
+          <img src="img/logo-wf.webp" alt="Web Fuengirola" class="logo__img" width="36" height="36" />
+        </a>
+        <nav class="nav" id="nav" aria-label="Navegación principal">
+          <ul class="nav__list">
+            <li><a href="index.html" class="nav__link">Inicio</a></li>
+            <li><a href="servicios/" class="nav__link">Servicios</a></li>
+            <li><a href="casos/" class="nav__link nav__link--active">Casos de éxito</a></li>
+            <li><a href="blog/" class="nav__link">Blog</a></li>
+          </ul>
+        </nav>
+        <a href="casos/" class="btn btn--primary header__cta">Volver a casos</a>
+      </div>
+    </header>
+
+    <main class="case-options-page">
+      <div class="container">
+        <section class="case-option case-option--cinema">
+          <div class="case-cinema">
+            <div class="case-cinema__copy">
+              <span class="case-option__label">Opción 1 · Escenario</span>
+              <h1>Casos reales, enseñados como pruebas.</h1>
+              <p>
+                Una primera pantalla negra, premium y directa. En vez de tarjetas planas,
+                los proyectos aparecen como pantallas vivas: web, búsqueda local, app y
+                resultado.
+              </p>
+              <div class="case-cinema__stats">
+                <span><strong>Web</strong>Imagen clara y contacto directo.</span>
+                <span><strong>SEO</strong>Búsquedas locales y Google Maps.</span>
+                <span><strong>App</strong>Herramientas para trabajar mejor.</span>
+              </div>
+            </div>
+
+            <div class="case-cinema__stage" aria-label="Composición visual de casos">
+              <figure class="case-cinema__card case-cinema__card--main">
+                <img src="img/hero-personal-trainer-real-screen.png" alt="Caso Personal Trainer Fuengirola" />
+              </figure>
+              <figure class="case-cinema__card case-cinema__card--left">
+                <img src="img/sport-massage-landing.png" alt="Caso Sport Massage Fuengirola" />
+              </figure>
+              <figure class="case-cinema__card case-cinema__card--right">
+                <img src="img/agama-tienda-online.png" alt="Caso Agama tienda online" />
+              </figure>
+              <div class="case-cinema__badge">
+                <span>Lectura rápida</span>
+                <strong>Problema, trabajo hecho y resultado visible.</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="case-option case-option--editorial">
+          <div class="case-list-section">
+            <div class="case-list__head">
+              <div>
+                <span class="case-option__label">Continuación · Casos seleccionados</span>
+                <h2>Después del impacto, casos claros y comparables.</h2>
+              </div>
+              <p>
+                La parte de abajo no compite con el hero. Ordena cada proyecto en tres
+                piezas: captura real, problema resuelto y resultado.
+              </p>
+            </div>
+
+            <div class="case-list">
+              <article class="case-strip">
+                <figure class="case-strip__media">
+                  <img src="img/sport-massage-landing.png" alt="Sport Massage Fuengirola" />
+                </figure>
+                <div class="case-strip__body">
+                  <span class="case-strip__eyebrow">Salud · Web local</span>
+                  <h3>Sport Massage Fuengirola</h3>
+                  <p>
+                    Pasar de depender de plataformas y mensajes sueltos a una web clara,
+                    rápida y preparada para captar reservas directas.
+                  </p>
+                </div>
+                <div class="case-strip__result">
+                  <div>
+                    <span>Resultado</span>
+                    <strong>Contacto directo y búsqueda local.</strong>
+                  </div>
+                  <a href="casos/sport-massage-fuengirola/">Ver caso →</a>
+                </div>
+              </article>
+
+              <article class="case-strip">
+                <figure class="case-strip__media">
+                  <img src="img/hero-personal-trainer-real-screen.png" alt="Personal Trainer Fuengirola" />
+                </figure>
+                <div class="case-strip__body">
+                  <span class="case-strip__eyebrow">Fitness · Marca personal</span>
+                  <h3>Personal Trainer Fuengirola</h3>
+                  <p>
+                    Una imagen profesional, servicios explicados sin vueltas y una ruta
+                    de contacto fácil para quien llega desde móvil.
+                  </p>
+                </div>
+                <div class="case-strip__result">
+                  <div>
+                    <span>Resultado</span>
+                    <strong>Más confianza antes de escribir.</strong>
+                  </div>
+                  <a href="casos/personal-trainer-fuengirola/">Ver caso →</a>
+                </div>
+              </article>
+
+              <article class="case-strip">
+                <figure class="case-strip__media">
+                  <img src="img/agama-tienda-online.png" alt="Agama tienda online" />
+                </figure>
+                <div class="case-strip__body">
+                  <span class="case-strip__eyebrow">B2B · Producto propio</span>
+                  <h3>Agama</h3>
+                  <p>
+                    Tienda online, contenido y herramienta propia para que la empresa
+                    no dependa solo de catálogo, email o explicación manual.
+                  </p>
+                </div>
+                <div class="case-strip__result">
+                  <div>
+                    <span>Resultado</span>
+                    <strong>Escaparate y flujo comercial propio.</strong>
+                  </div>
+                  <a href="casos/agama/">Ver caso →</a>
+                </div>
+              </article>
+
+              <article class="case-strip">
+                <figure class="case-strip__media">
+                  <img src="img/gimnasio-nuevo-estilo-real.webp" alt="Gimnasio Nuevo Estilo" />
+                </figure>
+                <div class="case-strip__body">
+                  <span class="case-strip__eyebrow">Gimnasio · SEO local</span>
+                  <h3>Gimnasio Nuevo Estilo</h3>
+                  <p>
+                    Más superficie para aparecer: ficha, guías, imágenes indexables y
+                    contenido pensado para quien busca gimnasio en Fuengirola.
+                  </p>
+                </div>
+                <div class="case-strip__result">
+                  <div>
+                    <span>Resultado</span>
+                    <strong>Presencia local más fuerte.</strong>
+                  </div>
+                  <a href="casos/gimnasio-nuevo-estilo/">Ver caso →</a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
