@@ -95,82 +95,356 @@
   </header>
 
   <main>
-    <section class="section" style="padding-top: calc(var(--header-h) + 4rem)">
+    <section class="section services-page" style="padding-top: calc(var(--header-h) + 4rem)">
       <div class="container">
-        <div class="section-header">
-          <span class="section-label">Servicios</span>
-          <h1 class="section-title">Servicios web en Fuengirola para negocios que quieren vender mejor online</h1>
-          <p class="section-desc">Diseño web, SEO local, mantenimiento, automatización útil y herramientas a medida para negocios de Fuengirola y la Costa del Sol.</p>
-          <p class="section-desc">Qué ruta suele encajar según el problema que tienes hoy: primero una base web clara, después visibilidad local, mantenimiento o una herramienta propia si el negocio ya lo pide.</p>
-          <p class="section-desc">La mayoría de negocios no necesitan “todos los servicios” a la vez. Necesitan saber qué capa toca ahora y cuál puede esperar.</p>
+        <div class="services-intro">
+          <div class="services-intro__copy">
+            <span class="section-label">Servicios</span>
+            <h1 class="section-title">Servicios web para que tu negocio se entienda y venda mejor.</h1>
+            <p class="section-desc">No necesitas contratarlo todo. Primero vemos qué falla: imagen, visibilidad, mantenimiento o una herramienta que te ahorre trabajo.</p>
+          </div>
+          <aside class="services-intro__panel" aria-label="Forma de trabajar">
+            <span>Cómo lo ordenamos</span>
+            <ol>
+              <li>Base clara</li>
+              <li>Visibilidad local</li>
+              <li>Mejora continua</li>
+            </ol>
+          </aside>
         </div>
-        <div class="portfolio__grid" style="margin-top: 3rem">
-          
-        <article class="portfolio-card">
-          <div class="portfolio-card__body">
-            <h3 class="portfolio-card__title">Diseño Web</h3>
-            <p class="portfolio-card__desc">Servicio de diseño web para negocios locales que necesitan una base clara para captar mejor</p>
-            <p class="portfolio-card__price" style="font-weight:600;color:var(--color-accent);margin-top:0.5rem">Desde 200€</p>
-          </div>
-          <div class="portfolio-card__footer">
-            <a href="../servicios/diseno-web/" class="btn btn--outline">Ver servicio →</a>
-          </div>
-        </article>
 
-        <article class="portfolio-card">
-          <div class="portfolio-card__body">
-            <h3 class="portfolio-card__title">SEO Local</h3>
-            <p class="portfolio-card__desc">Servicio de SEO local para negocios que necesitan visibilidad útil antes de abrir más frentes</p>
-            <p class="portfolio-card__price" style="font-weight:600;color:var(--color-accent);margin-top:0.5rem">Desde 150€/mes</p>
+        <section class="problem-solution" aria-labelledby="problem-solution-title">
+          <div class="problem-solution__head">
+            <span class="section-label">Elige por problema</span>
+            <h2 id="problem-solution-title">Qué falla y qué servicio lo arregla.</h2>
+            <p>Tres casos normales. Problema claro, solución clara y servicio recomendado.</p>
           </div>
-          <div class="portfolio-card__footer">
-            <a href="../servicios/seo-local/" class="btn btn--outline">Ver servicio →</a>
-          </div>
-        </article>
 
-        <article class="portfolio-card">
-          <div class="portfolio-card__body">
-            <h3 class="portfolio-card__title">Mantenimiento</h3>
-            <p class="portfolio-card__desc">Tu web actualizada, segura y funcionando sin que tengas que preocuparte</p>
-            <p class="portfolio-card__price" style="font-weight:600;color:var(--color-accent);margin-top:0.5rem">Desde 29€/mes</p>
-          </div>
-          <div class="portfolio-card__footer">
-            <a href="../servicios/mantenimiento/" class="btn btn--outline">Ver servicio →</a>
-          </div>
-        </article>
+          <div class="problem-solution__list">
+            <article class="problem-solution__case">
+              <figure class="problem-solution__media">
+                <img src="../img/sport-massage-landing.png" alt="Web local para servicio profesional" loading="lazy">
+              </figure>
+              <div class="problem-solution__content">
+                <div class="problem-solution__panel problem-solution__panel--problem">
+                  <span>Problema</span>
+                  <h3>No apareces cuando alguien busca tu servicio.</h3>
+                  <p>Tienes oficio, pero Google no te está trayendo suficientes clientes. O apareces mal, o tu competencia parece más clara.</p>
+                </div>
+                <div class="problem-solution__panel problem-solution__panel--solution">
+                  <span>Solución</span>
+                  <h3>Una web preparada para búsquedas locales.</h3>
+                  <p>Estructura clara, páginas útiles, ficha de Google y contenido que responde a lo que la gente busca.</p>
+                  <a href="../servicios/seo-local/">SEO local desde 150€/mes →</a>
+                </div>
+              </div>
+            </article>
 
-        <article class="portfolio-card">
-          <div class="portfolio-card__body">
-            <h3 class="portfolio-card__title">Hosting</h3>
-            <p class="portfolio-card__desc">Hosting gestionado con soporte en español para negocios locales</p>
-            <p class="portfolio-card__price" style="font-weight:600;color:var(--color-accent);margin-top:0.5rem">Desde 10€/mes</p>
-          </div>
-          <div class="portfolio-card__footer">
-            <a href="../servicios/hosting/" class="btn btn--outline">Ver servicio →</a>
-          </div>
-        </article>
+            <article class="problem-solution__case problem-solution__case--reverse">
+              <figure class="problem-solution__media">
+                <img src="../img/hero-personal-trainer-real-screen.png" alt="Web profesional para entrenador personal" loading="lazy">
+              </figure>
+              <div class="problem-solution__content">
+                <div class="problem-solution__panel problem-solution__panel--problem">
+                  <span>Problema</span>
+                  <h3>Tu negocio parece menos profesional de lo que es.</h3>
+                  <p>La web no transmite confianza, no explica bien el valor y hace que el cliente dude antes de escribir.</p>
+                </div>
+                <div class="problem-solution__panel problem-solution__panel--solution">
+                  <span>Solución</span>
+                  <h3>Una página que ordena tu oferta y te hace fácil de elegir.</h3>
+                  <p>Mensaje directo, buena imagen, servicios claros y llamadas a la acción visibles desde móvil.</p>
+                  <a href="../servicios/diseno-web/">Diseño web desde 200€ →</a>
+                </div>
+              </div>
+            </article>
 
-        <article class="portfolio-card">
-          <div class="portfolio-card__body">
-            <h3 class="portfolio-card__title">Automatización e IA</h3>
-            <p class="portfolio-card__desc">Chatbots, flujos automáticos y herramientas con IA para ahorrar tiempo</p>
-            <p class="portfolio-card__price" style="font-weight:600;color:var(--color-accent);margin-top:0.5rem">Desde 300€ + 50€/mes</p>
+            <article class="problem-solution__case">
+              <figure class="problem-solution__media">
+                <img src="../img/agama-tienda-online.png" alt="Tienda online y herramienta a medida" loading="lazy">
+              </figure>
+              <div class="problem-solution__content">
+                <div class="problem-solution__panel problem-solution__panel--problem">
+                  <span>Problema</span>
+                  <h3>Tu web se queda corta para cómo trabaja tu negocio.</h3>
+                  <p>Necesitas vender, filtrar, calcular, reservar o gestionar algo que una web normal no resuelve bien.</p>
+                </div>
+                <div class="problem-solution__panel problem-solution__panel--solution">
+                  <span>Solución</span>
+                  <h3>Una herramienta pensada para tu flujo real.</h3>
+                  <p>Tienda online, panel interno, calculadora, configurador o aplicación web hecha para tu forma de trabajar.</p>
+                  <a href="../servicios/aplicaciones-web/">Apps a medida desde 2.500€ →</a>
+                </div>
+              </div>
+            </article>
           </div>
-          <div class="portfolio-card__footer">
-            <a href="../servicios/automatizacion/" class="btn btn--outline">Ver servicio →</a>
-          </div>
-        </article>
+        </section>
 
-        <article class="portfolio-card">
-          <div class="portfolio-card__body">
-            <h3 class="portfolio-card__title">Apps a medida</h3>
-            <p class="portfolio-card__desc">Herramientas y aplicaciones web desarrolladas exactamente para lo que necesita tu negocio</p>
-            <p class="portfolio-card__price" style="font-weight:600;color:var(--color-accent);margin-top:0.5rem">Desde 2.500€</p>
+        <section class="services-menu" aria-labelledby="services-menu-title">
+          <div class="services-menu__head">
+            <span class="section-label">Servicios concretos</span>
+            <h2 id="services-menu-title">Abre solo lo que te interesa.</h2>
           </div>
-          <div class="portfolio-card__footer">
-            <a href="../servicios/aplicaciones-web/" class="btn btn--outline">Ver servicio →</a>
+
+          <div class="services-accordion">
+            <details class="service-drop" open>
+              <summary>
+                <span class="service-drop__name">Diseño Web</span>
+                <span class="service-drop__hint">Base clara para captar mejor</span>
+                <span class="service-drop__price">Desde 200€</span>
+              </summary>
+              <div class="service-drop__body">
+                <p>Para negocios que necesitan una web seria, rápida y fácil de entender desde móvil.</p>
+                <a href="../servicios/diseno-web/" class="btn btn--outline">Ver servicio →</a>
+              </div>
+            </details>
+
+            <details class="service-drop">
+              <summary>
+                <span class="service-drop__name">SEO Local</span>
+                <span class="service-drop__hint">Aparecer cuando te buscan cerca</span>
+                <span class="service-drop__price">Desde 150€/mes</span>
+              </summary>
+              <div class="service-drop__body">
+                <p>Para trabajar búsquedas locales, ficha de Google, páginas útiles y contenido que atraiga contactos reales.</p>
+                <a href="../servicios/seo-local/" class="btn btn--outline">Ver servicio →</a>
+              </div>
+            </details>
+
+            <details class="service-drop">
+              <summary>
+                <span class="service-drop__name">Mantenimiento</span>
+                <span class="service-drop__hint">Cambios, seguridad y web al día</span>
+                <span class="service-drop__price">Desde 29€/mes</span>
+              </summary>
+              <div class="service-drop__body">
+                <p>Para no dejar la web abandonada: pequeños cambios, control técnico y ajustes cuando el negocio se mueve.</p>
+                <a href="../servicios/mantenimiento/" class="btn btn--outline">Ver servicio →</a>
+              </div>
+            </details>
+
+            <details class="service-drop">
+              <summary>
+                <span class="service-drop__name">Hosting</span>
+                <span class="service-drop__hint">Alojamiento gestionado</span>
+                <span class="service-drop__price">35€ al año</span>
+              </summary>
+              <div class="service-drop__body">
+                <p>Hosting sencillo, estable y con soporte en español para negocios que no quieren pelearse con la parte técnica.</p>
+                <a href="../servicios/hosting/" class="btn btn--outline">Ver servicio →</a>
+              </div>
+            </details>
+
+            <details class="service-drop">
+              <summary>
+                <span class="service-drop__name">Automatización e IA</span>
+                <span class="service-drop__hint">Procesos que ahorran tiempo</span>
+                <span class="service-drop__price">Desde 300€ + 50€/mes</span>
+              </summary>
+              <div class="service-drop__body">
+                <p>Para respuestas frecuentes, flujos internos, formularios inteligentes o tareas repetidas que ya cansan.</p>
+                <a href="../servicios/automatizacion/" class="btn btn--outline">Ver servicio →</a>
+              </div>
+            </details>
+
+            <details class="service-drop">
+              <summary>
+                <span class="service-drop__name">Apps a medida</span>
+                <span class="service-drop__hint">Herramientas hechas para tu flujo</span>
+                <span class="service-drop__price">Desde 2.500€</span>
+              </summary>
+              <div class="service-drop__body">
+                <p>Para tiendas, paneles, configuradores, reservas o aplicaciones web que una página normal no resuelve.</p>
+                <a href="../servicios/aplicaciones-web/" class="btn btn--outline">Ver servicio →</a>
+              </div>
+            </details>
           </div>
-        </article>
+        </section>
+      </div>
+    </section>
+
+    <section class="section services-estimator" aria-labelledby="services-estimator-title">
+      <div class="container">
+        <div class="estimator" data-estimator>
+          <div class="estimator__head">
+            <span class="section-label">Calculadora de precios</span>
+            <h2 class="section-title" id="services-estimator-title">Calcula qué web encaja con tu negocio</h2>
+            <p class="section-desc">Responde 4 preguntas y tendrás una orientación clara. No sustituye un presupuesto cerrado, pero sirve para no ir a ciegas.</p>
+          </div>
+
+          <div class="estimator__shell">
+            <div class="estimator__orb estimator__orb--one" aria-hidden="true"></div>
+            <div class="estimator__orb estimator__orb--two" aria-hidden="true"></div>
+
+            <div class="estimator__meta">
+              <div>
+                <span class="estimator__meta-label">Pregunta</span>
+                <strong class="estimator__meta-value" data-estimator-step-label>1 de 4 · Páginas</strong>
+              </div>
+            </div>
+
+            <div class="estimator__progress" aria-hidden="true">
+              <span class="estimator__progress-bar is-active" data-estimator-dot="pages"></span>
+              <span class="estimator__progress-bar" data-estimator-dot="blog"></span>
+              <span class="estimator__progress-bar" data-estimator-dot="changes"></span>
+              <span class="estimator__progress-bar" data-estimator-dot="tracking"></span>
+              <span class="estimator__progress-bar" data-estimator-dot="summary"></span>
+            </div>
+
+            <div class="estimator__stage">
+              <section class="estimator__step is-active" data-estimator-step="pages">
+                <div class="estimator__intro">
+                  <p class="estimator__eyebrow">1. Páginas</p>
+                  <h3 class="estimator__title">¿Cuántas páginas necesitas?</h3>
+                  <p class="estimator__sub">No pienses en un número exacto. Piensa en cuánto contenido tienes que explicar a tus clientes.</p>
+                </div>
+                <div class="estimator__grid estimator__grid--services">
+                  <button type="button" class="estimator-card" data-estimator-choice="pages" data-key="one">
+                    <span class="estimator-card__topline">Presencia básica</span>
+                    <span class="estimator-card__title">Una sola página</span>
+                    <span class="estimator-card__desc">Todo en una pantalla: servicios, contacto y ubicación. Ideal para estar online con claridad.</span>
+                  </button>
+                  <button type="button" class="estimator-card" data-estimator-choice="pages" data-key="few">
+                    <span class="estimator-card__topline">Web corporativa</span>
+                    <span class="estimator-card__title">2 a 5 páginas</span>
+                    <span class="estimator-card__desc">Espacio para explicar quién eres, qué haces, instalaciones, servicios y contacto.</span>
+                  </button>
+                  <button type="button" class="estimator-card" data-estimator-choice="pages" data-key="many">
+                    <span class="estimator-card__topline">Contenido amplio</span>
+                    <span class="estimator-card__title">6 a 10 páginas</span>
+                    <span class="estimator-card__desc">Varios servicios, casos de éxito, equipo o secciones con contenido propio.</span>
+                  </button>
+                  <button type="button" class="estimator-card" data-estimator-choice="pages" data-key="special">
+                    <span class="estimator-card__topline">Proyecto especial</span>
+                    <span class="estimator-card__title">Algo a medida</span>
+                    <span class="estimator-card__desc">Reservas, área privada, automatizaciones o una herramienta interna para tu negocio.</span>
+                  </button>
+                </div>
+              </section>
+
+              <section class="estimator__step" data-estimator-step="blog">
+                <div class="estimator__intro">
+                  <p class="estimator__eyebrow">2. Blog</p>
+                  <h3 class="estimator__title">¿Quieres un blog o sección de noticias?</h3>
+                  <p class="estimator__sub">Un blog activo puede atraer tráfico orgánico. Sin publicaciones regulares, normalmente no merece la pena.</p>
+                </div>
+                <div class="estimator__grid estimator__grid--two">
+                  <button type="button" class="estimator-card" data-estimator-choice="blog" data-key="no">
+                    <span class="estimator-card__topline">Sin blog</span>
+                    <span class="estimator-card__title">No lo necesito</span>
+                    <span class="estimator-card__desc">Mi web es un escaparate. No planeo publicar artículos ni actualizaciones periódicas.</span>
+                  </button>
+                  <button type="button" class="estimator-card" data-estimator-choice="blog" data-key="yes">
+                    <span class="estimator-card__topline">Con blog</span>
+                    <span class="estimator-card__title">Sí, quiero publicar</span>
+                    <span class="estimator-card__desc">Quiero compartir novedades, explicar servicios o atraer tráfico desde buscadores.</span>
+                  </button>
+                </div>
+              </section>
+
+              <section class="estimator__step" data-estimator-step="changes">
+                <div class="estimator__intro">
+                  <p class="estimator__eyebrow">3. Actualizaciones</p>
+                  <h3 class="estimator__title">¿Con qué frecuencia actualizarás la web?</h3>
+                  <p class="estimator__sub">Las actualizaciones frecuentes necesitan un sistema de gestión. Si cambias poco, una web estática es suficiente.</p>
+                </div>
+                <div class="estimator__grid estimator__grid--changes">
+                  <button type="button" class="estimator-card" data-estimator-choice="changes" data-key="rarely">
+                    <span class="estimator-card__topline">Mantenimiento mínimo</span>
+                    <span class="estimator-card__title">Pocas veces al año</span>
+                    <span class="estimator-card__desc">Solo si hay algo importante: un precio nuevo, un horario cambiado o un ajuste puntual.</span>
+                    <span class="estimator-card__price">+50€</span>
+                    <span class="estimator-card__meta">Incluye 1 hora flexible al año para algún cambio puntual.</span>
+                  </button>
+                  <button type="button" class="estimator-card" data-estimator-choice="changes" data-key="light">
+                    <span class="estimator-card__topline">Mantenimiento básico</span>
+                    <span class="estimator-card__title">1 a 3 cambios por semana</span>
+                    <span class="estimator-card__desc">Incluye 2 a 3 publicaciones mensuales y pequeños ajustes recurrentes para que la web no se quede parada.</span>
+                    <span class="estimator-card__price">+150€</span>
+                    <span class="estimator-card__meta">Es el pack más básico de mantenimiento continuo.</span>
+                  </button>
+                  <button type="button" class="estimator-card" data-estimator-choice="changes" data-key="sometimes">
+                    <span class="estimator-card__topline">Actualizaciones ocasionales</span>
+                    <span class="estimator-card__title">Alguna vez al mes</span>
+                    <span class="estimator-card__desc">Quiero añadir noticias, fotos o actualizar secciones cuando lo necesite sin complicarme.</span>
+                    <span class="estimator-card__price">A medida</span>
+                  </button>
+                  <button type="button" class="estimator-card" data-estimator-choice="changes" data-key="often">
+                    <span class="estimator-card__topline">Bono flexible</span>
+                    <span class="estimator-card__title">Algunas semanas mucho, otras poco</span>
+                    <span class="estimator-card__desc">Quiero flexibilidad sin atarme a una cuota fija mensual cuando el ritmo cambia.</span>
+                    <span class="estimator-card__price">A medida</span>
+                  </button>
+                </div>
+              </section>
+
+              <section class="estimator__step" data-estimator-step="tracking">
+                <div class="estimator__intro">
+                  <p class="estimator__eyebrow">4. Seguimiento</p>
+                  <h3 class="estimator__title">¿Cuánto seguimiento quieres del rendimiento?</h3>
+                  <p class="estimator__sub">El seguimiento marca la diferencia entre tener una web y saber si realmente está ayudando al negocio.</p>
+                </div>
+                <div class="estimator__grid estimator__grid--three">
+                  <button type="button" class="estimator-card" data-estimator-choice="tracking" data-key="basic">
+                    <span class="estimator-card__topline">Autónomo</span>
+                    <span class="estimator-card__title">Solo tenerla publicada</span>
+                    <span class="estimator-card__desc">Me basta con que la web esté activa y funcione. No necesito informes ni ayuda regular.</span>
+                  </button>
+                  <button type="button" class="estimator-card" data-estimator-choice="tracking" data-key="monitoring">
+                    <span class="estimator-card__topline">Seguimiento básico</span>
+                    <span class="estimator-card__title">Quiero ver evolución</span>
+                    <span class="estimator-card__desc">Quiero saber si aparezco en Google, recibir alertas si algo falla y tener el SEO local en orden.</span>
+                  </button>
+                  <button type="button" class="estimator-card estimator-card--accent" data-estimator-choice="tracking" data-key="full">
+                    <span class="estimator-card__topline">Gestión completa</span>
+                    <span class="estimator-card__title">Delegarlo todo</span>
+                    <span class="estimator-card__desc">Prefiero centrarme en mi negocio y que alguien gestione la presencia online de forma continua.</span>
+                  </button>
+                </div>
+              </section>
+
+              <section class="estimator__step" data-estimator-step="summary">
+                <div class="estimator__intro">
+                  <p class="estimator__eyebrow">Recomendación</p>
+                  <h3 class="estimator__title">Esto es lo que encaja con tu negocio</h3>
+                  <p class="estimator__sub">Basado en tus respuestas, esta es la combinación que mejor equilibra lo que necesitas ahora con la posibilidad de crecer.</p>
+                </div>
+
+                <div class="estimator-summary">
+                  <div class="estimator-summary__panel" data-estimator-summary></div>
+
+                  <div class="estimator-summary__totals">
+                    <div class="estimator-summary__total">
+                      <span class="estimator-summary__label">Inversión inicial</span>
+                      <strong class="estimator-summary__value" data-estimator-total-once>—</strong>
+                    </div>
+                    <div class="estimator-summary__total">
+                      <span class="estimator-summary__label">Seguimiento mensual</span>
+                      <strong class="estimator-summary__value" data-estimator-total-recurring>—</strong>
+                    </div>
+                  </div>
+
+                  <div class="estimator-summary__actions">
+                    <a href="#" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener noreferrer" data-estimator-wa>Pedir esta estimación</a>
+                    <a href="mailto:info@webfuengirola.com?subject=Estimaci%C3%B3n%20web%20Web%20Fuengirola" class="btn btn--outline btn--lg" data-estimator-email>Enviar por email</a>
+                    <button type="button" class="btn btn--ghost btn--lg" data-estimator-restart>← Modificar respuestas</button>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <div class="estimator__bar" data-estimator-bar>
+              <div class="estimator__bar-price">
+                <span class="estimator__bar-label">Estimación</span>
+                <strong class="estimator__bar-value" data-estimator-bar-once>—</strong>
+                <span class="estimator__bar-hint" data-estimator-bar-step>Responde las preguntas</span>
+              </div>
+              <div class="estimator__bar-actions">
+                <button type="button" class="estimator__ghost" data-estimator-back hidden>← Atrás</button>
+                <button type="button" class="estimator__primary" data-estimator-next>Siguiente →</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
