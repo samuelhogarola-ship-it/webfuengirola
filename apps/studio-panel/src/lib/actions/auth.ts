@@ -13,6 +13,21 @@ export type AuthFormState = {
 
 const CLIENT_PROJECT = 'wf-studio'
 
+function isAuthServiceUnavailable(error: { message?: string; status?: number } | null) {
+  if (!error) return false
+  const message = String(error.message ?? '').toLowerCase()
+  return (
+    error.status === 500 ||
+    error.status === 502 ||
+    error.status === 503 ||
+    error.status === 504 ||
+    message.includes('fetch failed') ||
+    message.includes('web server is down') ||
+    message.includes('cloudflare') ||
+    message.includes('521')
+  )
+}
+
 export async function adminLoginAction(_prevState: AuthFormState, formData: FormData): Promise<AuthFormState> {
   const email = String(formData.get('email') ?? '').trim()
   const password = String(formData.get('password') ?? '')
@@ -24,6 +39,14 @@ export async function adminLoginAction(_prevState: AuthFormState, formData: Form
   })
 
   if (error) {
+    console.warn('[auth/admin/login] signInWithPassword failed', {
+      email,
+      status: error.status ?? null,
+      message: error.message,
+    })
+    if (isAuthServiceUnavailable(error)) {
+      return { error: 'El servicio de acceso no está respondiendo ahora mismo. No parece un problema de contraseña.' }
+    }
     return { error: 'No se pudo iniciar sesión. Revisa el email y la contraseña.' }
   }
 

@@ -21,7 +21,7 @@ export function AdminLoginForm({ locale }: { locale: Locale }) {
           id="email"
           name="email"
           type="email"
-          placeholder="admin@webfuengirola.com"
+          placeholder="info@webfuengirola.com"
           required
           autoComplete="email"
           className="h-12 w-full rounded-2xl border-2 border-white/5 bg-white/[0.07] px-4 text-white placeholder-white/20 outline-none transition-all focus:border-white/20 [color-scheme:dark]"
