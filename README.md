@@ -117,6 +117,8 @@ La instancia central está en el VPS de Coolify:
 - URL final prevista: `https://analytics.webfuengirola.com`
 - DNS pendiente: `analytics.webfuengirola.com` debe apuntar con un registro `A` a `2.24.10.239`
 - Credenciales admin: guardadas en `/root/umami/README.txt` del VPS
+- Estado actual: se usa la URL temporal `sslip.io`; no hace falta tocar DNS para medir tráfico.
+- VPS: Coolify / Hostinger en `2.24.10.239`, contenedores `umami` y `umami-db`.
 
 En `script.js`, busca:
 
