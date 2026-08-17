@@ -14,6 +14,10 @@ const APP_LABELS: Record<string, string> = {
   samuel_coach: 'Samuel Coach',
   pruefungsvorbereitung: 'Prüfungsvorbereitung',
   prufungsvorbereitung: 'Prüfungsvorbereitung',
+  vokabel_lab: 'Vokabel-Lab',
+  vokabellab: 'VokabelLab',
+  imkontext: 'imKontext',
+  derdiedas: 'Der Die Das',
 }
 
 export default async function Page({
@@ -83,6 +87,8 @@ export default async function Page({
                 const activePremiumCodes = alumno.premiumCodes.filter((code) => code.status === 'active' && !code.redeemed_at)
                 const usedPremiumCodes = alumno.premiumCodes.filter((code) => code.redeemed_at)
                 const isConfirmed = !!alumno.confirmed_at
+                const membershipApps = new Set(alumno.memberships.map((membership) => membership.app))
+                const metadataRoles = Object.entries(alumno.appRoles).filter(([app]) => !membershipApps.has(app))
 
                 return (
                   <tr key={alumno.id} className="hover:bg-slate-50 transition-colors">
@@ -95,10 +101,10 @@ export default async function Page({
                       <div className="flex flex-wrap gap-1">
                         {alumno.memberships.map((m, i) => (
                           <Badge
-                            key={`${m.app_key}-${i}`}
+                            key={`${m.app}-${i}`}
                             className={m.status === 'active' ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-500'}
                           >
-                            {APP_LABELS[m.app_key] ?? m.app_key}
+                            {APP_LABELS[m.app] ?? m.app}
                           </Badge>
                         ))}
                         {activePremiumCodes.length > 0 && (
@@ -111,7 +117,15 @@ export default async function Page({
                             Prüfung premium usado
                           </Badge>
                         )}
-                        {alumno.memberships.length === 0 && alumno.premiumCodes.length === 0 && (
+                        {metadataRoles.map(([app, role]) => (
+                          <Badge
+                            key={`${app}-${role}`}
+                            className={role === 'admin' ? 'bg-slate-900 text-white' : 'bg-blue-50 text-blue-700'}
+                          >
+                            {APP_LABELS[app] ?? app}: {role === 'admin' ? 'admin' : 'usuario'}
+                          </Badge>
+                        ))}
+                        {alumno.memberships.length === 0 && alumno.premiumCodes.length === 0 && metadataRoles.length === 0 && (
                           <span className="text-xs text-muted">Sin membresía</span>
                         )}
                       </div>

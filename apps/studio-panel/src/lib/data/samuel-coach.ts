@@ -96,17 +96,20 @@ export const getAlumnosData = cache(async (q = '') => {
 
   if (normalizedQuery) profilesQuery.or(`email.ilike.%${normalizedQuery}%,full_name.ilike.%${normalizedQuery}%`)
 
-  const [{ data: profiles }, { data: memberships }, authUsersResult, premiumCodesResult] = await Promise.all([
+  const [{ data: profiles }, membershipsResult, authUsersResult, premiumCodesResult] = await Promise.all([
     profilesQuery,
-    db.from('app_memberships').select('user_id, app_key, status, created_at'),
+    db.from('app_memberships').select('user_id, app, status, created_at'),
     db.auth.admin.listUsers({ page: 1, perPage: 1000 }),
     db.rpc('list_premium_codes', { p_status: null }),
   ])
 
-  const membershipsByUser = new Map<string, { app_key: string; status: string }[]>()
-  for (const m of memberships ?? []) {
+  if (membershipsResult.error) throw new Error(`No se pudieron cargar las membresías: ${membershipsResult.error.message}`)
+  if (authUsersResult.error) throw new Error(`No se pudieron cargar usuarios Auth: ${authUsersResult.error.message}`)
+
+  const membershipsByUser = new Map<string, { app: string; status: string }[]>()
+  for (const m of membershipsResult.data ?? []) {
     const list = membershipsByUser.get(m.user_id) ?? []
-    list.push({ app_key: m.app_key, status: m.status })
+    list.push({ app: m.app, status: m.status })
     membershipsByUser.set(m.user_id, list)
   }
 
@@ -127,7 +130,8 @@ export const getAlumnosData = cache(async (q = '') => {
     created_at: string
     last_sign_in_at: string | null
     confirmed_at: string | null
-    memberships: { app_key: string; status: string }[]
+    memberships: { app: string; status: string }[]
+    appRoles: Record<string, string>
     premiumCodes: PremiumCodeRow[]
   }
 
@@ -154,6 +158,9 @@ export const getAlumnosData = cache(async (q = '') => {
       last_sign_in_at: user.last_sign_in_at ?? null,
       confirmed_at: user.confirmed_at ?? null,
       memberships: membershipsByUser.get(user.id) ?? [],
+      appRoles: typeof user.app_metadata?.app_roles === 'object' && user.app_metadata.app_roles !== null
+        ? user.app_metadata.app_roles as Record<string, string>
+        : {},
       premiumCodes: [],
     })
   }
@@ -177,6 +184,7 @@ export const getAlumnosData = cache(async (q = '') => {
         last_sign_in_at: null,
         confirmed_at: null,
         memberships: membershipsByUser.get(profile.id) ?? [],
+        appRoles: {},
         premiumCodes: [],
       })
     }
@@ -198,6 +206,7 @@ export const getAlumnosData = cache(async (q = '') => {
         last_sign_in_at: null,
         confirmed_at: null,
         memberships: [],
+        appRoles: {},
         premiumCodes: [code],
       })
     }
@@ -213,7 +222,7 @@ export const getAlumnosData = cache(async (q = '') => {
   return {
     alumnos,
     total: alumnos.length,
-    active: alumnos.filter((a) => a.memberships.some((m) => m.status === 'active') || a.premiumCodes.some((code) => code.status === 'active' && !code.redeemed_at)).length,
+    active: alumnos.filter((a) => a.memberships.some((m) => m.status === 'active') || Object.keys(a.appRoles).length > 0 || a.premiumCodes.some((code) => code.status === 'active' && !code.redeemed_at)).length,
     confirmed: alumnos.filter((a) => a.confirmed_at).length,
     premium: alumnos.filter((a) => a.premiumCodes.length > 0).length,
   }
