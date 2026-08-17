@@ -106,24 +106,23 @@ Para añadir un proyecto real:
 
 ---
 
-## Activar Google Analytics
+## Activar Umami
 
-En `index.html`, dentro del `<head>`, localiza el bloque comentado:
+La web usa `umami-analytics-core.js` junto al banner de cookies. No se carga
+ningún script externo hasta que el usuario acepta las cookies analíticas.
 
-```html
-<!--
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
--->
+En `script.js`, busca:
+
+```js
+UmamiAnalyticsCore.init({
+  websiteId: "",
+  scriptSrc: "https://cloud.umami.is/script.js",
+});
 ```
 
-1. Elimina los comentarios `<!--` y `-->`.
-2. Sustituye `G-XXXXXXXXXX` por tu ID real de Google Analytics 4.
+1. Sustituye `websiteId` por el ID real del sitio en Umami.
+2. Si usas una instancia propia de Umami, cambia `scriptSrc` y actualiza el CSP
+   de `nginx/default.conf`.
 
 ---
 

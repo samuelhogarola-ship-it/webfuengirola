@@ -998,9 +998,9 @@
     document.documentElement.dataset.analyticsConsent = hasAnalytics
       ? "granted"
       : "denied";
-    if (window.GoogleAnalyticsCore) {
-      if (hasAnalytics) GoogleAnalyticsCore.grantConsent();
-      else GoogleAnalyticsCore.revokeConsent();
+    if (window.UmamiAnalyticsCore) {
+      if (hasAnalytics) UmamiAnalyticsCore.grantConsent();
+      else UmamiAnalyticsCore.revokeConsent();
     }
   }
 
@@ -1040,9 +1040,13 @@
     )
       return;
 
-    // GA init BEFORE el banner para que los consent defaults se encolen primero
-    if (window.GoogleAnalyticsCore) {
-      GoogleAnalyticsCore.init({ measurementId: "G-V7KY8FGLM5" });
+    // Umami no toca red hasta que el banner tenga permiso de analiticas.
+    if (window.UmamiAnalyticsCore) {
+      UmamiAnalyticsCore.init({
+        websiteId: "",
+        scriptSrc: "https://cloud.umami.is/script.js",
+        preferencesKey: cookiePreferencesKey,
+      });
     }
 
     cookieBannerInstance = window.CookieBannerCore.init(
@@ -1557,7 +1561,7 @@
 
     var extras = {
       analytics: {
-        title: "Google Analytics y Search Console",
+        title: "Umami y Search Console",
         price: 50,
         label: "50€ + IVA",
         summary:

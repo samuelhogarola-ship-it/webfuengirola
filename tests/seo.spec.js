@@ -114,3 +114,30 @@ test("nginx fuerza dominio canónico, compresión y caché", () => {
   expect(nginx).toContain("expires 1y;");
   expect(nginx).toContain("expires 7d;");
 });
+
+test("la imagen Docker copia las rutas publicadas en sitemap", () => {
+  const dockerfile = fs.readFileSync(path.join(root, "Dockerfile.web"), "utf8");
+  const sitemap = fs.readFileSync(path.join(root, "sitemap.xml"), "utf8");
+  const locs = [
+    ...sitemap.matchAll(/<loc>https:\/\/webfuengirola\.com\/([^<]*)<\/loc>/g),
+  ]
+    .map((match) => match[1])
+    .filter(Boolean);
+  const rootDirs = new Set(
+    locs
+      .map((urlPath) => urlPath.split("/").filter(Boolean)[0])
+      .filter(Boolean),
+  );
+  const copiedRoots = new Set(
+    [...dockerfile.matchAll(/\/app\/([^\s\\]+)\s*\\/g)].map(
+      (match) => match[1],
+    ),
+  );
+
+  for (const dir of rootDirs) {
+    expect(
+      copiedRoots.has(dir),
+      `${dir} aparece en sitemap.xml pero no se copia en Dockerfile.web`,
+    ).toBe(true);
+  }
+});

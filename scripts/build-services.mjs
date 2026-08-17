@@ -160,7 +160,7 @@ function renderFooter(
     </div>
   </footer>
 
-  <script src="${prefix}google-analytics-core.js"></script>
+  <script src="${prefix}umami-analytics-core.js"></script>
   <script src="${prefix}script.js"></script>
   <a
     href="${whatsappHref}"

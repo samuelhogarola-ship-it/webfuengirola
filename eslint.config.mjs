@@ -28,8 +28,8 @@ export default [
       ecmaVersion: "latest",
       globals: {
         ...globals.browser,
-        // Exposed on window by google-analytics-core.js before script.js runs
-        GoogleAnalyticsCore: "readonly",
+        // Exposed on window by umami-analytics-core.js before script.js runs
+        UmamiAnalyticsCore: "readonly",
       },
     },
     rules: {
@@ -41,10 +41,10 @@ export default [
       "no-empty": ["error", { allowEmptyCatch: true }],
     },
   },
-  // google-analytics-core.js is a browser script with a UMD-style tail
+  // umami-analytics-core.js is a browser script with a UMD-style tail
   // (`if (typeof module !== 'undefined') module.exports = ...`) so tests can require() it
   {
-    files: ["google-analytics-core.js"],
+    files: ["umami-analytics-core.js"],
     languageOptions: {
       globals: {
         ...globals.commonjs,

@@ -12,7 +12,7 @@ RUN cp -R \
   /app/contact-form.js \
   /app/cookie-banner-core.css \
   /app/cookie-banner-core.js \
-  /app/google-analytics-core.js \
+  /app/umami-analytics-core.js \
   /app/legal-core.js \
   /app/legal-page.js \
   /app/legal.html \
@@ -28,6 +28,9 @@ RUN cp -R \
   /app/contacto \
   /app/diseno-web-fuengirola \
   /app/diseno-web-malaga \
+  /app/de \
+  /app/en \
+  /app/fi \
   /app/img \
   /app/portfolio \
   /app/portfolio.html \
@@ -41,6 +44,7 @@ RUN cp -R \
   /app/servicios \
   /app/servicios.html \
   /app/sobre-nosotros \
+  /app/web-solidaria \
   /out/
 RUN rm -f \
   /out/blog/og-blog-home.html \

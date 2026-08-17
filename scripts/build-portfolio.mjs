@@ -180,7 +180,7 @@ function renderFooter(
     </div>
   </footer>
 
-  <script src="${assetHref(prefix, "google-analytics-core.js")}"></script>
+  <script src="${assetHref(prefix, "umami-analytics-core.js")}"></script>
   <script src="${assetHref(prefix, "script.js")}"></script>
   <a
     href="${whatsappHref}"
