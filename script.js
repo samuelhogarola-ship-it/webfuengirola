@@ -1043,8 +1043,9 @@
     // Umami no toca red hasta que el banner tenga permiso de analiticas.
     if (window.UmamiAnalyticsCore) {
       UmamiAnalyticsCore.init({
-        websiteId: "",
-        scriptSrc: "https://cloud.umami.is/script.js",
+        websiteId: "95065b03-13a9-49fe-9ca4-a443b4f8c584",
+        scriptSrc: "https://analytics.2.24.10.239.sslip.io/script.js",
+        hostUrl: "https://analytics.2.24.10.239.sslip.io",
         preferencesKey: cookiePreferencesKey,
       });
     }

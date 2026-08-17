@@ -111,18 +111,30 @@ Para añadir un proyecto real:
 La web usa `umami-analytics-core.js` junto al banner de cookies. No se carga
 ningún script externo hasta que el usuario acepta las cookies analíticas.
 
+La instancia central está en el VPS de Coolify:
+
+- URL temporal: `https://analytics.2.24.10.239.sslip.io`
+- URL final prevista: `https://analytics.webfuengirola.com`
+- DNS pendiente: `analytics.webfuengirola.com` debe apuntar con un registro `A` a `2.24.10.239`
+- Credenciales admin: guardadas en `/root/umami/README.txt` del VPS
+
 En `script.js`, busca:
 
 ```js
 UmamiAnalyticsCore.init({
-  websiteId: "",
-  scriptSrc: "https://cloud.umami.is/script.js",
+  websiteId: "95065b03-13a9-49fe-9ca4-a443b4f8c584",
+  scriptSrc: "https://analytics.2.24.10.239.sslip.io/script.js",
+  hostUrl: "https://analytics.2.24.10.239.sslip.io",
 });
 ```
 
-1. Sustituye `websiteId` por el ID real del sitio en Umami.
-2. Si usas una instancia propia de Umami, cambia `scriptSrc` y actualiza el CSP
-   de `nginx/default.conf`.
+Cada proyecto debe tener su propio sitio dentro de Umami. IDs creados:
+
+- `AGAMA Marketplace` (`agama.com.mx`): `fc7b7df1-600c-4d53-b17e-d1aafd90d6b8`
+- `Web Fuengirola` (`webfuengirola.com`): `95065b03-13a9-49fe-9ca4-a443b4f8c584`
+
+Cuando el DNS definitivo esté activo, cambia `scriptSrc` y `hostUrl` a
+`https://analytics.webfuengirola.com` y conserva el mismo `websiteId`.
 
 ---
 

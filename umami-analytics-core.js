@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  var DEFAULT_SCRIPT_SRC = "https://cloud.umami.is/script.js";
+  var DEFAULT_SCRIPT_SRC = "https://analytics.2.24.10.239.sslip.io/script.js";
   var PLACEHOLDER_WEBSITE_IDS = {
     "": true,
     REPLACE_WITH_UMAMI_WEBSITE_ID: true,
