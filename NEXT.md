@@ -105,6 +105,26 @@ La base reutilizable para futuros proyectos sigue en:
 - blog, portfolio, casos y servicios ya generados como HTML
 - calculadora comercial ya mejorada recientemente
 - SEO mejor en blog que en algunas páginas corporativas
+- analytics ya migrado a Umami propio, con consentimiento por banner antes de cargar scripts externos
+
+### Analytics / Umami
+
+- Umami central corre en el VPS Coolify / Hostinger `2.24.10.239`
+- URL activa: `https://analytics.2.24.10.239.sslip.io`
+- no hace falta DNS bonito ahora mismo; `sslip.io` funciona y evita tocar IONOS
+- URL bonita opcional futura: `https://analytics.webfuengirola.com`
+- credenciales admin guardadas solo en el VPS: `/root/umami/README.txt`
+- contenedores del VPS:
+  - `umami`
+  - `umami-db`
+- sitios ya creados en Umami:
+  - `AGAMA Marketplace` / `agama.com.mx` / `fc7b7df1-600c-4d53-b17e-d1aafd90d6b8`
+  - `Web Fuengirola` / `webfuengirola.com` / `95065b03-13a9-49fe-9ca4-a443b4f8c584`
+- nota importante: en `/root/umami/docker-compose.yml`, `DATABASE_URL` debe conservar `${UMAMI_DB_PASSWORD}` y no una contraseña escrita a mano
+- última comprobación en vivo:
+  - panel público `HTTP 200`
+  - `/api/send` para Web Fuengirola `HTTP 200`
+  - login inicial `admin / umami` bloqueado con `401`
 
 ### Studio Panel
 
@@ -121,6 +141,7 @@ La base reutilizable para futuros proyectos sigue en:
 - el formulario público depende del panel, no solo del HTML estático
 - las variables de entorno del panel en Coolify tienen impacto directo en auth y contacto
 - la documentación raíz (`README.md`) ya no refleja bien toda la estructura real del repo
+- si Umami devuelve `503`, revisar primero que `umami` no esté reiniciando y que la password de Postgres coincida entre `.env.umami`, el usuario `umami` de PostgreSQL y `DATABASE_URL`
 
 ## Prioridad Alta
 
@@ -133,6 +154,7 @@ La base reutilizable para futuros proyectos sigue en:
 - mantener separadas las validaciones:
   - web pública: smoke/SEO/render
   - panel: lint/typecheck/test/build
+- ir creando un sitio independiente en Umami por cada proyecto que corre en el VPS o usa Web Fuengirola como proveedor técnico
 
 ## Prioridad Media
 
@@ -152,7 +174,9 @@ La base reutilizable para futuros proyectos sigue en:
 
 ## Siguiente Arranque Recomendado
 
-1. Actualizar `README.md` raíz para que refleje la estructura completa del proyecto.
-2. Si se trabaja en el panel, entrar directamente por `apps/studio-panel/package.json`, `README.md` y `src/app/`.
-3. Si se trabaja en la web pública, entrar por `index.html`, `style.css`, `script.js`, `data/` y las carpetas de páginas.
-4. Antes de tocar deploy o auth, revisar siempre `apps/studio-panel/README.md` y `supabase/migrations/`.
+1. Comprobar Umami antes de seguir: `https://analytics.2.24.10.239.sslip.io` debe responder y los contenedores `umami` / `umami-db` deben estar `Up`.
+2. Crear en Umami los siguientes sitios pendientes según vayamos conectando proyectos: Todo Plástico, Vivir en Fuengirola, Top Fuengirola y los paneles internos que tengan tráfico propio.
+3. Actualizar `README.md` raíz para que refleje la estructura completa del proyecto.
+4. Si se trabaja en el panel, entrar directamente por `apps/studio-panel/package.json`, `README.md` y `src/app/`.
+5. Si se trabaja en la web pública, entrar por `index.html`, `style.css`, `script.js`, `data/` y las carpetas de páginas.
+6. Antes de tocar deploy o auth, revisar siempre `apps/studio-panel/README.md` y `supabase/migrations/`.
