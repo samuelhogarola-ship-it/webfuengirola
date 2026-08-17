@@ -17,7 +17,7 @@ export function createAppsUsersAdminClient() {
   const url = process.env.APPS_USERS_URL
   const serviceKey = process.env.APPS_USERS_SERVICE_KEY
   if (!url || !serviceKey) throw new Error('Missing APPS_USERS_URL or APPS_USERS_SERVICE_KEY env vars')
-  return createClient(url, serviceKey, { auth: { autoRefreshToken: false, persistSession: false } })
+  return createClient(url, serviceKey.replace(/\s+/g, ''), { auth: { autoRefreshToken: false, persistSession: false } })
 }
 
 export function createImKontextAdminClient() {

@@ -87,17 +87,20 @@ export const getSamuelCoachEjerciciosData = cache(async () => {
 
 export const getAlumnosData = cache(async (q = '') => {
   const db = createAppsUsersAdminClient()
+  const normalizedQuery = q.trim().toLowerCase()
 
   const profilesQuery = db
     .from('profiles')
     .select('id, email, full_name, locale, created_at')
     .order('created_at', { ascending: false })
 
-  if (q) profilesQuery.or(`email.ilike.%${q}%,full_name.ilike.%${q}%`)
+  if (normalizedQuery) profilesQuery.or(`email.ilike.%${normalizedQuery}%,full_name.ilike.%${normalizedQuery}%`)
 
-  const [{ data: profiles }, { data: memberships }] = await Promise.all([
+  const [{ data: profiles }, { data: memberships }, authUsersResult, premiumCodesResult] = await Promise.all([
     profilesQuery,
     db.from('app_memberships').select('user_id, app_key, status, created_at'),
+    db.auth.admin.listUsers({ page: 1, perPage: 1000 }),
+    db.rpc('list_premium_codes', { p_status: null }),
   ])
 
   const membershipsByUser = new Map<string, { app_key: string; status: string }[]>()
@@ -107,15 +110,112 @@ export const getAlumnosData = cache(async (q = '') => {
     membershipsByUser.set(m.user_id, list)
   }
 
-  const alumnos = (profiles ?? []).map((p) => ({
-    ...p,
-    memberships: membershipsByUser.get(p.id) ?? [],
-  }))
+  type PremiumCodeRow = {
+    code: string
+    customer_email: string | null
+    duration_days: number
+    status: string
+    created_at: string
+    redeemed_at: string | null
+    redeemed_by: string | null
+  }
+  type AlumnoRow = {
+    id: string
+    email: string | null
+    full_name: string | null
+    locale: string | null
+    created_at: string
+    last_sign_in_at: string | null
+    confirmed_at: string | null
+    memberships: { app_key: string; status: string }[]
+    premiumCodes: PremiumCodeRow[]
+  }
+
+  const alumnosById = new Map<string, AlumnoRow>()
+  const alumnosByEmail = new Map<string, AlumnoRow>()
+  const rememberAlumno = (alumno: AlumnoRow) => {
+    alumnosById.set(alumno.id, alumno)
+    if (alumno.email) alumnosByEmail.set(alumno.email.toLowerCase(), alumno)
+  }
+
+  for (const user of authUsersResult.data?.users ?? []) {
+    const email = user.email ?? null
+    const fullName = typeof user.user_metadata?.full_name === 'string'
+      ? user.user_metadata.full_name
+      : typeof user.user_metadata?.name === 'string'
+        ? user.user_metadata.name
+        : null
+    rememberAlumno({
+      id: user.id,
+      email,
+      full_name: fullName,
+      locale: typeof user.user_metadata?.locale === 'string' ? user.user_metadata.locale : null,
+      created_at: user.created_at,
+      last_sign_in_at: user.last_sign_in_at ?? null,
+      confirmed_at: user.confirmed_at ?? null,
+      memberships: membershipsByUser.get(user.id) ?? [],
+      premiumCodes: [],
+    })
+  }
+
+  for (const profile of profiles ?? []) {
+    const existing = alumnosById.get(profile.id) ?? (profile.email ? alumnosByEmail.get(profile.email.toLowerCase()) : null)
+    if (existing) {
+      existing.full_name = profile.full_name ?? existing.full_name
+      existing.locale = profile.locale ?? existing.locale
+      existing.email = profile.email ?? existing.email
+      existing.created_at = profile.created_at ?? existing.created_at
+      existing.memberships = membershipsByUser.get(profile.id) ?? existing.memberships
+      rememberAlumno(existing)
+    } else {
+      rememberAlumno({
+        id: profile.id,
+        email: profile.email,
+        full_name: profile.full_name,
+        locale: profile.locale,
+        created_at: profile.created_at,
+        last_sign_in_at: null,
+        confirmed_at: null,
+        memberships: membershipsByUser.get(profile.id) ?? [],
+        premiumCodes: [],
+      })
+    }
+  }
+
+  const premiumCodes = (premiumCodesResult.data ?? []) as PremiumCodeRow[]
+  for (const code of premiumCodes) {
+    const email = code.customer_email?.toLowerCase() ?? null
+    const alumno = (code.redeemed_by ? alumnosById.get(code.redeemed_by) : null) ?? (email ? alumnosByEmail.get(email) : null)
+    if (alumno) {
+      alumno.premiumCodes.push(code)
+    } else if (email) {
+      rememberAlumno({
+        id: `premium:${email}`,
+        email: code.customer_email,
+        full_name: null,
+        locale: null,
+        created_at: code.created_at,
+        last_sign_in_at: null,
+        confirmed_at: null,
+        memberships: [],
+        premiumCodes: [code],
+      })
+    }
+  }
+
+  const alumnos = Array.from(alumnosById.values())
+    .filter((alumno) => {
+      if (!normalizedQuery) return true
+      return [alumno.email, alumno.full_name].some((value) => value?.toLowerCase().includes(normalizedQuery))
+    })
+    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
 
   return {
     alumnos,
     total: alumnos.length,
-    active: alumnos.filter((a) => a.memberships.some((m) => m.status === 'active')).length,
+    active: alumnos.filter((a) => a.memberships.some((m) => m.status === 'active') || a.premiumCodes.some((code) => code.status === 'active' && !code.redeemed_at)).length,
+    confirmed: alumnos.filter((a) => a.confirmed_at).length,
+    premium: alumnos.filter((a) => a.premiumCodes.length > 0).length,
   }
 })
 

@@ -12,6 +12,8 @@ const BASE = '/paneladmin/samuel-coach/alumnos'
 
 const APP_LABELS: Record<string, string> = {
   samuel_coach: 'Samuel Coach',
+  pruefungsvorbereitung: 'Prüfungsvorbereitung',
+  prufungsvorbereitung: 'Prüfungsvorbereitung',
 }
 
 export default async function Page({
@@ -32,14 +34,22 @@ export default async function Page({
       userEmail={identity.email}
       locale={locale}
     >
-      <section className="grid gap-4 md:grid-cols-2 mb-8">
+      <section className="grid gap-4 md:grid-cols-4 mb-8">
         <Card className="p-5">
           <p className="text-sm text-muted">Total alumnos</p>
           <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data.total}</p>
         </Card>
         <Card className="p-5">
-          <p className="text-sm text-muted">Con membresía activa</p>
+          <p className="text-sm text-muted">Activos / premium</p>
           <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data.active}</p>
+        </Card>
+        <Card className="p-5">
+          <p className="text-sm text-muted">Email confirmado</p>
+          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data.confirmed}</p>
+        </Card>
+        <Card className="p-5">
+          <p className="text-sm text-muted">Con código premium</p>
+          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data.premium}</p>
         </Card>
       </section>
 
@@ -62,37 +72,62 @@ export default async function Page({
               <tr>
                 <th className="px-6 py-4">Alumno</th>
                 <th className="px-6 py-4">Idioma</th>
-                <th className="px-6 py-4">Membresías</th>
+                <th className="px-6 py-4">Acceso</th>
+                <th className="px-6 py-4">Estado</th>
+                <th className="px-6 py-4">Último acceso</th>
                 <th className="px-6 py-4">Alta</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-line">
-              {data.alumnos.map((alumno) => (
-                <tr key={alumno.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-6 py-4">
-                    <p className="font-semibold text-foreground">{alumno.full_name || '—'}</p>
-                    <p className="text-xs text-slate-400">{alumno.email}</p>
-                  </td>
-                  <td className="px-6 py-4 text-slate-500 uppercase text-xs">{alumno.locale || '—'}</td>
-                  <td className="px-6 py-4">
-                    <div className="flex flex-wrap gap-1">
-                      {alumno.memberships.length === 0 ? (
-                        <span className="text-xs text-muted">Ninguna</span>
-                      ) : (
-                        alumno.memberships.map((m, i) => (
+              {data.alumnos.map((alumno) => {
+                const activePremiumCodes = alumno.premiumCodes.filter((code) => code.status === 'active' && !code.redeemed_at)
+                const usedPremiumCodes = alumno.premiumCodes.filter((code) => code.redeemed_at)
+                const isConfirmed = !!alumno.confirmed_at
+
+                return (
+                  <tr key={alumno.id} className="hover:bg-slate-50 transition-colors">
+                    <td className="px-6 py-4">
+                      <p className="font-semibold text-foreground">{alumno.full_name || '—'}</p>
+                      <p className="text-xs text-slate-400">{alumno.email}</p>
+                    </td>
+                    <td className="px-6 py-4 text-slate-500 uppercase text-xs">{alumno.locale || '—'}</td>
+                    <td className="px-6 py-4">
+                      <div className="flex flex-wrap gap-1">
+                        {alumno.memberships.map((m, i) => (
                           <Badge
-                            key={i}
+                            key={`${m.app_key}-${i}`}
                             className={m.status === 'active' ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-500'}
                           >
                             {APP_LABELS[m.app_key] ?? m.app_key}
                           </Badge>
-                        ))
-                      )}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-slate-500">{formatDate(alumno.created_at)}</td>
-                </tr>
-              ))}
+                        ))}
+                        {activePremiumCodes.length > 0 && (
+                          <Badge className="bg-emerald-50 text-emerald-700">
+                            Prüfung premium activo
+                          </Badge>
+                        )}
+                        {usedPremiumCodes.length > 0 && activePremiumCodes.length === 0 && (
+                          <Badge className="bg-slate-100 text-slate-600">
+                            Prüfung premium usado
+                          </Badge>
+                        )}
+                        {alumno.memberships.length === 0 && alumno.premiumCodes.length === 0 && (
+                          <span className="text-xs text-muted">Sin membresía</span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <Badge className={isConfirmed ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}>
+                        {isConfirmed ? 'Confirmado' : 'Pendiente'}
+                      </Badge>
+                    </td>
+                    <td className="px-6 py-4 text-slate-500">
+                      {alumno.last_sign_in_at ? formatDate(alumno.last_sign_in_at) : '—'}
+                    </td>
+                    <td className="px-6 py-4 text-slate-500">{formatDate(alumno.created_at)}</td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
           {data.alumnos.length === 0 && (
