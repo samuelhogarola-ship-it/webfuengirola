@@ -1,133 +1,153 @@
-import Image from 'next/image'
+import Link from 'next/link'
 
 import { AdminShell } from '@/components/layout/app-shell'
-import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
-import { TrainerActions } from '@/components/superentrenador/trainer-actions'
 import { requireAdmin } from '@/lib/auth'
-import { getSuperEntrenadorPTData } from '@/lib/data/superentrenador'
+import { getSuperEntrenadorPTData, getSuperEntrenadorUsuariosData } from '@/lib/data/superentrenador'
 import { getLocale } from '@/lib/locale'
 
 export const dynamic = 'force-dynamic'
 
-const STATUS_BADGE: Record<string, string> = {
-  pending: 'bg-amber-50 text-amber-700',
-  approved: 'bg-emerald-50 text-emerald-700',
-  rejected: 'bg-rose-50 text-rose-700',
-}
-const STATUS_LABEL: Record<string, string> = {
-  pending: 'Pendiente',
-  approved: 'Aprobado',
-  rejected: 'Rechazado',
-}
+const MARKETPLACE_URL = process.env.NEXT_PUBLIC_SUPERENTRENADOR_URL ?? 'https://superentrenador.com'
+const COACH_STUDIO_URL = process.env.NEXT_PUBLIC_COACH_STUDIO_URL ?? 'https://coach.superentrenador.com'
 
-export default async function Page({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+const ACCESS_CARDS = [
+  {
+    eyebrow: 'ADMIN',
+    title: 'Admin panel',
+    text: 'Revisar entrenadores, aprobar perfiles y controlar el marketplace.',
+    href: `${MARKETPLACE_URL}/admin/entrenadores`,
+    cta: 'Abrir admin',
+    className: 'bg-slate-950 text-white',
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="7" height="7" />
+        <rect x="14" y="3" width="7" height="7" />
+        <rect x="14" y="14" width="7" height="7" />
+        <rect x="3" y="14" width="7" height="7" />
+      </svg>
+    ),
+  },
+  {
+    eyebrow: 'ENTRENADOR',
+    title: 'Panel entrenador',
+    text: 'Entrar como profesional para gestionar clientes, rutinas y seguimiento.',
+    href: `${COACH_STUDIO_URL}/app/pt`,
+    cta: 'Abrir entrenador',
+    className: 'bg-emerald-600 text-white',
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="7" r="4" />
+        <path d="M5.5 21a6.5 6.5 0 0 1 13 0" />
+      </svg>
+    ),
+  },
+  {
+    eyebrow: 'ALUMNO',
+    title: 'Panel alumno',
+    text: 'Ver la experiencia del cliente: entrenamientos, tareas y progreso.',
+    href: `${COACH_STUDIO_URL}/app/client`,
+    cta: 'Abrir alumno',
+    className: 'bg-amber-500 text-slate-950',
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+      </svg>
+    ),
+  },
+]
+
+export default async function Page() {
   const identity = await requireAdmin()
   const locale = await getLocale()
-  const { q } = await searchParams
-  const { trainers, stats } = await getSuperEntrenadorPTData(q ?? '')
+  const [trainersData, usersData] = await Promise.all([
+    getSuperEntrenadorPTData(''),
+    getSuperEntrenadorUsuariosData(''),
+  ])
 
   return (
     <AdminShell
-      title="Entrenadores (PT)"
-      description="Gestión y revisión de perfiles de entrenadores"
+      title="Superentrenador"
+      description="Accesos rápidos a los paneles reales de la plataforma"
       currentPath="/paneladmin/superentrenador/pt"
       userEmail={identity.email}
       locale={locale}
     >
-      <section className="grid gap-4 md:grid-cols-4 mb-8">
-        <Card className="p-5">
-          <p className="text-sm text-muted">Total</p>
-          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{stats.total}</p>
-        </Card>
-        <Card className="p-5">
-          <p className="text-sm text-muted">Pendientes</p>
-          <p className="mt-3 text-3xl font-black tracking-tight text-amber-600">{stats.pending}</p>
-        </Card>
-        <Card className="p-5">
-          <p className="text-sm text-muted">Publicados</p>
-          <p className="mt-3 text-3xl font-black tracking-tight text-emerald-600">{stats.published}</p>
-        </Card>
-        <Card className="p-5">
-          <p className="text-sm text-muted">Rechazados</p>
-          <p className="mt-3 text-3xl font-black tracking-tight text-rose-600">{stats.rejected}</p>
-        </Card>
+      <section className="mb-8 overflow-hidden rounded-3xl border border-line bg-slate-950 px-6 py-8 text-white shadow-sm sm:px-8">
+        <p className="text-xs font-bold uppercase tracking-[0.22em] text-emerald-300">Superentrenador</p>
+        <div className="mt-5 grid gap-6 lg:grid-cols-[1fr_0.85fr] lg:items-end">
+          <div>
+            <h1 className="max-w-3xl text-4xl font-black tracking-tight sm:text-5xl">
+              Elige el panel que quieres abrir.
+            </h1>
+            <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300">
+              Acceso directo a la operación real de la plataforma: administración, entrenador y alumno.
+            </p>
+          </div>
+          <div className="grid grid-cols-3 gap-3 rounded-2xl border border-white/10 bg-white/5 p-3">
+            <div>
+              <p className="text-2xl font-black">{trainersData.stats.total}</p>
+              <p className="text-xs text-slate-400">entrenadores</p>
+            </div>
+            <div>
+              <p className="text-2xl font-black">{trainersData.stats.pending}</p>
+              <p className="text-xs text-slate-400">pendientes</p>
+            </div>
+            <div>
+              <p className="text-2xl font-black">{usersData.stats.total}</p>
+              <p className="text-xs text-slate-400">usuarios</p>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <form className="mb-6">
-        <input
-          name="q"
-          defaultValue={q ?? ''}
-          placeholder="Buscar entrenador…"
-          className="w-full max-w-sm rounded-lg border border-line bg-background px-4 py-2 text-sm text-foreground placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-teal-500"
-        />
-      </form>
+      <section className="grid gap-5 lg:grid-cols-3">
+        {ACCESS_CARDS.map((card) => (
+          <a
+            key={card.title}
+            href={card.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`group flex min-h-[300px] flex-col justify-between rounded-3xl p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-xl ${card.className}`}
+          >
+            <div>
+              <div className="mb-8 flex items-center justify-between">
+                <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-black uppercase tracking-[0.18em]">
+                  {card.eyebrow}
+                </span>
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15">
+                  {card.icon}
+                </span>
+              </div>
+              <h2 className="text-3xl font-black tracking-tight">{card.title}</h2>
+              <p className="mt-4 text-sm leading-6 opacity-80">{card.text}</p>
+            </div>
+            <span className="mt-8 inline-flex items-center gap-2 text-sm font-black">
+              {card.cta}
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition group-hover:translate-x-1">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </span>
+          </a>
+        ))}
+      </section>
 
-      <Card className="overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-sm">
-            <thead className="bg-slate-50 text-left text-xs uppercase tracking-[0.12em] text-slate-500">
-              <tr>
-                <th className="px-6 py-4">Entrenador</th>
-                <th className="px-6 py-4">Ciudad</th>
-                <th className="px-6 py-4">Estado</th>
-                <th className="px-6 py-4">Valoración</th>
-                <th className="px-6 py-4">Precio desde</th>
-                <th className="px-6 py-4">Registrado</th>
-                <th className="px-6 py-4">Acciones</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-line">
-              {trainers.map((t) => {
-                const status = t.review_status ?? 'pending'
-                return (
-                  <tr key={t.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        {t.photo_url ? (
-                          <Image
-                            src={t.photo_url}
-                            alt=""
-                            width={32}
-                            height={32}
-                            unoptimized
-                            className="h-8 w-8 rounded-full object-cover flex-shrink-0"
-                          />
-                        ) : (
-                          <div className="h-8 w-8 rounded-full bg-slate-200 flex-shrink-0" />
-                        )}
-                        <div>
-                          <p className="font-medium text-foreground">{t.display_name}</p>
-                          {t.headline && <p className="text-xs text-muted truncate max-w-[200px]">{t.headline}</p>}
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-slate-600">{t.city_slug ?? '—'}</td>
-                    <td className="px-6 py-4">
-                      <Badge className={STATUS_BADGE[status] ?? 'bg-slate-100 text-slate-600'}>
-                        {STATUS_LABEL[status] ?? status}
-                      </Badge>
-                    </td>
-                    <td className="px-6 py-4 text-slate-600">
-                      {t.rating !== null ? `${t.rating} ⭐ (${t.reviews_count ?? 0})` : '—'}
-                    </td>
-                    <td className="px-6 py-4 text-slate-600">
-                      {t.price_from !== null ? `${t.price_from} €` : '—'}
-                    </td>
-                    <td className="px-6 py-4 text-slate-500">
-                      {new Date(t.created_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })}
-                    </td>
-                    <td className="px-6 py-4">
-                      <TrainerActions id={t.id} reviewStatus={t.review_status} />
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-          {trainers.length === 0 && (
-            <p className="px-6 py-10 text-sm text-muted">No hay entrenadores registrados.</p>
-          )}
+      <Card className="mt-8 p-5">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <p className="text-sm font-semibold text-foreground">Gestión interna</p>
+            <p className="mt-1 text-sm text-muted">
+              Si necesitas revisar usuarios registrados en Supabase, entra en el listado interno.
+            </p>
+          </div>
+          <Link
+            href="/paneladmin/superentrenador/usuarios"
+            className="rounded-xl border border-line px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+          >
+            Ver usuarios internos
+          </Link>
         </div>
       </Card>
     </AdminShell>
