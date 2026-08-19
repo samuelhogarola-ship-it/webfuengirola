@@ -1,3 +1,4 @@
+import { ConnectionIssueCard } from '@/components/admin/connection-issue-card'
 import { AdminShell } from '@/components/layout/app-shell'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
@@ -28,7 +29,14 @@ export default async function Page({
   const identity = await requireAdmin()
   const params = await searchParams
   const locale = await getLocale()
-  const data = await getAlumnosData(params.q ?? '')
+  let data: Awaited<ReturnType<typeof getAlumnosData>> | null = null
+  let error: string | null = null
+
+  try {
+    data = await getAlumnosData(params.q ?? '')
+  } catch (cause) {
+    error = cause instanceof Error ? cause.message : 'No se pudo conectar con Apps Users.'
+  }
 
   return (
     <AdminShell
@@ -38,22 +46,30 @@ export default async function Page({
       userEmail={identity.email}
       locale={locale}
     >
+      {error ? (
+        <div className="mb-8">
+          <ConnectionIssueCard
+            message="Configura APPS_USERS_URL y APPS_USERS_SERVICE_KEY para cargar alumnos, membresias y codigos premium."
+            detail={error}
+          />
+        </div>
+      ) : null}
       <section className="grid gap-4 md:grid-cols-4 mb-8">
         <Card className="p-5">
           <p className="text-sm text-muted">Total alumnos</p>
-          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data.total}</p>
+          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data?.total ?? 0}</p>
         </Card>
         <Card className="p-5">
           <p className="text-sm text-muted">Activos / premium</p>
-          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data.active}</p>
+          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data?.active ?? 0}</p>
         </Card>
         <Card className="p-5">
           <p className="text-sm text-muted">Email confirmado</p>
-          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data.confirmed}</p>
+          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data?.confirmed ?? 0}</p>
         </Card>
         <Card className="p-5">
           <p className="text-sm text-muted">Con código premium</p>
-          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data.premium}</p>
+          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data?.premium ?? 0}</p>
         </Card>
       </section>
 
@@ -83,7 +99,7 @@ export default async function Page({
               </tr>
             </thead>
             <tbody className="divide-y divide-line">
-              {data.alumnos.map((alumno) => {
+              {(data?.alumnos ?? []).map((alumno) => {
                 const activePremiumCodes = alumno.premiumCodes.filter((code) => code.status === 'active' && !code.redeemed_at)
                 const usedPremiumCodes = alumno.premiumCodes.filter((code) => code.redeemed_at)
                 const isConfirmed = !!alumno.confirmed_at
@@ -144,7 +160,7 @@ export default async function Page({
               })}
             </tbody>
           </table>
-          {data.alumnos.length === 0 && (
+          {(data?.alumnos ?? []).length === 0 && (
             <p className="px-6 py-10 text-sm text-muted">
               {params.q ? 'No hay resultados para esta búsqueda.' : 'Todavía no hay alumnos registrados.'}
             </p>

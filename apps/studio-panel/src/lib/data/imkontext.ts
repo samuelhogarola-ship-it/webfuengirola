@@ -1,19 +1,20 @@
 import { cache } from 'react'
 
 import { createImKontextAdminClient } from '@/lib/supabase/server'
+import { unwrapSupabaseResult } from '@/lib/integrations/supabase.mjs'
 
 export const getDerDieDasData = cache(async () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const db = createImKontextAdminClient() as any
 
-  const { data: lemmas } = await db
+  const lemmas = unwrapSupabaseResult(await db
     .from('vocabulary_lemmas')
     .select('id, german, article, plural, is_active')
     .eq('word_type', 'noun')
     .not('article', 'is', null)
     .in('article', ['der', 'die', 'das'])
     .eq('is_active', true)
-    .order('german')
+    .order('german'), 'Der Die Das vocabulary')
 
   const byArticle: Record<string, number> = { der: 0, die: 0, das: 0 }
   for (const l of lemmas ?? []) {
@@ -31,16 +32,19 @@ export const getVokabelLabData = cache(async () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const db = createImKontextAdminClient() as any
 
-  const [{ data: catalog }, { count: lemmasTotal }, { count: vocabTotal }] = await Promise.all([
+  const [catalogResult, lemmasResult, vocabResult] = await Promise.all([
     db.from('apps_catalog').select('id, name, slug, status, visibility, launch_url').order('sort_order'),
     db.from('vocabulary_lemmas').select('*', { count: 'exact', head: true }),
     db.from('vocabulario').select('*', { count: 'exact', head: true }),
   ])
+  const catalog = unwrapSupabaseResult(catalogResult, 'Vokabel Lab catalog')
+  unwrapSupabaseResult(lemmasResult, 'Vokabel Lab lemma count')
+  unwrapSupabaseResult(vocabResult, 'Vokabel Lab vocabulary count')
 
   return {
     catalog: (catalog ?? []) as { id: string; name: string; slug: string; status: string; visibility: string; launch_url: string }[],
-    lemmasTotal: lemmasTotal ?? 0,
-    vocabTotal: vocabTotal ?? 0,
+    lemmasTotal: lemmasResult.count ?? 0,
+    vocabTotal: vocabResult.count ?? 0,
   }
 })
 
@@ -48,19 +52,18 @@ export const getImKontextData = cache(async () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const db = createImKontextAdminClient() as any
 
-  const [
-    { data: apps },
-    { data: texts },
-    { count: vocabTotal },
-    { count: lemmasTotal },
-    { count: userAccessTotal },
-  ] = await Promise.all([
+  const [appsResult, textsResult, vocabResult, lemmasResult, userAccessResult] = await Promise.all([
     db.from('apps').select('key, name, is_active').order('key'),
     db.from('texts').select('id, title, topic, access_status, published_at, categoria').order('title'),
     db.from('vocabulario').select('*', { count: 'exact', head: true }),
     db.from('vocabulary_lemmas').select('*', { count: 'exact', head: true }),
     db.from('user_app_access').select('*', { count: 'exact', head: true }),
   ])
+  const apps = unwrapSupabaseResult(appsResult, 'imKontext apps')
+  const texts = unwrapSupabaseResult(textsResult, 'imKontext texts')
+  unwrapSupabaseResult(vocabResult, 'imKontext vocabulary count')
+  unwrapSupabaseResult(lemmasResult, 'imKontext lemma count')
+  unwrapSupabaseResult(userAccessResult, 'imKontext user access count')
 
   const freeTexts = (texts ?? []).filter((t: { access_status: string }) => t.access_status === 'free').length
   const premiumTexts = (texts ?? []).filter((t: { access_status: string }) => t.access_status === 'premium').length
@@ -72,9 +75,9 @@ export const getImKontextData = cache(async () => {
       totalTexts: texts?.length ?? 0,
       freeTexts,
       premiumTexts,
-      totalVocab: vocabTotal ?? 0,
-      totalLemmas: lemmasTotal ?? 0,
-      totalUsers: userAccessTotal ?? 0,
+      totalVocab: vocabResult.count ?? 0,
+      totalLemmas: lemmasResult.count ?? 0,
+      totalUsers: userAccessResult.count ?? 0,
     },
   }
 })

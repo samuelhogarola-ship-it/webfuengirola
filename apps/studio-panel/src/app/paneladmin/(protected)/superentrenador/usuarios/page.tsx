@@ -1,3 +1,4 @@
+import { ConnectionIssueCard } from '@/components/admin/connection-issue-card'
 import { AdminShell } from '@/components/layout/app-shell'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
@@ -11,7 +12,17 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ q
   const identity = await requireAdmin()
   const locale = await getLocale()
   const { q } = await searchParams
-  const { users, stats } = await getSuperEntrenadorUsuariosData(q ?? '')
+  let users: Awaited<ReturnType<typeof getSuperEntrenadorUsuariosData>>['users'] = []
+  let stats: Awaited<ReturnType<typeof getSuperEntrenadorUsuariosData>>['stats'] = { total: 0, confirmed: 0, unconfirmed: 0 }
+  let error: string | null = null
+
+  try {
+    const data = await getSuperEntrenadorUsuariosData(q ?? '')
+    users = data.users
+    stats = data.stats
+  } catch (cause) {
+    error = cause instanceof Error ? cause.message : 'No se pudo conectar con Superentrenador.'
+  }
 
   return (
     <AdminShell
@@ -21,6 +32,14 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ q
       userEmail={identity.email}
       locale={locale}
     >
+      {error ? (
+        <div className="mb-8">
+          <ConnectionIssueCard
+            message="Configura SUPERENTRENADOR_URL y SUPERENTRENADOR_SERVICE_KEY para cargar usuarios registrados."
+            detail={error}
+          />
+        </div>
+      ) : null}
       <section className="grid gap-4 md:grid-cols-3 mb-8">
         <Card className="p-5">
           <p className="text-sm text-muted">Total registrados</p>

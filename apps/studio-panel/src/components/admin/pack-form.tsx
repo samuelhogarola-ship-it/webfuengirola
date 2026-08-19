@@ -44,11 +44,13 @@ export function PackForm({
   editingPack,
   locale,
   defaultPackType = 'hours',
+  returnPath = '/paneladmin/bonos',
 }: {
   clients: ClientOption[]
   editingPack: EditingPack
   locale: Locale
   defaultPackType?: string
+  returnPath?: string
 }) {
   const [state, action, pending] = useActionState(upsertPackAction, initialState)
   const [packType, setPackType] = useState(editingPack?.pack_type ?? defaultPackType)
@@ -169,7 +171,7 @@ export function PackForm({
             {pending ? t(locale, 'packForm.submitting') : editingPack ? t(locale, 'packForm.submit.edit') : t(locale, 'packForm.submit.new')}
           </Button>
           {editingPack ? (
-            <Link href="/paneladmin/bonos" className="inline-flex items-center rounded-full bg-slate-100 px-5 py-3 text-sm font-semibold text-slate-700">
+            <Link href={returnPath} className="inline-flex items-center rounded-full bg-slate-100 px-5 py-3 text-sm font-semibold text-slate-700">
               {t(locale, 'packForm.cancel')}
             </Link>
           ) : null}

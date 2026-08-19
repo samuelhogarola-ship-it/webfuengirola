@@ -5,8 +5,14 @@ import { revalidatePath } from 'next/cache'
 import { requireAdmin } from '@/lib/auth'
 import { createSuperEntrenadorAdminClient } from '@/lib/supabase/server'
 
-export async function approveTrainer(id: string) {
+function getTrainerId(input: FormData | string) {
+  return typeof input === 'string' ? input : String(input.get('id') ?? '')
+}
+
+export async function approveTrainerAction(input: FormData | string) {
   await requireAdmin()
+  const id = getTrainerId(input)
+  if (!id) return
   const db = createSuperEntrenadorAdminClient()
   const { error } = await db
     .from('trainer_profiles')
@@ -16,8 +22,10 @@ export async function approveTrainer(id: string) {
   revalidatePath('/paneladmin/superentrenador/pt')
 }
 
-export async function rejectTrainer(id: string) {
+export async function rejectTrainerAction(input: FormData | string) {
   await requireAdmin()
+  const id = getTrainerId(input)
+  if (!id) return
   const db = createSuperEntrenadorAdminClient()
   const { error } = await db
     .from('trainer_profiles')
@@ -26,3 +34,6 @@ export async function rejectTrainer(id: string) {
   if (error) throw new Error(error.message)
   revalidatePath('/paneladmin/superentrenador/pt')
 }
+
+export const approveTrainer = approveTrainerAction
+export const rejectTrainer = rejectTrainerAction

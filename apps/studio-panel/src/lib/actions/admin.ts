@@ -111,7 +111,7 @@ export async function upsertClientAction(_prevState: AdminFormState, formData: F
   const payload = parsed.data
 
   if (payload.id) {
-    const { data: currentClient } = await supabase.from('clients').select('email').eq('id', payload.id).maybeSingle()
+    const { data: currentClient } = await supabase.from('clients').select('email, auth_user_id').eq('id', payload.id).maybeSingle()
 
     const { error } = await supabase
       .from('clients')
@@ -129,21 +129,17 @@ export async function upsertClientAction(_prevState: AdminFormState, formData: F
       return toStateError('No se pudo actualizar el cliente.')
     }
 
-    if (currentClient?.email && currentClient.email.toLowerCase() !== payload.email.toLowerCase()) {
+    if (currentClient?.auth_user_id && currentClient.email.toLowerCase() !== payload.email.toLowerCase()) {
       const admin = getSupabaseAdminClient()
-      const { data: profile } = await supabase.from('profiles').select('id, email').ilike('email', currentClient.email).maybeSingle()
+      const { error: authError } = await admin.auth.admin.updateUserById(currentClient.auth_user_id, {
+        email: payload.email.toLowerCase(),
+      })
 
-      if (profile?.id) {
-        const { error: authError } = await admin.auth.admin.updateUserById(profile.id, {
-          email: payload.email.toLowerCase(),
-        })
-
-        if (authError) {
-          return toStateError('Cliente actualizado, pero no se pudo sincronizar el email de acceso en Auth.')
-        }
-
-        await supabase.from('profiles').update({ email: payload.email.toLowerCase() }).eq('id', profile.id)
+      if (authError) {
+        return toStateError('Cliente actualizado, pero no se pudo sincronizar el email de acceso en Auth.')
       }
+
+      await supabase.from('profiles').update({ email: payload.email.toLowerCase() }).eq('id', currentClient.auth_user_id)
     }
 
     revalidateProjectClientViews(payload.project)
@@ -410,6 +406,7 @@ export async function createClientDirectAction(_prevState: AdminFormState, formD
 
   const { error: clientError } = await supabase.from('clients').insert({
     id: authUser.user.id,
+    auth_user_id: authUser.user.id,
     name,
     email,
     status: 'active',
@@ -658,8 +655,15 @@ export async function togglePackPaidAction(formData: FormData): Promise<void> {
   const packId = String(formData.get('pack_id'))
   const currentPaid = formData.get('paid') === 'true'
   const clientId = String(formData.get('client_id'))
+  if (!packId || !clientId) return
   await supabase.from('packs').update({ paid: !currentPaid }).eq('id', packId)
+  const project = await getClientProject(clientId)
   revalidatePath(`/paneladmin/clientes/${clientId}`)
+  revalidatePath(`/paneladmin/vivir-en-fuengirola/clientes/${clientId}`)
+  revalidatePath(`/paneladmin/conoce-fuengirola/clientes/${clientId}`)
+  revalidateProjectClientViews(project)
+  revalidatePath('/paneladmin/bonos')
+  revalidatePath('/paneladmin/dashboard')
 }
 
 export async function togglePackStatusAction(formData: FormData): Promise<void> {
@@ -668,7 +672,14 @@ export async function togglePackStatusAction(formData: FormData): Promise<void> 
   const packId = String(formData.get('pack_id'))
   const currentStatus = String(formData.get('status'))
   const clientId = String(formData.get('client_id'))
+  if (!packId || !clientId) return
   const newStatus = currentStatus === 'active' ? 'completed' : 'active'
   await supabase.from('packs').update({ status: newStatus }).eq('id', packId)
+  const project = await getClientProject(clientId)
   revalidatePath(`/paneladmin/clientes/${clientId}`)
+  revalidatePath(`/paneladmin/vivir-en-fuengirola/clientes/${clientId}`)
+  revalidatePath(`/paneladmin/conoce-fuengirola/clientes/${clientId}`)
+  revalidateProjectClientViews(project)
+  revalidatePath('/paneladmin/bonos')
+  revalidatePath('/paneladmin/dashboard')
 }

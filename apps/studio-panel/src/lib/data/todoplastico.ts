@@ -1,6 +1,7 @@
 import { cache } from 'react'
 
 import { createTodoPlasticoAdminClient } from '@/lib/supabase/server'
+import { unwrapSupabaseResult } from '@/lib/integrations/supabase.mjs'
 
 const PAGE_SIZE = 50
 
@@ -63,6 +64,16 @@ export async function getTodoPlasticoData({ q = '', view = 'empresas', status = 
 
   const [totalCompanies, activeCompanies, verifiedCompanies] = companyStats
   const [totalListings, pendingListings, publishedListings] = listingStats
+  unwrapSupabaseResult(totalCompanies, 'TodoPlastico company count')
+  unwrapSupabaseResult(activeCompanies, 'TodoPlastico active company count')
+  unwrapSupabaseResult(verifiedCompanies, 'TodoPlastico verified company count')
+  unwrapSupabaseResult(totalListings, 'TodoPlastico listing count')
+  unwrapSupabaseResult(pendingListings, 'TodoPlastico pending listing count')
+  unwrapSupabaseResult(publishedListings, 'TodoPlastico published listing count')
+  const usersData = unwrapSupabaseResult(userStats, 'TodoPlastico users')
+  const companies = unwrapSupabaseResult(companiesResult, 'TodoPlastico companies') ?? []
+  const listings = unwrapSupabaseResult(listingsResult, 'TodoPlastico listings') ?? []
+
   return {
     stats: {
       companies: totalCompanies.count ?? 0,
@@ -71,10 +82,10 @@ export async function getTodoPlasticoData({ q = '', view = 'empresas', status = 
       listings: totalListings.count ?? 0,
       pendingListings: pendingListings.count ?? 0,
       publishedListings: publishedListings.count ?? 0,
-      users: (userStats.data as { total?: number } | null)?.total ?? 0,
+      users: (usersData as { total?: number } | null)?.total ?? 0,
     },
-    companies: (companiesResult.data ?? []) as TodoPlasticoCompany[],
-    listings: (listingsResult.data ?? []).map((listing) => ({ ...listing, company: Array.isArray(listing.company) ? listing.company[0] : listing.company })) as TodoPlasticoListing[],
+    companies: companies as TodoPlasticoCompany[],
+    listings: listings.map((listing) => ({ ...listing, company: Array.isArray(listing.company) ? listing.company[0] : listing.company })) as TodoPlasticoListing[],
     totalRows: (view === 'anuncios' ? listingsResult.count : companiesResult.count) ?? 0,
     page: safePage,
     pageSize: PAGE_SIZE,

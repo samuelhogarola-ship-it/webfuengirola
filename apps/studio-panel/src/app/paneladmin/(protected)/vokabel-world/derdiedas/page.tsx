@@ -1,3 +1,4 @@
+import { ConnectionIssueCard } from '@/components/admin/connection-issue-card'
 import { AdminShell } from '@/components/layout/app-shell'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
@@ -16,7 +17,14 @@ const ARTICLE_STYLE: Record<string, string> = {
 export default async function Page() {
   const identity = await requireAdmin()
   const locale = await getLocale()
-  const data = await getDerDieDasData()
+  let data: Awaited<ReturnType<typeof getDerDieDasData>> | null = null
+  let error: string | null = null
+
+  try {
+    data = await getDerDieDasData()
+  } catch (cause) {
+    error = cause instanceof Error ? cause.message : 'No se pudo conectar con imKontext.'
+  }
 
   return (
     <AdminShell
@@ -26,17 +34,25 @@ export default async function Page() {
       userEmail={identity.email}
       locale={locale}
     >
+      {error ? (
+        <div className="mb-8">
+          <ConnectionIssueCard
+            message="Configura IMKONTEXT_URL e IMKONTEXT_SERVICE_KEY para cargar sustantivos y articulos."
+            detail={error}
+          />
+        </div>
+      ) : null}
       {/* Stats */}
       <section className="grid gap-4 grid-cols-2 md:grid-cols-4 mb-8">
         <Card className="p-5">
           <p className="text-sm text-muted">Total sustantivos</p>
-          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data.total}</p>
+          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data?.total ?? 0}</p>
         </Card>
         {(['der', 'die', 'das'] as const).map((art) => (
           <Card key={art} className="p-5">
             <p className="text-sm text-muted font-mono font-bold">{art}</p>
-            <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data.byArticle[art]}</p>
-            <p className="text-xs text-muted mt-1">{Math.round((data.byArticle[art] / data.total) * 100)}%</p>
+            <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data?.byArticle[art] ?? 0}</p>
+            <p className="text-xs text-muted mt-1">{data?.total ? Math.round(((data.byArticle[art] ?? 0) / data.total) * 100) : 0}%</p>
           </Card>
         ))}
       </section>
@@ -46,10 +62,10 @@ export default async function Page() {
         <Card className="overflow-hidden">
           <div className="px-5 py-4 border-b border-line">
             <h2 className="text-xl font-bold text-foreground">Sustantivos</h2>
-            <p className="text-sm text-muted">{data.total} palabras activas con artículo</p>
+            <p className="text-sm text-muted">{data?.total ?? 0} palabras activas con artículo</p>
           </div>
           <div className="divide-y divide-line max-h-[600px] overflow-y-auto">
-            {data.lemmas.map((lemma) => (
+            {(data?.lemmas ?? []).map((lemma) => (
               <div key={lemma.id} className="flex items-center gap-3 px-5 py-2.5">
                 <Badge className={`${ARTICLE_STYLE[lemma.article] ?? ''} shrink-0 w-8 justify-center`}>
                   {lemma.article}
@@ -61,6 +77,7 @@ export default async function Page() {
               </div>
             ))}
           </div>
+          {(data?.lemmas ?? []).length === 0 ? <p className="px-5 py-6 text-sm text-muted">No hay sustantivos cargados.</p> : null}
         </Card>
       </section>
     </AdminShell>

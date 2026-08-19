@@ -1,3 +1,4 @@
+import { ConnectionIssueCard } from '@/components/admin/connection-issue-card'
 import { AdminShell } from '@/components/layout/app-shell'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
@@ -17,7 +18,14 @@ const TYPE_LABELS: Record<string, string> = {
 export default async function SamuelCoachAdminPage() {
   const identity = await requireAdmin()
   const locale = await getLocale()
-  const data = await getSamuelCoachData()
+  let data: Awaited<ReturnType<typeof getSamuelCoachData>> | null = null
+  let error: string | null = null
+
+  try {
+    data = await getSamuelCoachData()
+  } catch (cause) {
+    error = cause instanceof Error ? cause.message : 'No se pudo conectar con Samuel Coach.'
+  }
 
   return (
     <AdminShell
@@ -27,13 +35,21 @@ export default async function SamuelCoachAdminPage() {
       userEmail={identity.email}
       locale={locale}
     >
+      {error ? (
+        <div className="mb-8">
+          <ConnectionIssueCard
+            message="Configura IMKONTEXT_URL e IMKONTEXT_SERVICE_KEY para cargar textos y ejercicios de Samuel Coach."
+            detail={error}
+          />
+        </div>
+      ) : null}
       {/* Stats */}
       <section className="grid gap-4 md:grid-cols-4 mb-8">
         {[
-          { label: 'Textos publicados', value: data.published },
-          { label: 'Textos totales', value: data.total },
-          { label: 'Typ 1 (selección)', value: data.byType['lueckentext_type1'] ?? 0 },
-          { label: 'Typ 2 (libre)', value: data.byType['lueckentext_type2'] ?? 0 },
+          { label: 'Textos publicados', value: data?.published ?? 0 },
+          { label: 'Textos totales', value: data?.total ?? 0 },
+          { label: 'Typ 1 (selección)', value: data?.byType['lueckentext_type1'] ?? 0 },
+          { label: 'Typ 2 (libre)', value: data?.byType['lueckentext_type2'] ?? 0 },
         ].map((s) => (
           <Card key={s.label} className="p-6">
             <p className="text-sm text-muted">{s.label}</p>
@@ -68,10 +84,10 @@ export default async function SamuelCoachAdminPage() {
       <section className="mb-8">
         <h2 className="text-sm font-semibold uppercase tracking-widest text-muted mb-3">Por nivel</h2>
         <div className="flex gap-3 flex-wrap">
-          {NIVEL_ORDER.filter((n) => data.byNivel[n]).map((n) => (
+          {NIVEL_ORDER.filter((n) => data?.byNivel[n]).map((n) => (
             <div key={n} className="flex items-center gap-2 rounded-full bg-brand/10 px-4 py-2">
               <span className="font-black text-brand">{n}</span>
-              <span className="text-sm text-muted">{data.byNivel[n]} ejercicios</span>
+              <span className="text-sm text-muted">{data?.byNivel[n]} ejercicios</span>
             </div>
           ))}
         </div>
@@ -83,11 +99,11 @@ export default async function SamuelCoachAdminPage() {
           <div className="flex items-center justify-between border-b border-line px-6 py-5">
             <div>
               <h2 className="text-xl font-bold text-foreground">Todos los textos</h2>
-              <p className="text-sm text-muted">{data.total} textos · clic en el toggle para publicar/ocultar</p>
+              <p className="text-sm text-muted">{data?.total ?? 0} textos · clic en el toggle para publicar/ocultar</p>
             </div>
           </div>
           <div className="divide-y divide-line">
-            {data.rows.map((row) => (
+            {(data?.rows ?? []).map((row) => (
               <div key={row.id} className="flex items-center justify-between gap-4 px-6 py-4 hover:bg-slate-50 transition-colors">
                 <div className="flex items-center gap-3 min-w-0">
                   <span className="text-xs font-bold w-7 text-center rounded bg-slate-100 py-1 text-slate-500 shrink-0">{row.nivel}</span>
@@ -119,6 +135,7 @@ export default async function SamuelCoachAdminPage() {
                 </div>
               </div>
             ))}
+            {(data?.rows ?? []).length === 0 ? <p className="px-6 py-10 text-sm text-muted">No hay textos cargados.</p> : null}
           </div>
         </Card>
       </section>

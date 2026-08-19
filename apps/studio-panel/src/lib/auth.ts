@@ -78,7 +78,7 @@ export async function requireClientAccess() {
     .from('clients')
     .select('id, email, status, name')
     .eq('project', CLIENT_PROJECT)
-    .ilike('email', normalizedEmail)
+    .eq('auth_user_id', identity.userId)
     .maybeSingle()
 
   if (!client || client.status !== 'active') {

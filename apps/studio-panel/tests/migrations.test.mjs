@@ -58,3 +58,26 @@ test("latest migration scopes client email uniqueness by project", async () => {
     /create unique index if not exists clients_project_email_lower_unique_idx\s+on public\.clients \(project, lower\(email\)\);/s,
   );
 });
+
+test("client portal identity is bound to the auth user and wf-studio project", async () => {
+  const authIdentitySql = await readMigration(
+    "202608190001_client_auth_identity.sql",
+  );
+
+  assert.match(
+    authIdentitySql,
+    /add column if not exists auth_user_id uuid references auth\.users\(id\) on delete set null;/,
+  );
+  assert.match(
+    authIdentitySql,
+    /where c\.project = 'wf-studio'\s+and c\.auth_user_id = auth\.uid\(\)\s+and c\.status = 'active'/s,
+  );
+  assert.match(
+    authIdentitySql,
+    /create unique index if not exists clients_project_auth_user_unique_idx\s+on public\.clients \(project, auth_user_id\)\s+where auth_user_id is not null;/s,
+  );
+  assert.doesNotMatch(
+    authIdentitySql,
+    /lower\(c\.email\) = private\.current_client_email\(\)/,
+  );
+});

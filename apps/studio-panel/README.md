@@ -45,6 +45,19 @@ TURNSTILE_SECRET_KEY=
 RESEND_API_KEY=
 RESEND_FROM_EMAIL=
 NEXT_PUBLIC_APP_URL=http://localhost:3000
+CRON_SECRET=
+PENDING_REMINDERS_CRON_SECRET=
+TODO_PLASTICO_URL=
+TODO_PLASTICO_SERVICE_KEY=
+TODO_PLASTICO_ADMIN_URL=
+SUPERENTRENADOR_URL=
+SUPERENTRENADOR_SERVICE_KEY=
+NEXT_PUBLIC_SUPERENTRENADOR_URL=
+NEXT_PUBLIC_COACH_STUDIO_URL=
+APPS_USERS_URL=
+APPS_USERS_SERVICE_KEY=
+IMKONTEXT_URL=
+IMKONTEXT_SERVICE_KEY=
 ```
 
 4. Aplica las migraciones SQL en tu proyecto Supabase:
@@ -103,6 +116,19 @@ Configura estas variables en Coolify antes de hacer el primer deploy:
 | `RESEND_API_KEY`                       | API key de Resend para emails                                                      |
 | `RESEND_FROM_EMAIL`                    | Email remitente verificado en Resend                                               |
 | `NEXT_PUBLIC_APP_URL`                  | URL pública expuesta al cliente; mantenerla igual que `APP_URL`                    |
+| `CRON_SECRET`                          | Secreto recomendado para Vercel Cron; Vercel lo envia como `Authorization: Bearer` |
+| `PENDING_REMINDERS_CRON_SECRET`        | Secreto alternativo para otros proveedores de cron                                 |
+| `TODO_PLASTICO_URL`                    | URL Supabase/API del proyecto TodoPlastico                                         |
+| `TODO_PLASTICO_SERVICE_KEY`            | Service role key de TodoPlastico, solo servidor                                    |
+| `TODO_PLASTICO_ADMIN_URL`              | URL del admin externo para crear anuncios                                          |
+| `SUPERENTRENADOR_URL`                  | URL Supabase/API de Superentrenador                                                |
+| `SUPERENTRENADOR_SERVICE_KEY`          | Service role key de Superentrenador, solo servidor                                 |
+| `NEXT_PUBLIC_SUPERENTRENADOR_URL`      | URL publica del marketplace Superentrenador                                        |
+| `NEXT_PUBLIC_COACH_STUDIO_URL`         | URL publica del panel entrenador/alumno                                            |
+| `APPS_USERS_URL`                       | URL Supabase/API de usuarios compartidos de apps educativas                        |
+| `APPS_USERS_SERVICE_KEY`               | Service role key de usuarios compartidos, solo servidor                            |
+| `IMKONTEXT_URL`                        | URL Supabase/API de imKontext/Vokabel                                              |
+| `IMKONTEXT_SERVICE_KEY`                | Service role key de imKontext/Vokabel, solo servidor                               |
 
 > `APP_URL` es ahora la referencia canónica del servidor para auth y callbacks. `NEXT_PUBLIC_APP_URL` debe apuntar al mismo dominio para evitar discrepancias entre servidor y cliente.
 
@@ -144,6 +170,8 @@ Fallback legado aceptado por código:
 - `remaining_minutes` nunca se persiste: sale de `packs - activities`.
 - No se permiten actividades sobre packs inactivos.
 - Si el email del cliente cambia desde el panel y existe usuario Auth asociado, la app intenta sincronizarlo con `auth.users`.
+- Las integraciones externas renderizan un aviso de conexion pendiente cuando faltan env vars o permisos; no deben romper el shell del panel.
+- El mapa operativo completo del panel esta en [`ADMIN_PANEL_AUDIT.md`](/Users/sam/Desktop/webs/web%20fuengirola/apps/studio-panel/ADMIN_PANEL_AUDIT.md).
 
 ## Auth Runbook
 

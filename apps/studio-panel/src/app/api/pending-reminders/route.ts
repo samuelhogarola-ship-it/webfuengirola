@@ -12,7 +12,7 @@ function getCronSecret() {
 
 function isAuthorizedCronRequest(request: Request) {
   const configuredSecret = getCronSecret()
-  if (!configuredSecret) return true
+  if (!configuredSecret) return false
 
   const authHeader = request.headers.get('authorization')
   const providedSecret = request.headers.get('x-cron-secret') || new URL(request.url).searchParams.get('secret')
@@ -21,6 +21,10 @@ function isAuthorizedCronRequest(request: Request) {
 }
 
 async function runPendingReminders(request: Request) {
+  if (!getCronSecret()) {
+    return NextResponse.json({ error: 'cron_not_configured', message: 'Cron secret is required.' }, { status: 503 })
+  }
+
   if (!isAuthorizedCronRequest(request)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }

@@ -34,6 +34,7 @@ export async function registerPendingClient({
 
   const { error: clientError } = await insertClient({
     id: userId ?? undefined,
+    auth_user_id: userId ?? undefined,
     name,
     email: normalizedEmail,
     project: "wf-studio",

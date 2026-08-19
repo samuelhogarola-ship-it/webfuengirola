@@ -1,3 +1,4 @@
+import { ConnectionIssueCard } from '@/components/admin/connection-issue-card'
 import { AdminShell } from '@/components/layout/app-shell'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
@@ -12,7 +13,14 @@ const NIVEL_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1']
 export default async function Page() {
   const identity = await requireAdmin()
   const locale = await getLocale()
-  const data = await getSamuelCoachEjerciciosData()
+  let data: Awaited<ReturnType<typeof getSamuelCoachEjerciciosData>> | null = null
+  let error: string | null = null
+
+  try {
+    data = await getSamuelCoachEjerciciosData()
+  } catch (cause) {
+    error = cause instanceof Error ? cause.message : 'No se pudo conectar con Samuel Coach.'
+  }
 
   return (
     <AdminShell
@@ -22,20 +30,28 @@ export default async function Page() {
       userEmail={identity.email}
       locale={locale}
     >
+      {error ? (
+        <div className="mb-8">
+          <ConnectionIssueCard
+            message="Configura IMKONTEXT_URL e IMKONTEXT_SERVICE_KEY para cargar ejercicios."
+            detail={error}
+          />
+        </div>
+      ) : null}
       <div className="mb-6 flex gap-4">
         <Card className="p-5 flex-1">
           <p className="text-sm text-muted">Textos</p>
-          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data.total}</p>
+          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data?.total ?? 0}</p>
         </Card>
         <Card className="p-5 flex-1">
           <p className="text-sm text-muted">Preguntas totales</p>
-          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data.totalQuestions}</p>
+          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data?.totalQuestions ?? 0}</p>
         </Card>
       </div>
 
       <div className="flex flex-col gap-6">
-        {NIVEL_ORDER.filter((n) => data.byNivel.has(n)).map((nivel) => {
-          const texts = data.byNivel.get(nivel)!
+        {NIVEL_ORDER.filter((n) => data?.byNivel.has(n)).map((nivel) => {
+          const texts = data?.byNivel.get(nivel) ?? []
           return (
             <section key={nivel}>
               <h2 className="text-sm font-bold uppercase tracking-widest text-muted mb-3">{nivel}</h2>
@@ -71,6 +87,7 @@ export default async function Page() {
             </section>
           )
         })}
+        {!data || data.total === 0 ? <p className="text-sm text-muted">No hay ejercicios cargados.</p> : null}
       </div>
     </AdminShell>
   )

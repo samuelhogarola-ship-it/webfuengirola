@@ -1,8 +1,11 @@
 import Link from 'next/link'
 
+import { ConnectionIssueCard } from '@/components/admin/connection-issue-card'
 import { AdminShell } from '@/components/layout/app-shell'
+import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
+import { approveTrainerAction, rejectTrainerAction } from '@/lib/actions/superentrenador'
 import { getSuperEntrenadorPTData, getSuperEntrenadorUsuariosData } from '@/lib/data/superentrenador'
 import { getLocale } from '@/lib/locale'
 
@@ -58,13 +61,37 @@ const ACCESS_CARDS = [
   },
 ]
 
+function statusLabel(status: string | null, isPublished: boolean) {
+  if (status === 'approved' && isPublished) return 'Publicado'
+  if (status === 'pending') return 'Pendiente'
+  if (status === 'rejected') return 'Rechazado'
+  return status ?? 'Sin revisar'
+}
+
+function statusClass(status: string | null, isPublished: boolean) {
+  if (status === 'approved' && isPublished) return 'bg-emerald-50 text-emerald-700'
+  if (status === 'pending') return 'bg-amber-50 text-amber-700'
+  if (status === 'rejected') return 'bg-rose-50 text-rose-700'
+  return 'bg-slate-100 text-slate-600'
+}
+
 export default async function Page() {
   const identity = await requireAdmin()
   const locale = await getLocale()
-  const [trainersData, usersData] = await Promise.all([
-    getSuperEntrenadorPTData(''),
-    getSuperEntrenadorUsuariosData(''),
-  ])
+  let trainersData: Awaited<ReturnType<typeof getSuperEntrenadorPTData>> = { trainers: [], stats: { total: 0, pending: 0, published: 0, rejected: 0 } }
+  let usersData: Awaited<ReturnType<typeof getSuperEntrenadorUsuariosData>> = { users: [], stats: { total: 0, confirmed: 0, unconfirmed: 0 } }
+  let error: string | null = null
+
+  try {
+    const [trainers, users] = await Promise.all([
+      getSuperEntrenadorPTData(''),
+      getSuperEntrenadorUsuariosData(''),
+    ])
+    trainersData = trainers
+    usersData = users
+  } catch (cause) {
+    error = cause instanceof Error ? cause.message : 'No se pudo conectar con Superentrenador.'
+  }
 
   return (
     <AdminShell
@@ -74,6 +101,14 @@ export default async function Page() {
       userEmail={identity.email}
       locale={locale}
     >
+      {error ? (
+        <div className="mb-8">
+          <ConnectionIssueCard
+            message="Configura SUPERENTRENADOR_URL y SUPERENTRENADOR_SERVICE_KEY para cargar entrenadores y usuarios."
+            detail={error}
+          />
+        </div>
+      ) : null}
       <section className="mb-8 overflow-hidden rounded-3xl border border-line bg-slate-950 px-6 py-8 text-white shadow-sm sm:px-8">
         <p className="text-xs font-bold uppercase tracking-[0.22em] text-emerald-300">Superentrenador</p>
         <div className="mt-5 grid gap-6 lg:grid-cols-[1fr_0.85fr] lg:items-end">
@@ -149,6 +184,83 @@ export default async function Page() {
             Ver usuarios internos
           </Link>
         </div>
+      </Card>
+
+      <section className="mt-8">
+        <div className="mb-4 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 className="text-xl font-bold text-foreground">Moderación de entrenadores</h2>
+            <p className="text-sm text-muted">Perfiles leídos desde Superentrenador y aprobados desde WF Studio.</p>
+          </div>
+          <Link
+            href="/paneladmin/superentrenador/pt"
+            className="rounded-xl border border-line px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+          >
+            Actualizar
+          </Link>
+        </div>
+        <Card className="overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="min-w-full text-sm">
+              <thead className="bg-slate-50 text-left text-xs uppercase tracking-[0.12em] text-slate-500">
+                <tr>
+                  <th className="px-6 py-4">Entrenador</th>
+                  <th className="px-6 py-4">Ciudad</th>
+                  <th className="px-6 py-4">Precio</th>
+                  <th className="px-6 py-4">Estado</th>
+                  <th className="px-6 py-4">Acciones</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-line">
+                {trainersData.trainers.map((trainer) => (
+                  <tr key={trainer.id} className="hover:bg-slate-50">
+                    <td className="px-6 py-4">
+                      <p className="font-semibold text-foreground">{trainer.display_name}</p>
+                      <p className="text-xs text-muted">{trainer.headline ?? trainer.slug}</p>
+                    </td>
+                    <td className="px-6 py-4 text-slate-600">{trainer.city_slug ?? '-'}</td>
+                    <td className="px-6 py-4 text-slate-600">{trainer.price_from ? `${trainer.price_from} EUR` : '-'}</td>
+                    <td className="px-6 py-4">
+                      <Badge className={statusClass(trainer.review_status, trainer.is_published)}>
+                        {statusLabel(trainer.review_status, trainer.is_published)}
+                      </Badge>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex flex-wrap gap-2">
+                        {trainer.review_status !== 'approved' || !trainer.is_published ? (
+                          <form action={approveTrainerAction}>
+                            <input type="hidden" name="id" value={trainer.id} />
+                            <button className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 hover:bg-emerald-100">
+                              Aprobar
+                            </button>
+                          </form>
+                        ) : null}
+                        {trainer.review_status !== 'rejected' ? (
+                          <form action={rejectTrainerAction}>
+                            <input type="hidden" name="id" value={trainer.id} />
+                            <button className="rounded-full bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700 hover:bg-rose-100">
+                              Rechazar
+                            </button>
+                          </form>
+                        ) : null}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {trainersData.trainers.length === 0 ? (
+              <p className="px-6 py-10 text-sm text-muted">No hay entrenadores registrados o falta configurar la conexión.</p>
+            ) : null}
+          </div>
+        </Card>
+      </section>
+
+      <Card className="mt-8 border-amber-200 bg-amber-50 p-5">
+        <p className="text-sm font-semibold text-amber-950">Umami pendiente en el proyecto Superentrenador</p>
+        <p className="mt-1 text-sm text-amber-900">
+          Instrucción para el repo externo: añadir el script de Umami al layout público, marketplace, panel entrenador y panel alumno; configurar el website id de Superentrenador y verificar visitas por ruta. No se toca ese código desde WF.
+        </p>
       </Card>
     </AdminShell>
   )

@@ -255,7 +255,7 @@ export const getProjectSubscriptionsData = cache(async (project: string) => {
     clientIds.length > 0
       ? supabase
           .from('packs')
-          .select('id, name, pack_type, client_id, price, billing_cycle, purchase_date, renewal_date, status, paid, notes, clients(name)')
+          .select('id, name, pack_type, client_id, minutes_total, price, invoice_number, billing_cycle, purchase_date, renewal_date, status, paid, notes, clients(name)')
           .in('client_id', clientIds)
           .in('pack_type', ['subscription', 'membership', 'hosting', 'domain', 'service'])
           .order('purchase_date', { ascending: false })

@@ -71,3 +71,68 @@ test("getProtectedArea marks client routes as protected except public entrypoint
   assert.equal(getProtectedArea("/cliente/servicios"), "client");
   assert.equal(getProtectedArea("/cliente/registro"), null);
 });
+
+test("pending reminders cron requires an explicit secret in production", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const { fileURLToPath } = await import("node:url");
+  const path = await import("node:path");
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const source = await readFile(
+    path.join(__dirname, "../src/app/api/pending-reminders/route.ts"),
+    "utf8",
+  );
+
+  assert.doesNotMatch(source, /if \(!configuredSecret\) return true/);
+  assert.match(source, /cron_not_configured|Cron secret/);
+});
+
+test("Samuel Coach premium codes are managed server-side inside the admin shell", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const { fileURLToPath } = await import("node:url");
+  const path = await import("node:path");
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const source = await readFile(
+    path.join(
+      __dirname,
+      "../src/app/paneladmin/(protected)/samuel-coach/premium/page.tsx",
+    ),
+    "utf8",
+  );
+
+  assert.doesNotMatch(source, /'use client'/);
+  assert.doesNotMatch(source, /@supabase\/supabase-js/);
+  assert.doesNotMatch(source, /hocdlmxzghwymamientc/);
+  assert.match(source, /AdminShell/);
+  assert.match(source, /generatePremiumCodeAction/);
+});
+
+test("client access resolves the wf-studio client by auth user id", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const { fileURLToPath } = await import("node:url");
+  const path = await import("node:path");
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const source = await readFile(
+    path.join(__dirname, "../src/lib/auth.ts"),
+    "utf8",
+  );
+
+  assert.match(source, /\.eq\('project', CLIENT_PROJECT\)/);
+  assert.match(source, /\.eq\('auth_user_id', identity\.userId\)/);
+  assert.doesNotMatch(source, /\.ilike\('email', normalizedEmail\)/);
+});
+
+test("direct client creation stores the auth user relationship", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const { fileURLToPath } = await import("node:url");
+  const path = await import("node:path");
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const source = await readFile(
+    path.join(__dirname, "../src/lib/actions/admin.ts"),
+    "utf8",
+  );
+
+  assert.match(source, /auth_user_id:\s*authUser\.user\.id/);
+  assert.match(source, /select\('email, auth_user_id'\)/);
+  assert.match(source, /updateUserById\(currentClient\.auth_user_id/);
+  assert.doesNotMatch(source, /ilike\('email', currentClient\.email\)/);
+});

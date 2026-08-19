@@ -96,6 +96,7 @@ const PANELS: Panel[] = [
       { label: 'Vokabel-Lab', href: '/paneladmin/vokabel-world/vokabel-lab' },
       { label: 'imKontext', href: '/paneladmin/vokabel-world/imkontext' },
       { label: 'Der Die Das', href: '/paneladmin/vokabel-world/derdiedas' },
+      { label: 'Usuarios', href: '/paneladmin/vokabel-world/usuarios' },
     ],
   },
   {

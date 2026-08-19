@@ -134,6 +134,11 @@ export function AdminShell({
           icon: panelIcon,
         },
         {
+          href: '/paneladmin/vokabel-world/usuarios',
+          label: 'Vokabel usuarios',
+          icon: panelIcon,
+        },
+        {
           href: '/paneladmin/superentrenador/pt',
           label: 'Superentrenador',
           icon: panelIcon,
