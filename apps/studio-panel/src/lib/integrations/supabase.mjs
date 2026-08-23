@@ -90,6 +90,7 @@ export function buildAppsUsersOverview({
       user.email.toLowerCase().includes(normalized) ||
       (user.name ?? "").toLowerCase().includes(normalized),
   );
+  const scopedUserIds = new Set(scopedUsers.map((user) => user.id));
 
   return {
     users,
@@ -101,7 +102,11 @@ export function buildAppsUsersOverview({
       active: scopedUsers.filter((user) =>
         isRecentlyActive(user.last_sign_in_at, now),
       ).length,
-      apps: new Set(memberships.map((membership) => membership.app)).size,
+      apps: new Set(
+        memberships
+          .filter((membership) => scopedUserIds.has(membership.user_id))
+          .map((membership) => membership.app),
+      ).size,
       vokabel: allUsers.filter((user) =>
         user.memberships.some(
           (membership) => membership.app === "vokabel-world",

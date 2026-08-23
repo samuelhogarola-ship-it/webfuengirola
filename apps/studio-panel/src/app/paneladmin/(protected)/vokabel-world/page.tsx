@@ -47,7 +47,7 @@ export default async function Page() {
           <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data?.stats.confirmed ?? 0}</p>
         </Card>
         <Card className="p-5">
-          <p className="text-sm text-muted">Con actividad</p>
+          <p className="text-sm text-muted">Activos 30 días</p>
           <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data?.stats.active ?? 0}</p>
         </Card>
         <Card className="p-5">

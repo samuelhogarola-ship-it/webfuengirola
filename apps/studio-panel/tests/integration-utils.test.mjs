@@ -138,7 +138,7 @@ test("buildAppsUsersOverview scopes KPIs to the selected app but not the search"
     confirmed: 1,
     unconfirmed: 1,
     active: 1,
-    apps: 2,
+    apps: 1,
     vokabel: 2,
   });
 });

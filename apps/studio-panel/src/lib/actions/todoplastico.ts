@@ -10,9 +10,10 @@ export async function updateTodoPlasticoListingAction(formData: FormData) {
   const id = Number(formData.get('id'))
   const action = String(formData.get('action'))
   const status = action === 'approve' ? 'published' : action === 'reject' ? 'rejected' : null
-  if (!Number.isInteger(id) || !status) return
+  if (!Number.isInteger(id) || !status) throw new Error('Acción de anuncio no válida.')
   const db = createTodoPlasticoAdminClient()
-  await db.from('mkt_listings').update({ status, rejection_reason: status === 'rejected' ? 'Revisado desde WF Studio.' : null, updated_at: new Date().toISOString() }).eq('id', id).eq('status', 'pending_review')
+  const { data, error } = await db.from('mkt_listings').update({ status, rejection_reason: status === 'rejected' ? 'Revisado desde WF Studio.' : null, updated_at: new Date().toISOString() }).eq('id', id).eq('status', 'pending_review').select('id').single()
+  if (error || !data) throw new Error(`No se pudo actualizar el anuncio: ${error?.message ?? 'el anuncio ya no está pendiente'}`)
   revalidatePath('/paneladmin/todoplastico')
 }
 
@@ -20,10 +21,11 @@ export async function updateTodoPlasticoCompanyAction(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id'))
   const action = String(formData.get('action'))
-  if (!id || !['verify', 'block', 'activate'].includes(action)) return
+  if (!id || !['verify', 'block', 'activate'].includes(action)) throw new Error('Acción de empresa no válida.')
   const db = createTodoPlasticoAdminClient()
-  if (action === 'verify') await db.from('mkt_companies').update({ is_verified: true }).eq('id', id)
-  if (action === 'block') await db.from('mkt_companies').update({ status: 'blocked' }).eq('id', id)
-  if (action === 'activate') await db.from('mkt_companies').update({ status: 'active' }).eq('id', id)
+  const result = action === 'verify'
+    ? await db.from('mkt_companies').update({ is_verified: true }).eq('id', id).select('id').single()
+    : await db.from('mkt_companies').update({ status: action === 'block' ? 'blocked' : 'active' }).eq('id', id).select('id').single()
+  if (result.error || !result.data) throw new Error(`No se pudo actualizar la empresa: ${result.error?.message ?? 'empresa no encontrada'}`)
   revalidatePath('/paneladmin/todoplastico')
 }

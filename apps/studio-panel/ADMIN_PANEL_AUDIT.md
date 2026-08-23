@@ -1,6 +1,6 @@
 # Auditoria funcional del panel WF Studio
 
-Fecha: 2026-08-19
+Fecha: 2026-08-23
 
 ## Resumen ejecutivo
 
@@ -10,9 +10,9 @@ El panel cubre las plataformas nombradas: WF-Studio, Vivir en Fuengirola, Conoce
 
 ### P0 - Seguridad del cron de pendientes
 
-`/api/pending-reminders` envia recordatorios automaticos de pendientes de clientes. Ahora exige `PENDING_REMINDERS_CRON_SECRET` o `CRON_SECRET` y responde `503 cron_not_configured` si falta configuracion.
+`/api/pending-reminders` exige `PENDING_REMINDERS_CRON_SECRET` o `CRON_SECRET`, no admite secretos en URL y responde `503 cron_not_configured` si falta configuracion. Cada envio usa claim recuperable e idempotencia de Resend por pendiente/fecha para tolerar reintentos sin duplicar correos.
 
-Evidencia: `src/app/api/pending-reminders/route.ts`, `tests/security.test.mjs`.
+Evidencia: `src/app/api/pending-reminders/route.ts`, `src/lib/cron/pending-reminders.mjs`, `supabase/migrations/202608230002_pending_reminder_claims.sql`, `tests/pending-reminders.test.mjs`.
 
 Responsable usuario: definir el secreto en produccion y confirmar que el proveedor de cron envia `Authorization: Bearer <secret>` o `x-cron-secret`.
 
@@ -34,6 +34,18 @@ Samuel Coach, Vokabel/imKontext y Superentrenador renderizan una tarjeta de cone
 
 Evidencia: `src/components/admin/connection-issue-card.tsx`, `tests/external-integrations.test.mjs`.
 
+### P1 - Aislamiento de clientes y portal
+
+La edicion queda limitada al proyecto de la pantalla. Vivir y Conoce gestionan clientes y suscripciones, pero no crean credenciales del portal WF, porque ese portal esta aislado a `wf-studio`. El cambio de email sincroniza Auth y revierte Auth si falla la escritura principal.
+
+Evidencia: `src/components/admin/client-form.tsx`, `src/lib/actions/admin.ts`, `src/lib/data/admin.ts`, `tests/security.test.mjs`.
+
+### P1 - Saldos y fallos silenciosos
+
+`client_summary` descuenta solo actividad perteneciente a packs activos. Los loaders del panel y portal propagan errores de Supabase en lugar de mostrarlos como listas vacias, y las mutaciones solo revalidan tras confirmar la escritura.
+
+Evidencia: `supabase/migrations/202608230001_client_summary_active_packs.sql`, `src/lib/data/admin.ts`, `src/lib/data/client.ts`, `src/lib/actions/`.
+
 ### P1 - TodoPlastico no era visible/operable desde WF
 
 TodoPlastico aparece en dashboard, launcher y navegacion. Su panel incluye KPIs de usuarios, empresas y anuncios; filtros por estado; acciones de verificar/bloquear/activar empresa; y aprobar/rechazar anuncios pendientes.
@@ -42,7 +54,7 @@ Evidencia: `src/app/paneladmin/(protected)/todoplastico/page.tsx`, `src/lib/acti
 
 ### P2 - Usuarios y estadisticas educativas
 
-Vokabel-World tiene panel de usuarios y estadisticas compartidas: total, confirmados, sin confirmar, actividad, apps conectadas, membresias y busqueda.
+Vokabel-World tiene panel de usuarios y estadisticas por app: total, confirmados, sin confirmar, activos en 30 dias, apps conectadas, membresias y busqueda. Auth se pagina completo y la busqueda no altera los KPI.
 
 Evidencia: `src/app/paneladmin/(protected)/vokabel-world/usuarios/page.tsx`, `src/lib/data/apps-users.ts`.
 
@@ -56,13 +68,13 @@ Evidencia: `src/app/paneladmin/(protected)/superentrenador/pt/page.tsx`, `ADMIN_
 
 | Plataforma          | Estado actual                        | Funciones cubiertas                                                        | Queda fuera / accion usuario                                                |
 | ------------------- | ------------------------------------ | -------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| WF-Studio           | Completa para v1                     | Clientes, horas, actividades, servicios, facturas, informes, panel cliente | Revisar datos reales y email/DNS                                            |
+| WF-Studio           | Completa para v1                     | Clientes, horas, actividades, servicios, facturas, informes, panel cliente | Aplicar migraciones y revisar email/DNS                                     |
 | Vivir en Fuengirola | Operativa                            | Dashboard, clientes, suscripciones, cobros, altas                          | Validar planes reales y textos comerciales                                  |
 | Conoce Fuengirola   | Operativa                            | Dashboard, clientes, suscripciones, cobros, altas                          | Validar planes reales y textos comerciales                                  |
 | Samuel Coach        | Operativa con dependencias externas  | Textos, ejercicios, alumnos, progreso, premium                             | Mantener RPC premium y datos en Apps Users/imKontext                        |
 | Vokabel-World       | Operativa para usuarios/estadisticas | Vokabel-Lab, imKontext, Der Die Das, usuarios                              | Definir futuras acciones editoriales si se quieren modificar datos desde WF |
 | Superentrenador     | Operativa como consola + moderacion  | Entrenadores, usuarios, accesos externos, instruccion Umami                | Implementar Umami en repo externo                                           |
-| TodoPlastico        | Operativa para moderacion            | Empresas, usuarios KPI, anuncios, filtros, acciones                        | Confirmar URL/admin externa y permisos service role                         |
+| TodoPlastico        | Operativa para moderacion            | Empresas, usuarios KPI, anuncios, filtros, acciones y paginacion           | Confirmar URL/admin externa y permisos service role                         |
 | Proyectos           | No tocado por instruccion            | Ruta sigue existente                                                       | Se deja intacto                                                             |
 
 ## Contratos de entorno
@@ -88,6 +100,7 @@ npm run build
 Tests relevantes:
 
 - `tests/security.test.mjs`: auth, redirects, cron y premium seguro.
+- `tests/pending-reminders.test.mjs`: autorizacion, persistencia y telemetria del cron.
 - `tests/panel-navigation.test.mjs`: rutas visibles para todas las plataformas y acciones principales.
 - `tests/external-integrations.test.mjs`: fallbacks de integraciones externas.
 

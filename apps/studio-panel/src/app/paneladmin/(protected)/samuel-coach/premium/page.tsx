@@ -71,8 +71,8 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
 
   return (
     <AdminShell
-      title="Premium Samuel Coach"
-      description="Generacion, seguimiento y cancelacion de codigos premium"
+      title="Premium educativo"
+      description="Codigos compartidos del ecosistema educativo"
       currentPath="/paneladmin/samuel-coach/premium"
       userEmail={identity.email}
       locale={locale}
@@ -86,7 +86,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
 
       <Card className="mb-8 p-6">
         <div className="mb-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand">Samuel Coach</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand">Ecosistema educativo</p>
           <h2 className="mt-2 text-xl font-bold text-foreground">Generar codigo premium</h2>
         </div>
         <form action={generatePremiumCodeAction} className="grid gap-4 md:grid-cols-[1fr_180px_180px_auto] md:items-end">

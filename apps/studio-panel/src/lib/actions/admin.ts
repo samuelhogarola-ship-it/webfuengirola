@@ -79,8 +79,10 @@ function getProjectSubscriptionsPath(project: string) {
 
 async function getClientProject(clientId: string) {
   const supabase = await createSupabaseServerClient()
-  const { data } = await supabase.from('clients').select('project').eq('id', clientId).maybeSingle()
-  return data?.project ?? 'wf-studio'
+  const { data, error } = await supabase.from('clients').select('project').eq('id', clientId).maybeSingle()
+  if (error) throw new Error(`No se pudo resolver el proyecto del cliente: ${error.message}`)
+  if (!data) throw new Error('El cliente ya no existe.')
+  return data.project
 }
 
 function revalidateProjectClientViews(project: string) {
@@ -111,35 +113,59 @@ export async function upsertClientAction(_prevState: AdminFormState, formData: F
   const payload = parsed.data
 
   if (payload.id) {
-    const { data: currentClient } = await supabase.from('clients').select('email, auth_user_id').eq('id', payload.id).maybeSingle()
+    const { data: currentClient, error: currentClientError } = await supabase
+      .from('clients')
+      .select('email, auth_user_id')
+      .eq('id', payload.id)
+      .eq('project', payload.project)
+      .maybeSingle()
+    if (currentClientError) return toStateError('No se pudo consultar el cliente actual.')
+    if (!currentClient) return toStateError('El cliente ya no existe.')
+
+    const normalizedEmail = payload.email.toLowerCase()
+    const emailChanged = currentClient.email.toLowerCase() !== normalizedEmail
+    const admin = emailChanged && currentClient.auth_user_id ? getSupabaseAdminClient() : null
+
+    if (admin && currentClient.auth_user_id) {
+      const { error: authError } = await admin.auth.admin.updateUserById(currentClient.auth_user_id, {
+        email: normalizedEmail,
+      })
+
+      if (authError) {
+        return toStateError('No se pudo actualizar el email de acceso en Auth; el cliente no se ha modificado.')
+      }
+    }
 
     const { error } = await supabase
       .from('clients')
       .update({
         name: payload.name,
         company: payload.company || null,
-        email: payload.email.toLowerCase(),
+        email: normalizedEmail,
         phone: payload.phone || null,
         status: payload.status,
         project: payload.project,
       })
       .eq('id', payload.id)
+      .eq('project', payload.project)
 
     if (error) {
+      if (admin && currentClient.auth_user_id) {
+        const { error: rollbackError } = await admin.auth.admin.updateUserById(currentClient.auth_user_id, {
+          email: currentClient.email,
+        })
+        if (rollbackError) {
+          return toStateError('No se pudo actualizar el cliente y el rollback del email de acceso requiere revisión manual.')
+        }
+      }
       return toStateError('No se pudo actualizar el cliente.')
     }
 
-    if (currentClient?.auth_user_id && currentClient.email.toLowerCase() !== payload.email.toLowerCase()) {
-      const admin = getSupabaseAdminClient()
-      const { error: authError } = await admin.auth.admin.updateUserById(currentClient.auth_user_id, {
-        email: payload.email.toLowerCase(),
-      })
-
-      if (authError) {
-        return toStateError('Cliente actualizado, pero no se pudo sincronizar el email de acceso en Auth.')
+    if (currentClient.auth_user_id && emailChanged) {
+      const { error: profileError } = await supabase.from('profiles').update({ email: normalizedEmail }).eq('id', currentClient.auth_user_id)
+      if (profileError) {
+        return toStateError('Email de acceso actualizado, pero no se pudo sincronizar el perfil.')
       }
-
-      await supabase.from('profiles').update({ email: payload.email.toLowerCase() }).eq('id', currentClient.auth_user_id)
     }
 
     revalidateProjectClientViews(payload.project)
@@ -169,9 +195,10 @@ export async function approveClientAction(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id') ?? '')
   const supabase = await createSupabaseServerClient()
-  if (!id) return
+  if (!id) throw new Error('Falta el cliente que se quiere aprobar.')
   const project = await getClientProject(id)
-  await supabase.from('clients').update({ status: 'active' }).eq('id', id)
+  const { data, error } = await supabase.from('clients').update({ status: 'active' }).eq('id', id).eq('project', project).select('id').single()
+  if (error || !data) throw new Error(`No se pudo aprobar el cliente: ${error?.message ?? 'cliente no encontrado'}`)
   revalidateProjectClientViews(project)
 }
 
@@ -179,9 +206,10 @@ export async function rejectClientAction(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id') ?? '')
   const supabase = await createSupabaseServerClient()
-  if (!id) return
+  if (!id) throw new Error('Falta el cliente que se quiere rechazar.')
   const project = await getClientProject(id)
-  await supabase.from('clients').update({ status: 'inactive' }).eq('id', id)
+  const { data, error } = await supabase.from('clients').update({ status: 'inactive' }).eq('id', id).eq('project', project).select('id').single()
+  if (error || !data) throw new Error(`No se pudo rechazar el cliente: ${error?.message ?? 'cliente no encontrado'}`)
   revalidateProjectClientViews(project)
 }
 
@@ -190,10 +218,11 @@ export async function deactivateClientAction(formData: FormData) {
   const id = String(formData.get('id') ?? '')
   const supabase = await createSupabaseServerClient()
 
-  if (!id) return
+  if (!id) throw new Error('Falta el cliente que se quiere desactivar.')
 
   const project = await getClientProject(id)
-  await supabase.from('clients').update({ status: 'inactive' }).eq('id', id)
+  const { data, error } = await supabase.from('clients').update({ status: 'inactive' }).eq('id', id).eq('project', project).select('id').single()
+  if (error || !data) throw new Error(`No se pudo desactivar el cliente: ${error?.message ?? 'cliente no encontrado'}`)
   revalidateProjectClientViews(project)
   revalidatePath('/paneladmin/dashboard')
 }
@@ -271,12 +300,16 @@ export async function createActivityAction(_prevState: AdminFormState, formData:
   }
 
   const payload = parsed.data
-  const { data: pack } = await supabase
+  const { data: pack, error: packError } = await supabase
     .from('packs')
     .select('id, name, status, pack_type, client_id, clients(name, email)')
     .eq('id', payload.pack_id)
     .eq('client_id', payload.client_id)
     .maybeSingle()
+
+  if (packError) {
+    return toStateError('No se pudo consultar el pack seleccionado.')
+  }
 
   if (!pack || pack.status !== 'active') {
     return toStateError('No se puede registrar actividad sobre un pack inactivo o no válido.')
@@ -307,9 +340,9 @@ export async function createActivityAction(_prevState: AdminFormState, formData:
     return toStateError('No se pudo guardar la actividad.')
   }
 
-  const { data: summary } = await supabase.from('client_summary').select('*').eq('client_id', payload.client_id).maybeSingle()
+  const { data: summary, error: summaryError } = await supabase.from('client_summary').select('*').eq('client_id', payload.client_id).maybeSingle()
 
-  await supabase.from('notifications').insert({
+  const { error: notificationError } = await supabase.from('notifications').insert({
     client_id: payload.client_id,
     activity_id: createdActivity.id,
     title: `${payload.title}`,
@@ -319,6 +352,9 @@ export async function createActivityAction(_prevState: AdminFormState, formData:
   })
 
   let success = 'Actividad registrada correctamente.'
+  if (summaryError || notificationError) {
+    success = 'Actividad registrada, pero no se pudo actualizar toda la información del portal cliente.'
+  }
 
   if (payload.notify_client === 'on' && pack.clients?.email) {
     try {
@@ -329,7 +365,9 @@ export async function createActivityAction(_prevState: AdminFormState, formData:
         minutesUsed: minutesUsed,
         remainingMinutes: Number(summary?.remaining_minutes ?? 0),
       })
-      success = 'Actividad registrada y email enviado correctamente.'
+      if (!summaryError && !notificationError) {
+        success = 'Actividad registrada y email enviado correctamente.'
+      }
     } catch {
       success = 'Actividad registrada, pero el email no se pudo enviar.'
     }
@@ -337,20 +375,20 @@ export async function createActivityAction(_prevState: AdminFormState, formData:
 
   // Auto-envío de historial cuando el pack se agota
   if (pack.pack_type === 'hours' && pack.clients?.email) {
-    const { data: packSummary } = await supabase
+    const { data: packSummary, error: packSummaryError } = await supabase
       .from('pack_summary')
       .select('remaining_minutes')
       .eq('pack_id', payload.pack_id)
       .maybeSingle()
 
-    if (packSummary && Number(packSummary.remaining_minutes) <= 0) {
-      const { data: packActivities } = await supabase
+    if (!packSummaryError && packSummary && Number(packSummary.remaining_minutes) <= 0) {
+      const { data: packActivities, error: packActivitiesError } = await supabase
         .from('activities')
         .select('title, activity_type, minutes_used, work_date')
         .eq('pack_id', payload.pack_id)
         .order('work_date', { ascending: false })
 
-      if (packActivities?.length) {
+      if (!packActivitiesError && packActivities?.length) {
         try {
           await sendPackDepletedEmail({
             clientEmail: pack.clients.email,
@@ -377,7 +415,7 @@ const createClientDirectSchema = z.object({
   name: z.string().min(2, 'El nombre es obligatorio.'),
   email: z.string().email('Email inválido.'),
   password: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres.'),
-  project: z.enum(PROJECT_VALUES).default('wf-studio'),
+  project: z.literal('wf-studio').default('wf-studio'),
 })
 
 export async function createClientDirectAction(_prevState: AdminFormState, formData: FormData): Promise<AdminFormState> {
@@ -414,8 +452,8 @@ export async function createClientDirectAction(_prevState: AdminFormState, formD
   })
 
   if (clientError) {
-    await adminClient.auth.admin.deleteUser(authUser.user.id)
-    return { error: 'No se pudo crear el cliente.' }
+    const { error: rollbackError } = await adminClient.auth.admin.deleteUser(authUser.user.id)
+    return { error: rollbackError ? 'No se pudo crear el cliente y quedó un usuario de acceso huérfano que requiere revisión.' : 'No se pudo crear el cliente.' }
   }
 
   revalidateProjectClientViews(project)
@@ -609,25 +647,29 @@ export async function togglePendingItemStatusAction(formData: FormData): Promise
   const clientId = String(formData.get('client_id') ?? '')
   const currentStatus = String(formData.get('status') ?? 'pending')
 
-  if (!itemId || !clientId) return
+  if (!itemId || !clientId) throw new Error('Falta el pendiente o el cliente.')
 
   const nextStatus = currentStatus === 'pending' ? 'received' : 'pending'
-  const { data: currentItem } = await supabase
+  const { data: currentItem, error: currentItemError } = await supabase
     .from('pending_items')
     .select('reminder_interval_days')
     .eq('id', itemId)
+    .eq('client_id', clientId)
     .maybeSingle()
+  if (currentItemError) throw new Error(`No se pudo consultar el pendiente: ${currentItemError.message}`)
+  if (!currentItem) throw new Error('El pendiente no pertenece al cliente indicado.')
 
   const nextReminderAt =
     nextStatus === 'pending' && currentItem?.reminder_interval_days
       ? new Date(Date.now() + currentItem.reminder_interval_days * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)
       : null
 
-  await supabase.from('pending_items').update({
+  const { data, error } = await supabase.from('pending_items').update({
     status: nextStatus,
     received_at: nextStatus === 'received' ? new Date().toISOString().slice(0, 10) : null,
     next_reminder_at: nextReminderAt,
-  }).eq('id', itemId)
+  }).eq('id', itemId).eq('client_id', clientId).select('id').single()
+  if (error || !data) throw new Error(`No se pudo actualizar el pendiente: ${error?.message ?? 'pendiente no encontrado'}`)
 
   revalidatePath(`/paneladmin/clientes/${clientId}`)
   revalidatePath('/cliente/pendientes')
@@ -640,9 +682,10 @@ export async function deletePendingItemAction(formData: FormData): Promise<void>
   const itemId = String(formData.get('item_id') ?? '')
   const clientId = String(formData.get('client_id') ?? '')
 
-  if (!itemId || !clientId) return
+  if (!itemId || !clientId) throw new Error('Falta el pendiente o el cliente.')
 
-  await supabase.from('pending_items').delete().eq('id', itemId)
+  const { data, error } = await supabase.from('pending_items').delete().eq('id', itemId).eq('client_id', clientId).select('id').single()
+  if (error || !data) throw new Error(`No se pudo eliminar el pendiente: ${error?.message ?? 'pendiente no encontrado'}`)
 
   revalidatePath(`/paneladmin/clientes/${clientId}`)
   revalidatePath('/cliente/pendientes')
@@ -655,8 +698,9 @@ export async function togglePackPaidAction(formData: FormData): Promise<void> {
   const packId = String(formData.get('pack_id'))
   const currentPaid = formData.get('paid') === 'true'
   const clientId = String(formData.get('client_id'))
-  if (!packId || !clientId) return
-  await supabase.from('packs').update({ paid: !currentPaid }).eq('id', packId)
+  if (!packId || !clientId) throw new Error('Falta la suscripción o el cliente.')
+  const { data, error } = await supabase.from('packs').update({ paid: !currentPaid }).eq('id', packId).eq('client_id', clientId).select('id').single()
+  if (error || !data) throw new Error(`No se pudo actualizar el pago: ${error?.message ?? 'suscripción no encontrada'}`)
   const project = await getClientProject(clientId)
   revalidatePath(`/paneladmin/clientes/${clientId}`)
   revalidatePath(`/paneladmin/vivir-en-fuengirola/clientes/${clientId}`)
@@ -672,9 +716,10 @@ export async function togglePackStatusAction(formData: FormData): Promise<void> 
   const packId = String(formData.get('pack_id'))
   const currentStatus = String(formData.get('status'))
   const clientId = String(formData.get('client_id'))
-  if (!packId || !clientId) return
+  if (!packId || !clientId) throw new Error('Falta la suscripción o el cliente.')
   const newStatus = currentStatus === 'active' ? 'completed' : 'active'
-  await supabase.from('packs').update({ status: newStatus }).eq('id', packId)
+  const { data, error } = await supabase.from('packs').update({ status: newStatus }).eq('id', packId).eq('client_id', clientId).select('id').single()
+  if (error || !data) throw new Error(`No se pudo actualizar la suscripción: ${error?.message ?? 'suscripción no encontrada'}`)
   const project = await getClientProject(clientId)
   revalidatePath(`/paneladmin/clientes/${clientId}`)
   revalidatePath(`/paneladmin/vivir-en-fuengirola/clientes/${clientId}`)

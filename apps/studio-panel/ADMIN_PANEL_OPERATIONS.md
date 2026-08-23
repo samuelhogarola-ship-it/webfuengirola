@@ -2,38 +2,42 @@
 
 ## P0 cron de pendientes
 
-El endpoint `/api/pending-reminders` envia recordatorios automaticos de datos pendientes a clientes. Ahora exige `PENDING_REMINDERS_CRON_SECRET` o `CRON_SECRET`; si no existe, responde `503 cron_not_configured`.
+El endpoint `/api/pending-reminders` exige `PENDING_REMINDERS_CRON_SECRET` o `CRON_SECRET`; sin secreto responde `503 cron_not_configured`.
 
-Accion necesaria en despliegue:
-
-- En Vercel, definir `CRON_SECRET`; Vercel lo envia automaticamente como `Authorization: Bearer <secret>` en cron jobs.
-- En otro proveedor, definir `PENDING_REMINDERS_CRON_SECRET` y configurar la llamada con `Authorization: Bearer <secret>` o cabecera `x-cron-secret: <secret>`.
-- Verificar en logs que `/api/pending-reminders` responde `200` cuando hay secreto y `401/503` cuando falta o no coincide.
+- En Vercel, definir `CRON_SECRET`; Vercel lo envia como `Authorization: Bearer <secret>`.
+- En otro proveedor, usar `PENDING_REMINDERS_CRON_SECRET` y `Authorization` o `x-cron-secret`.
+- No incluir `?secret=`: el endpoint no lo acepta y las URLs suelen quedar en logs.
+- Alertar cuando `ok` sea `false` o `failed` no este vacio. Cada fallo indica `id`, fase `claim|send|persist|release` y mensaje.
+- Mantener Resend como proveedor del cron o conservar una clave de idempotencia equivalente si se cambia de proveedor.
 
 ## Superentrenador - Umami
 
-No se modifica desde WF Studio porque pertenece a otro proyecto. Instrucciones para el repo de Superentrenador:
+Ejecutar en el repo de Superentrenador, no en WF Studio:
 
-- Instalar el script de Umami en el layout publico.
-- Incluirlo tambien en marketplace, panel entrenador y panel alumno si usan layouts separados.
-- Crear/configurar el website id especifico de Superentrenador.
-- Verificar eventos basicos por ruta: landing, busqueda, ficha de entrenador, registro/login, panel entrenador y panel alumno.
-- Exponer las metricas agregadas que quiera leer WF Studio solo mediante API segura o tabla/view con service key, nunca con claves publicas administrativas.
+- Crear un website en Umami y guardar su id en `NEXT_PUBLIC_UMAMI_WEBSITE_ID`.
+- Guardar el script en `NEXT_PUBLIC_UMAMI_SCRIPT_URL`, por ejemplo `https://analytics.example.com/script.js`.
+- Insertar en el layout raiz un script `defer` con esa URL y `data-website-id`. Repetirlo en marketplace, panel entrenador o panel alumno si no heredan ese layout.
+- Autorizar el host de Umami en `script-src` y `connect-src` si existe CSP.
+- Verificar que el script carga con 200 y envia eventos sin emails, nombres ni datos personales.
+- Medir rutas y eventos `trainer_search`, `trainer_profile_view`, `signup_started`, `signup_completed`, `trainer_contact_started` y `subscription_started`.
+- Exponer a WF Studio solo metricas agregadas mediante API segura o vista con service key.
 
-## Apps educativas - usuarios y premium
+## Apps educativas
 
-WF Studio usa `APPS_USERS_URL` y `APPS_USERS_SERVICE_KEY` para leer usuarios compartidos, membresias y codigos premium.
+- Registrar cada app en `app_memberships.app`.
+- Mantener `list_premium_codes`, `generate_premium_code` y `cancel_premium_code`.
+- Añadir un campo/parametro `app` a esas RPC antes de presentar los codigos como exclusivos de Samuel Coach; mientras no exista, WF los rotula como premium educativo compartido.
+- Confirmar acceso service role a perfiles, membresias, progreso e intentos.
 
-Accion necesaria si una app nueva se suma al ecosistema:
+## TodoPlastico
 
-- Registrar su valor en `app_memberships.app`.
-- Mantener las RPC `list_premium_codes`, `generate_premium_code` y `cancel_premium_code` disponibles para el panel.
+- Definir `TODO_PLASTICO_URL`, `TODO_PLASTICO_SERVICE_KEY` y `TODO_PLASTICO_ADMIN_URL`.
+- Mantener accesibles `mkt_companies`, `mkt_listings` y Auth Admin para service role.
+- Confirmar empresas `active|blocked` y anuncios `pending_review|published|rejected`.
+- No exponer la service key al navegador.
 
-## Checklist rapido antes de desplegar
+## Checklist
 
-- Ejecutar `npm run lint`.
-- Ejecutar `npm run typecheck`.
-- Ejecutar `npm test`.
-- Ejecutar `npm run build`.
-- Revisar `ADMIN_PANEL_AUDIT.md`.
-- Confirmar que `Proyectos` no tiene cambios funcionales si sigue fuera de alcance.
+- Aplicar las migraciones `202608190001_client_auth_identity.sql`, `202608230001_client_summary_active_packs.sql` y `202608230002_pending_reminder_claims.sql`.
+- Ejecutar `npm run lint`, `npm run typecheck`, `npm test` y `npm run build`.
+- Confirmar que `Proyectos` sigue sin cambios funcionales.

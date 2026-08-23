@@ -206,23 +206,15 @@ export const getAlumnosData = cache(async (q = '') => {
     const alumno = (code.redeemed_by ? alumnosById.get(code.redeemed_by) : null) ?? (email ? alumnosByEmail.get(email) : null)
     if (alumno) {
       alumno.premiumCodes.push(code)
-    } else if (email) {
-      rememberAlumno({
-        id: `premium:${email}`,
-        email: code.customer_email,
-        full_name: null,
-        locale: null,
-        created_at: code.created_at,
-        last_sign_in_at: null,
-        confirmed_at: null,
-        memberships: [],
-        appRoles: {},
-        premiumCodes: [code],
-      })
     }
   }
 
+  const samuelApps = new Set(['samuel_coach', 'samuel-coach', 'pruefungsvorbereitung', 'prufungsvorbereitung'])
   const alumnos = Array.from(alumnosById.values())
+    .filter((alumno) =>
+      alumno.memberships.some((membership) => samuelApps.has(membership.app)) ||
+      Object.keys(alumno.appRoles).some((app) => samuelApps.has(app)),
+    )
     .filter((alumno) => {
       if (!normalizedQuery) return true
       return [alumno.email, alumno.full_name].some((value) => value?.toLowerCase().includes(normalizedQuery))
@@ -257,40 +249,53 @@ export const getProgresoData = cache(async () => {
   const attempts = unwrapSupabaseResult(attemptsResult, 'Samuel Coach attempts')
 
   // Aggregate progress by nivel+exercise_type
-  type ProgressRow = { nivel: string; exercise_type: string; user_count: number; completed_activities: number; average_score: number | null }
-  const grouped = new Map<string, ProgressRow>()
+  type ProgressAccumulator = {
+    nivel: string
+    exercise_type: string
+    user_count: number
+    completed_activities: number
+    score_total: number
+    score_weight: number
+  }
+  const grouped = new Map<string, ProgressAccumulator>()
   for (const row of progress ?? []) {
     const key = `${row.nivel}:${row.exercise_type}`
     const existing = grouped.get(key)
+    const completed = row.completed_activities ?? 0
+    const scoreWeight = row.average_score !== null ? Math.max(1, completed) : 0
+    const scoreTotal = row.average_score !== null ? row.average_score * scoreWeight : 0
     if (existing) {
       existing.user_count++
-      existing.completed_activities += row.completed_activities ?? 0
-      if (row.average_score !== null) {
-        existing.average_score = existing.average_score !== null
-          ? (existing.average_score + row.average_score) / 2
-          : row.average_score
-      }
+      existing.completed_activities += completed
+      existing.score_total += scoreTotal
+      existing.score_weight += scoreWeight
     } else {
       grouped.set(key, {
         nivel: row.nivel,
         exercise_type: row.exercise_type,
         user_count: 1,
-        completed_activities: row.completed_activities ?? 0,
-        average_score: row.average_score ?? null,
+        completed_activities: completed,
+        score_total: scoreTotal,
+        score_weight: scoreWeight,
       })
     }
   }
 
   const allAttempts = attempts ?? []
-  const totalAttempts = allAttempts.length
-  const activeUsers = new Set(allAttempts.map((a) => a.user_id)).size
-  const scored = allAttempts.filter((a) => a.max_score > 0)
-  const avgScore = scored.length > 0
-    ? Math.round(scored.reduce((s, a) => s + (a.score / a.max_score) * 100, 0) / scored.length)
+  const allProgress = progress ?? []
+  const totalAttempts = allProgress.reduce((sum, row) => sum + (row.completed_activities ?? 0), 0)
+  const activeUsers = new Set(allProgress.map((row) => row.user_id)).size
+  const scoredProgress = allProgress.filter((row) => row.average_score !== null)
+  const totalScoreWeight = scoredProgress.reduce((sum, row) => sum + Math.max(1, row.completed_activities ?? 0), 0)
+  const avgScore = totalScoreWeight > 0
+    ? Math.round(scoredProgress.reduce((sum, row) => sum + row.average_score * Math.max(1, row.completed_activities ?? 0), 0) / totalScoreWeight)
     : null
 
   return {
-    progress: Array.from(grouped.values()),
+    progress: Array.from(grouped.values()).map(({ score_total, score_weight, ...row }) => ({
+      ...row,
+      average_score: score_weight > 0 ? score_total / score_weight : null,
+    })),
     recentAttempts: allAttempts,
     stats: { totalAttempts, activeUsers, avgScore },
   }

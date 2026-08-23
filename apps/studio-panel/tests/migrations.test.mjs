@@ -81,3 +81,26 @@ test("client portal identity is bound to the auth user and wf-studio project", a
     /lower\(c\.email\) = private\.current_client_email\(\)/,
   );
 });
+
+test("client summary subtracts only activity from active packs", async () => {
+  const summarySql = await readMigration(
+    "202608230001_client_summary_active_packs.sql",
+  );
+
+  assert.match(summarySql, /where p\.status = 'active'/);
+  assert.match(
+    summarySql,
+    /left join public\.activities a on a\.pack_id = p\.id/,
+  );
+  assert.match(summarySql, /sum\(active_pack_totals\.used_minutes\)/);
+});
+
+test("pending reminder claims are recoverable after worker interruption", async () => {
+  const claimSql = await readMigration(
+    "202608230002_pending_reminder_claims.sql",
+  );
+
+  assert.match(claimSql, /reminder_claim_token uuid/);
+  assert.match(claimSql, /reminder_claimed_at timestamptz/);
+  assert.match(claimSql, /pending_reminder_claim_idx/);
+});

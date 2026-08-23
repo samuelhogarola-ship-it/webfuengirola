@@ -46,7 +46,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ q
           ['Usuarios', data?.stats.total ?? 0],
           ['Confirmados', data?.stats.confirmed ?? 0],
           ['Sin confirmar', data?.stats.unconfirmed ?? 0],
-          ['Con actividad', data?.stats.active ?? 0],
+          ['Activos 30 días', data?.stats.active ?? 0],
           ['Vokabel-World', data?.stats.vokabel ?? 0],
         ].map(([label, value]) => (
           <Card key={String(label)} className="p-5">

@@ -1,6 +1,6 @@
 # WIP resume - panel hardening
 
-Fecha de pausa: 2026-08-19
+Fecha de cierre tecnico: 2026-08-23
 
 ## Completado
 
@@ -12,22 +12,23 @@ Fecha de pausa: 2026-08-19
   - `node --test tests/security.test.mjs tests/migrations.test.mjs tests/register.test.mjs`: 17/17.
   - `node --test tests/integration-utils.test.mjs`: 4/4.
 
-## Punto exacto de reanudacion
+## Estado actual
 
-La utilidad ya esta integrada en Apps Users, Superentrenador, TodoPlastico, Samuel Coach e imKontext. El ultimo `npm run typecheck` falla por tipos explicitos pendientes en:
-
-- `src/lib/data/imkontext.ts`: resultados de consultas heredadas tipadas como `any` necesitan genericos explicitos al llamar `unwrapSupabaseResult`.
-- `src/lib/data/todoplastico.ts`: la union exito/error de `auth.admin.listUsers` necesita una anotacion compatible.
-
-No se ha iniciado todavia la parte de acciones externas, hardening final del cron, correccion de paginacion visual, documentacion final ni verificacion completa.
+El tipado de integraciones, propagacion de errores, aislamiento por proyecto, estadisticas educativas, cron y paginacion estan terminados. Tambien se corrigio `client_summary` para no descontar actividad de packs cerrados.
 
 ## Siguiente orden recomendado
 
-1. Corregir esos tipos y ejecutar `npm run typecheck`.
-2. Terminar propagacion de errores en todos los loaders externos.
-3. Hacer observables los errores de acciones TodoPlastico, premium, publicaciones y suscripciones.
-4. Quitar secretos de query string y hacer fiable la persistencia del cron.
-5. Actualizar UI/documentacion y ejecutar `npm test`, `npm run lint`, `npm run typecheck` y `npm run build`.
-6. Solicitar revision independiente final antes de integrar.
+1. Aplicar en Supabase `202608190001_client_auth_identity.sql`, `202608230001_client_summary_active_packs.sql` y `202608230002_pending_reminder_claims.sql`.
+2. Configurar secretos y service keys descritos en `.env.example` y `ADMIN_PANEL_OPERATIONS.md`.
+3. Implementar Umami en el repo externo de Superentrenador siguiendo el runbook.
+4. Hacer smoke test autenticado con datos reales tras desplegar.
+
+## Verificacion
+
+- `npm test`: 37/37.
+- `npm run lint`: correcto.
+- `npm run typecheck`: correcto.
+- `npm run build`: correcto.
+- HTTP local: `/paneladmin` y `/cliente` responden 200; cron sin secreto responde 503.
 
 Los directorios `graphify-out/` son artefactos auxiliares generados y no forman parte del commit WIP.

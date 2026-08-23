@@ -83,7 +83,26 @@ test("pending reminders cron requires an explicit secret in production", async (
   );
 
   assert.doesNotMatch(source, /if \(!configuredSecret\) return true/);
+  assert.doesNotMatch(source, /searchParams\.get\(["']secret["']\)/);
+  assert.match(
+    source,
+    /idempotencyKey: `wf-pending-\$\{item\.id\}-\$\{item\.next_reminder_at\}`/,
+  );
   assert.match(source, /cron_not_configured|Cron secret/);
+});
+
+test("marking a message as read is scoped to the authenticated client", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const { fileURLToPath } = await import("node:url");
+  const path = await import("node:path");
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const source = await readFile(
+    path.join(__dirname, "../src/lib/actions/messages.ts"),
+    "utf8",
+  );
+
+  assert.match(source, /const identity = await requireClientAccess\(\)/);
+  assert.match(source, /\.eq\('client_id', identity\.client\.id\)/);
 });
 
 test("Samuel Coach premium codes are managed server-side inside the admin shell", async () => {
@@ -118,6 +137,10 @@ test("client access resolves the wf-studio client by auth user id", async () => 
 
   assert.match(source, /\.eq\('project', CLIENT_PROJECT\)/);
   assert.match(source, /\.eq\('auth_user_id', identity\.userId\)/);
+  assert.match(
+    source,
+    /userError\?\.message\.includes\('Auth session missing'\)/,
+  );
   assert.doesNotMatch(source, /\.ilike\('email', normalizedEmail\)/);
 });
 
@@ -135,4 +158,41 @@ test("direct client creation stores the auth user relationship", async () => {
   assert.match(source, /select\('email, auth_user_id'\)/);
   assert.match(source, /updateUserById\(currentClient\.auth_user_id/);
   assert.doesNotMatch(source, /ilike\('email', currentClient\.email\)/);
+});
+
+test("client editing and direct portal access cannot cross projects", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const { fileURLToPath } = await import("node:url");
+  const path = await import("node:path");
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const [formSource, actionSource, dataSource] = await Promise.all([
+    readFile(
+      path.join(__dirname, "../src/components/admin/client-form.tsx"),
+      "utf8",
+    ),
+    readFile(path.join(__dirname, "../src/lib/actions/admin.ts"), "utf8"),
+    readFile(path.join(__dirname, "../src/lib/data/admin.ts"), "utf8"),
+  ]);
+
+  assert.match(formSource, /!editingClient && project === 'wf-studio'/);
+  assert.match(actionSource, /project: z\.literal\('wf-studio'\)/);
+  assert.match(actionSource, /\.eq\('project', payload\.project\)/);
+  assert.match(dataSource, /\.eq\('id', editingId\)\.eq\('project', project\)/);
+});
+
+test("auth callback handles Supabase exchange errors returned as data", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const { fileURLToPath } = await import("node:url");
+  const path = await import("node:path");
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const source = await readFile(
+    path.join(__dirname, "../src/app/auth/callback/route.ts"),
+    "utf8",
+  );
+
+  assert.match(
+    source,
+    /const \{ error \} = await supabase\.auth\.exchangeCodeForSession\(code\)/,
+  );
+  assert.match(source, /if \(error\) throw error/);
 });

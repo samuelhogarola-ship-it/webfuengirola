@@ -70,9 +70,21 @@ export async function getTodoPlasticoData({ q = '', view = 'empresas', status = 
   unwrapSupabaseResult(totalListings, 'TodoPlastico listing count')
   unwrapSupabaseResult(pendingListings, 'TodoPlastico pending listing count')
   unwrapSupabaseResult(publishedListings, 'TodoPlastico published listing count')
-  const usersData = unwrapSupabaseResult(userStats, 'TodoPlastico users')
+  const usersData = unwrapSupabaseResult<{ total?: number } | null>(
+    userStats as unknown as {
+      data: { total?: number } | null
+      error: { message: string } | null
+    },
+    'TodoPlastico users',
+  )
   const companies = unwrapSupabaseResult(companiesResult, 'TodoPlastico companies') ?? []
   const listings = unwrapSupabaseResult(listingsResult, 'TodoPlastico listings') ?? []
+  const totalRows = (view === 'anuncios' ? listingsResult.count : companiesResult.count) ?? 0
+  const lastPage = Math.max(1, Math.ceil(totalRows / PAGE_SIZE))
+
+  if (safePage > lastPage) {
+    return getTodoPlasticoData({ q, view, status, page: lastPage })
+  }
 
   return {
     stats: {
@@ -82,11 +94,11 @@ export async function getTodoPlasticoData({ q = '', view = 'empresas', status = 
       listings: totalListings.count ?? 0,
       pendingListings: pendingListings.count ?? 0,
       publishedListings: publishedListings.count ?? 0,
-      users: (usersData as { total?: number } | null)?.total ?? 0,
+      users: usersData?.total ?? 0,
     },
     companies: companies as TodoPlasticoCompany[],
     listings: listings.map((listing) => ({ ...listing, company: Array.isArray(listing.company) ? listing.company[0] : listing.company })) as TodoPlasticoListing[],
-    totalRows: (view === 'anuncios' ? listingsResult.count : companiesResult.count) ?? 0,
+    totalRows,
     page: safePage,
     pageSize: PAGE_SIZE,
   }

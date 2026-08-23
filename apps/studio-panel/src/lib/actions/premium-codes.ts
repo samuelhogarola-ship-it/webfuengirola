@@ -20,23 +20,27 @@ export async function generatePremiumCodeAction(formData: FormData) {
     created_by_type: formData.get('created_by_type') || 'studio-panel',
   })
 
-  if (!parsed.success) return
+  if (!parsed.success) {
+    throw new Error(parsed.error.issues[0]?.message ?? 'Datos del código premium no válidos.')
+  }
 
   const db = createAppsUsersAdminClient()
-  await db.rpc('generate_premium_code', {
+  const { error } = await db.rpc('generate_premium_code', {
     p_duration_days: parsed.data.duration_days,
     p_customer_email: parsed.data.customer_email,
     p_created_by_type: parsed.data.created_by_type,
   })
+  if (error) throw new Error(`No se pudo generar el código premium: ${error.message}`)
   revalidatePath('/paneladmin/samuel-coach/premium')
 }
 
 export async function cancelPremiumCodeAction(formData: FormData) {
   await requireAdmin()
   const code = String(formData.get('code') ?? '')
-  if (!code) return
+  if (!code) throw new Error('Falta el código premium que se quiere cancelar.')
 
   const db = createAppsUsersAdminClient()
-  await db.rpc('cancel_premium_code', { p_code: code })
+  const { error } = await db.rpc('cancel_premium_code', { p_code: code })
+  if (error) throw new Error(`No se pudo cancelar el código premium: ${error.message}`)
   revalidatePath('/paneladmin/samuel-coach/premium')
 }
