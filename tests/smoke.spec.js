@@ -11,6 +11,16 @@ test("landing principal carga con hero y CTA principal", async ({ page }) => {
   ).toBeVisible();
 });
 
+test("landing explica la estrategia comercial en que hacemos", async () => {
+  const html = fs.readFileSync(
+    path.join(__dirname, "..", "index.html"),
+    "utf8",
+  );
+
+  expect(html).toMatch(/mucho más que diseñar una página web/i);
+  expect(html).toMatch(/no es magia, es estrategia comercial/i);
+});
+
 test("landing permite cambiar idioma desde la cabecera", async ({ page }) => {
   await page.goto("/");
 
@@ -60,28 +70,19 @@ test("landing muestra los botones principales del hero", async ({ page }) => {
     page.getByRole("link", { name: /ver servicios/i }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", {
-      name: /esto funciona especialmente bien para negocios/i,
-    }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", {
-      name: /preguntas normales antes de encargar una web/i,
-    }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", {
-      name: /las dudas que más suelen frenar una web buena casi nunca son técnicas/i,
-    }),
+    page.getByRole("heading", { name: /qué hacemos/i }),
   ).toBeVisible();
   await expect(page.locator("body")).toContainText(
     /lo que interesa a la mayoría/i,
   );
   await expect(page.locator("body")).toContainText(
-    /entra por la ruta específica/i,
+    /mucho más que diseñar una página web/i,
   );
   await expect(page.locator("body")).toContainText(
-    /una web bien planteada no empieza por el diseño/i,
+    /no es magia, es estrategia comercial/i,
+  );
+  await expect(page.locator("body")).toContainText(
+    /entra por la ruta específica/i,
   );
   await expect(page.locator("body")).toContainText(
     /elige la forma más fácil[\s\S]*dar el siguiente paso/i,
@@ -107,7 +108,7 @@ test("landing muestra los botones principales del hero", async ({ page }) => {
   await expect(page.locator("body")).toContainText(/automatización e ia/i);
   await expect(
     page.getByRole("heading", {
-      name: /qué suele cambiar cuando la web ya está bien planteada/i,
+      name: /qué se mejora con una web optimizada/i,
     }),
   ).toBeVisible();
   await expect(page.locator("body")).toContainText(
@@ -115,41 +116,23 @@ test("landing muestra los botones principales del hero", async ({ page }) => {
   );
   await expect(
     page.getByRole("heading", {
-      name: /una web bien planteada no empieza por el diseño/i,
+      name: /casos de éxito/i,
     }),
   ).toBeVisible();
-  await expect(
-    page.getByRole("heading", {
-      name: /la idea no es enseñar “otra web”, sino el tipo de salida que encaja según lo que necesitas/i,
-    }),
-  ).toBeVisible();
+  await expect(page.locator("body")).toContainText(/proyectos recientes/i);
   await expect(page.locator("body")).toContainText(
-    /un pc con una web clara, legible y preparada para convertir/i,
+    /posicionamiento en google/i,
   );
   await expect(page.locator("body")).toContainText(
-    /un móvil con una app o flujo operativo, no con la portada de otra web/i,
+    /todas tus dudas resueltas/i,
   );
-  await expect(page.locator("body")).toContainText(
-    /una pieza de visibilidad: búsqueda, mapa y posición útil/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /no quiero meterme en una web enorme/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /sin pasar por comerciales ni capas innecesarias/i,
-  );
-  await expect(
-    page.getByRole("heading", {
-      name: /si nos escribes, no entras en un embudo raro/i,
-    }),
-  ).toBeVisible();
   await expect(page.locator(".client-access-btn")).toHaveCount(0);
   await expect(page.locator(".lang-switcher")).toHaveCount(1);
   await expect(page.locator("body")).toContainText(
-    /samuel lleva el planteamiento, el diseño y la parte técnica del proyecto/i,
+    /si ya lo tienes claro, entra por la ruta directa/i,
   );
   await expect(
-    page.getByRole("link", { name: /ver quién hay detrás/i }),
+    page.getByRole("link", { name: /ver todos los proyectos/i }),
   ).toBeVisible();
   await expect(
     page.locator('.services-routes__link[href="diseno-web-fuengirola/"]'),
@@ -166,7 +149,7 @@ test("servicios presenta las cuatro categorías principales", async ({
   );
   await expect(
     page.getByRole("heading", {
-      name: /servicios web en fuengirola para negocios que quieren vender mejor online/i,
+      name: /servicios web para que tu negocio se entienda y venda mejor/i,
     }),
   ).toBeVisible();
   await expect(
@@ -187,16 +170,16 @@ test("servicios presenta las cuatro categorías principales", async ({
       .first(),
   ).toBeVisible();
   await expect(page.locator("body")).toContainText(
-    /diseño web, seo local, mantenimiento, automatización útil y herramientas a medida/i,
+    /imagen, visibilidad, mantenimiento o una herramienta que te ahorre trabajo/i,
   );
   await expect(page.locator("body")).toContainText(
-    /qué ruta suele encajar según el problema que tienes hoy/i,
+    /qué falla y qué servicio lo arregla/i,
   );
   await expect(page.locator("body")).toContainText(
-    /la mayoría de negocios no necesitan “todos los servicios”/i,
+    /abre solo lo que te interesa/i,
   );
   await expect(page.locator("body")).toContainText(
-    /lo que más suele preguntar un negocio antes de contratar/i,
+    /calcula qué web encaja con tu negocio/i,
   );
   await expect(
     page.getByRole("link", { name: /ir a contacto/i }),

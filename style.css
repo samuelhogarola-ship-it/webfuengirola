@@ -10530,6 +10530,63 @@ body.is-transitioning {
   margin-bottom: clamp(2rem, 5vw, 4rem);
 }
 
+.services-strategy {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  margin-top: 1.4rem;
+  align-items: stretch;
+}
+
+.services-strategy__lead,
+.services-strategy__how {
+  border: 1px solid rgba(10, 10, 10, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 18px 50px rgba(10, 10, 10, 0.08);
+}
+
+.services-strategy__lead {
+  margin: 0;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  color: #090909;
+  font-size: clamp(1.45rem, 3vw, 2.7rem);
+  font-weight: 760;
+  line-height: 1.05;
+}
+
+.services-strategy__how {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: clamp(1.25rem, 2.5vw, 1.8rem);
+}
+
+.services-strategy__label {
+  width: fit-content;
+  border-radius: 999px;
+  background: #090909;
+  color: #ffffff;
+  padding: 0.42rem 0.72rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.services-strategy__how p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: clamp(0.98rem, 1.5vw, 1.08rem);
+  line-height: 1.7;
+}
+
+.services-strategy__how strong {
+  color: #090909;
+  font-size: clamp(1.02rem, 1.8vw, 1.22rem);
+  line-height: 1.25;
+}
+
 .services-home-deck {
   position: relative;
   display: grid;
@@ -10696,6 +10753,15 @@ body.is-transitioning {
 }
 
 @media (max-width: 720px) {
+  .services-strategy {
+    grid-template-columns: 1fr;
+  }
+
+  .services-strategy__lead,
+  .services-strategy__how {
+    border-radius: 16px;
+  }
+
   .services-home-deck__card {
     top: 92px;
     height: clamp(470px, 70vh, 540px);
