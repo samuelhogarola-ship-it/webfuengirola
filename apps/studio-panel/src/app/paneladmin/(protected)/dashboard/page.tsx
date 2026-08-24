@@ -41,6 +41,29 @@ export default async function AdminDashboardPage() {
       </section>
 
       <section className="mt-8">
+        <div className="mb-4 flex items-end justify-between gap-4">
+          <div>
+            <h2 className="text-xl font-bold text-foreground">{t(locale, 'dashboard.panels.title')}</h2>
+            <p className="text-sm text-muted">{t(locale, 'dashboard.panels.description')}</p>
+          </div>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <Link href="/paneladmin/todoplastico">
+            <Card className="p-6 transition hover:shadow-md hover:border-brand/30 cursor-pointer">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-sm text-muted">{t(locale, 'dashboard.panels.marketplace')}</p>
+                  <h3 className="mt-2 text-xl font-black tracking-tight text-foreground">TodoPlástico</h3>
+                  <p className="mt-2 text-sm text-muted">{t(locale, 'dashboard.panels.todoPlastico.description')}</p>
+                </div>
+                <span className="rounded-full bg-brand/10 px-3 py-1 text-xs font-semibold text-brand">{t(locale, 'dashboard.panels.enter')}</span>
+              </div>
+            </Card>
+          </Link>
+        </div>
+      </section>
+
+      <section className="mt-8">
         <Card className="overflow-hidden">
           <div className="flex items-center justify-between border-b border-line px-6 py-5">
             <div>

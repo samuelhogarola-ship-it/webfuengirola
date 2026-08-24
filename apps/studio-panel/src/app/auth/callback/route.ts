@@ -25,7 +25,8 @@ export async function GET(request: NextRequest) {
   try {
     if (code) {
       const supabase = createSupabaseRouteClient(request, successResponse)
-      await supabase.auth.exchangeCodeForSession(code)
+      const { error } = await supabase.auth.exchangeCodeForSession(code)
+      if (error) throw error
     }
   } catch (error) {
     console.error('[auth/callback] exchangeCodeForSession failed', {

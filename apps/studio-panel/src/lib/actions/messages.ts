@@ -81,7 +81,14 @@ export async function sendRequestAction(_prev: MessageFormState, formData: FormD
 }
 
 export async function markMessageReadAction(messageId: string): Promise<void> {
+  const identity = await requireClientAccess()
   const supabase = await createSupabaseServerClient()
-  await supabase.from('messages').update({ read_at: new Date().toISOString() }).eq('id', messageId).is('read_at', null)
+  const { error } = await supabase
+    .from('messages')
+    .update({ read_at: new Date().toISOString() })
+    .eq('id', messageId)
+    .eq('client_id', identity.client.id)
+    .is('read_at', null)
+  if (error) throw new Error('No se pudo marcar el mensaje como leído.')
   revalidatePath('/cliente/mensajeria')
 }

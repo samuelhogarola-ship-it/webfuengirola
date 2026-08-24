@@ -1,8 +1,10 @@
+import { ConnectionIssueCard } from '@/components/admin/connection-issue-card'
 import { AdminShell } from '@/components/layout/app-shell'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
 import { getSuperEntrenadorUsuariosData } from '@/lib/data/superentrenador'
+import { loadIntegrationData } from '@/lib/integrations/supabase.mjs'
 import { getLocale } from '@/lib/locale'
 
 export const dynamic = 'force-dynamic'
@@ -11,7 +13,12 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ q
   const identity = await requireAdmin()
   const locale = await getLocale()
   const { q } = await searchParams
-  const { users, stats } = await getSuperEntrenadorUsuariosData(q ?? '')
+  const { data, error } = await loadIntegrationData(
+    () => getSuperEntrenadorUsuariosData(q ?? ''),
+    'No se pudo conectar con Superentrenador.',
+  )
+  const users = data?.users ?? []
+  const stats = data?.stats ?? { total: 0, confirmed: 0, unconfirmed: 0 }
 
   return (
     <AdminShell
@@ -21,6 +28,14 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ q
       userEmail={identity.email}
       locale={locale}
     >
+      {error ? (
+        <div className="mb-8">
+          <ConnectionIssueCard
+            message="Configura SUPERENTRENADOR_URL y SUPERENTRENADOR_SERVICE_KEY para cargar usuarios registrados."
+            detail={error}
+          />
+        </div>
+      ) : null}
       <section className="grid gap-4 md:grid-cols-3 mb-8">
         <Card className="p-5">
           <p className="text-sm text-muted">Total registrados</p>

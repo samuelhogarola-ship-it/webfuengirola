@@ -78,7 +78,7 @@ export function ClientForm({ editingClient, locale, project = 'wf-studio' }: { e
         </form>
       </Card>
 
-      {!editingClient && (
+      {!editingClient && project === 'wf-studio' && (
         <Card className="p-6">
           <button
             type="button"

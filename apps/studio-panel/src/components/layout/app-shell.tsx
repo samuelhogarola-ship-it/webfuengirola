@@ -7,6 +7,13 @@ import { cn } from '@/lib/utils'
 type NavItem = { href: string; label: string; icon: ReactNode }
 type NavGroup = { label: string; items: NavItem[] }
 
+function getActiveNavHref(currentPath: string, navGroups: NavGroup[]) {
+  return navGroups
+    .flatMap((group) => group.items)
+    .filter((item) => currentPath === item.href || currentPath.startsWith(item.href + '/'))
+    .sort((a, b) => b.href.length - a.href.length)[0]?.href
+}
+
 export function AdminShell({
   title,
   description,
@@ -134,6 +141,11 @@ export function AdminShell({
           icon: panelIcon,
         },
         {
+          href: '/paneladmin/vokabel-world/usuarios',
+          label: 'Vokabel usuarios',
+          icon: panelIcon,
+        },
+        {
           href: '/paneladmin/superentrenador/pt',
           label: 'Superentrenador',
           icon: panelIcon,
@@ -146,6 +158,7 @@ export function AdminShell({
       ],
     },
   ]
+  const activeHref = getActiveNavHref(currentPath, navGroups)
 
   return (
     <div className="min-h-screen bg-background flex">
@@ -164,7 +177,7 @@ export function AdminShell({
                   href={item.href}
                   className={cn(
                     'flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition',
-                    currentPath === item.href || currentPath.startsWith(item.href + '/')
+                    activeHref === item.href
                       ? 'bg-brand text-white'
                       : 'text-slate-500 hover:bg-slate-100 hover:text-slate-700',
                   )}
@@ -213,7 +226,7 @@ export function AdminShell({
                     href={item.href}
                     className={cn(
                       'whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition',
-                      currentPath === item.href || currentPath.startsWith(item.href + '/')
+                      activeHref === item.href
                         ? 'bg-brand text-white'
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200',
                     )}

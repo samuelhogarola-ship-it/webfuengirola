@@ -58,3 +58,49 @@ test("latest migration scopes client email uniqueness by project", async () => {
     /create unique index if not exists clients_project_email_lower_unique_idx\s+on public\.clients \(project, lower\(email\)\);/s,
   );
 });
+
+test("client portal identity is bound to the auth user and wf-studio project", async () => {
+  const authIdentitySql = await readMigration(
+    "202608190001_client_auth_identity.sql",
+  );
+
+  assert.match(
+    authIdentitySql,
+    /add column if not exists auth_user_id uuid references auth\.users\(id\) on delete set null;/,
+  );
+  assert.match(
+    authIdentitySql,
+    /where c\.project = 'wf-studio'\s+and c\.auth_user_id = auth\.uid\(\)\s+and c\.status = 'active'/s,
+  );
+  assert.match(
+    authIdentitySql,
+    /create unique index if not exists clients_project_auth_user_unique_idx\s+on public\.clients \(project, auth_user_id\)\s+where auth_user_id is not null;/s,
+  );
+  assert.doesNotMatch(
+    authIdentitySql,
+    /lower\(c\.email\) = private\.current_client_email\(\)/,
+  );
+});
+
+test("client summary subtracts only activity from active packs", async () => {
+  const summarySql = await readMigration(
+    "202608230001_client_summary_active_packs.sql",
+  );
+
+  assert.match(summarySql, /where p\.status = 'active'/);
+  assert.match(
+    summarySql,
+    /left join public\.activities a on a\.pack_id = p\.id/,
+  );
+  assert.match(summarySql, /sum\(active_pack_totals\.used_minutes\)/);
+});
+
+test("pending reminder claims are recoverable after worker interruption", async () => {
+  const claimSql = await readMigration(
+    "202608230002_pending_reminder_claims.sql",
+  );
+
+  assert.match(claimSql, /reminder_claim_token uuid/);
+  assert.match(claimSql, /reminder_claimed_at timestamptz/);
+  assert.match(claimSql, /pending_reminder_claim_idx/);
+});

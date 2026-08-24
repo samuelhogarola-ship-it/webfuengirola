@@ -264,7 +264,8 @@ export async function updatePasswordAction(_prevState: AuthFormState, formData: 
 
 export async function signOutAction(formData: FormData) {
   const supabase = await createSupabaseServerClient()
-  await supabase.auth.signOut()
+  const { error } = await supabase.auth.signOut()
+  if (error) throw new Error('No se pudo cerrar la sesión.')
   const destination = formData.get('redirect') === 'admin' ? '/paneladmin' : '/cliente'
   redirect(destination)
 }

@@ -63,12 +63,15 @@ export async function markInvoicePaidAction(formData: FormData) {
   const supabase = await createSupabaseServerClient()
 
   const id = String(formData.get('id') ?? '')
-  if (!id) return
+  if (!id) throw new Error('Falta la factura que se quiere marcar como pagada.')
 
-  await supabase
+  const { data, error } = await supabase
     .from('invoices')
     .update({ status: 'paid', paid_at: new Date().toISOString().slice(0, 10) })
     .eq('id', id)
+    .select('id')
+    .single()
+  if (error || !data) throw new Error(`No se pudo marcar la factura como pagada: ${error?.message ?? 'factura no encontrada'}`)
 
   revalidatePath('/paneladmin/facturas')
 }
@@ -78,9 +81,10 @@ export async function deleteInvoiceAction(formData: FormData) {
   const supabase = await createSupabaseServerClient()
 
   const id = String(formData.get('id') ?? '')
-  if (!id) return
+  if (!id) throw new Error('Falta la factura que se quiere eliminar.')
 
-  await supabase.from('invoices').delete().eq('id', id)
+  const { data, error } = await supabase.from('invoices').delete().eq('id', id).select('id').single()
+  if (error || !data) throw new Error(`No se pudo eliminar la factura: ${error?.message ?? 'factura no encontrada'}`)
 
   revalidatePath('/paneladmin/facturas')
 }

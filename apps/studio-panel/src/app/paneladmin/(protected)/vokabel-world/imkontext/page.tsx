@@ -1,8 +1,10 @@
+import { ConnectionIssueCard } from '@/components/admin/connection-issue-card'
 import { AdminShell } from '@/components/layout/app-shell'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
 import { getImKontextData } from '@/lib/data/imkontext'
+import { loadIntegrationData } from '@/lib/integrations/supabase.mjs'
 import { getLocale } from '@/lib/locale'
 
 export const dynamic = 'force-dynamic'
@@ -10,7 +12,10 @@ export const dynamic = 'force-dynamic'
 export default async function Page() {
   const identity = await requireAdmin()
   const locale = await getLocale()
-  const data = await getImKontextData()
+  const { data, error } = await loadIntegrationData(
+    () => getImKontextData(),
+    'No se pudo conectar con imKontext.',
+  )
 
   return (
     <AdminShell
@@ -20,15 +25,23 @@ export default async function Page() {
       userEmail={identity.email}
       locale={locale}
     >
+      {error ? (
+        <div className="mb-8">
+          <ConnectionIssueCard
+            message="Configura IMKONTEXT_URL e IMKONTEXT_SERVICE_KEY para cargar estado, textos, vocabulario y usuarios."
+            detail={error}
+          />
+        </div>
+      ) : null}
       {/* Stats */}
       <section className="grid gap-4 md:grid-cols-3 mb-8">
         {[
-          { label: 'Textos', value: data.stats.totalTexts },
-          { label: 'Vocabulario', value: data.stats.totalVocab.toLocaleString() },
-          { label: 'Lemas', value: data.stats.totalLemmas.toLocaleString() },
-          { label: 'Textos free', value: data.stats.freeTexts },
-          { label: 'Textos premium', value: data.stats.premiumTexts },
-          { label: 'Usuarios con acceso', value: data.stats.totalUsers },
+          { label: 'Textos', value: data?.stats.totalTexts ?? 0 },
+          { label: 'Vocabulario', value: (data?.stats.totalVocab ?? 0).toLocaleString() },
+          { label: 'Lemas', value: (data?.stats.totalLemmas ?? 0).toLocaleString() },
+          { label: 'Textos free', value: data?.stats.freeTexts ?? 0 },
+          { label: 'Textos premium', value: data?.stats.premiumTexts ?? 0 },
+          { label: 'Usuarios con acceso', value: data?.stats.totalUsers ?? 0 },
         ].map((s) => (
           <Card key={s.label} className="p-5">
             <p className="text-sm text-muted">{s.label}</p>
@@ -42,7 +55,7 @@ export default async function Page() {
         <h2 className="text-sm font-bold uppercase tracking-widest text-muted mb-3">Apps registradas</h2>
         <Card className="overflow-hidden">
           <div className="divide-y divide-line">
-            {data.apps.map((app) => (
+            {(data?.apps ?? []).map((app) => (
               <div key={app.key} className="flex items-center justify-between px-5 py-4">
                 <div>
                   <p className="font-semibold text-foreground">{app.name}</p>
@@ -54,15 +67,16 @@ export default async function Page() {
               </div>
             ))}
           </div>
+          {(data?.apps ?? []).length === 0 ? <p className="px-5 py-6 text-sm text-muted">No hay apps cargadas.</p> : null}
         </Card>
       </section>
 
       {/* Texts */}
       <section>
-        <h2 className="text-sm font-bold uppercase tracking-widest text-muted mb-3">Textos ({data.texts.length})</h2>
+        <h2 className="text-sm font-bold uppercase tracking-widest text-muted mb-3">Textos ({data?.texts.length ?? 0})</h2>
         <Card className="overflow-hidden">
           <div className="divide-y divide-line">
-            {data.texts.map((text) => (
+            {(data?.texts ?? []).map((text) => (
               <div key={text.id} className="flex items-center justify-between gap-4 px-5 py-3">
                 <div className="min-w-0">
                   <p className="font-semibold text-foreground truncate">{text.title}</p>
@@ -74,6 +88,7 @@ export default async function Page() {
               </div>
             ))}
           </div>
+          {(data?.texts ?? []).length === 0 ? <p className="px-5 py-6 text-sm text-muted">No hay textos cargados.</p> : null}
         </Card>
       </section>
     </AdminShell>

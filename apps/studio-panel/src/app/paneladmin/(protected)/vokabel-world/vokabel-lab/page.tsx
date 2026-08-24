@@ -1,8 +1,10 @@
+import { ConnectionIssueCard } from '@/components/admin/connection-issue-card'
 import { AdminShell } from '@/components/layout/app-shell'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
 import { getVokabelLabData } from '@/lib/data/imkontext'
+import { loadIntegrationData } from '@/lib/integrations/supabase.mjs'
 import { getLocale } from '@/lib/locale'
 
 export const dynamic = 'force-dynamic'
@@ -10,7 +12,10 @@ export const dynamic = 'force-dynamic'
 export default async function Page() {
   const identity = await requireAdmin()
   const locale = await getLocale()
-  const data = await getVokabelLabData()
+  const { data, error } = await loadIntegrationData(
+    () => getVokabelLabData(),
+    'No se pudo conectar con imKontext.',
+  )
 
   return (
     <AdminShell
@@ -20,15 +25,23 @@ export default async function Page() {
       userEmail={identity.email}
       locale={locale}
     >
+      {error ? (
+        <div className="mb-8">
+          <ConnectionIssueCard
+            message="Configura IMKONTEXT_URL e IMKONTEXT_SERVICE_KEY para cargar catalogo y vocabulario."
+            detail={error}
+          />
+        </div>
+      ) : null}
       {/* Stats */}
       <section className="grid gap-4 md:grid-cols-2 mb-8">
         <Card className="p-5">
           <p className="text-sm text-muted">Lemas en vocabulario</p>
-          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data.lemmasTotal.toLocaleString()}</p>
+          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{(data?.lemmasTotal ?? 0).toLocaleString()}</p>
         </Card>
         <Card className="p-5">
           <p className="text-sm text-muted">Entradas de vocabulario</p>
-          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data.vocabTotal.toLocaleString()}</p>
+          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{(data?.vocabTotal ?? 0).toLocaleString()}</p>
         </Card>
       </section>
 
@@ -37,7 +50,7 @@ export default async function Page() {
         <h2 className="text-sm font-bold uppercase tracking-widest text-muted mb-3">Apps públicas</h2>
         <Card className="overflow-hidden">
           <div className="divide-y divide-line">
-            {data.catalog.map((app) => (
+            {(data?.catalog ?? []).map((app) => (
               <div key={app.id} className="flex items-center justify-between gap-4 px-5 py-4">
                 <div className="min-w-0">
                   <p className="font-semibold text-foreground">{app.name}</p>
@@ -61,6 +74,7 @@ export default async function Page() {
               </div>
             ))}
           </div>
+          {(data?.catalog ?? []).length === 0 ? <p className="px-5 py-6 text-sm text-muted">No hay apps cargadas.</p> : null}
         </Card>
       </section>
     </AdminShell>

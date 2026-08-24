@@ -15,17 +15,23 @@ async function getProfileIdentity() {
   const supabase = await createSupabaseServerClient()
   const {
     data: { user },
+    error: userError,
   } = await supabase.auth.getUser()
+
+  if (userError?.message.includes('Auth session missing')) return null
+  if (userError) throw new Error(`No se pudo validar la sesión: ${userError.message}`)
 
   if (!user?.email) {
     return null
   }
 
-  const { data: profile } = await supabase
+  const { data: profile, error: profileError } = await supabase
     .from('profiles')
     .select('id, email, role')
     .eq('id', user.id)
     .maybeSingle()
+
+  if (profileError) throw new Error(`No se pudo consultar el perfil: ${profileError.message}`)
 
   if (!profile) {
     return {
@@ -72,18 +78,18 @@ export async function requireClientAccess() {
     redirect('/paneladmin/inicio')
   }
 
-  const normalizedEmail = identity.email.trim().toLowerCase()
   const adminClient = getSupabaseAdminClient()
-  const { data: client } = await adminClient
+  const { data: client, error: clientError } = await adminClient
     .from('clients')
     .select('id, email, status, name')
     .eq('project', CLIENT_PROJECT)
-    .ilike('email', normalizedEmail)
+    .eq('auth_user_id', identity.userId)
     .maybeSingle()
+
+  if (clientError) throw new Error(`No se pudo comprobar el acceso del cliente: ${clientError.message}`)
 
   if (!client || client.status !== 'active') {
     console.warn('[auth/client] access denied', {
-      email: normalizedEmail,
       project: CLIENT_PROJECT,
       foundClient: Boolean(client),
       status: client?.status ?? null,

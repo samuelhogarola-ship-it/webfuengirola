@@ -1,8 +1,10 @@
+import { ConnectionIssueCard } from '@/components/admin/connection-issue-card'
 import { AdminShell } from '@/components/layout/app-shell'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
 import { getProgresoData } from '@/lib/data/samuel-coach'
+import { loadIntegrationData } from '@/lib/integrations/supabase.mjs'
 import { getLocale } from '@/lib/locale'
 
 export const dynamic = 'force-dynamic'
@@ -19,7 +21,10 @@ const TYPE_LABELS: Record<string, string> = {
 export default async function Page() {
   const identity = await requireAdmin()
   const locale = await getLocale()
-  const data = await getProgresoData()
+  const { data, error } = await loadIntegrationData(
+    () => getProgresoData(),
+    'No se pudo conectar con Apps Users.',
+  )
 
   return (
     <AdminShell
@@ -29,20 +34,28 @@ export default async function Page() {
       userEmail={identity.email}
       locale={locale}
     >
+      {error ? (
+        <div className="mb-8">
+          <ConnectionIssueCard
+            message="Configura APPS_USERS_URL y APPS_USERS_SERVICE_KEY para cargar progreso de alumnos."
+            detail={error}
+          />
+        </div>
+      ) : null}
       <section className="grid gap-4 md:grid-cols-3 mb-8">
         <Card className="p-5">
           <p className="text-sm text-muted">Ejercicios completados</p>
-          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data.stats.totalAttempts}</p>
+          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data?.stats.totalAttempts ?? 0}</p>
         </Card>
         <Card className="p-5">
           <p className="text-sm text-muted">Nota media global</p>
           <p className="mt-3 text-3xl font-black tracking-tight text-foreground">
-            {data.stats.avgScore !== null ? `${data.stats.avgScore}%` : '—'}
+            {data?.stats.avgScore !== null && data?.stats.avgScore !== undefined ? `${data.stats.avgScore}%` : '—'}
           </p>
         </Card>
         <Card className="p-5">
           <p className="text-sm text-muted">Alumnos activos</p>
-          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data.stats.activeUsers}</p>
+          <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data?.stats.activeUsers ?? 0}</p>
         </Card>
       </section>
 
@@ -60,7 +73,7 @@ export default async function Page() {
               </tr>
             </thead>
             <tbody className="divide-y divide-line">
-              {data.progress.map((row, i) => {
+              {(data?.progress ?? []).map((row, i) => {
                 const pct = row.average_score !== null ? Math.round(row.average_score) : null
                 return (
                   <tr key={i} className="hover:bg-slate-50 transition-colors">
@@ -87,7 +100,7 @@ export default async function Page() {
               })}
             </tbody>
           </table>
-          {data.progress.length === 0 && (
+          {(data?.progress ?? []).length === 0 && (
             <p className="px-6 py-10 text-sm text-muted">Todavía no hay datos de progreso.</p>
           )}
         </div>
@@ -106,7 +119,7 @@ export default async function Page() {
               </tr>
             </thead>
             <tbody className="divide-y divide-line">
-              {data.recentAttempts.map((attempt, i) => {
+              {(data?.recentAttempts ?? []).map((attempt, i) => {
                 const pct = attempt.max_score > 0 ? Math.round((attempt.score / attempt.max_score) * 100) : null
                 return (
                   <tr key={i} className="hover:bg-slate-50 transition-colors">
@@ -127,7 +140,7 @@ export default async function Page() {
               })}
             </tbody>
           </table>
-          {data.recentAttempts.length === 0 && (
+          {(data?.recentAttempts ?? []).length === 0 && (
             <p className="px-6 py-10 text-sm text-muted">Todavía no hay ejercicios completados.</p>
           )}
         </div>

@@ -1,11 +1,12 @@
 import { cache } from 'react'
 
 import { createAppsUsersAdminClient, createImKontextAdminClient } from '@/lib/supabase/server'
+import { isSamuelCoachAlumno, listAllAuthUsers, unwrapSupabaseResult } from '@/lib/integrations/supabase.mjs'
 
 export const getSamuelCoachData = cache(async () => {
   const db = createImKontextAdminClient()
 
-  const [{ data: texts }, { data: exercises }, { data: questions }] = await Promise.all([
+  const [textsResult, exercisesResult, questionsResult] = await Promise.all([
     db
       .from('samuel_texts')
       .select('id, slug, nivel, titulo, descripcion, is_published, content_lang')
@@ -19,6 +20,9 @@ export const getSamuelCoachData = cache(async () => {
       .from('samuel_questions')
       .select('text_id'),
   ])
+  const texts = unwrapSupabaseResult(textsResult, 'Samuel Coach texts')
+  const exercises = unwrapSupabaseResult(exercisesResult, 'Samuel Coach exercises')
+  const questions = unwrapSupabaseResult(questionsResult, 'Samuel Coach questions')
 
   const exerciseMap = new Map<string, { exercise_type: string; gap_count: number }>()
   for (const ex of exercises ?? []) {
@@ -55,7 +59,7 @@ type TextWithQuestions = { id: string; nivel: string; titulo: string; is_publish
 export const getSamuelCoachEjerciciosData = cache(async () => {
   const db = createImKontextAdminClient()
 
-  const [{ data: texts }, { data: questions }] = await Promise.all([
+  const [textsResult, questionsResult] = await Promise.all([
     db
       .from('samuel_texts')
       .select('id, nivel, titulo, is_published')
@@ -67,6 +71,8 @@ export const getSamuelCoachEjerciciosData = cache(async () => {
       .select('id, text_id, enunciado, respuesta, explicacion, order_index')
       .order('order_index'),
   ])
+  const texts = unwrapSupabaseResult(textsResult, 'Samuel Coach exercise texts')
+  const questions = unwrapSupabaseResult(questionsResult, 'Samuel Coach question bank')
 
   const questionsByText = new Map<string, Question[]>()
   for (const q of questions ?? []) {
@@ -96,18 +102,22 @@ export const getAlumnosData = cache(async (q = '') => {
 
   if (normalizedQuery) profilesQuery.or(`email.ilike.%${normalizedQuery}%,full_name.ilike.%${normalizedQuery}%`)
 
-  const [{ data: profiles }, membershipsResult, authUsersResult, premiumCodesResult] = await Promise.all([
+  const [profilesResult, membershipsResult, authUsers, premiumCodesResult] = await Promise.all([
     profilesQuery,
     db.from('app_memberships').select('user_id, app, status, created_at'),
-    db.auth.admin.listUsers({ page: 1, perPage: 1000 }),
+    listAllAuthUsers(
+      ({ page, perPage }) => db.auth.admin.listUsers({ page, perPage }),
+      { context: 'Samuel Coach Auth' },
+    ),
     db.rpc('list_premium_codes', { p_status: null }),
   ])
 
-  if (membershipsResult.error) throw new Error(`No se pudieron cargar las membresías: ${membershipsResult.error.message}`)
-  if (authUsersResult.error) throw new Error(`No se pudieron cargar usuarios Auth: ${authUsersResult.error.message}`)
+  const profiles = unwrapSupabaseResult(profilesResult, 'Samuel Coach profiles')
+  const memberships = unwrapSupabaseResult(membershipsResult, 'Samuel Coach memberships')
+  const premiumCodeRows = unwrapSupabaseResult(premiumCodesResult, 'Samuel Coach premium codes')
 
   const membershipsByUser = new Map<string, { app: string; status: string }[]>()
-  for (const m of membershipsResult.data ?? []) {
+  for (const m of memberships ?? []) {
     const list = membershipsByUser.get(m.user_id) ?? []
     list.push({ app: m.app, status: m.status })
     membershipsByUser.set(m.user_id, list)
@@ -142,7 +152,7 @@ export const getAlumnosData = cache(async (q = '') => {
     if (alumno.email) alumnosByEmail.set(alumno.email.toLowerCase(), alumno)
   }
 
-  for (const user of authUsersResult.data?.users ?? []) {
+  for (const user of authUsers) {
     const email = user.email ?? null
     const fullName = typeof user.user_metadata?.full_name === 'string'
       ? user.user_metadata.full_name
@@ -190,29 +200,17 @@ export const getAlumnosData = cache(async (q = '') => {
     }
   }
 
-  const premiumCodes = (premiumCodesResult.data ?? []) as PremiumCodeRow[]
+  const premiumCodes = (premiumCodeRows ?? []) as PremiumCodeRow[]
   for (const code of premiumCodes) {
     const email = code.customer_email?.toLowerCase() ?? null
     const alumno = (code.redeemed_by ? alumnosById.get(code.redeemed_by) : null) ?? (email ? alumnosByEmail.get(email) : null)
     if (alumno) {
       alumno.premiumCodes.push(code)
-    } else if (email) {
-      rememberAlumno({
-        id: `premium:${email}`,
-        email: code.customer_email,
-        full_name: null,
-        locale: null,
-        created_at: code.created_at,
-        last_sign_in_at: null,
-        confirmed_at: null,
-        memberships: [],
-        appRoles: {},
-        premiumCodes: [code],
-      })
     }
   }
 
   const alumnos = Array.from(alumnosById.values())
+    .filter(isSamuelCoachAlumno)
     .filter((alumno) => {
       if (!normalizedQuery) return true
       return [alumno.email, alumno.full_name].some((value) => value?.toLowerCase().includes(normalizedQuery))
@@ -231,7 +229,7 @@ export const getAlumnosData = cache(async (q = '') => {
 export const getProgresoData = cache(async () => {
   const db = createAppsUsersAdminClient()
 
-  const [{ data: progress }, { data: attempts }] = await Promise.all([
+  const [progressResult, attemptsResult] = await Promise.all([
     db
       .from('samuel_user_progress')
       .select('nivel, exercise_type, completed_activities, average_score, user_id')
@@ -243,42 +241,57 @@ export const getProgresoData = cache(async () => {
       .order('completed_at', { ascending: false })
       .limit(30),
   ])
+  const progress = unwrapSupabaseResult(progressResult, 'Samuel Coach progress')
+  const attempts = unwrapSupabaseResult(attemptsResult, 'Samuel Coach attempts')
 
   // Aggregate progress by nivel+exercise_type
-  type ProgressRow = { nivel: string; exercise_type: string; user_count: number; completed_activities: number; average_score: number | null }
-  const grouped = new Map<string, ProgressRow>()
+  type ProgressAccumulator = {
+    nivel: string
+    exercise_type: string
+    user_count: number
+    completed_activities: number
+    score_total: number
+    score_weight: number
+  }
+  const grouped = new Map<string, ProgressAccumulator>()
   for (const row of progress ?? []) {
     const key = `${row.nivel}:${row.exercise_type}`
     const existing = grouped.get(key)
+    const completed = row.completed_activities ?? 0
+    const scoreWeight = row.average_score !== null ? Math.max(1, completed) : 0
+    const scoreTotal = row.average_score !== null ? row.average_score * scoreWeight : 0
     if (existing) {
       existing.user_count++
-      existing.completed_activities += row.completed_activities ?? 0
-      if (row.average_score !== null) {
-        existing.average_score = existing.average_score !== null
-          ? (existing.average_score + row.average_score) / 2
-          : row.average_score
-      }
+      existing.completed_activities += completed
+      existing.score_total += scoreTotal
+      existing.score_weight += scoreWeight
     } else {
       grouped.set(key, {
         nivel: row.nivel,
         exercise_type: row.exercise_type,
         user_count: 1,
-        completed_activities: row.completed_activities ?? 0,
-        average_score: row.average_score ?? null,
+        completed_activities: completed,
+        score_total: scoreTotal,
+        score_weight: scoreWeight,
       })
     }
   }
 
   const allAttempts = attempts ?? []
-  const totalAttempts = allAttempts.length
-  const activeUsers = new Set(allAttempts.map((a) => a.user_id)).size
-  const scored = allAttempts.filter((a) => a.max_score > 0)
-  const avgScore = scored.length > 0
-    ? Math.round(scored.reduce((s, a) => s + (a.score / a.max_score) * 100, 0) / scored.length)
+  const allProgress = progress ?? []
+  const totalAttempts = allProgress.reduce((sum, row) => sum + (row.completed_activities ?? 0), 0)
+  const activeUsers = new Set(allProgress.map((row) => row.user_id)).size
+  const scoredProgress = allProgress.filter((row) => row.average_score !== null)
+  const totalScoreWeight = scoredProgress.reduce((sum, row) => sum + Math.max(1, row.completed_activities ?? 0), 0)
+  const avgScore = totalScoreWeight > 0
+    ? Math.round(scoredProgress.reduce((sum, row) => sum + row.average_score * Math.max(1, row.completed_activities ?? 0), 0) / totalScoreWeight)
     : null
 
   return {
-    progress: Array.from(grouped.values()),
+    progress: Array.from(grouped.values()).map(({ score_total, score_weight, ...row }) => ({
+      ...row,
+      average_score: score_weight > 0 ? score_total / score_weight : null,
+    })),
     recentAttempts: allAttempts,
     stats: { totalAttempts, activeUsers, avgScore },
   }

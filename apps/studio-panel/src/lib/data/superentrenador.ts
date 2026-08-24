@@ -1,6 +1,7 @@
 import { cache } from 'react'
 
 import { createSuperEntrenadorAdminClient } from '@/lib/supabase/server'
+import { listAllAuthUsers, unwrapSupabaseResult } from '@/lib/integrations/supabase.mjs'
 
 export type TrainerRow = {
   id: string
@@ -29,7 +30,7 @@ export const getSuperEntrenadorPTData = cache(async (q = '') => {
 
   if (q) query = query.ilike('display_name', `%${q}%`)
 
-  const { data: trainers } = await query
+  const trainers = unwrapSupabaseResult(await query, 'Superentrenador trainers')
 
   const rows = (trainers ?? []) as TrainerRow[]
   const pending = rows.filter((t) => t.review_status === 'pending').length
@@ -51,10 +52,10 @@ export type SupabaseAuthUser = {
 export const getSuperEntrenadorUsuariosData = cache(async (q = '') => {
   const db = createSuperEntrenadorAdminClient()
 
-  const { data, error } = await db.auth.admin.listUsers({ perPage: 500 })
-  if (error) throw error
-
-  let users = data.users as SupabaseAuthUser[]
+  let users = await listAllAuthUsers(
+    ({ page, perPage }) => db.auth.admin.listUsers({ page, perPage }),
+    { context: 'Superentrenador Auth' },
+  ) as SupabaseAuthUser[]
 
   if (q) {
     const lower = q.toLowerCase()

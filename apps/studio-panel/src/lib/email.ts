@@ -13,6 +13,15 @@ function getResend() {
   return resendClient
 }
 
+type EmailPayload = Parameters<Resend['emails']['send']>[0]
+type EmailOptions = Parameters<Resend['emails']['send']>[1]
+
+async function sendEmail(payload: EmailPayload, options?: EmailOptions) {
+  const { data, error } = await getResend().emails.send(payload, options)
+  if (error) throw new Error(`Resend rechazó el email: ${error.message}`)
+  return data
+}
+
 export async function sendAdminRequestEmail({
   clientName,
   clientEmail,
@@ -24,8 +33,7 @@ export async function sendAdminRequestEmail({
   subject: string
   body: string
 }) {
-  const resend = getResend()
-  return resend.emails.send({
+  return sendEmail({
     from: getRequiredServerEnv('RESEND_FROM_EMAIL'),
     to: 'samuel.hogarola@gmail.com',
     subject: `[WF-Studio] Solicitud de ${clientName}: ${subject}`,
@@ -52,12 +60,11 @@ export async function sendPackDepletedEmail({
   packName: string
   activities: { title: string; activity_type: string; minutes_used: number; work_date: string }[]
 }) {
-  const resend = getResend()
   const total = activities.reduce((sum, a) => sum + a.minutes_used, 0)
   const lines = activities.map(
     (a) => `  • ${a.work_date}  ${a.title} (${a.activity_type}) — ${formatDuration(a.minutes_used)}`
   )
-  return resend.emails.send({
+  return sendEmail({
     from: getRequiredServerEnv('RESEND_FROM_EMAIL'),
     to: clientEmail,
     subject: `[WF-Studio] Resumen de actividad — ${packName}`,
@@ -90,9 +97,7 @@ export async function sendActivityNotificationEmail({
   minutesUsed: number
   remainingMinutes: number
 }) {
-  const resend = getResend()
-
-  return resend.emails.send({
+  return sendEmail({
     from: getRequiredServerEnv('RESEND_FROM_EMAIL'),
     to: clientEmail,
     subject: 'Actualización de minutos contratados',
@@ -120,9 +125,7 @@ export async function sendPendingItemCreatedEmail({
   description?: string | null
   reminderIntervalDays?: number | null
 }) {
-  const resend = getResend()
-
-  return resend.emails.send({
+  return sendEmail({
     from: getRequiredServerEnv('RESEND_FROM_EMAIL'),
     to: clientEmail,
     subject: `[WF-Studio] Nuevo pendiente: ${title}`,
@@ -149,16 +152,16 @@ export async function sendPendingItemReminderEmail({
   title,
   description,
   requestedAt,
+  idempotencyKey,
 }: {
   clientEmail: string
   clientName: string
   title: string
   description?: string | null
   requestedAt: string
+  idempotencyKey: string
 }) {
-  const resend = getResend()
-
-  return resend.emails.send({
+  return sendEmail({
     from: getRequiredServerEnv('RESEND_FROM_EMAIL'),
     to: clientEmail,
     subject: `[WF-Studio] Recordatorio pendiente: ${title}`,
@@ -175,7 +178,7 @@ export async function sendPendingItemReminderEmail({
       '',
       '— WF-Studio',
     ].join('\n'),
-  })
+  }, { idempotencyKey })
 }
 
 export async function sendPublicContactEmail({
@@ -191,9 +194,7 @@ export async function sendPublicContactEmail({
   message: string
   pageUrl?: string
 }) {
-  const resend = getResend()
-
-  return resend.emails.send({
+  return sendEmail({
     from: getRequiredServerEnv('RESEND_FROM_EMAIL'),
     to: 'info@webfuengirola.com',
     replyTo: email,

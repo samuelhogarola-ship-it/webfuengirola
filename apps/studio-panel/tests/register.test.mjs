@@ -54,6 +54,7 @@ test("registerPendingClient normalizes email and returns success on valid regist
   assert.deepEqual(insertedClients, [
     {
       id: "user-123",
+      auth_user_id: "user-123",
       name: "Cliente Demo",
       email: "demo@example.com",
       project: "wf-studio",
