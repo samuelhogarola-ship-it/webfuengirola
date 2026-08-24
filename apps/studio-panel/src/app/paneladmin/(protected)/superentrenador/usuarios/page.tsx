@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
 import { getSuperEntrenadorUsuariosData } from '@/lib/data/superentrenador'
+import { loadIntegrationData } from '@/lib/integrations/supabase.mjs'
 import { getLocale } from '@/lib/locale'
 
 export const dynamic = 'force-dynamic'
@@ -12,17 +13,12 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ q
   const identity = await requireAdmin()
   const locale = await getLocale()
   const { q } = await searchParams
-  let users: Awaited<ReturnType<typeof getSuperEntrenadorUsuariosData>>['users'] = []
-  let stats: Awaited<ReturnType<typeof getSuperEntrenadorUsuariosData>>['stats'] = { total: 0, confirmed: 0, unconfirmed: 0 }
-  let error: string | null = null
-
-  try {
-    const data = await getSuperEntrenadorUsuariosData(q ?? '')
-    users = data.users
-    stats = data.stats
-  } catch (cause) {
-    error = cause instanceof Error ? cause.message : 'No se pudo conectar con Superentrenador.'
-  }
+  const { data, error } = await loadIntegrationData(
+    () => getSuperEntrenadorUsuariosData(q ?? ''),
+    'No se pudo conectar con Superentrenador.',
+  )
+  const users = data?.users ?? []
+  const stats = data?.stats ?? { total: 0, confirmed: 0, unconfirmed: 0 }
 
   return (
     <AdminShell

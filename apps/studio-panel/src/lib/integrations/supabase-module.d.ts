@@ -6,6 +6,25 @@ declare module '@/lib/integrations/supabase.mjs' {
     context: string,
   ): T
 
+  export function loadIntegrationData<T>(
+    loader: () => Promise<T>,
+    fallbackMessage: string,
+  ): Promise<{ data: T | null; error: string | null }>
+
+  export function safePercentage(value: number, total: number): number
+
+  export function getPaginationRange(options: {
+    page: number
+    totalRows: number
+    pageSize: number
+  }): { page: number; from: number; to: number }
+
+  export function isSamuelCoachAlumno(alumno: {
+    memberships: Array<{ app: string }>
+    appRoles: Record<string, string>
+    premiumCodes: unknown[]
+  }): boolean
+
   export function listAllAuthUsers<T>(
     listPage: (options: { page: number; perPage: number }) => Promise<{
       data: { users: T[] } | null

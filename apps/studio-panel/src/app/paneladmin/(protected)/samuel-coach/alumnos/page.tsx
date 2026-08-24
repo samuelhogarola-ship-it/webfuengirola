@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
 import { getAlumnosData } from '@/lib/data/samuel-coach'
+import { loadIntegrationData } from '@/lib/integrations/supabase.mjs'
 import { getLocale } from '@/lib/locale'
 import { formatDate } from '@/lib/utils'
 
@@ -29,14 +30,10 @@ export default async function Page({
   const identity = await requireAdmin()
   const params = await searchParams
   const locale = await getLocale()
-  let data: Awaited<ReturnType<typeof getAlumnosData>> | null = null
-  let error: string | null = null
-
-  try {
-    data = await getAlumnosData(params.q ?? '')
-  } catch (cause) {
-    error = cause instanceof Error ? cause.message : 'No se pudo conectar con Apps Users.'
-  }
+  const { data, error } = await loadIntegrationData(
+    () => getAlumnosData(params.q ?? ''),
+    'No se pudo conectar con Apps Users.',
+  )
 
   return (
     <AdminShell

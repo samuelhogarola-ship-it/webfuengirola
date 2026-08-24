@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
 import { getVokabelLabData } from '@/lib/data/imkontext'
+import { loadIntegrationData } from '@/lib/integrations/supabase.mjs'
 import { getLocale } from '@/lib/locale'
 
 export const dynamic = 'force-dynamic'
@@ -11,14 +12,10 @@ export const dynamic = 'force-dynamic'
 export default async function Page() {
   const identity = await requireAdmin()
   const locale = await getLocale()
-  let data: Awaited<ReturnType<typeof getVokabelLabData>> | null = null
-  let error: string | null = null
-
-  try {
-    data = await getVokabelLabData()
-  } catch (cause) {
-    error = cause instanceof Error ? cause.message : 'No se pudo conectar con imKontext.'
-  }
+  const { data, error } = await loadIntegrationData(
+    () => getVokabelLabData(),
+    'No se pudo conectar con imKontext.',
+  )
 
   return (
     <AdminShell

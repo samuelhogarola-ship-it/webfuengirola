@@ -90,7 +90,6 @@ export async function requireClientAccess() {
 
   if (!client || client.status !== 'active') {
     console.warn('[auth/client] access denied', {
-      email: identity.email.trim().toLowerCase(),
       project: CLIENT_PROJECT,
       foundClient: Boolean(client),
       status: client?.status ?? null,

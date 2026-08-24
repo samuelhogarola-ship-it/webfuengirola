@@ -9,7 +9,7 @@ import { createAppsUsersAdminClient } from '@/lib/supabase/server'
 const premiumCodeSchema = z.object({
   customer_email: z.string().email('Introduce un email válido.'),
   duration_days: z.coerce.number().int().positive('La duración debe ser positiva.'),
-  created_by_type: z.string().min(2).default('studio-panel'),
+  created_by_type: z.enum(['studio-panel', 'manual']).default('studio-panel'),
 })
 
 export async function generatePremiumCodeAction(formData: FormData) {

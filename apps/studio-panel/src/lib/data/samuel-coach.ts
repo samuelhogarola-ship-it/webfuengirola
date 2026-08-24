@@ -1,7 +1,7 @@
 import { cache } from 'react'
 
 import { createAppsUsersAdminClient, createImKontextAdminClient } from '@/lib/supabase/server'
-import { listAllAuthUsers, unwrapSupabaseResult } from '@/lib/integrations/supabase.mjs'
+import { isSamuelCoachAlumno, listAllAuthUsers, unwrapSupabaseResult } from '@/lib/integrations/supabase.mjs'
 
 export const getSamuelCoachData = cache(async () => {
   const db = createImKontextAdminClient()
@@ -209,12 +209,8 @@ export const getAlumnosData = cache(async (q = '') => {
     }
   }
 
-  const samuelApps = new Set(['samuel_coach', 'samuel-coach', 'pruefungsvorbereitung', 'prufungsvorbereitung'])
   const alumnos = Array.from(alumnosById.values())
-    .filter((alumno) =>
-      alumno.memberships.some((membership) => samuelApps.has(membership.app)) ||
-      Object.keys(alumno.appRoles).some((app) => samuelApps.has(app)),
-    )
+    .filter(isSamuelCoachAlumno)
     .filter((alumno) => {
       if (!normalizedQuery) return true
       return [alumno.email, alumno.full_name].some((value) => value?.toLowerCase().includes(normalizedQuery))

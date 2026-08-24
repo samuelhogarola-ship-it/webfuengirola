@@ -74,6 +74,7 @@ test("reminder processing counts a reminder only after persistence succeeds", as
 });
 
 test("persistence failures are observable and are not reported as sent", async () => {
+  const released = [];
   const result = await processPendingReminders({
     items: [
       {
@@ -91,12 +92,15 @@ test("persistence failures are observable and are not reported as sent", async (
     persistReminder: async () => {
       throw new Error("database unavailable");
     },
-    releaseClaim: async () => {},
+    releaseClaim: async (itemId, update) => released.push({ itemId, update }),
   });
 
   assert.equal(result.sent, 0);
   assert.deepEqual(result.failed, [
     { id: "pending-2", stage: "persist", message: "database unavailable" },
+  ]);
+  assert.deepEqual(released, [
+    { itemId: "pending-2", update: { claimToken: "claim-2" } },
   ]);
 });
 

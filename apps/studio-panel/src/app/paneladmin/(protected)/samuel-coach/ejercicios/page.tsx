@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
 import { getSamuelCoachEjerciciosData } from '@/lib/data/samuel-coach'
+import { loadIntegrationData } from '@/lib/integrations/supabase.mjs'
 import { getLocale } from '@/lib/locale'
 
 export const dynamic = 'force-dynamic'
@@ -13,14 +14,10 @@ const NIVEL_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1']
 export default async function Page() {
   const identity = await requireAdmin()
   const locale = await getLocale()
-  let data: Awaited<ReturnType<typeof getSamuelCoachEjerciciosData>> | null = null
-  let error: string | null = null
-
-  try {
-    data = await getSamuelCoachEjerciciosData()
-  } catch (cause) {
-    error = cause instanceof Error ? cause.message : 'No se pudo conectar con Samuel Coach.'
-  }
+  const { data, error } = await loadIntegrationData(
+    () => getSamuelCoachEjerciciosData(),
+    'No se pudo conectar con Samuel Coach.',
+  )
 
   return (
     <AdminShell

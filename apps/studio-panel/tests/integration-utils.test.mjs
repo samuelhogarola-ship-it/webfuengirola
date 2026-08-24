@@ -6,6 +6,7 @@ import {
   listAllAuthUsers,
   unwrapSupabaseResult,
 } from "../src/lib/integrations/supabase.mjs";
+import * as integrationUtils from "../src/lib/integrations/supabase.mjs";
 
 test("unwrapSupabaseResult returns successful data and throws contextual errors", () => {
   assert.deepEqual(
@@ -141,4 +142,47 @@ test("buildAppsUsersOverview scopes KPIs to the selected app but not the search"
     apps: 1,
     vokabel: 2,
   });
+});
+
+test("integration loader returns a renderable fallback after a rejected request", async () => {
+  assert.equal(typeof integrationUtils.loadIntegrationData, "function");
+
+  const result = await integrationUtils.loadIntegrationData(async () => {
+    throw new Error("service unavailable");
+  }, "No se pudo conectar.");
+
+  assert.deepEqual(result, {
+    data: null,
+    error: "service unavailable",
+  });
+});
+
+test("percentage helper stays finite for an empty vocabulary", () => {
+  assert.equal(typeof integrationUtils.safePercentage, "function");
+  assert.equal(integrationUtils.safePercentage(5, 0), 0);
+  assert.equal(Number.isFinite(integrationUtils.safePercentage(5, 0)), true);
+});
+
+test("Samuel Coach keeps users linked only through premium codes", () => {
+  assert.equal(typeof integrationUtils.isSamuelCoachAlumno, "function");
+  assert.equal(
+    integrationUtils.isSamuelCoachAlumno({
+      memberships: [],
+      appRoles: {},
+      premiumCodes: [{ code: "PREMIUM" }],
+    }),
+    true,
+  );
+});
+
+test("pagination range clamps a stale page before querying PostgREST", () => {
+  assert.equal(typeof integrationUtils.getPaginationRange, "function");
+  assert.deepEqual(
+    integrationUtils.getPaginationRange({
+      page: 99,
+      totalRows: 51,
+      pageSize: 50,
+    }),
+    { page: 2, from: 50, to: 99 },
+  );
 });

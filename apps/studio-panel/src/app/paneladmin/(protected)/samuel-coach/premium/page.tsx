@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { ConnectionIssueCard } from '@/components/admin/connection-issue-card'
 import { AdminShell } from '@/components/layout/app-shell'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -78,10 +79,12 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
       locale={locale}
     >
       {error ? (
-        <Card className="mb-8 border-amber-200 bg-amber-50 p-5">
-          <p className="font-semibold text-amber-900">Conexion pendiente</p>
-          <p className="mt-1 text-sm text-amber-800">Revisa <code>APPS_USERS_URL</code>, <code>APPS_USERS_SERVICE_KEY</code> y las RPC de premium. Detalle: {error}</p>
-        </Card>
+        <div className="mb-8">
+          <ConnectionIssueCard
+            message="Revisa APPS_USERS_URL, APPS_USERS_SERVICE_KEY y las RPC de premium."
+            detail={error}
+          />
+        </div>
       ) : null}
 
       <Card className="mb-8 p-6">

@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
 import { getDerDieDasData } from '@/lib/data/imkontext'
+import { loadIntegrationData, safePercentage } from '@/lib/integrations/supabase.mjs'
 import { getLocale } from '@/lib/locale'
 
 export const dynamic = 'force-dynamic'
@@ -17,14 +18,10 @@ const ARTICLE_STYLE: Record<string, string> = {
 export default async function Page() {
   const identity = await requireAdmin()
   const locale = await getLocale()
-  let data: Awaited<ReturnType<typeof getDerDieDasData>> | null = null
-  let error: string | null = null
-
-  try {
-    data = await getDerDieDasData()
-  } catch (cause) {
-    error = cause instanceof Error ? cause.message : 'No se pudo conectar con imKontext.'
-  }
+  const { data, error } = await loadIntegrationData(
+    () => getDerDieDasData(),
+    'No se pudo conectar con imKontext.',
+  )
 
   return (
     <AdminShell
@@ -52,7 +49,7 @@ export default async function Page() {
           <Card key={art} className="p-5">
             <p className="text-sm text-muted font-mono font-bold">{art}</p>
             <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data?.byArticle[art] ?? 0}</p>
-            <p className="text-xs text-muted mt-1">{data?.total ? Math.round(((data.byArticle[art] ?? 0) / data.total) * 100) : 0}%</p>
+            <p className="text-xs text-muted mt-1">{safePercentage(data?.byArticle[art] ?? 0, data?.total ?? 0)}%</p>
           </Card>
         ))}
       </section>

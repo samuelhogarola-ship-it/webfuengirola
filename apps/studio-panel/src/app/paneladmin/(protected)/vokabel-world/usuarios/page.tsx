@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
 import { getAppsUsersOverview } from '@/lib/data/apps-users'
+import { loadIntegrationData } from '@/lib/integrations/supabase.mjs'
 import { getLocale } from '@/lib/locale'
 import { formatDate } from '@/lib/utils'
 
@@ -16,14 +17,10 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ q
   const locale = await getLocale()
   const params = await searchParams
   const appFilter = params.app === 'vokabel-world' ? 'vokabel-world' : undefined
-  let data: Awaited<ReturnType<typeof getAppsUsersOverview>> | null = null
-  let error: string | null = null
-
-  try {
-    data = await getAppsUsersOverview(params.q ?? '', appFilter)
-  } catch (cause) {
-    error = cause instanceof Error ? cause.message : 'No se pudo conectar con Apps Users.'
-  }
+  const { data, error } = await loadIntegrationData(
+    () => getAppsUsersOverview(params.q ?? '', appFilter),
+    'No se pudo conectar con Apps Users.',
+  )
 
   return (
     <AdminShell

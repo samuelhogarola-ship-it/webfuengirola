@@ -30,8 +30,8 @@ test("external platform pages render a connection fallback instead of crashing",
     const source = await readSource(page);
     assert.match(
       source,
-      /try\s*\{/u,
-      `${page} should catch integration failures`,
+      /loadIntegrationData/u,
+      `${page} should use the runtime-tested integration fallback`,
     );
     assert.match(
       source,
@@ -41,10 +41,33 @@ test("external platform pages render a connection fallback instead of crashing",
   }
 });
 
-test("Der Die Das percentage display guards against empty vocabularies", async () => {
+test("Der Die Das percentage display uses the runtime-safe percentage helper", async () => {
   const source = await readSource(
     "src/app/paneladmin/(protected)/vokabel-world/derdiedas/page.tsx",
   );
-  assert.match(source, /data\?\.total/u);
-  assert.doesNotMatch(source, /data\.byArticle\[art\] \/ data\.total/u);
+  assert.match(
+    source,
+    /safePercentage\(data\?\.byArticle\[art\] \?\? 0, data\?\.total \?\? 0\)/u,
+  );
+});
+
+test("TodoPlastico clamps stale pages without recursively reloading all KPIs", async () => {
+  const source = await readSource("src/lib/data/todoplastico.ts");
+  assert.doesNotMatch(source, /return getTodoPlasticoData\(/u);
+  assert.match(source, /getPaginationRange/u);
+  assert.match(source, /selectedCountResult/u);
+});
+
+test("premium failure state reuses the shared connection card", async () => {
+  const source = await readSource(
+    "src/app/paneladmin/(protected)/samuel-coach/premium/page.tsx",
+  );
+  assert.match(source, /ConnectionIssueCard/u);
+  assert.doesNotMatch(source, /border-amber-200 bg-amber-50/u);
+});
+
+test("panel README links remain portable across checkouts", async () => {
+  const source = await readSource("README.md");
+  assert.match(source, /ADMIN_PANEL_AUDIT\.md`?\]\(ADMIN_PANEL_AUDIT\.md\)/u);
+  assert.doesNotMatch(source, /\/Users\/sam\//u);
 });

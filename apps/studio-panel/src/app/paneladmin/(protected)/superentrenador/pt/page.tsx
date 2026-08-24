@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
 import { approveTrainerAction, rejectTrainerAction } from '@/lib/actions/superentrenador'
 import { getSuperEntrenadorPTData, getSuperEntrenadorUsuariosData } from '@/lib/data/superentrenador'
+import { loadIntegrationData } from '@/lib/integrations/supabase.mjs'
 import { getLocale } from '@/lib/locale'
 
 export const dynamic = 'force-dynamic'
@@ -63,6 +64,7 @@ const ACCESS_CARDS = [
 
 function statusLabel(status: string | null, isPublished: boolean) {
   if (status === 'approved' && isPublished) return 'Publicado'
+  if (status === 'approved') return 'Aprobado sin publicar'
   if (status === 'pending') return 'Pendiente'
   if (status === 'rejected') return 'Rechazado'
   return status ?? 'Sin revisar'
@@ -70,6 +72,7 @@ function statusLabel(status: string | null, isPublished: boolean) {
 
 function statusClass(status: string | null, isPublished: boolean) {
   if (status === 'approved' && isPublished) return 'bg-emerald-50 text-emerald-700'
+  if (status === 'approved') return 'bg-sky-50 text-sky-700'
   if (status === 'pending') return 'bg-amber-50 text-amber-700'
   if (status === 'rejected') return 'bg-rose-50 text-rose-700'
   return 'bg-slate-100 text-slate-600'
@@ -78,20 +81,15 @@ function statusClass(status: string | null, isPublished: boolean) {
 export default async function Page() {
   const identity = await requireAdmin()
   const locale = await getLocale()
-  let trainersData: Awaited<ReturnType<typeof getSuperEntrenadorPTData>> = { trainers: [], stats: { total: 0, pending: 0, published: 0, rejected: 0 } }
-  let usersData: Awaited<ReturnType<typeof getSuperEntrenadorUsuariosData>> = { users: [], stats: { total: 0, confirmed: 0, unconfirmed: 0 } }
-  let error: string | null = null
-
-  try {
-    const [trainers, users] = await Promise.all([
+  const { data, error } = await loadIntegrationData(async () => {
+    const [trainersData, usersData] = await Promise.all([
       getSuperEntrenadorPTData(''),
       getSuperEntrenadorUsuariosData(''),
     ])
-    trainersData = trainers
-    usersData = users
-  } catch (cause) {
-    error = cause instanceof Error ? cause.message : 'No se pudo conectar con Superentrenador.'
-  }
+    return { trainersData, usersData }
+  }, 'No se pudo conectar con Superentrenador.')
+  const trainersData = data?.trainersData ?? { trainers: [], stats: { total: 0, pending: 0, published: 0, rejected: 0 } }
+  const usersData = data?.usersData ?? { users: [], stats: { total: 0, confirmed: 0, unconfirmed: 0 } }
 
   return (
     <AdminShell

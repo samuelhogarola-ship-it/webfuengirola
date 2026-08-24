@@ -171,10 +171,10 @@ Fallback legado aceptado por código:
 - No se permiten actividades sobre packs inactivos.
 - Si el email del cliente cambia desde el panel y existe usuario Auth asociado, la app intenta sincronizarlo con `auth.users`.
 - Las integraciones externas renderizan un aviso de conexion pendiente cuando faltan env vars o permisos; no deben romper el shell del panel.
-- El mapa operativo completo del panel esta en [`ADMIN_PANEL_AUDIT.md`](/Users/sam/Desktop/webs/web%20fuengirola/apps/studio-panel/ADMIN_PANEL_AUDIT.md).
+- El mapa operativo completo del panel esta en [`ADMIN_PANEL_AUDIT.md`](ADMIN_PANEL_AUDIT.md).
 
 ## Auth Runbook
 
 Para la configuración operativa completa de auth, dominios, migraciones y claves necesarias para reutilizar este patrón en otras apps, ver:
 
-- [`AUTH_SETUP.md`](/Users/sam/Desktop/webs/web%20fuengirola/apps/studio-panel/AUTH_SETUP.md)
+- [`AUTH_SETUP.md`](AUTH_SETUP.md)

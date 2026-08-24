@@ -16,6 +16,54 @@ export function unwrapSupabaseResult(result, context) {
   return result?.data;
 }
 
+export async function loadIntegrationData(loader, fallbackMessage) {
+  try {
+    return { data: await loader(), error: null };
+  } catch (cause) {
+    return {
+      data: null,
+      error:
+        cause instanceof Error && cause.message.trim()
+          ? cause.message
+          : fallbackMessage,
+    };
+  }
+}
+
+export function safePercentage(value, total) {
+  if (!Number.isFinite(value) || !Number.isFinite(total) || total <= 0)
+    return 0;
+  return Math.round((value / total) * 100);
+}
+
+export function getPaginationRange({ page, totalRows, pageSize }) {
+  const safePageSize = Math.max(1, pageSize);
+  const lastPage = Math.max(
+    1,
+    Math.ceil(Math.max(0, totalRows) / safePageSize),
+  );
+  const resolvedPage = Math.min(Math.max(1, page), lastPage);
+  const from = (resolvedPage - 1) * safePageSize;
+  return { page: resolvedPage, from, to: from + safePageSize - 1 };
+}
+
+const SAMUEL_COACH_APPS = new Set([
+  "samuel_coach",
+  "samuel-coach",
+  "pruefungsvorbereitung",
+  "prufungsvorbereitung",
+]);
+
+export function isSamuelCoachAlumno(alumno) {
+  return (
+    alumno.memberships.some((membership) =>
+      SAMUEL_COACH_APPS.has(membership.app),
+    ) ||
+    Object.keys(alumno.appRoles).some((app) => SAMUEL_COACH_APPS.has(app)) ||
+    alumno.premiumCodes.length > 0
+  );
+}
+
 export async function listAllAuthUsers(listPage, options = {}) {
   const perPage = options.perPage ?? DEFAULT_AUTH_PAGE_SIZE;
   const context = options.context ?? "Auth users";

@@ -11,7 +11,7 @@ export async function togglePublishAction(formData: FormData) {
   const current = formData.get('current') === 'true'
   if (!textId) throw new Error('Falta el texto que se quiere publicar.')
   const db = createImKontextAdminClient()
-  const { error } = await db.from('samuel_texts').update({ is_published: !current }).eq('id', textId)
-  if (error) throw new Error(`No se pudo cambiar la publicación: ${error.message}`)
+  const { data, error } = await db.from('samuel_texts').update({ is_published: !current }).eq('id', textId).select('id').single()
+  if (error || !data) throw new Error(`No se pudo cambiar la publicación: ${error?.message ?? 'texto no encontrado'}`)
   revalidatePath('/paneladmin/samuel-coach')
 }

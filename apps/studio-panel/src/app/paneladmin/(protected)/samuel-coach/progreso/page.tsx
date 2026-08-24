@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
 import { getProgresoData } from '@/lib/data/samuel-coach'
+import { loadIntegrationData } from '@/lib/integrations/supabase.mjs'
 import { getLocale } from '@/lib/locale'
 
 export const dynamic = 'force-dynamic'
@@ -20,14 +21,10 @@ const TYPE_LABELS: Record<string, string> = {
 export default async function Page() {
   const identity = await requireAdmin()
   const locale = await getLocale()
-  let data: Awaited<ReturnType<typeof getProgresoData>> | null = null
-  let error: string | null = null
-
-  try {
-    data = await getProgresoData()
-  } catch (cause) {
-    error = cause instanceof Error ? cause.message : 'No se pudo conectar con Apps Users.'
-  }
+  const { data, error } = await loadIntegrationData(
+    () => getProgresoData(),
+    'No se pudo conectar con Apps Users.',
+  )
 
   return (
     <AdminShell

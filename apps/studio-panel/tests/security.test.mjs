@@ -142,6 +142,60 @@ test("client access resolves the wf-studio client by auth user id", async () => 
     /userError\?\.message\.includes\('Auth session missing'\)/,
   );
   assert.doesNotMatch(source, /\.ilike\('email', normalizedEmail\)/);
+  assert.doesNotMatch(source, /email:\s*identity\.email/);
+});
+
+test("activity portal effects are skipped when the balance query fails", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const { fileURLToPath } = await import("node:url");
+  const path = await import("node:path");
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const source = await readFile(
+    path.join(__dirname, "../src/lib/actions/admin.ts"),
+    "utf8",
+  );
+
+  assert.match(source, /if \(!summaryError && summary\) \{/);
+  assert.doesNotMatch(
+    source,
+    /remaining_minutes:\s*Number\(summary\?\.remaining_minutes \?\? 0\)/,
+  );
+});
+
+test("admin mutations require a returned row before reporting success", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const { fileURLToPath } = await import("node:url");
+  const path = await import("node:path");
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const [invoices, samuelCoach] = await Promise.all([
+    readFile(path.join(__dirname, "../src/lib/actions/invoices.ts"), "utf8"),
+    readFile(
+      path.join(__dirname, "../src/lib/actions/samuel-coach.ts"),
+      "utf8",
+    ),
+  ]);
+
+  assert.equal((invoices.match(/\.select\('id'\)/g) ?? []).length, 2);
+  assert.equal((invoices.match(/\.single\(\)/g) ?? []).length, 2);
+  assert.match(invoices, /if \(error \|\| !data\)/);
+  assert.match(samuelCoach, /\.select\('id'\)\.single\(\)/);
+  assert.match(samuelCoach, /if \(error \|\| !data\)/);
+});
+
+test("premium-code provenance is constrained to supported values", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const { fileURLToPath } = await import("node:url");
+  const path = await import("node:path");
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const source = await readFile(
+    path.join(__dirname, "../src/lib/actions/premium-codes.ts"),
+    "utf8",
+  );
+
+  assert.match(
+    source,
+    /created_by_type:\s*z\.enum\(\['studio-panel', 'manual'\]\)/,
+  );
 });
 
 test("direct client creation stores the auth user relationship", async () => {

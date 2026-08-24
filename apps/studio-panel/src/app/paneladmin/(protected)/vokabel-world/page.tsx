@@ -5,6 +5,7 @@ import { AdminShell } from '@/components/layout/app-shell'
 import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
 import { getAppsUsersOverview } from '@/lib/data/apps-users'
+import { loadIntegrationData } from '@/lib/integrations/supabase.mjs'
 import { getLocale } from '@/lib/locale'
 
 export const dynamic = 'force-dynamic'
@@ -12,14 +13,10 @@ export const dynamic = 'force-dynamic'
 export default async function Page() {
   const identity = await requireAdmin()
   const locale = await getLocale()
-  let data: Awaited<ReturnType<typeof getAppsUsersOverview>> | null = null
-  let error: string | null = null
-
-  try {
-    data = await getAppsUsersOverview('', 'vokabel-world')
-  } catch (cause) {
-    error = cause instanceof Error ? cause.message : 'No se pudo conectar con Apps Users.'
-  }
+  const { data, error } = await loadIntegrationData(
+    () => getAppsUsersOverview('', 'vokabel-world'),
+    'No se pudo conectar con Apps Users.',
+  )
 
   return (
     <AdminShell

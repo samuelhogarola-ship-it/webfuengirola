@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
 import { getSamuelCoachData } from '@/lib/data/samuel-coach'
 import { togglePublishAction } from '@/lib/actions/samuel-coach'
+import { loadIntegrationData } from '@/lib/integrations/supabase.mjs'
 import { getLocale } from '@/lib/locale'
 
 export const dynamic = 'force-dynamic'
@@ -18,14 +19,10 @@ const TYPE_LABELS: Record<string, string> = {
 export default async function SamuelCoachAdminPage() {
   const identity = await requireAdmin()
   const locale = await getLocale()
-  let data: Awaited<ReturnType<typeof getSamuelCoachData>> | null = null
-  let error: string | null = null
-
-  try {
-    data = await getSamuelCoachData()
-  } catch (cause) {
-    error = cause instanceof Error ? cause.message : 'No se pudo conectar con Samuel Coach.'
-  }
+  const { data, error } = await loadIntegrationData(
+    () => getSamuelCoachData(),
+    'No se pudo conectar con Samuel Coach.',
+  )
 
   return (
     <AdminShell

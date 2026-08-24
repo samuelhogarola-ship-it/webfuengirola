@@ -66,7 +66,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ n
         <Card className="p-5">
           <p className="text-sm text-muted">Ingresos mensuales</p>
           <p className="mt-3 text-3xl font-black tracking-tight text-foreground">
-            {data.stats.monthlyRevenue > 0 ? `${data.stats.monthlyRevenue.toFixed(0)} EUR` : '-'}
+            {data.stats.monthlyRevenue > 0 ? `${data.stats.monthlyRevenue.toFixed(2)} EUR` : '-'}
           </p>
         </Card>
       </section>

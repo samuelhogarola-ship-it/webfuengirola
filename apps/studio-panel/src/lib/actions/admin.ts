@@ -342,30 +342,34 @@ export async function createActivityAction(_prevState: AdminFormState, formData:
 
   const { data: summary, error: summaryError } = await supabase.from('client_summary').select('*').eq('client_id', payload.client_id).maybeSingle()
 
-  const { error: notificationError } = await supabase.from('notifications').insert({
-    client_id: payload.client_id,
-    activity_id: createdActivity.id,
-    title: `${payload.title}`,
-    body: `${payload.activity_type.toUpperCase()} realizado`,
-    minutes_delta: minutesUsed * -1,
-    remaining_minutes: Number(summary?.remaining_minutes ?? 0),
-  })
+  let notificationError = summaryError
+  if (!summaryError && summary) {
+    const notificationResult = await supabase.from('notifications').insert({
+      client_id: payload.client_id,
+      activity_id: createdActivity.id,
+      title: `${payload.title}`,
+      body: `${payload.activity_type.toUpperCase()} realizado`,
+      minutes_delta: minutesUsed * -1,
+      remaining_minutes: Number(summary.remaining_minutes),
+    })
+    notificationError = notificationResult.error
+  }
 
   let success = 'Actividad registrada correctamente.'
-  if (summaryError || notificationError) {
+  if (summaryError || !summary || notificationError) {
     success = 'Actividad registrada, pero no se pudo actualizar toda la información del portal cliente.'
   }
 
-  if (payload.notify_client === 'on' && pack.clients?.email) {
+  if (!summaryError && summary && payload.notify_client === 'on' && pack.clients?.email) {
     try {
       await sendActivityNotificationEmail({
         clientEmail: pack.clients.email,
         clientName: pack.clients.name ?? 'cliente',
         activityTitle: payload.title,
         minutesUsed: minutesUsed,
-        remainingMinutes: Number(summary?.remaining_minutes ?? 0),
+        remainingMinutes: Number(summary.remaining_minutes),
       })
-      if (!summaryError && !notificationError) {
+      if (!notificationError) {
         success = 'Actividad registrada y email enviado correctamente.'
       }
     } catch {

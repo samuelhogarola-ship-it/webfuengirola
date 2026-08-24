@@ -91,6 +91,17 @@ export async function processPendingReminders({
         stage: "persist",
         message: errorMessage(error),
       });
+      try {
+        await releaseClaim(item.id, {
+          claimToken,
+        });
+      } catch (releaseError) {
+        result.failed.push({
+          id: item.id,
+          stage: "release",
+          message: errorMessage(releaseError),
+        });
+      }
     }
   }
 
