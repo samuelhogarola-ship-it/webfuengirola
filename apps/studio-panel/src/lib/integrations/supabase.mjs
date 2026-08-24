@@ -37,12 +37,13 @@ export function safePercentage(value, total) {
 }
 
 export function getPaginationRange({ page, totalRows, pageSize }) {
-  const safePageSize = Math.max(1, pageSize);
-  const lastPage = Math.max(
-    1,
-    Math.ceil(Math.max(0, totalRows) / safePageSize),
-  );
-  const resolvedPage = Math.min(Math.max(1, page), lastPage);
+  const safePageSize = Number.isFinite(pageSize)
+    ? Math.max(1, Math.floor(pageSize))
+    : 1;
+  const safeTotalRows = Number.isFinite(totalRows) ? Math.max(0, totalRows) : 0;
+  const safePage = Number.isFinite(page) ? Math.max(1, Math.floor(page)) : 1;
+  const lastPage = Math.max(1, Math.ceil(safeTotalRows / safePageSize));
+  const resolvedPage = Math.min(safePage, lastPage);
   const from = (resolvedPage - 1) * safePageSize;
   return { page: resolvedPage, from, to: from + safePageSize - 1 };
 }

@@ -186,3 +186,14 @@ test("pagination range clamps a stale page before querying PostgREST", () => {
     { page: 2, from: 50, to: 99 },
   );
 });
+
+test("pagination range normalizes non-finite inputs", () => {
+  const range = integrationUtils.getPaginationRange({
+    page: Number.NaN,
+    totalRows: Number.POSITIVE_INFINITY,
+    pageSize: Number.NaN,
+  });
+
+  assert.deepEqual(range, { page: 1, from: 0, to: 0 });
+  assert.equal(Object.values(range).every(Number.isFinite), true);
+});
