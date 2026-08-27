@@ -4,8 +4,8 @@
 
 El endpoint `/api/pending-reminders` exige `PENDING_REMINDERS_CRON_SECRET` o `CRON_SECRET`; sin secreto responde `503 cron_not_configured`.
 
-- En Vercel, definir `CRON_SECRET`; Vercel lo envia como `Authorization: Bearer <secret>`.
-- En otro proveedor, usar `PENDING_REMINDERS_CRON_SECRET` y `Authorization` o `x-cron-secret`.
+- En Coolify, crear una tarea programada diaria a las `08:00` que invoque `/api/pending-reminders` con `Authorization: Bearer <secret>`.
+- Usar `CRON_SECRET` como secreto compartido o `PENDING_REMINDERS_CRON_SECRET` como secreto específico del endpoint.
 - No incluir `?secret=`: el endpoint no lo acepta y las URLs suelen quedar en logs.
 - Alertar cuando `ok` sea `false` o `failed` no este vacio. Cada fallo indica `id`, fase `claim|send|persist|release` y mensaje.
 - Mantener Resend como proveedor del cron o conservar una clave de idempotencia equivalente si se cambia de proveedor.
@@ -14,10 +14,10 @@ El endpoint `/api/pending-reminders` exige `PENDING_REMINDERS_CRON_SECRET` o `CR
 
 El endpoint `/api/monthly-stat-reports` exige `MONTHLY_STAT_REPORTS_CRON_SECRET` o `CRON_SECRET`; sin secreto responde `503 cron_not_configured`.
 
-- En Vercel, `vercel.json` lo programa el día 1 de cada mes a las 09:00 y autentica con `CRON_SECRET`.
+- En Coolify, crear una tarea programada el día 1 de cada mes a las `09:00` que invoque `/api/monthly-stat-reports` con `Authorization: Bearer <secret>`.
 - En Coolify u otro cron externo, programar una llamada mensual con `Authorization: Bearer <secret>` o `x-cron-secret`.
 - Variables mínimas: `STAT_REPORT_UMAMI_URL`, `STAT_REPORT_UMAMI_PASSWORD`, `STAT_REPORT_EMAIL_TO` o `RESEND_TO_EMAIL`, `RESEND_API_KEY`, `RESEND_FROM_EMAIL` y `SUPABASE_SECRET_KEY`.
-- `MONTHLY_STAT_REPORTS_CRON_SECRET` es opcional para proveedores externos; el endpoint acepta tanto este secreto como `CRON_SECRET`.
+- `MONTHLY_STAT_REPORTS_CRON_SECRET` es opcional; el endpoint acepta tanto este secreto como `CRON_SECRET`.
 - Variables recomendadas: `STAT_REPORT_UMAMI_WEBSITE_ID_*` para evitar depender del listado global de sitios de Umami.
 - Aplicar la migración `202608260001_monthly_stat_reports.sql` antes de activar el cron. Cada mes se guarda mediante `upsert` en `monthly_stat_reports`, usando `SUPABASE_SECRET_KEY`; el panel autenticado conserva acceso de solo lectura mediante RLS.
 - El envío adquiere primero un claim recuperable en Supabase, persiste fecha e ID de Resend y conserva además la clave de idempotencia `monthly-stat-report-YYYY-MM`.

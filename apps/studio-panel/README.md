@@ -116,9 +116,9 @@ Configura estas variables en Coolify antes de hacer el primer deploy:
 | `RESEND_API_KEY`                       | API key de Resend para emails                                                      |
 | `RESEND_FROM_EMAIL`                    | Email remitente verificado en Resend                                               |
 | `NEXT_PUBLIC_APP_URL`                  | URL pública expuesta al cliente; mantenerla igual que `APP_URL`                    |
-| `CRON_SECRET`                          | Secreto recomendado para Vercel Cron; Vercel lo envia como `Authorization: Bearer` |
-| `PENDING_REMINDERS_CRON_SECRET`        | Secreto alternativo para otros proveedores de cron                                 |
-| `MONTHLY_STAT_REPORTS_CRON_SECRET`     | Secreto alternativo para el cron mensual de informes estadísticos                  |
+| `CRON_SECRET`                          | Secreto compartido para tareas programadas; se envía como `Authorization: Bearer`   |
+| `PENDING_REMINDERS_CRON_SECRET`        | Secreto opcional específico para el cron de recordatorios                          |
+| `MONTHLY_STAT_REPORTS_CRON_SECRET`     | Secreto opcional específico para el cron mensual de informes                       |
 | `STAT_REPORT_UMAMI_URL`                | URL de la instancia Umami usada para informes, sin `/api`                          |
 | `STAT_REPORT_UMAMI_USERNAME`           | Usuario admin/API de Umami; por defecto `admin`                                    |
 | `STAT_REPORT_UMAMI_PASSWORD`           | Contraseña admin/API de Umami, solo servidor                                       |

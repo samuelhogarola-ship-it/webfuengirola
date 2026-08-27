@@ -105,7 +105,7 @@ test("configured report sites keep missing website ids visible", () => {
   );
 });
 
-test("monthly cron authorization accepts Vercel and dedicated secrets", () => {
+test("monthly cron authorization accepts shared and dedicated secrets", () => {
   const input = { cronSecret: "vercel", monthlySecret: "external", headerSecret: null };
 
   assert.equal(monthlyReports.isAuthorizedMonthlyCronRequest({ ...input, authorization: "Bearer vercel" }), true);
