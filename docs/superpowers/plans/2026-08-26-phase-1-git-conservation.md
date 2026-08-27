@@ -271,7 +271,7 @@ Expected: 4 pass, 0 fail.
 Run from `apps/studio-panel`:
 
 ```bash
-../../node_modules/.bin/eslint src
+node_modules/.bin/eslint src
 ```
 
 Expected: exit code 0; registrar warnings sin corregirlos.
@@ -281,7 +281,7 @@ Expected: exit code 0; registrar warnings sin corregirlos.
 Run:
 
 ```bash
-../../node_modules/.bin/tsc --noEmit
+node_modules/.bin/tsc --noEmit
 ```
 
 Expected: exit code 0.
@@ -291,7 +291,7 @@ Expected: exit code 0.
 Run:
 
 ```bash
-../../node_modules/.bin/next build
+node_modules/.bin/next build
 ```
 
 Expected: build correcto. Fallos funcionales pasan a la Fase 2.

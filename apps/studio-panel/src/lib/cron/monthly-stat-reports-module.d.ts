@@ -1,0 +1,90 @@
+declare module '@/lib/cron/monthly-stat-reports.mjs' {
+  export type StatReportSite = {
+    key: string
+    label: string
+    domain: string
+    websiteId?: string
+  }
+
+  export function isAuthorizedCronRequest(options: {
+    configuredSecret?: string
+    authorization?: string | null
+    headerSecret?: string | null
+  }): boolean
+
+  export function getConfiguredReportSites(env?: NodeJS.ProcessEnv): StatReportSite[]
+
+  export function isAuthorizedMonthlyCronRequest(options: {
+    cronSecret?: string
+    monthlySecret?: string
+    authorization?: string | null
+    headerSecret?: string | null
+  }): boolean
+
+  export function getMonthlyStatReportConfig(env?: NodeJS.ProcessEnv): {
+    baseUrl: string
+    username: string
+    password: string
+    reportTo: string
+  }
+
+  export function deliverMonthlyStatReport(options: {
+    monthKey: string
+    emailTo: string
+    claimToken: string
+    claimDelivery: (input: { monthKey: string; emailTo: string; claimToken: string }) => Promise<boolean>
+    send: () => Promise<{ id?: string } | null>
+    completeDelivery: (input: { monthKey: string; claimToken: string; sentAt: string; messageId: string | null }) => Promise<void>
+    releaseDelivery: (input: { monthKey: string; claimToken: string; error: string }) => Promise<void>
+  }): Promise<{ sent: boolean }>
+
+  export function getUmamiToken(options: {
+    baseUrl: string
+    username: string
+    password: string
+  }): Promise<string>
+
+  export function resolveReportSites(options: {
+    baseUrl: string
+    token: string
+    sites: StatReportSite[]
+  }): Promise<StatReportSite[]>
+
+  export function fetchUmamiSiteSummary(options: {
+    baseUrl: string
+    token: string
+    site: StatReportSite
+    range: { monthKey: string; label: string; startAt: number; endAt: number }
+  }): Promise<unknown>
+
+  export function processMonthlyStatReport(options: {
+    now?: Date
+    sites: StatReportSite[]
+    fetchSiteSummary: (context: {
+      site: StatReportSite
+      range: { monthKey: string; label: string; startAt: number; endAt: number }
+    }) => Promise<unknown>
+    saveReport: (report: {
+      monthKey: string
+      label: string
+      markdown: string
+      siteReports: import('@/lib/supabase/types').Json
+      generatedAt: string
+    }) => Promise<string>
+    sendReport?: (email: {
+      to: string
+      subject: string
+      markdown: string
+      storageRef: string
+      monthKey: string
+      idempotencyKey: string
+    }) => Promise<void | { sent: boolean }>
+    reportTo?: string
+  }): Promise<{
+    generated: boolean
+    sent: boolean
+    storageRef: string
+    monthKey: string
+    siteReports: unknown[]
+  }>
+}

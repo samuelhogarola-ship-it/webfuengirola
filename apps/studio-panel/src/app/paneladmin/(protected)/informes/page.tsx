@@ -3,15 +3,23 @@ import Link from 'next/link'
 import { AdminShell } from '@/components/layout/app-shell'
 import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
+import { createMonthlyStatReportRepository } from '@/lib/data/monthly-stat-reports.mjs'
 import { getLocale } from '@/lib/locale'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 
-export default async function AdminInformesPage() {
+export default async function AdminInformesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ month?: string }>
+}) {
   const identity = await requireAdmin()
   const locale = await getLocale()
   const supabase = await createSupabaseServerClient()
+  const statReports = await createMonthlyStatReportRepository(supabase).list()
+  const { month } = await searchParams
+  const selectedStatReport = statReports.find((report) => report.month_key === month) ?? statReports[0]
 
   const { data: clients } = await supabase
     .from('clients')
@@ -29,6 +37,36 @@ export default async function AdminInformesPage() {
       userEmail={identity.email}
       locale={locale}
     >
+      <Card className="mb-6 overflow-hidden">
+        <div className="border-b border-line px-6 py-5">
+          <h2 className="text-xl font-bold text-foreground">Informes estadísticos</h2>
+          <p className="mt-1 text-sm text-muted">Resumen mensual automático de Umami para las webs gestionadas.</p>
+        </div>
+        {statReports.length > 0 ? (
+          <div className="grid gap-0 lg:grid-cols-[240px_1fr]">
+            <div className="border-b border-line lg:border-b-0 lg:border-r">
+              {statReports.map((report) => (
+                <Link
+                  key={report.month_key}
+                  href={`/paneladmin/informes?month=${encodeURIComponent(report.month_key)}`}
+                  className={`block border-b border-line px-6 py-4 transition-colors last:border-b-0 ${
+                    selectedStatReport?.month_key === report.month_key ? 'bg-slate-100' : 'hover:bg-slate-50'
+                  }`}
+                >
+                  <p className="font-semibold text-foreground">{report.label}</p>
+                  <p className="mt-1 text-xs text-muted">{report.month_key}</p>
+                </Link>
+              ))}
+            </div>
+            <pre className="max-h-[560px] overflow-auto whitespace-pre-wrap bg-slate-950 px-6 py-5 text-xs leading-6 text-slate-100">
+              {selectedStatReport?.markdown}
+            </pre>
+          </div>
+        ) : (
+          <p className="px-6 py-8 text-sm text-muted">Todavía no hay informes estadísticos generados.</p>
+        )}
+      </Card>
+
       <Card className="overflow-hidden">
         <div className="border-b border-line px-6 py-5">
           <h2 className="text-xl font-bold text-foreground">Clientes activos</h2>

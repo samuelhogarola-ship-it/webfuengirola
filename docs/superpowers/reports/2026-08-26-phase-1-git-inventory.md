@@ -49,23 +49,21 @@
 - `apps/studio-panel/vercel.json`
 - Pruebas específicas: 4 superadas, 0 fallidas.
 - VPS: `.env.example` apunta correctamente a `https://analytics.187.124.55.36.sslip.io`; no se detectó `2.24.10.239` en la configuración ejecutable revisada.
-- Lint: bloqueado antes de analizar el código. `eslint@9.39.4` con `eslint-config-next@15.5.19` falla dentro de `@rushstack/eslint-patch` al no reconocer el módulo llamante bajo Node `24.19.0`.
-- Typecheck: bloqueado por `TS2882` en el import lateral existente `@/app/globals.css`; el archivo CSS sí existe.
-- Build: no ejecutado después de los bloqueos anteriores, conforme a la regla de detenerse ante una verificación fallida.
-- Decisión: `deferred_to_phase_2` hasta resolver y repetir lint, typecheck y build.
+- Diagnóstico corregido: el plan había ejecutado por error los binarios de `node_modules` de la raíz. Con los binarios locales de `apps/studio-panel`, lint y typecheck pasan.
+- Build: completado correctamente con Next.js 15.5.19; solo avisa de que usa el fallback de SWC porque el binario nativo opcional no está instalado.
+- Decisión: `ready_to_commit` tras sustituir el almacenamiento efímero por Supabase en la Fase 2.
 
 ## Archivos ignorados relevantes
 
 - `.env` y `apps/studio-panel/.env.local`: configuración local sensible; deben seguir ignorados.
 - `node_modules/` y `apps/studio-panel/node_modules/`: dependencias generadas.
 - `apps/studio-panel/.next/`: build generado.
-- `apps/studio-panel/storage/stat-reports/*.md`: informes generados localmente.
 
 ## Riesgos o bloqueos
 
 - `.tools/gitleaks/current` es un enlace local roto; hay que comprobar si el escáner está disponible antes de depender de él.
 - Los informes mensuales son trabajo funcional preexistente aún no confirmado y requieren lint, tipos y build antes de decidir su entrega.
-- Las dependencias instaladas del panel no permiten completar lint/typecheck en el entorno actual; este diagnóstico debe resolverse en la Fase 2 antes de confirmar los informes.
+- Los comandos de verificación del panel deben ejecutarse con sus binarios locales en `apps/studio-panel/node_modules/.bin`.
 - No se ejecutará ninguna operación Git mutante sin autorización inmediata del usuario.
 
 ## Control de secretos
@@ -78,4 +76,4 @@
 
 - `services_commit`: `ready_to_push_with_environment_limitation`.
 - `collaboration_docs`: `ready_to_commit`.
-- `monthly_reports`: `deferred_to_phase_2`.
+- `monthly_reports`: `ready_to_commit` después de completar la Fase 2 y su verificación final.

@@ -10,6 +10,19 @@ El endpoint `/api/pending-reminders` exige `PENDING_REMINDERS_CRON_SECRET` o `CR
 - Alertar cuando `ok` sea `false` o `failed` no este vacio. Cada fallo indica `id`, fase `claim|send|persist|release` y mensaje.
 - Mantener Resend como proveedor del cron o conservar una clave de idempotencia equivalente si se cambia de proveedor.
 
+## Informes estadísticos mensuales
+
+El endpoint `/api/monthly-stat-reports` exige `MONTHLY_STAT_REPORTS_CRON_SECRET` o `CRON_SECRET`; sin secreto responde `503 cron_not_configured`.
+
+- En Vercel, `vercel.json` lo programa el día 1 de cada mes a las 09:00 y autentica con `CRON_SECRET`.
+- En Coolify u otro cron externo, programar una llamada mensual con `Authorization: Bearer <secret>` o `x-cron-secret`.
+- Variables mínimas: `STAT_REPORT_UMAMI_URL`, `STAT_REPORT_UMAMI_PASSWORD`, `STAT_REPORT_EMAIL_TO` o `RESEND_TO_EMAIL`, `RESEND_API_KEY`, `RESEND_FROM_EMAIL` y `SUPABASE_SECRET_KEY`.
+- `MONTHLY_STAT_REPORTS_CRON_SECRET` es opcional para proveedores externos; el endpoint acepta tanto este secreto como `CRON_SECRET`.
+- Variables recomendadas: `STAT_REPORT_UMAMI_WEBSITE_ID_*` para evitar depender del listado global de sitios de Umami.
+- Aplicar la migración `202608260001_monthly_stat_reports.sql` antes de activar el cron. Cada mes se guarda mediante `upsert` en `monthly_stat_reports`, usando `SUPABASE_SECRET_KEY`; el panel autenticado conserva acceso de solo lectura mediante RLS.
+- El envío adquiere primero un claim recuperable en Supabase, persiste fecha e ID de Resend y conserva además la clave de idempotencia `monthly-stat-report-YYYY-MM`.
+- El claim no caduca automáticamente: si Resend acepta el correo pero falla la confirmación en Supabase, el cron bloquea nuevos envíos para evitar duplicados. Revisar el correo en Resend y reconciliar `email_sent_at`/`email_message_id` manualmente antes de liberar `delivery_claim_token`.
+
 ## Superentrenador - Umami
 
 Ejecutar en el repo de Superentrenador, no en WF Studio:

@@ -181,6 +181,39 @@ export async function sendPendingItemReminderEmail({
   }, { idempotencyKey })
 }
 
+export async function sendMonthlyStatReportEmail({
+  to,
+  subject,
+  markdown,
+  monthKey,
+  idempotencyKey,
+}: {
+  to: string
+  subject: string
+  markdown: string
+  monthKey: string
+  idempotencyKey: string
+}) {
+  return sendEmail({
+    from: getRequiredServerEnv('RESEND_FROM_EMAIL'),
+    to,
+    subject,
+    text: [
+      'Informe estadístico mensual generado automáticamente.',
+      '',
+      markdown,
+      '',
+      '— WF-Studio',
+    ].join('\n'),
+    attachments: [
+      {
+        filename: `informe-estadistico-${monthKey}.md`,
+        content: Buffer.from(markdown, 'utf8'),
+      },
+    ],
+  }, { idempotencyKey })
+}
+
 export async function sendPublicContactEmail({
   name,
   email,

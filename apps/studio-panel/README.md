@@ -109,7 +109,7 @@ Configura estas variables en Coolify antes de hacer el primer deploy:
 | -------------------------------------- | ---------------------------------------------------------------------------------- |
 | `NEXT_PUBLIC_SUPABASE_URL`             | URL del proyecto Supabase                                                          |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Clave pública (anon key)                                                           |
-| `SUPABASE_SECRET_KEY`                  | Service role key (solo servidor)                                                   |
+| `SUPABASE_SECRET_KEY`                  | Service role key; solo servidor, también persiste los informes mensuales           |
 | `APP_URL`                              | URL canónica del panel para magic links, callbacks y metadatos                     |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY`       | Site key pública de Cloudflare Turnstile para `/api/contact/config`                |
 | `TURNSTILE_SECRET_KEY`                 | Secret key privada de Cloudflare Turnstile para validar el token en `/api/contact` |
@@ -118,6 +118,12 @@ Configura estas variables en Coolify antes de hacer el primer deploy:
 | `NEXT_PUBLIC_APP_URL`                  | URL pública expuesta al cliente; mantenerla igual que `APP_URL`                    |
 | `CRON_SECRET`                          | Secreto recomendado para Vercel Cron; Vercel lo envia como `Authorization: Bearer` |
 | `PENDING_REMINDERS_CRON_SECRET`        | Secreto alternativo para otros proveedores de cron                                 |
+| `MONTHLY_STAT_REPORTS_CRON_SECRET`     | Secreto alternativo para el cron mensual de informes estadísticos                  |
+| `STAT_REPORT_UMAMI_URL`                | URL de la instancia Umami usada para informes, sin `/api`                          |
+| `STAT_REPORT_UMAMI_USERNAME`           | Usuario admin/API de Umami; por defecto `admin`                                    |
+| `STAT_REPORT_UMAMI_PASSWORD`           | Contraseña admin/API de Umami, solo servidor                                       |
+| `STAT_REPORT_EMAIL_TO`                 | Destinatario requerido; puede sustituirse explícitamente con `RESEND_TO_EMAIL`     |
+| `STAT_REPORT_UMAMI_WEBSITE_ID_*`       | Website ID opcional por sitio; si falta se intenta resolver por dominio en Umami   |
 | `TODO_PLASTICO_URL`                    | URL Supabase/API del proyecto TodoPlastico                                         |
 | `TODO_PLASTICO_SERVICE_KEY`            | Service role key de TodoPlastico, solo servidor                                    |
 | `TODO_PLASTICO_ADMIN_URL`              | URL del admin externo para crear anuncios                                          |
@@ -153,6 +159,8 @@ Variables realmente usadas por ese flujo:
 | `TURNSTILE_SECRET_KEY`           | `/api/contact`        | La validación server-side de Turnstile falla; con token no vacío puede terminar en `500 server_error` |
 | `RESEND_API_KEY`                 | `/api/contact`        | El envío por Resend falla                                                                             |
 | `RESEND_FROM_EMAIL`              | `/api/contact`        | El envío por Resend falla                                                                             |
+| `STAT_REPORT_UMAMI_URL`          | `/api/monthly-stat-reports` | El cron de informes responde `503 stat_report_not_configured`                                  |
+| `STAT_REPORT_UMAMI_PASSWORD`     | `/api/monthly-stat-reports` | El cron de informes responde `503 stat_report_not_configured`                                  |
 
 Fallback legado aceptado por código:
 
