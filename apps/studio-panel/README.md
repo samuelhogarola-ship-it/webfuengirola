@@ -119,11 +119,14 @@ Configura estas variables en Coolify antes de hacer el primer deploy:
 | `CRON_SECRET`                          | Secreto compartido para tareas programadas; se envía como `Authorization: Bearer`   |
 | `PENDING_REMINDERS_CRON_SECRET`        | Secreto opcional específico para el cron de recordatorios                          |
 | `MONTHLY_STAT_REPORTS_CRON_SECRET`     | Secreto opcional específico para el cron mensual de informes                       |
-| `STAT_REPORT_UMAMI_URL`                | URL de la instancia Umami usada para informes, sin `/api`                          |
-| `STAT_REPORT_UMAMI_USERNAME`           | Usuario admin/API de Umami; por defecto `admin`                                    |
-| `STAT_REPORT_UMAMI_PASSWORD`           | Contraseña admin/API de Umami, solo servidor                                       |
+| `UMAMI_PERSONAL_URL`                   | Umami personal: `https://analytics.187.124.55.36.sslip.io`                         |
+| `UMAMI_PERSONAL_USERNAME`              | Usuario API del Umami personal; por defecto `admin`                                |
+| `UMAMI_PERSONAL_PASSWORD`              | Contraseña del Umami personal, solo servidor                                       |
+| `UMAMI_AGAMA_URL`                      | Umami Agama/TodoPlástico: `https://analytics.2.24.10.239.sslip.io`                  |
+| `UMAMI_AGAMA_USERNAME`                 | Usuario API del Umami Agama; por defecto `admin`                                   |
+| `UMAMI_AGAMA_PASSWORD`                 | Contraseña del Umami Agama, solo servidor                                          |
+| `UMAMI_WEBSITE_ID_*`                   | Website ID por sitio; si falta se intenta resolver por dominio en su instancia     |
 | `STAT_REPORT_EMAIL_TO`                 | Destinatario requerido; puede sustituirse explícitamente con `RESEND_TO_EMAIL`     |
-| `STAT_REPORT_UMAMI_WEBSITE_ID_*`       | Website ID opcional por sitio; si falta se intenta resolver por dominio en Umami   |
 | `TODO_PLASTICO_URL`                    | URL Supabase/API del proyecto TodoPlastico                                         |
 | `TODO_PLASTICO_SERVICE_KEY`            | Service role key de TodoPlastico, solo servidor                                    |
 | `TODO_PLASTICO_ADMIN_URL`              | URL del admin externo para crear anuncios                                          |
@@ -142,6 +145,8 @@ Configura estas variables en Coolify antes de hacer el primer deploy:
 
 > El código mantiene compatibilidad secundaria con `TURNSTILE_SITE_KEY` como fallback legado para `/api/contact/config`, pero la convención principal de producción es `NEXT_PUBLIC_TURNSTILE_SITE_KEY`.
 
+> Analytics usa dos orígenes aislados: TodoPlástico pertenece a Agama y los otros 13 sitios al Umami personal. Las lecturas se cachean 300 segundos y un fallo de una instancia no oculta los datos de la otra. `STAT_REPORT_UMAMI_URL`, `STAT_REPORT_UMAMI_USERNAME`, `STAT_REPORT_UMAMI_PASSWORD` y `STAT_REPORT_UMAMI_WEBSITE_ID_*` siguen admitidos únicamente como fallback del origen personal durante la transición.
+
 > `CONTACT_EMAIL` no existe todavía como variable en esta app. El destinatario del formulario público está fijado en `info@webfuengirola.com` dentro de `src/lib/email.ts`.
 
 ### Variables usadas por el formulario público
@@ -159,8 +164,7 @@ Variables realmente usadas por ese flujo:
 | `TURNSTILE_SECRET_KEY`           | `/api/contact`        | La validación server-side de Turnstile falla; con token no vacío puede terminar en `500 server_error` |
 | `RESEND_API_KEY`                 | `/api/contact`        | El envío por Resend falla                                                                             |
 | `RESEND_FROM_EMAIL`              | `/api/contact`        | El envío por Resend falla                                                                             |
-| `STAT_REPORT_UMAMI_URL`          | `/api/monthly-stat-reports` | El cron de informes responde `503 stat_report_not_configured`                                  |
-| `STAT_REPORT_UMAMI_PASSWORD`     | `/api/monthly-stat-reports` | El cron de informes responde `503 stat_report_not_configured`                                  |
+| `STAT_REPORT_EMAIL_TO`           | `/api/monthly-stat-reports` | Sin este valor ni `RESEND_TO_EMAIL`, responde `503 stat_report_not_configured`                   |
 
 Fallback legado aceptado por código:
 
