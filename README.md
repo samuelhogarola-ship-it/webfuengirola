@@ -108,35 +108,27 @@ Para añadir un proyecto real:
 
 ## Activar Umami
 
-La web usa `umami-analytics-core.js` junto al banner de cookies. No se carga
-ningún script externo hasta que el usuario acepta las cookies analíticas.
+La web usa `umami-analytics-core.js` en modo anónimo y cookieless. El tracker
+se carga desde la primera visita y no depende de la decisión del banner porque
+no utiliza cookies ni identificadores personales.
 
-La instancia central está en el VPS de Coolify:
+Web Fuengirola pertenece a la instancia personal:
 
-- URL temporal: `https://analytics.2.24.10.239.sslip.io`
-- URL final prevista: `https://analytics.webfuengirola.com`
-- DNS pendiente: `analytics.webfuengirola.com` debe apuntar con un registro `A` a `2.24.10.239`
-- Credenciales admin: guardadas en `/root/umami/README.txt` del VPS
-- Estado actual: se usa la URL temporal `sslip.io`; no hace falta tocar DNS para medir tráfico.
-- VPS: Coolify / Hostinger en `2.24.10.239`, contenedores `umami` y `umami-db`.
+- URL: `https://analytics.187.124.55.36.sslip.io`
+- El VPS `2.24.10.239` queda reservado para Agama y TodoPlástico.
+- Las credenciales de administración nunca forman parte de esta imagen web.
 
-En `script.js`, busca:
+Configura estas variables en Coolify:
 
-```js
-UmamiAnalyticsCore.init({
-  websiteId: "95065b03-13a9-49fe-9ca4-a443b4f8c584",
-  scriptSrc: "https://analytics.2.24.10.239.sslip.io/script.js",
-  hostUrl: "https://analytics.2.24.10.239.sslip.io",
-});
+```dotenv
+UMAMI_SCRIPT_URL=https://analytics.187.124.55.36.sslip.io/script.js
+UMAMI_HOST_URL=https://analytics.187.124.55.36.sslip.io
+UMAMI_WEBSITE_ID=<id independiente de webfuengirola.com>
 ```
 
-Cada proyecto debe tener su propio sitio dentro de Umami. IDs creados:
-
-- `AGAMA Marketplace` (`agama.com.mx`): `fc7b7df1-600c-4d53-b17e-d1aafd90d6b8`
-- `Web Fuengirola` (`webfuengirola.com`): `95065b03-13a9-49fe-9ca4-a443b4f8c584`
-
-Cuando el DNS definitivo esté activo, cambia `scriptSrc` y `hostUrl` a
-`https://analytics.webfuengirola.com` y conserva el mismo `websiteId`.
+El contenedor genera `/umami-config.json` al arrancar. En desarrollo local el
+archivo existe con el ID vacío, por lo que la página sigue funcionando sin
+enviar tráfico. Cada dominio debe conservar su propio `websiteId`.
 
 ---
 

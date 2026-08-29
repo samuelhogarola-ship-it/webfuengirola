@@ -1,5 +1,49 @@
 const { test, expect } = require('@playwright/test');
 
+// ── Umami cookieless ─────────────────────────────────────────────────────────
+
+test.describe('Umami cookieless – primera visita', () => {
+  test('carga el tracker personal antes de decidir el banner y no lo revoca al rechazar', async ({ page }) => {
+    const personalScriptRequests = [];
+    const agamaRequests = [];
+
+    await page.route('**/umami-config.json', async (route) => {
+      await route.fulfill({
+        contentType: 'application/json',
+        body: JSON.stringify({
+          scriptSrc: 'https://analytics.187.124.55.36.sslip.io/script.js',
+          hostUrl: 'https://analytics.187.124.55.36.sslip.io',
+          websiteId: 'webfuengirola-test-id',
+        }),
+      });
+    });
+    await page.route('https://analytics.187.124.55.36.sslip.io/script.js', async (route) => {
+      personalScriptRequests.push(route.request().url());
+      await route.fulfill({
+        contentType: 'application/javascript',
+        body: 'window.umami = { track: function () {} };',
+      });
+    });
+    page.on('request', (request) => {
+      if (request.url().includes('analytics.2.24.10.239.sslip.io')) {
+        agamaRequests.push(request.url());
+      }
+    });
+
+    await page.goto('/');
+
+    await expect.poll(() => personalScriptRequests.length).toBe(1);
+    const tracker = page.locator('script[data-umami-analytics-core]');
+    await expect(tracker).toHaveAttribute('data-website-id', 'webfuengirola-test-id');
+
+    await page.locator('[data-cookie-reject]').click();
+
+    await expect(tracker).toBeAttached();
+    expect(personalScriptRequests).toHaveLength(1);
+    expect(agamaRequests).toHaveLength(0);
+  });
+});
+
 // ── Cookie Banner (index.html) ────────────────────────────────────────────────
 
 test.describe('Cookie banner – index.html', () => {

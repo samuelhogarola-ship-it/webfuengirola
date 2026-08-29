@@ -1,14 +1,11 @@
 /*
-   umami-analytics-core.js - Umami + CookieBannerCore consent
+   umami-analytics-core.js - anonymous, cookieless Umami loader
    Exposes window.UmamiAnalyticsCore.init(config).
-
-   The script is intentionally conservative: no Umami request is made until
-   the visitor accepts analytics cookies or already has that preference saved.
 */
 (function () {
   "use strict";
 
-  var DEFAULT_SCRIPT_SRC = "https://analytics.2.24.10.239.sslip.io/script.js";
+  var DEFAULT_SCRIPT_SRC = "https://analytics.187.124.55.36.sslip.io/script.js";
   var PLACEHOLDER_WEBSITE_IDS = {
     "": true,
     REPLACE_WITH_UMAMI_WEBSITE_ID: true,
@@ -16,29 +13,7 @@
 
   var _config = null;
   var _initialized = false;
-  var _consentGranted = false;
   var _queue = [];
-
-  function getStorage() {
-    try {
-      return window.localStorage;
-    } catch (_) {
-      return null;
-    }
-  }
-
-  function readStoredAnalyticsConsent(preferencesKey) {
-    var storage = getStorage();
-    if (!storage || !preferencesKey) return false;
-    try {
-      var raw = storage.getItem(preferencesKey);
-      if (!raw) return false;
-      var prefs = JSON.parse(raw);
-      return !!(prefs && prefs.analiticas);
-    } catch (_) {
-      return false;
-    }
-  }
 
   function hasValidWebsiteId() {
     return !!(
@@ -63,7 +38,7 @@
   }
 
   function loadScript() {
-    if (!_initialized || !_consentGranted) return;
+    if (!_initialized) return;
     if (!hasValidWebsiteId()) {
       logMissingConfig();
       return;
@@ -92,30 +67,18 @@
   function init(config) {
     if (_initialized) return;
     _config = config || {};
-
-    var prefsKey =
-      _config.preferencesKey !== undefined
-        ? _config.preferencesKey
-        : "cookie_preferences";
-
-    _consentGranted = readStoredAnalyticsConsent(prefsKey);
     _initialized = true;
-
-    if (_consentGranted) loadScript();
-  }
-
-  function grantConsent() {
-    _consentGranted = true;
     loadScript();
   }
 
-  function revokeConsent() {
-    _consentGranted = false;
-    _queue = [];
+  function grantConsent() {
+    loadScript();
   }
 
+  function revokeConsent() {}
+
   function trackEvent(eventName, params) {
-    if (!_initialized || !_consentGranted || !eventName) return;
+    if (!_initialized || !eventName) return;
 
     if (window.umami && typeof window.umami.track === "function") {
       window.umami.track(eventName, params || {});
@@ -140,7 +103,6 @@
   function _reset() {
     _config = null;
     _initialized = false;
-    _consentGranted = false;
     _queue = [];
   }
 
