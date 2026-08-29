@@ -1,4 +1,8 @@
+import { Suspense } from 'react'
+
+import { AnalyticsSkeleton } from '@/components/admin/analytics-skeleton'
 import { ConnectionIssueCard } from '@/components/admin/connection-issue-card'
+import { PanelAnalyticsSection } from '@/components/admin/panel-analytics-section'
 import { AdminShell } from '@/components/layout/app-shell'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
@@ -54,6 +58,10 @@ export default async function SamuelCoachAdminPage() {
           </Card>
         ))}
       </section>
+
+      <Suspense fallback={<AnalyticsSkeleton />}>
+        <PanelAnalyticsSection panelKey="samuel-coach" />
+      </Suspense>
 
       <section className="mb-8">
         <a

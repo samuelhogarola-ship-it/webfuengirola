@@ -71,21 +71,34 @@ function apiUrl(baseUrl, pathname, params) {
   return url;
 }
 
-async function requestJson(url, { token, method = "GET", body, fetchImpl = fetch } = {}) {
-  const response = await fetchImpl(url, {
-    method,
-    headers: {
-      "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
-    ...(body ? { body: JSON.stringify(body) } : {}),
-  });
-  const text = await response.text();
-  const data = text ? JSON.parse(text) : null;
-  if (!response.ok) {
-    throw new Error(data?.message || data?.error || `HTTP ${response.status}`);
+async function requestJson(url, {
+  token,
+  method = "GET",
+  body,
+  fetchImpl = fetch,
+  timeoutMs = 10_000,
+} = {}) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetchImpl(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      ...(body ? { body: JSON.stringify(body) } : {}),
+      signal: controller.signal,
+    });
+    const text = await response.text();
+    const data = text ? JSON.parse(text) : null;
+    if (!response.ok) {
+      throw new Error(data?.message || data?.error || `HTTP ${response.status}`);
+    }
+    return data;
+  } finally {
+    clearTimeout(timeout);
   }
-  return data;
 }
 
 export function getTrailingComparisonRange(now = new Date(), days = 30) {
@@ -102,17 +115,18 @@ export function getTrailingComparisonRange(now = new Date(), days = 30) {
   };
 }
 
-export async function getUmamiToken({ connection, fetchImpl = fetch }) {
+export async function getUmamiToken({ connection, fetchImpl = fetch, requestTimeoutMs = 10_000 }) {
   const login = await requestJson(apiUrl(connection.baseUrl, "/api/auth/login"), {
     method: "POST",
     body: { username: connection.username, password: connection.password },
     fetchImpl,
+    timeoutMs: requestTimeoutMs,
   });
   if (!login?.token) throw new Error("Umami login did not return a token");
   return login.token;
 }
 
-export async function resolveUmamiSites({ connection, token, sites, fetchImpl = fetch }) {
+export async function resolveUmamiSites({ connection, token, sites, fetchImpl = fetch, requestTimeoutMs = 10_000 }) {
   if (sites.every((site) => site.websiteId)) return sites;
 
   let response;
@@ -120,6 +134,7 @@ export async function resolveUmamiSites({ connection, token, sites, fetchImpl = 
     response = await requestJson(apiUrl(connection.baseUrl, "/api/websites", { pageSize: 200 }), {
       token,
       fetchImpl,
+      timeoutMs: requestTimeoutMs,
     });
   } catch {
     return sites;
@@ -139,7 +154,7 @@ export async function resolveUmamiSites({ connection, token, sites, fetchImpl = 
   });
 }
 
-export async function fetchUmamiSiteData({ connection, token, site, range, fetchImpl = fetch }) {
+export async function fetchUmamiSiteData({ connection, token, site, range, fetchImpl = fetch, requestTimeoutMs = 10_000 }) {
   if (!site.websiteId) {
     return { site, status: "missing_website_id", message: "Sin websiteId configurado" };
   }
@@ -150,33 +165,33 @@ export async function fetchUmamiSiteData({ connection, token, site, range, fetch
 
   try {
     const [stats, previousStats, series, topPages, topReferrers, topCountries, devices] = await Promise.all([
-      requestJson(apiUrl(connection.baseUrl, `${sitePath}/stats`, currentParams), { token, fetchImpl }),
-      requestJson(apiUrl(connection.baseUrl, `${sitePath}/stats`, previousParams), { token, fetchImpl }),
+      requestJson(apiUrl(connection.baseUrl, `${sitePath}/stats`, currentParams), { token, fetchImpl, timeoutMs: requestTimeoutMs }),
+      requestJson(apiUrl(connection.baseUrl, `${sitePath}/stats`, previousParams), { token, fetchImpl, timeoutMs: requestTimeoutMs }),
       requestJson(apiUrl(connection.baseUrl, `${sitePath}/pageviews`, {
         ...currentParams,
         unit: "day",
         timezone: "Europe/Madrid",
-      }), { token, fetchImpl }),
+      }), { token, fetchImpl, timeoutMs: requestTimeoutMs }),
       requestJson(apiUrl(connection.baseUrl, `${sitePath}/metrics`, {
         ...currentParams,
         type: "url",
         limit: 8,
-      }), { token, fetchImpl }),
+      }), { token, fetchImpl, timeoutMs: requestTimeoutMs }),
       requestJson(apiUrl(connection.baseUrl, `${sitePath}/metrics`, {
         ...currentParams,
         type: "referrer",
         limit: 8,
-      }), { token, fetchImpl }),
+      }), { token, fetchImpl, timeoutMs: requestTimeoutMs }),
       requestJson(apiUrl(connection.baseUrl, `${sitePath}/metrics`, {
         ...currentParams,
         type: "country",
         limit: 8,
-      }), { token, fetchImpl }),
+      }), { token, fetchImpl, timeoutMs: requestTimeoutMs }),
       requestJson(apiUrl(connection.baseUrl, `${sitePath}/metrics`, {
         ...currentParams,
         type: "device",
         limit: 8,
-      }), { token, fetchImpl }),
+      }), { token, fetchImpl, timeoutMs: requestTimeoutMs }),
     ]);
 
     return {
@@ -204,6 +219,7 @@ export async function fetchUmamiPanelData({
   sites,
   range,
   fetchImpl = fetch,
+  requestTimeoutMs = 10_000,
 }) {
   if (!connection?.baseUrl || !connection?.password) {
     return sites.map((site) => ({
@@ -215,16 +231,16 @@ export async function fetchUmamiPanelData({
 
   let token;
   try {
-    token = await getUmamiToken({ connection, fetchImpl });
+    token = await getUmamiToken({ connection, fetchImpl, requestTimeoutMs });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     return sites.map((site) => ({ site, status: "error", message }));
   }
 
-  const resolvedSites = await resolveUmamiSites({ connection, token, sites, fetchImpl });
+  const resolvedSites = await resolveUmamiSites({ connection, token, sites, fetchImpl, requestTimeoutMs });
   return Promise.all(
     resolvedSites.map((site) =>
-      fetchUmamiSiteData({ connection, token, site, range, fetchImpl }),
+      fetchUmamiSiteData({ connection, token, site, range, fetchImpl, requestTimeoutMs }),
     ),
   );
 }
@@ -234,6 +250,7 @@ export async function fetchAllUmamiPanelData({
   sites,
   range,
   fetchImpl = fetch,
+  requestTimeoutMs = 10_000,
 }) {
   const sources = ["personal", "agama"];
   const reportsBySource = await Promise.all(
@@ -245,6 +262,7 @@ export async function fetchAllUmamiPanelData({
         sites: sourceSites,
         range,
         fetchImpl,
+        requestTimeoutMs,
       });
     }),
   );

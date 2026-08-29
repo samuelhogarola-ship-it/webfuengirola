@@ -304,3 +304,35 @@ test("environment example documents both Umami instances and every website ID wi
 
   assert.doesNotMatch(source, /^(?:UMAMI_(?:PERSONAL|AGAMA)_PASSWORD|STAT_REPORT_UMAMI_PASSWORD)=.+$/m);
 });
+
+test("shared Umami requests abort after the configured timeout", async () => {
+  const connection = {
+    source: "personal",
+    baseUrl: "https://personal.example",
+    username: "admin",
+    password: "secret",
+  };
+  const startedAt = Date.now();
+
+  const reports = await fetchUmamiPanelData({
+    connection,
+    sites: [{
+      key: "webfuengirola",
+      label: "Web Fuengirola",
+      domain: "webfuengirola.com",
+      source: "personal",
+      panelKey: "wf-studio",
+      websiteId: "wf-id",
+    }],
+    range: getTrailingComparisonRange(new Date("2026-08-29T12:00:00.000Z"), 30),
+    requestTimeoutMs: 5,
+    fetchImpl: async (_url, init = {}) => new Promise((_resolve, reject) => {
+      assert.ok(init.signal, "fetch receives an abort signal");
+      init.signal.addEventListener("abort", () => reject(new Error("request timed out")), { once: true });
+    }),
+  });
+
+  assert.equal(reports[0].status, "error");
+  assert.match(reports[0].message, /timed out/);
+  assert.ok(Date.now() - startedAt < 250);
+});

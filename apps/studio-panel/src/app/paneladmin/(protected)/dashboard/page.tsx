@@ -1,5 +1,8 @@
 import Link from 'next/link'
+import { Suspense } from 'react'
 
+import { AnalyticsSkeleton } from '@/components/admin/analytics-skeleton'
+import { PanelAnalyticsSection } from '@/components/admin/panel-analytics-section'
 import { AdminShell } from '@/components/layout/app-shell'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
@@ -39,6 +42,10 @@ export default async function AdminDashboardPage() {
           </Link>
         ))}
       </section>
+
+      <Suspense fallback={<AnalyticsSkeleton />}>
+        <PanelAnalyticsSection panelKey="wf-studio" />
+      </Suspense>
 
       <section className="mt-8">
         <div className="mb-4 flex items-end justify-between gap-4">

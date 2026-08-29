@@ -1,5 +1,8 @@
 import Link from 'next/link'
+import { Suspense } from 'react'
 
+import { AnalyticsSkeleton } from '@/components/admin/analytics-skeleton'
+import { PanelAnalyticsSection } from '@/components/admin/panel-analytics-section'
 import { AdminShell } from '@/components/layout/app-shell'
 import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
@@ -45,6 +48,10 @@ export default async function Page() {
           <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{subscriptionsData.stats.unpaid}</p>
         </Card>
       </section>
+
+      <Suspense fallback={<AnalyticsSkeleton />}>
+        <PanelAnalyticsSection panelKey="vivir" />
+      </Suspense>
 
       <section className="grid gap-4 md:grid-cols-3">
         {[

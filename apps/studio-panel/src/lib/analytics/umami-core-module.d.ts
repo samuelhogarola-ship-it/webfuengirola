@@ -69,12 +69,14 @@ declare module '@/lib/analytics/umami-core.mjs' {
   export function getUmamiToken(options: {
     connection: UmamiConnection
     fetchImpl?: typeof fetch
+    requestTimeoutMs?: number
   }): Promise<string>
   export function resolveUmamiSites(options: {
     connection: UmamiConnection
     token: string
     sites: UmamiSite[]
     fetchImpl?: typeof fetch
+    requestTimeoutMs?: number
   }): Promise<UmamiSite[]>
   export function fetchUmamiSiteData(options: {
     connection: UmamiConnection
@@ -82,17 +84,20 @@ declare module '@/lib/analytics/umami-core.mjs' {
     site: UmamiSite
     range: UmamiRange
     fetchImpl?: typeof fetch
+    requestTimeoutMs?: number
   }): Promise<UmamiSiteReport>
   export function fetchUmamiPanelData(options: {
     connection: UmamiConnection
     sites: UmamiSite[]
     range: UmamiRange
     fetchImpl?: typeof fetch
+    requestTimeoutMs?: number
   }): Promise<UmamiSiteReport[]>
   export function fetchAllUmamiPanelData(options: {
     connections: Record<UmamiSourceKey, UmamiConnection>
     sites: UmamiSite[]
     range: UmamiRange
     fetchImpl?: typeof fetch
+    requestTimeoutMs?: number
   }): Promise<UmamiSiteReport[]>
 }
