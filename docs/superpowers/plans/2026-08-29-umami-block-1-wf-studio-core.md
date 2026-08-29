@@ -317,3 +317,14 @@ git commit -m "feat: add dual-source Umami analytics core"
 ```
 
 Do not push until separately authorized.
+
+## Execution status
+
+Implemented and verified on 2026-08-29 in `codex/umami-wf-studio-core`:
+
+- Registry and environment compatibility: complete.
+- Dual-source client, comparisons, source isolation and partial failures: complete.
+- Five-minute server cache: complete.
+- Monthly report migration with persistence and email behavior preserved: complete.
+- Environment/operations documentation and full verification gate: complete.
+- Commit and push: pending explicit user authorization.

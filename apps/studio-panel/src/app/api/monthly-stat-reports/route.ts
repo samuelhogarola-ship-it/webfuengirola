@@ -3,14 +3,15 @@ import { randomUUID } from 'node:crypto'
 import { NextResponse } from 'next/server'
 
 import {
-  fetchUmamiSiteSummary,
+  fetchAllUmamiPanelData,
+  getUmamiConnections,
+} from '@/lib/analytics/umami-core.mjs'
+import {
   deliverMonthlyStatReport,
   getConfiguredReportSites,
   getMonthlyStatReportConfig,
-  getUmamiToken,
   isAuthorizedMonthlyCronRequest,
   processMonthlyStatReport,
-  resolveReportSites,
 } from '@/lib/cron/monthly-stat-reports.mjs'
 import { createMonthlyStatReportRepository } from '@/lib/data/monthly-stat-reports.mjs'
 import { sendMonthlyStatReportEmail } from '@/lib/email'
@@ -50,18 +51,17 @@ async function runMonthlyStatReport(request: Request) {
   const setup = getRequiredConfig()
   if ('error' in setup) return setup.error
 
-  const { baseUrl, username, password, reportTo } = setup.config
-  const token = await getUmamiToken({ baseUrl, username, password })
+  const { reportTo } = setup.config
   const reportRepository = createMonthlyStatReportRepository(createSupabaseAdminClient())
-  const sites = await resolveReportSites({
-    baseUrl,
-    token,
-    sites: getConfiguredReportSites(),
-  })
+  const sites = getConfiguredReportSites()
 
   const result = await processMonthlyStatReport({
     sites,
-    fetchSiteSummary: ({ site, range }) => fetchUmamiSiteSummary({ baseUrl, token, site, range }),
+    fetchSiteReports: ({ range }) => fetchAllUmamiPanelData({
+      connections: getUmamiConnections(process.env),
+      sites,
+      range,
+    }),
     saveReport: async ({ monthKey, label, markdown, siteReports, generatedAt }) => {
       const saved = await reportRepository.save({
         monthKey,

@@ -10,3 +10,4 @@
 - Recommended handoff between computers: finish a coherent change, commit it, push it, then pull before beginning work on the other computer.
 - Keep generated dependencies, build output, caches, local environment files, secrets, and temporary files out of Git unless the user explicitly decides otherwise.
 - Remember that ignored files and empty directories are not synchronized by Git. Flag any user-owned source or content directory that is ignored and therefore will not reach the other computer.
+- For substantial changes, always work on a dedicated branch, push it, and open a Pull Request against `main`; do not merge substantial work directly into `main`.

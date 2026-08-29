@@ -4,6 +4,8 @@ declare module '@/lib/cron/monthly-stat-reports.mjs' {
     label: string
     domain: string
     websiteId?: string
+    source: 'personal' | 'agama'
+    panelKey: import('@/lib/analytics/umami-core.mjs').UmamiPanelKey
   }
 
   export function isAuthorizedCronRequest(options: {
@@ -22,9 +24,6 @@ declare module '@/lib/cron/monthly-stat-reports.mjs' {
   }): boolean
 
   export function getMonthlyStatReportConfig(env?: NodeJS.ProcessEnv): {
-    baseUrl: string
-    username: string
-    password: string
     reportTo: string
   }
 
@@ -54,16 +53,20 @@ declare module '@/lib/cron/monthly-stat-reports.mjs' {
     baseUrl: string
     token: string
     site: StatReportSite
-    range: { monthKey: string; label: string; startAt: number; endAt: number }
+    range: { monthKey: string; label: string; startAt: number; endAt: number; previousStartAt: number; previousEndAt: number; days: number }
   }): Promise<unknown>
 
   export function processMonthlyStatReport(options: {
     now?: Date
     sites: StatReportSite[]
-    fetchSiteSummary: (context: {
+    fetchSiteSummary?: (context: {
       site: StatReportSite
-      range: { monthKey: string; label: string; startAt: number; endAt: number }
+      range: { monthKey: string; label: string; startAt: number; endAt: number; previousStartAt: number; previousEndAt: number; days: number }
     }) => Promise<unknown>
+    fetchSiteReports?: (context: {
+      sites: StatReportSite[]
+      range: { monthKey: string; label: string; startAt: number; endAt: number; previousStartAt: number; previousEndAt: number; days: number }
+    }) => Promise<unknown[]>
     saveReport: (report: {
       monthKey: string
       label: string

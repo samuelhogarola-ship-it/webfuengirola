@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 
 import {
   getConfiguredReportSites,
@@ -83,26 +84,18 @@ test("previous month range uses full UTC calendar month", () => {
   assert.equal(range.endAt, Date.UTC(2026, 7, 1) - 1);
 });
 
-test("configured report sites keep missing website ids visible", () => {
+test("configured report sites include all panels and keep missing website ids visible", () => {
   const sites = getConfiguredReportSites({
     STAT_REPORT_UMAMI_WEBSITE_ID_WEBFUENGIROLA: "wf-id",
     STAT_REPORT_UMAMI_WEBSITE_ID_SUPERENTRENADOR: "super-id",
   });
 
-  assert.equal(sites.length, 8);
-  assert.deepEqual(
-    sites.map((site) => [site.key, site.websiteId ?? null]),
-    [
-      ["webfuengirola", "wf-id"],
-      ["vivirenfuengirola", null],
-      ["conocef", null],
-      ["topfuengirola", null],
-      ["samuelcoachdealeman", null],
-      ["vikingfitness", null],
-      ["personaltrainerfuengirola", null],
-      ["gimnasionuevoestilo", null],
-    ],
-  );
+  assert.equal(sites.length, 14);
+  assert.equal(sites.find((site) => site.key === "webfuengirola")?.source, "personal");
+  assert.equal(sites.find((site) => site.key === "webfuengirola")?.websiteId, "wf-id");
+  assert.equal(sites.find((site) => site.key === "superentrenador")?.websiteId, "super-id");
+  assert.equal(sites.find((site) => site.key === "todoplastico")?.source, "agama");
+  assert.equal(sites.find((site) => site.key === "todoplastico")?.websiteId, undefined);
 });
 
 test("monthly cron authorization accepts shared and dedicated secrets", () => {
@@ -249,6 +242,65 @@ test("monthly report renders previous-period deltas from legacy Umami stats", as
 
   assert.match(result.storageRef, /Páginas vistas: 20 \(\+8 vs\. mes anterior\)/);
   assert.match(result.storageRef, /Visitantes: 8 \(-2 vs\. mes anterior\)/);
+});
+
+test("monthly report renders deltas from shared current and previous stats", async () => {
+  const result = await processMonthlyStatReport({
+    now: new Date("2026-08-25T10:30:00.000Z"),
+    sites: [{ key: "webfuengirola", label: "Web Fuengirola", domain: "webfuengirola.com", websiteId: "wf-id" }],
+    fetchSiteReports: async ({ sites }) => [{
+      site: sites[0],
+      status: "ok",
+      stats: { pageviews: { value: 20 }, visitors: { value: 8 }, visits: { value: 11 }, bounces: { value: 3 }, totaltime: { value: 120 } },
+      previousStats: { pageviews: { value: 12 }, visitors: { value: 10 }, visits: { value: 9 }, bounces: { value: 4 } },
+      series: { pageviews: [], sessions: [] },
+      topPages: [],
+      topReferrers: [],
+      topCountries: [],
+      devices: [],
+    }],
+    saveReport: async (report) => report.markdown,
+  });
+
+  assert.match(result.storageRef, /Páginas vistas: 20 \(\+8 vs\. mes anterior\)/);
+  assert.match(result.storageRef, /Visitantes: 8 \(-2 vs\. mes anterior\)/);
+});
+
+test("bulk dual-source results preserve source errors in the stored report", async () => {
+  let savedReports;
+  const sites = [
+    { key: "webfuengirola", label: "Web Fuengirola", domain: "webfuengirola.com", source: "personal", panelKey: "wf-studio", websiteId: "wf-id" },
+    { key: "todoplastico", label: "TodoPlástico", domain: "todo-plastico.com", source: "agama", panelKey: "todoplastico", websiteId: "todo-id" },
+  ];
+
+  const result = await processMonthlyStatReport({
+    now: new Date("2026-08-25T10:30:00.000Z"),
+    sites,
+    fetchSiteReports: async () => [
+      { site: sites[0], status: "error", message: "personal offline" },
+      { site: sites[1], status: "ok", stats: { pageviews: 40 }, previousStats: { pageviews: 30 }, topPages: [], topReferrers: [], topCountries: [], devices: [] },
+    ],
+    saveReport: async ({ siteReports }) => {
+      savedReports = siteReports;
+      return "supabase:monthly_stat_reports/2026-07";
+    },
+  });
+
+  assert.equal(result.generated, true);
+  assert.equal(savedReports[0].message, "personal offline");
+  assert.equal(savedReports[1].site.source, "agama");
+  assert.equal(savedReports[1].status, "ok");
+});
+
+test("monthly route obtains both Umami sources through the shared core", async () => {
+  const source = await readFile(
+    new URL("../src/app/api/monthly-stat-reports/route.ts", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(source, /getUmamiConnections/);
+  assert.match(source, /fetchAllUmamiPanelData/);
+  assert.doesNotMatch(source, /STAT_REPORT_UMAMI_URL/);
 });
 
 test("monthly report repository upserts one durable row per month", async () => {
