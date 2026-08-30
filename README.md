@@ -123,10 +123,11 @@ Configura estas variables en Coolify:
 ```dotenv
 UMAMI_SCRIPT_URL=https://analytics.187.124.55.36.sslip.io/script.js
 UMAMI_HOST_URL=https://analytics.187.124.55.36.sslip.io
-UMAMI_WEBSITE_ID=<id independiente de webfuengirola.com>
+UMAMI_WEBSITE_ID=957c045f-c060-4429-91d7-d2a1d1962ad5
 ```
 
-El contenedor genera `/umami-config.json` al arrancar. En desarrollo local el
+El contenedor genera `/umami-config.json` al arrancar y usa ese ID público como
+fallback si la variable no está definida. En desarrollo local el
 archivo existe con el ID vacío, por lo que la página sigue funcionando sin
 enviar tráfico. Cada dominio debe conservar su propio `websiteId`.
 
