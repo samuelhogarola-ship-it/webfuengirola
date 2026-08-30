@@ -998,10 +998,29 @@
     document.documentElement.dataset.analyticsConsent = hasAnalytics
       ? "granted"
       : "denied";
-    if (window.UmamiAnalyticsCore) {
-      if (hasAnalytics) UmamiAnalyticsCore.grantConsent();
-      else UmamiAnalyticsCore.revokeConsent();
-    }
+  }
+
+  function initUmamiAnalytics() {
+    if (
+      !window.UmamiAnalyticsCore ||
+      typeof window.UmamiAnalyticsCore.init !== "function"
+    )
+      return;
+
+    window
+      .fetch("/umami-config.json", {
+        cache: "no-store",
+        credentials: "same-origin",
+      })
+      .then(function (response) {
+        return response.ok ? response.json() : {};
+      })
+      .catch(function () {
+        return {};
+      })
+      .then(function (config) {
+        window.UmamiAnalyticsCore.init(config);
+      });
   }
 
   function buildCookieBannerConfig(lang) {
@@ -1034,21 +1053,13 @@
   }
 
   function initCookieBanner(lang) {
+    initUmamiAnalytics();
+
     if (
       !window.CookieBannerCore ||
       typeof window.CookieBannerCore.init !== "function"
     )
       return;
-
-    // Umami no toca red hasta que el banner tenga permiso de analiticas.
-    if (window.UmamiAnalyticsCore) {
-      UmamiAnalyticsCore.init({
-        websiteId: "95065b03-13a9-49fe-9ca4-a443b4f8c584",
-        scriptSrc: "https://analytics.2.24.10.239.sslip.io/script.js",
-        hostUrl: "https://analytics.2.24.10.239.sslip.io",
-        preferencesKey: cookiePreferencesKey,
-      });
-    }
 
     cookieBannerInstance = window.CookieBannerCore.init(
       buildCookieBannerConfig(lang || defaultLang),

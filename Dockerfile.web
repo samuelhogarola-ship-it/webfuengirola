@@ -13,6 +13,7 @@ RUN cp -R \
   /app/cookie-banner-core.css \
   /app/cookie-banner-core.js \
   /app/umami-analytics-core.js \
+  /app/umami-config.json \
   /app/legal-core.js \
   /app/legal-page.js \
   /app/legal.html \
@@ -54,4 +55,6 @@ RUN rm -f \
 FROM nginx:alpine
 COPY --from=builder /out/ /usr/share/nginx/html/
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY config/umami-config.template.json /usr/local/share/webfuengirola/umami-config.template.json
+COPY scripts/render-umami-config.sh /docker-entrypoint.d/40-render-umami-config.sh
 EXPOSE 80

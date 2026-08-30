@@ -105,26 +105,15 @@ La base reutilizable para futuros proyectos sigue en:
 - blog, portfolio, casos y servicios ya generados como HTML
 - calculadora comercial ya mejorada recientemente
 - SEO mejor en blog que en algunas páginas corporativas
-- analytics ya migrado a Umami propio, con consentimiento por banner antes de cargar scripts externos
+- analytics usa Umami cookieless desde la primera visita, independientemente del banner
 
 ### Analytics / Umami
 
-- Umami central corre en el VPS Coolify / Hostinger `2.24.10.239`
-- URL activa: `https://analytics.2.24.10.239.sslip.io`
-- no hace falta DNS bonito ahora mismo; `sslip.io` funciona y evita tocar IONOS
-- URL bonita opcional futura: `https://analytics.webfuengirola.com`
-- credenciales admin guardadas solo en el VPS: `/root/umami/README.txt`
-- contenedores del VPS:
-  - `umami`
-  - `umami-db`
-- sitios ya creados en Umami:
-  - `AGAMA Marketplace` / `agama.com.mx` / `fc7b7df1-600c-4d53-b17e-d1aafd90d6b8`
-  - `Web Fuengirola` / `webfuengirola.com` / `95065b03-13a9-49fe-9ca4-a443b4f8c584`
-- nota importante: en `/root/umami/docker-compose.yml`, `DATABASE_URL` debe conservar `${UMAMI_DB_PASSWORD}` y no una contraseña escrita a mano
-- última comprobación en vivo:
-  - panel público `HTTP 200`
-  - `/api/send` para Web Fuengirola `HTTP 200`
-  - login inicial `admin / umami` bloqueado con `401`
+- Web Fuengirola usa el VPS personal `187.124.55.36`
+- URL activa: `https://analytics.187.124.55.36.sslip.io`
+- `2.24.10.239` queda reservado para Agama y TodoPlástico
+- el despliegue necesita `UMAMI_SCRIPT_URL`, `UMAMI_HOST_URL` y el ID público `UMAMI_WEBSITE_ID`
+- las credenciales API/administrador permanecen únicamente en servidor
 
 ### Studio Panel
 
@@ -174,8 +163,8 @@ La base reutilizable para futuros proyectos sigue en:
 
 ## Siguiente Arranque Recomendado
 
-1. Comprobar Umami antes de seguir: `https://analytics.2.24.10.239.sslip.io` debe responder y los contenedores `umami` / `umami-db` deben estar `Up`.
-2. Crear en Umami los siguientes sitios pendientes según vayamos conectando proyectos: Todo Plástico, Vivir en Fuengirola, Top Fuengirola y los paneles internos que tengan tráfico propio.
+1. Comprobar Umami personal antes de seguir: `https://analytics.187.124.55.36.sslip.io` debe responder.
+2. Confirmar que `webfuengirola.com` tiene un website ID independiente y guardarlo como `UMAMI_WEBSITE_ID` en Coolify.
 3. Actualizar `README.md` raíz para que refleje la estructura completa del proyecto.
 4. Si se trabaja en el panel, entrar directamente por `apps/studio-panel/package.json`, `README.md` y `src/app/`.
 5. Si se trabaja en la web pública, entrar por `index.html`, `style.css`, `script.js`, `data/` y las carpetas de páginas.
