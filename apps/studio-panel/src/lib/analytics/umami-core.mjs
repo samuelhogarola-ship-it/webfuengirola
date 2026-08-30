@@ -93,7 +93,12 @@ async function requestJson(url, {
     const text = await response.text();
     const data = text ? JSON.parse(text) : null;
     if (!response.ok) {
-      throw new Error(data?.message || data?.error || `HTTP ${response.status}`);
+      const message =
+        (typeof data?.message === "string" && data.message) ||
+        (typeof data?.error === "string" && data.error) ||
+        (typeof data?.error?.message === "string" && data.error.message) ||
+        `HTTP ${response.status}`;
+      throw new Error(message);
     }
     return data;
   } finally {
@@ -174,7 +179,7 @@ export async function fetchUmamiSiteData({ connection, token, site, range, fetch
       }), { token, fetchImpl, timeoutMs: requestTimeoutMs }),
       requestJson(apiUrl(connection.baseUrl, `${sitePath}/metrics`, {
         ...currentParams,
-        type: "url",
+        type: "path",
         limit: 8,
       }), { token, fetchImpl, timeoutMs: requestTimeoutMs }),
       requestJson(apiUrl(connection.baseUrl, `${sitePath}/metrics`, {
