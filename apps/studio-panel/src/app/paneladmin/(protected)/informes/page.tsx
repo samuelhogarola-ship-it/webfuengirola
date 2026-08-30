@@ -1,25 +1,47 @@
+import fs from 'node:fs/promises'
+import path from 'node:path'
+
 import Link from 'next/link'
 
 import { AdminShell } from '@/components/layout/app-shell'
 import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
-import { createMonthlyStatReportRepository } from '@/lib/data/monthly-stat-reports.mjs'
 import { getLocale } from '@/lib/locale'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 
-export default async function AdminInformesPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ month?: string }>
-}) {
+async function getStatReports() {
+  const storageDir = process.env.STAT_REPORT_STORAGE_DIR || path.join(process.cwd(), 'storage', 'stat-reports')
+
+  try {
+    const entries = await fs.readdir(storageDir, { withFileTypes: true })
+    const reports = await Promise.all(
+      entries
+        .filter((entry) => entry.isFile() && entry.name.endsWith('.md'))
+        .map(async (entry) => {
+          const filePath = path.join(storageDir, entry.name)
+          const content = await fs.readFile(filePath, 'utf8')
+          return {
+            month: entry.name.replace(/\.md$/, ''),
+            filePath,
+            content,
+          }
+        })
+    )
+    return reports.sort((a, b) => b.month.localeCompare(a.month))
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return []
+    throw error
+  }
+}
+
+export default async function AdminInformesPage() {
   const identity = await requireAdmin()
   const locale = await getLocale()
   const supabase = await createSupabaseServerClient()
-  const statReports = await createMonthlyStatReportRepository(supabase).list()
-  const { month } = await searchParams
-  const selectedStatReport = statReports.find((report) => report.month_key === month) ?? statReports[0]
+  const statReports = await getStatReports()
+  const latestStatReport = statReports[0]
 
   const { data: clients } = await supabase
     .from('clients')
@@ -46,20 +68,14 @@ export default async function AdminInformesPage({
           <div className="grid gap-0 lg:grid-cols-[240px_1fr]">
             <div className="border-b border-line lg:border-b-0 lg:border-r">
               {statReports.map((report) => (
-                <Link
-                  key={report.month_key}
-                  href={`/paneladmin/informes?month=${encodeURIComponent(report.month_key)}`}
-                  className={`block border-b border-line px-6 py-4 transition-colors last:border-b-0 ${
-                    selectedStatReport?.month_key === report.month_key ? 'bg-slate-100' : 'hover:bg-slate-50'
-                  }`}
-                >
-                  <p className="font-semibold text-foreground">{report.label}</p>
-                  <p className="mt-1 text-xs text-muted">{report.month_key}</p>
-                </Link>
+                <div key={report.month} className="border-b border-line px-6 py-4 last:border-b-0">
+                  <p className="font-semibold text-foreground">{report.month}</p>
+                  <p className="mt-1 break-all text-xs text-muted">{report.filePath}</p>
+                </div>
               ))}
             </div>
             <pre className="max-h-[560px] overflow-auto whitespace-pre-wrap bg-slate-950 px-6 py-5 text-xs leading-6 text-slate-100">
-              {selectedStatReport?.markdown}
+              {latestStatReport?.content}
             </pre>
           </div>
         ) : (

@@ -4,8 +4,8 @@
 
 El endpoint `/api/pending-reminders` exige `PENDING_REMINDERS_CRON_SECRET` o `CRON_SECRET`; sin secreto responde `503 cron_not_configured`.
 
-- En Coolify, crear una tarea programada diaria a las `08:00` que invoque `/api/pending-reminders` con `Authorization: Bearer <secret>`.
-- Usar `CRON_SECRET` como secreto compartido o `PENDING_REMINDERS_CRON_SECRET` como secreto específico del endpoint.
+- En Vercel, definir `CRON_SECRET`; Vercel lo envia como `Authorization: Bearer <secret>`.
+- En otro proveedor, usar `PENDING_REMINDERS_CRON_SECRET` y `Authorization` o `x-cron-secret`.
 - No incluir `?secret=`: el endpoint no lo acepta y las URLs suelen quedar en logs.
 - Alertar cuando `ok` sea `false` o `failed` no este vacio. Cada fallo indica `id`, fase `claim|send|persist|release` y mensaje.
 - Mantener Resend como proveedor del cron o conservar una clave de idempotencia equivalente si se cambia de proveedor.
@@ -14,17 +14,12 @@ El endpoint `/api/pending-reminders` exige `PENDING_REMINDERS_CRON_SECRET` o `CR
 
 El endpoint `/api/monthly-stat-reports` exige `MONTHLY_STAT_REPORTS_CRON_SECRET` o `CRON_SECRET`; sin secreto responde `503 cron_not_configured`.
 
-- En Coolify, crear una tarea programada el día 1 de cada mes a las `09:00` que invoque `/api/monthly-stat-reports` con `Authorization: Bearer <secret>`.
+- En Vercel, `vercel.json` lo programa el día 1 de cada mes a las 09:00.
 - En Coolify u otro cron externo, programar una llamada mensual con `Authorization: Bearer <secret>` o `x-cron-secret`.
-- Variables mínimas: `UMAMI_PERSONAL_URL`, `UMAMI_PERSONAL_PASSWORD`, `UMAMI_AGAMA_URL`, `UMAMI_AGAMA_PASSWORD`, `STAT_REPORT_EMAIL_TO` o `RESEND_TO_EMAIL`, `RESEND_API_KEY`, `RESEND_FROM_EMAIL` y `SUPABASE_SECRET_KEY`.
-- `MONTHLY_STAT_REPORTS_CRON_SECRET` es opcional; el endpoint acepta tanto este secreto como `CRON_SECRET`.
-- Variables recomendadas: los catorce `UMAMI_WEBSITE_ID_*` para evitar depender del listado global de cada Umami.
-- TodoPlástico debe usar exclusivamente la instancia Agama `https://analytics.2.24.10.239.sslip.io`; los otros trece sitios usan la instancia personal `https://analytics.187.124.55.36.sslip.io`.
-- El panel reutiliza el mismo núcleo dual y cachea las lecturas durante 300 segundos. Un fallo de una instancia queda reflejado por sitio sin cancelar el informe de la otra.
-- Los antiguos `STAT_REPORT_UMAMI_*` siguen funcionando como fallback de la instancia personal, pero no sustituyen ninguna variable de Agama.
-- Aplicar la migración `202608260001_monthly_stat_reports.sql` antes de activar el cron. Cada mes se guarda mediante `upsert` en `monthly_stat_reports`, usando `SUPABASE_SECRET_KEY`; el panel autenticado conserva acceso de solo lectura mediante RLS.
-- El envío adquiere primero un claim recuperable en Supabase, persiste fecha e ID de Resend y conserva además la clave de idempotencia `monthly-stat-report-YYYY-MM`.
-- El claim no caduca automáticamente: si Resend acepta el correo pero falla la confirmación en Supabase, el cron bloquea nuevos envíos para evitar duplicados. Revisar el correo en Resend y reconciliar `email_sent_at`/`email_message_id` manualmente antes de liberar `delivery_claim_token`.
+- Variables mínimas: `STAT_REPORT_UMAMI_URL`, `STAT_REPORT_UMAMI_PASSWORD`, `RESEND_API_KEY`, `RESEND_FROM_EMAIL`.
+- Variables recomendadas: `STAT_REPORT_EMAIL_TO`, `STAT_REPORT_STORAGE_DIR` y `STAT_REPORT_UMAMI_WEBSITE_ID_*` si el sitio no se puede resolver por dominio en Umami.
+- El informe se guarda como Markdown en `storage/stat-reports/YYYY-MM.md` salvo que `STAT_REPORT_STORAGE_DIR` apunte a otra carpeta.
+- Cada email usa idempotencia mensual: `monthly-stat-report-YYYY-MM`.
 
 ## Superentrenador - Umami
 

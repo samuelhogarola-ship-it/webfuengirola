@@ -11,7 +11,8 @@ dist/
 tsconfig.tsbuildinfo
 .tools
 MARKETING/
+saulofitness/
 testing/
 output/
 tmp/
-.worktrees/
+apps/studio-panel/storage/stat-reports/*.md
