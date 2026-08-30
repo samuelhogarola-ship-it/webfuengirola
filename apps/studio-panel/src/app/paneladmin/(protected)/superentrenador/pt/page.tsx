@@ -1,6 +1,9 @@
 import Link from 'next/link'
+import { Suspense } from 'react'
 
+import { AnalyticsSkeleton } from '@/components/admin/analytics-skeleton'
 import { ConnectionIssueCard } from '@/components/admin/connection-issue-card'
+import { PanelAnalyticsSection } from '@/components/admin/panel-analytics-section'
 import { AdminShell } from '@/components/layout/app-shell'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
@@ -135,6 +138,10 @@ export default async function Page() {
         </div>
       </section>
 
+      <Suspense fallback={<AnalyticsSkeleton />}>
+        <PanelAnalyticsSection panelKey="superentrenador" />
+      </Suspense>
+
       <section className="grid gap-5 lg:grid-cols-3">
         {ACCESS_CARDS.map((card) => (
           <a
@@ -254,12 +261,6 @@ export default async function Page() {
         </Card>
       </section>
 
-      <Card className="mt-8 border-amber-200 bg-amber-50 p-5">
-        <p className="text-sm font-semibold text-amber-950">Umami pendiente en el proyecto Superentrenador</p>
-        <p className="mt-1 text-sm text-amber-900">
-          Instrucción para el repo externo: añadir el script de Umami al layout público, marketplace, panel entrenador y panel alumno; configurar el website id de Superentrenador y verificar visitas por ruta. No se toca ese código desde WF.
-        </p>
-      </Card>
     </AdminShell>
   )
 }

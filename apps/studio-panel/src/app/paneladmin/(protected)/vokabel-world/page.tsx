@@ -1,6 +1,9 @@
 import Link from 'next/link'
+import { Suspense } from 'react'
 
+import { AnalyticsSkeleton } from '@/components/admin/analytics-skeleton'
 import { ConnectionIssueCard } from '@/components/admin/connection-issue-card'
+import { PanelAnalyticsSection } from '@/components/admin/panel-analytics-section'
 import { AdminShell } from '@/components/layout/app-shell'
 import { Card } from '@/components/ui/card'
 import { requireAdmin } from '@/lib/auth'
@@ -52,6 +55,10 @@ export default async function Page() {
           <p className="mt-3 text-3xl font-black tracking-tight text-foreground">{data?.stats.apps ?? 0}</p>
         </Card>
       </section>
+
+      <Suspense fallback={<AnalyticsSkeleton />}>
+        <PanelAnalyticsSection panelKey="vokabel-world" />
+      </Suspense>
 
       <section className="grid gap-4 md:grid-cols-2">
         <Link href="/paneladmin/vokabel-world/usuarios" className="block rounded-lg border border-line bg-card p-5 transition hover:border-brand">
