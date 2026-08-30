@@ -3,6 +3,7 @@
 ## Git is the shared source of truth
 
 - Treat the root Git repository and its `origin` remote as the source of truth for this entire project. Do not create nested Git repositories inside subfolders.
+- WF-Panel / WF Studio is an exception to this workspace boundary: although related work may be coordinated from this project, its source of truth is the separate `wf-studio-panel` repository. Make WF-Panel changes, commits, Pull Requests, deployments, and synchronization in that repository, not in `apps/studio-panel` here.
 - Assume the project may also be used from another computer. Before editing, inspect the current branch, working tree, and upstream divergence with read-only Git commands.
 - Preserve all existing local changes. Never discard, overwrite, reset, stash, commit, pull, merge, rebase, or push the user's work unless the user has authorized that operation.
 - Before starting new work, warn the user if the branch is behind its upstream, has diverged, or contains local changes that could conflict with synchronization.
