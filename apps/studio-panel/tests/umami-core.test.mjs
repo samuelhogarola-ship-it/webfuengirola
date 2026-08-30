@@ -157,7 +157,7 @@ test("configured source authenticates once and returns current plus comparison d
       if (parsed.pathname.endsWith("/pageviews")) {
         return jsonResponse({ pageviews: [{ x: "2026-08-29", y: 12 }], sessions: [] });
       }
-      if (parsed.searchParams.get("type") === "url") return jsonResponse([{ x: "/", y: 14 }]);
+      if (parsed.searchParams.get("type") === "path") return jsonResponse([{ x: "/", y: 14 }]);
       if (parsed.searchParams.get("type") === "referrer") return jsonResponse([{ x: "google.com", y: 9 }]);
       if (parsed.searchParams.get("type") === "country") return jsonResponse([{ x: "ES", y: 18 }]);
       if (parsed.searchParams.get("type") === "device") return jsonResponse([{ x: "mobile", y: 17 }]);
@@ -174,6 +174,38 @@ test("configured source authenticates once and returns current plus comparison d
   assert.deepEqual(reports[0].topReferrers, [{ x: "google.com", y: 9 }]);
   assert.deepEqual(reports[0].topCountries, [{ x: "ES", y: 18 }]);
   assert.deepEqual(reports[0].devices, [{ x: "mobile", y: 17 }]);
+  assert.equal(
+    requests.some(([path]) => path.endsWith("/metrics")),
+    true,
+  );
+});
+
+test("Umami v3 API errors keep their nested message", async () => {
+  const reports = await fetchUmamiPanelData({
+    connection: {
+      source: "personal",
+      baseUrl: "https://personal.example",
+      username: "admin",
+      password: "secret",
+    },
+    sites: [{
+      key: "webfuengirola",
+      label: "Web Fuengirola",
+      domain: "webfuengirola.com",
+      source: "personal",
+      panelKey: "wf-studio",
+      websiteId: "wf-id",
+    }],
+    range: getTrailingComparisonRange(new Date("2026-08-29T12:00:00.000Z"), 30),
+    fetchImpl: async (url) => {
+      const parsed = new URL(String(url));
+      if (parsed.pathname === "/api/auth/login") return jsonResponse({ token: "token" });
+      return jsonResponse({ error: { message: "Bad request", code: "bad-request" } }, 400);
+    },
+  });
+
+  assert.equal(reports[0].status, "error");
+  assert.equal(reports[0].message, "Bad request");
 });
 
 test("failure of personal does not discard agama results or cross credentials", async () => {
