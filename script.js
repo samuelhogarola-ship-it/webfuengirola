@@ -2317,18 +2317,41 @@
   }
 
   function initApp() {
-    function closeMobileMenu() {
+    var mobileMenuLinks = Array.prototype.slice.call(
+      nav.querySelectorAll(".nav__link"),
+    );
+    var mobileMenuBackground = [
+      document.querySelector(".skip-link"),
+      document.querySelector("main"),
+      document.querySelector("footer"),
+      document.querySelector(".whatsapp-fab"),
+    ].filter(Boolean);
+
+    function setMobileMenuBackgroundInert(isInert) {
+      mobileMenuBackground.forEach(function (element) {
+        if (isInert) element.setAttribute("inert", "");
+        else element.removeAttribute("inert");
+      });
+    }
+
+    function closeMobileMenu(restoreFocus) {
       nav.classList.remove("open");
       hamburger.classList.remove("open");
       hamburger.setAttribute("aria-expanded", "false");
+      hamburger.setAttribute("aria-label", "Abrir menú");
+      setMobileMenuBackgroundInert(false);
       document.body.classList.remove("is-menu-open");
+      if (restoreFocus) hamburger.focus();
     }
 
     function openMobileMenu() {
       nav.classList.add("open");
       hamburger.classList.add("open");
       hamburger.setAttribute("aria-expanded", "true");
+      hamburger.setAttribute("aria-label", "Cerrar menú");
+      setMobileMenuBackgroundInert(true);
       document.body.classList.add("is-menu-open");
+      if (mobileMenuLinks.length > 0) mobileMenuLinks[0].focus();
     }
 
     /* ---- Smooth scroll for anchor links ---- */
@@ -2340,7 +2363,14 @@
         var headerH = header.offsetHeight;
         var top =
           target.getBoundingClientRect().top + window.scrollY - headerH - 8;
-        window.scrollTo({ top: top, behavior: "smooth" });
+        var behavior = window.matchMedia("(prefers-reduced-motion: reduce)")
+          .matches
+          ? "auto"
+          : "smooth";
+        window.scrollTo({ top: top, behavior: behavior });
+        if (this.classList.contains("skip-link")) {
+          target.focus({ preventScroll: true });
+        }
       });
     });
 
@@ -2350,7 +2380,7 @@
     /* ---- Mobile menu ---- */
     hamburger.addEventListener("click", function () {
       var isOpen = nav.classList.contains("open");
-      if (isOpen) closeMobileMenu();
+      if (isOpen) closeMobileMenu(true);
       else openMobileMenu();
     });
 
@@ -2361,8 +2391,32 @@
     });
 
     document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape" && nav.classList.contains("open")) {
-        closeMobileMenu();
+      if (!nav.classList.contains("open")) return;
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeMobileMenu(true);
+        return;
+      }
+
+      if (event.key !== "Tab" || mobileMenuLinks.length === 0) return;
+
+      var firstMenuLink = mobileMenuLinks[0];
+      var lastMenuLink = mobileMenuLinks[mobileMenuLinks.length - 1];
+      var activeElement = document.activeElement;
+
+      if (event.shiftKey && activeElement === firstMenuLink) {
+        event.preventDefault();
+        hamburger.focus();
+      } else if (event.shiftKey && activeElement === hamburger) {
+        event.preventDefault();
+        lastMenuLink.focus();
+      } else if (!event.shiftKey && activeElement === lastMenuLink) {
+        event.preventDefault();
+        hamburger.focus();
+      } else if (!event.shiftKey && activeElement === hamburger) {
+        event.preventDefault();
+        firstMenuLink.focus();
       }
     });
 

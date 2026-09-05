@@ -466,7 +466,7 @@ test("sobre nosotros y como trabajamos mantienen branding y confianza claros", a
     page.getByRole("heading", { name: /quién hay detrás de web fuengirola/i }),
   ).toBeVisible();
   await expect(page.locator("body")).toContainText(
-    /samuel lleva el planteamiento, el diseño y la parte técnica del proyecto/i,
+    /samuel lleva el planteamiento, el diseño y la parte técnica del\s+proyecto/i,
   );
 
   await page.goto("/como-trabajamos/");
@@ -479,6 +479,156 @@ test("sobre nosotros y como trabajamos mantienen branding y confianza claros", a
   await expect(page.locator("body")).toContainText(
     /sabrás qué se decide, qué necesitas aportar y qué puedes esperar en cada momento/i,
   );
+});
+
+test("sobre nosotros permite saltar al contenido y marca la navegación actual", async ({
+  page,
+}) => {
+  await page.goto("/sobre-nosotros/");
+
+  const skipLink = page.getByRole("link", { name: /saltar al contenido/i });
+  await skipLink.focus();
+  await expect(skipLink).toBeFocused();
+  await skipLink.click();
+  await expect(page.locator("#main-content")).toBeFocused();
+  await expect(
+    page.locator('.nav__link[href="../sobre-nosotros/"]'),
+  ).toHaveAttribute("aria-current", "page");
+});
+
+test("sobre nosotros mantiene una composición legible en móvil", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/sobre-nosotros/");
+
+  await expect(page.locator("h1")).toBeVisible();
+  await expect(page.locator(".about-story__grid")).toHaveCSS(
+    "grid-template-columns",
+    "350px",
+  );
+
+  const viewport = await page.evaluate(() => ({
+    innerWidth: window.innerWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(viewport.scrollWidth).toBeLessThanOrEqual(viewport.innerWidth);
+});
+
+test("sobre nosotros mantiene la cabecera legible en tablet", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 820, height: 900 });
+  await page.goto("/sobre-nosotros/");
+
+  const header = page.locator(".header");
+  const links = page.locator(".nav__link");
+  const headerBox = await header.boundingBox();
+  const linkBoxes = await links.evaluateAll((nodes) =>
+    nodes.map((node) => node.getBoundingClientRect().toJSON()),
+  );
+
+  expect(headerBox).not.toBeNull();
+  for (const box of linkBoxes) {
+    expect(box.top).toBeGreaterThanOrEqual(headerBox.y);
+    expect(box.bottom).toBeLessThanOrEqual(headerBox.y + headerBox.height);
+    expect(box.height).toBeLessThan(40);
+  }
+});
+
+test("el menú móvil contiene el foco y lo devuelve al cerrar", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/sobre-nosotros/");
+
+  const menuButton = page.locator("#hamburger");
+  await menuButton.click();
+  await expect(menuButton).toHaveAttribute("aria-expanded", "true");
+  await expect(menuButton).toHaveAttribute("aria-label", "Cerrar menú");
+  await expect(page.locator(".nav__link").first()).toBeFocused();
+  await expect(page.locator("main")).toHaveAttribute("inert", "");
+  await expect(page.locator("footer")).toHaveAttribute("inert", "");
+  await expect(page.locator(".whatsapp-fab")).toBeHidden();
+
+  await page.keyboard.press("Shift+Tab");
+  await expect(menuButton).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(page.locator(".nav__link").first()).toBeFocused();
+
+  await page.keyboard.press("Escape");
+  await expect(menuButton).toHaveAttribute("aria-expanded", "false");
+  await expect(menuButton).toHaveAttribute("aria-label", "Abrir menú");
+  await expect(menuButton).toBeFocused();
+  await expect(page.locator("main")).not.toHaveAttribute("inert", "");
+  await expect(page.locator("footer")).not.toHaveAttribute("inert", "");
+});
+
+test("sobre nosotros respeta movimiento reducido y deja visibles sus anclas", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.addInitScript(() => {
+    const originalScrollTo = window.scrollTo.bind(window);
+    window.recordedScrollBehaviors = [];
+    window.scrollTo = (...args) => {
+      if (typeof args[0] === "object") {
+        window.recordedScrollBehaviors.push(args[0].behavior);
+      }
+      return originalScrollTo(...args);
+    };
+  });
+  await page.goto("/sobre-nosotros/");
+
+  const skipLink = page.getByRole("link", { name: /saltar al contenido/i });
+  await skipLink.focus();
+  await skipLink.click();
+  expect(await page.evaluate(() => window.recordedScrollBehaviors.at(-1))).toBe(
+    "auto",
+  );
+
+  await page.goto("/sobre-nosotros/#about-work-title");
+  const positions = await page.evaluate(() => ({
+    headerBottom: document.querySelector("header").getBoundingClientRect()
+      .bottom,
+    targetTop: document
+      .querySelector("#about-work-title")
+      .getBoundingClientRect().top,
+  }));
+  expect(positions.targetTop).toBeGreaterThanOrEqual(positions.headerBottom);
+  expect(positions.targetTop).toBeLessThanOrEqual(positions.headerBottom + 32);
+});
+
+test("sobre nosotros demuestra experiencia con casos visuales reales", async ({
+  page,
+}) => {
+  await page.goto("/sobre-nosotros/");
+
+  const images = page.locator(".about-work__media img");
+  await expect(images).toHaveCount(3);
+  for (const image of await images.all()) {
+    await image.evaluate((node) => node.scrollIntoView({ block: "center" }));
+    await expect(image).toBeVisible();
+    await expect(image).toHaveJSProperty("complete", true);
+    expect(await image.evaluate((node) => node.naturalWidth)).toBeGreaterThan(
+      0,
+    );
+  }
+
+  const mediaBoxes = await page
+    .locator(".about-work__media")
+    .evaluateAll((nodes) =>
+      nodes.map((node) => {
+        const box = node.getBoundingClientRect();
+        return { width: box.width, height: box.height };
+      }),
+    );
+  for (const box of mediaBoxes) {
+    expect(box.width / box.height).toBeCloseTo(4 / 3, 2);
+  }
+
+  const caseLinks = page.locator(".about-work__item a");
+  await expect(caseLinks).toHaveCount(3);
 });
 
 test("casos, recursos y blog mantienen branding público consistente", async ({
