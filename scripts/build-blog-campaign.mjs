@@ -1056,7 +1056,7 @@ function article(post, relatedPosts) {
       },
       publisher: {
         "@type": "Organization",
-        name: "Web Fuengirola",
+        name: "WF-Studio · Web Fuengirola",
         logo: {
           "@type": "ImageObject",
           url: "https://webfuengirola.com/img/logo-wf.webp",
@@ -1103,7 +1103,7 @@ function article(post, relatedPosts) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${escapeHtml(post.title)} | Web Fuengirola</title>
+  <title>${escapeHtml(post.title)} | WF-Studio · Web Fuengirola</title>
   <meta name="description" content="${escapeHtml(post.description)}" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <link rel="canonical" href="https://webfuengirola.com/blog/${post.slug}/" />
@@ -1121,7 +1121,7 @@ function article(post, relatedPosts) {
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Imagen del artículo ${escapeHtml(post.title)}" />
-  <meta property="og:site_name" content="Web Fuengirola" />
+  <meta property="og:site_name" content="WF-Studio · Web Fuengirola" />
   <meta property="og:locale" content="es_ES" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${escapeHtml(post.title)}" />
@@ -1140,8 +1140,8 @@ function article(post, relatedPosts) {
 <body class="project-page blog-page">
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="../../index.html" class="logo" aria-label="Web Fuengirola">
-        <img src="../../img/logo-wf.webp" alt="Web Fuengirola" class="logo__img" width="36" height="36" loading="eager" />
+      <a href="../../index.html" class="logo" aria-label="WF-Studio · Web Fuengirola">
+        <img src="../../img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="eager" />
       </a>
       <nav class="nav" id="nav" aria-label="Navegación principal">
         <ul class="nav__list">
@@ -1176,7 +1176,7 @@ function article(post, relatedPosts) {
         <div class="blog-meta">
           <span>Publicado el ${escapeHtml(post.dateLabel)}</span>
           <span>Lectura de ${escapeHtml(post.minutes)}</span>
-          <span>Por <a href="../../sobre-nosotros/">Samuel, Web Fuengirola</a></span>
+          <span>Por <a href="../../sobre-nosotros/">Samuel, WF-Studio · Web Fuengirola</a></span>
         </div>
       </div>
     </section>
@@ -1241,8 +1241,8 @@ ${faqHtml}
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <a href="../../index.html" class="logo logo--light" aria-label="Web Fuengirola">
-          <img src="../../img/logo-wf.webp" alt="Web Fuengirola" class="logo__img" width="36" height="36" loading="lazy" />
+        <a href="../../index.html" class="logo logo--light" aria-label="WF-Studio · Web Fuengirola">
+          <img src="../../img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="lazy" />
         </a>
         <p class="footer__tagline">Webs, SEO local y automatización para negocios locales en la Costa del Sol.</p>
       </div>
@@ -1275,7 +1275,7 @@ ${faqHtml}
     </div>
     <div class="footer__bottom">
       <div class="container">
-        <p>&copy; <span id="footer-year"></span> Web Fuengirola. Todos los derechos reservados.</p>
+        <p>&copy; <span id="footer-year"></span> WF-Studio · Web Fuengirola. Todos los derechos reservados.</p>
       </div>
     </div>
   </footer>
@@ -1319,14 +1319,14 @@ function buildIndex() {
       "@type": "Blog",
       "@id": "https://webfuengirola.com/blog/#blog",
       url: "https://webfuengirola.com/blog/",
-      name: "Blog de Web Fuengirola",
+      name: "Blog de WF-Studio · Web Fuengirola",
       description:
         "Artículos sobre webs, Google, redes sociales, SEO local e IA para negocios locales.",
       image: "https://webfuengirola.com/img/blog-home-og.webp",
       inLanguage: "es",
       publisher: {
         "@type": "Organization",
-        name: "Web Fuengirola",
+        name: "WF-Studio · Web Fuengirola",
         url: "https://webfuengirola.com/",
         logo: {
           "@type": "ImageObject",
@@ -1350,8 +1350,8 @@ function buildIndex() {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blog de diseño web en Fuengirola | Web Fuengirola</title>
-  <meta name="description" content="Blog de Web Fuengirola con consejos claros sobre páginas web, Google, redes sociales, SEO local e IA para negocios que quieren captar clientes." />
+  <title>Blog de diseño web en Fuengirola | WF-Studio · Web Fuengirola</title>
+  <meta name="description" content="Blog de WF-Studio · Web Fuengirola con consejos claros sobre páginas web, Google, redes sociales, SEO local e IA para negocios que quieren captar clientes." />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <link rel="canonical" href="https://webfuengirola.com/blog/" />
   <link rel="icon" type="image/webp" href="https://webfuengirola.com/favicon.webp" sizes="48x48" />
@@ -1359,7 +1359,7 @@ function buildIndex() {
   <link rel="apple-touch-icon" href="https://webfuengirola.com/apple-touch-icon.png" sizes="180x180" />
   <link rel="manifest" href="https://webfuengirola.com/site.webmanifest" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Blog de diseño web en Fuengirola | Web Fuengirola" />
+  <meta property="og:title" content="Blog de diseño web en Fuengirola | WF-Studio · Web Fuengirola" />
   <meta property="og:description" content="Artículos claros sobre webs, SEO local, Google, redes sociales e IA para negocios locales que quieren vender mejor online." />
   <meta property="og:url" content="https://webfuengirola.com/blog/" />
   <meta property="og:image" content="https://webfuengirola.com/img/blog-home-og.webp" />
@@ -1367,14 +1367,14 @@ function buildIndex() {
   <meta property="og:image:type" content="image/webp" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Portada del blog de Web Fuengirola" />
-  <meta property="og:site_name" content="Web Fuengirola" />
+  <meta property="og:image:alt" content="Portada del blog de WF-Studio · Web Fuengirola" />
+  <meta property="og:site_name" content="WF-Studio · Web Fuengirola" />
   <meta property="og:locale" content="es_ES" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Blog de diseño web en Fuengirola | Web Fuengirola" />
+  <meta name="twitter:title" content="Blog de diseño web en Fuengirola | WF-Studio · Web Fuengirola" />
   <meta name="twitter:description" content="Artículos claros sobre webs, SEO local, Google, redes sociales e IA para negocios locales que quieren vender mejor online." />
   <meta name="twitter:image" content="https://webfuengirola.com/img/blog-home-og.webp" />
-  <meta name="twitter:image:alt" content="Portada del blog de Web Fuengirola" />
+  <meta name="twitter:image:alt" content="Portada del blog de WF-Studio · Web Fuengirola" />
   <link rel="stylesheet" href="../cookie-banner-core.css" />
   <link rel="stylesheet" href="../style.css?v=10" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1387,8 +1387,8 @@ function buildIndex() {
 <body class="project-page blog-page">
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="../index.html" class="logo" aria-label="Web Fuengirola">
-        <img src="../img/logo-wf.webp" alt="Web Fuengirola" class="logo__img" width="36" height="36" loading="eager" />
+      <a href="../index.html" class="logo" aria-label="WF-Studio · Web Fuengirola">
+        <img src="../img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="eager" />
       </a>
       <nav class="nav" id="nav" aria-label="Navegación principal">
         <ul class="nav__list">
@@ -1478,8 +1478,8 @@ ${allCards}
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <a href="../index.html" class="logo logo--light" aria-label="Web Fuengirola">
-          <img src="../img/logo-wf.webp" alt="Web Fuengirola" class="logo__img" width="36" height="36" loading="lazy" />
+        <a href="../index.html" class="logo logo--light" aria-label="WF-Studio · Web Fuengirola">
+          <img src="../img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="lazy" />
         </a>
         <p class="footer__tagline">Webs, SEO local y automatización para negocios locales en la Costa del Sol.</p>
       </div>
@@ -1509,7 +1509,7 @@ ${allCards}
     </div>
     <div class="footer__bottom">
       <div class="container">
-        <p>&copy; <span id="footer-year"></span> Web Fuengirola. Todos los derechos reservados.</p>
+        <p>&copy; <span id="footer-year"></span> WF-Studio · Web Fuengirola. Todos los derechos reservados.</p>
       </div>
     </div>
   </footer>

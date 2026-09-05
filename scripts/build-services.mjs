@@ -51,7 +51,7 @@ function renderHead({
   <meta property="og:description" content="${escapeHtml(ogDescription)}" />
   <meta property="og:url" content="${canonical}" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Web Fuengirola" />
+  <meta property="og:site_name" content="WF-Studio · Web Fuengirola" />
   <meta property="og:locale" content="es_ES" />
   <meta property="og:image" content="${ogImage}" />
   <meta property="og:image:secure_url" content="${ogImage}" />
@@ -81,8 +81,8 @@ function renderHeader(prefix, activePage) {
   return `
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="${prefix}index.html" class="logo" aria-label="Web Fuengirola">
-        <img src="${prefix}img/logo-wf.webp" alt="Web Fuengirola" class="logo__img" width="36" height="36" loading="eager"/>
+      <a href="${prefix}index.html" class="logo" aria-label="WF-Studio · Web Fuengirola">
+        <img src="${prefix}img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="eager"/>
       </a>
       <nav class="nav" id="nav" aria-label="Navegación principal">
         <ul class="nav__list">
@@ -111,8 +111,8 @@ function renderFooter(
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <a href="${prefix}index.html" class="logo logo--light" aria-label="Web Fuengirola">
-          <img src="${prefix}img/logo-wf.webp" alt="Web Fuengirola" class="logo__img" width="36" height="36" loading="lazy"/>
+        <a href="${prefix}index.html" class="logo logo--light" aria-label="WF-Studio · Web Fuengirola">
+          <img src="${prefix}img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="lazy"/>
         </a>
         <p class="footer__tagline">Webs, SEO local y automatización para negocios locales en la Costa del Sol.</p>
       </div>
@@ -155,7 +155,7 @@ function renderFooter(
     </div>
     <div class="footer__bottom">
       <div class="container">
-        <p>&copy; <span id="footer-year"></span> Web Fuengirola. Todos los derechos reservados.</p>
+        <p>&copy; <span id="footer-year"></span> WF-Studio · Web Fuengirola. Todos los derechos reservados.</p>
       </div>
     </div>
   </footer>
@@ -185,7 +185,7 @@ function buildServiceHub() {
         {
           "@type": ["Organization", "LocalBusiness"],
           "@id": "https://webfuengirola.com/#organization",
-          name: "Web Fuengirola",
+          name: "WF-Studio · Web Fuengirola",
           url: "https://webfuengirola.com/",
           image: "https://webfuengirola.com/img/og-cover.jpg",
           telephone: "+34622923988",
@@ -239,11 +239,11 @@ ${renderHead({
   description:
     "Diseño web, SEO local, mantenimiento, automatización útil y herramientas a medida para negocios en Fuengirola y la Costa del Sol.",
   canonical,
-  ogTitle: "Servicios Web en Fuengirola | Web Fuengirola",
+  ogTitle: "Servicios Web en Fuengirola | WF-Studio · Web Fuengirola",
   ogDescription:
     "Diseño web, SEO local, automatización y soporte técnico para negocios locales en la Costa del Sol.",
   ogImage: "https://webfuengirola.com/img/og-cover.webp",
-  ogAlt: "Servicios Web Fuengirola",
+  ogAlt: "Servicios WF-Studio · Web Fuengirola",
   prefix,
   jsonLd,
 })}
@@ -261,7 +261,7 @@ ${renderHeader(prefix, "services")}
           <p class="section-desc">La mayoría de negocios no necesitan “todos los servicios” a la vez. Necesitan saber qué capa toca ahora y cuál puede esperar.</p>
         </div>
         <div class="portfolio__grid" style="margin-top: 3rem">
-          ${serviceCards}
+${serviceCards.trimStart()}
         </div>
       </div>
     </section>
@@ -301,7 +301,7 @@ function buildServicePage(service) {
         {
           "@type": ["Organization", "LocalBusiness"],
           "@id": "https://webfuengirola.com/#organization",
-          name: "Web Fuengirola",
+          name: "WF-Studio · Web Fuengirola",
           url: "https://webfuengirola.com/",
           telephone: "+34622923988",
           email: "info@webfuengirola.com",

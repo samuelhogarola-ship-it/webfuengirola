@@ -11,53 +11,77 @@ test("landing principal carga con hero y CTA principal", async ({ page }) => {
   ).toBeVisible();
 });
 
-test("landing explica la estrategia comercial en que hacemos", async () => {
+test("landing explica la propuesta local y la arquitectura comercial", async () => {
   const html = fs.readFileSync(
     path.join(__dirname, "..", "index.html"),
     "utf8",
   );
 
-  expect(html).toMatch(/mucho más que diseñar una página web/i);
-  expect(html).toMatch(/no es magia, es estrategia comercial/i);
+  expect(html).toMatch(/WF-Studio: diseño web en Fuengirola/i);
+  expect(html).toMatch(/Tres modalidades, el mismo precio para cada sector/i);
+  expect(html).toMatch(/Web Lite[\s\S]*data-tier-price="200"/i);
+  expect(html).toMatch(/Web Express[\s\S]*data-tier-price="350"/i);
+  expect(html).toMatch(/Web Profesional[\s\S]*data-tier-price="600"/i);
 });
 
-test("landing permite cambiar idioma desde la cabecera", async ({ page }) => {
+test("landing enlaza versiones equivalentes desde la cabecera", async ({ page }) => {
   await page.goto("/");
 
-  const switcher = page.getByRole("group", { name: /cambiar idioma/i });
+  const switcher = page.locator(".lang-switcher:not(.lang-switcher--mobile)");
   await expect(switcher).toBeVisible();
-  await expect(switcher.getByRole("button", { name: "ES" })).toHaveAttribute(
-    "aria-pressed",
-    "true",
+  await expect(switcher.getByRole("link", { name: "Español" })).toHaveAttribute(
+    "href",
+    "https://webfuengirola.com/",
+  );
+  await expect(switcher.getByRole("link", { name: "English" })).toHaveAttribute(
+    "href",
+    "https://webfuengirola.com/en/",
   );
 
-  await switcher.getByRole("button", { name: "EN" }).click();
+  await page.goto("/en/");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await expect(page.locator("h1")).toContainText(
-    /the website your business deserves/i,
+  await expect(page.getByRole("heading", { name: "We use cookies" })).toBeVisible();
+  await expect(page.locator(".cookie-banner-img")).toHaveAttribute(
+    "src",
+    "/img/cookie-funny.webp",
   );
-  await expect(page.locator(".hero__cin-sub")).toContainText(
-    /attract more customers/i,
-  );
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/en/websites-for-restaurants-fuengirola/");
+  await page.locator("#hamburger").click();
+  await expect(page.locator(".lang-switcher--mobile")).toBeVisible();
+  await expect(page.locator(".lang-switcher--mobile a")).toHaveCount(4);
 });
 
-test("las páginas interiores no arrastran selector de idioma residual", async ({
+test("footer comercial mantiene contraste y enlaces esenciales", async ({ page }) => {
+  await page.goto("/en/");
+  const footerHeading = page.locator(".footer h4").first();
+  await expect(footerHeading).toBeVisible();
+  const colors = await footerHeading.evaluate((node) => {
+    const text = getComputedStyle(node).color;
+    const background = getComputedStyle(node.closest("footer")).backgroundColor;
+    return { text, background };
+  });
+  expect(colors.text).not.toBe(colors.background);
+  await expect(page.locator('.footer a[href="/en/web-applications-fuengirola/"]')).toBeVisible();
+  await expect(page.locator('.footer a[href="/en/automation-ai-fuengirola/"]')).toBeVisible();
+  await expect(page.locator('.footer a[href="/en/legal/#privacy"]')).toBeVisible();
+});
+
+test("las páginas comerciales mantienen selector de idioma equivalente", async ({
   page,
 }) => {
   const urls = [
-    "/servicios/",
-    "/servicios/diseno-web/",
-    "/servicios/seo-local/",
     "/contacto/",
-    "/sobre-nosotros/",
-    "/como-trabajamos/",
-    "/casos/",
-    "/recursos/",
+    "/web-para-clinicas-fuengirola/",
+    "/precios-diseno-web-fuengirola/",
+    "/auditoria-web-gratis/",
   ];
 
   for (const url of urls) {
     await page.goto(url);
-    await expect(page.locator(".lang-switcher")).toHaveCount(0);
+    await expect(page.locator(".lang-switcher")).toHaveCount(2);
+    await expect(page.locator(".lang-switcher a")).toHaveCount(8);
   }
 });
 
@@ -66,77 +90,22 @@ test("landing muestra los botones principales del hero", async ({ page }) => {
   await expect(
     page.getByRole("link", { name: /pedir presupuesto/i }).first(),
   ).toBeVisible();
-  await expect(
-    page.getByRole("link", { name: /ver servicios/i }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: /qué hacemos/i }),
-  ).toBeVisible();
-  await expect(page.locator("body")).toContainText(
-    /lo que interesa a la mayoría/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /mucho más que diseñar una página web/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /no es magia, es estrategia comercial/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /entra por la ruta específica/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /elige la forma más fácil[\s\S]*dar el siguiente paso/i,
-  );
-  await expect(
-    page.getByRole("link", { name: /ir a diseño web/i }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("link", { name: /ir a seo local/i }),
-  ).toBeVisible();
   await expect(page.locator("h1")).toContainText(
-    /la web que tu negocio se merece/i,
+    /WF-Studio: diseño web en Fuengirola/i,
   );
   await expect(
-    page.getByRole("heading", { name: /el diseño web/i }),
+    page.getByRole("heading", { name: /lo que resolvemos en Fuengirola/i }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: /seo local/i }).first(),
+    page.getByRole("heading", { name: /una web pensada para tu sector/i }),
   ).toBeVisible();
-  await expect(page.locator("body")).toContainText(
-    /bonos y packs de mantenimiento/i,
-  );
-  await expect(page.locator("body")).toContainText(/automatización e ia/i);
   await expect(
     page.getByRole("heading", {
-      name: /qué se mejora con una web optimizada/i,
+      name: /tres modalidades, el mismo precio para cada sector/i,
     }),
   ).toBeVisible();
-  await expect(page.locator("body")).toContainText(
-    /si ya vienes con una búsqueda mucho más cerrada/i,
-  );
-  await expect(
-    page.getByRole("heading", {
-      name: /casos de éxito/i,
-    }),
-  ).toBeVisible();
-  await expect(page.locator("body")).toContainText(/proyectos recientes/i);
-  await expect(page.locator("body")).toContainText(
-    /posicionamiento en google/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /todas tus dudas resueltas/i,
-  );
-  await expect(page.locator(".client-access-btn")).toHaveCount(0);
-  await expect(page.locator(".lang-switcher")).toHaveCount(1);
-  await expect(page.locator("body")).toContainText(
-    /si ya lo tienes claro, entra por la ruta directa/i,
-  );
-  await expect(
-    page.getByRole("link", { name: /ver todos los proyectos/i }),
-  ).toBeVisible();
-  await expect(
-    page.locator('.services-routes__link[href="diseno-web-fuengirola/"]'),
-  ).toBeVisible();
+  await expect(page.locator(".lang-switcher")).toHaveCount(2);
+  await expect(page.getByRole("link", { name: /auditoría gratuita/i }).first()).toBeVisible();
 });
 
 test("servicios presenta las cuatro categorías principales", async ({
@@ -149,7 +118,7 @@ test("servicios presenta las cuatro categorías principales", async ({
   );
   await expect(
     page.getByRole("heading", {
-      name: /servicios web para que tu negocio se entienda y venda mejor/i,
+      name: /servicios web en Fuengirola para negocios que quieren vender mejor online/i,
     }),
   ).toBeVisible();
   await expect(
@@ -169,21 +138,8 @@ test("servicios presenta las cuatro categorías principales", async ({
       )
       .first(),
   ).toBeVisible();
-  await expect(page.locator("body")).toContainText(
-    /imagen, visibilidad, mantenimiento o una herramienta que te ahorre trabajo/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /qué falla y qué servicio lo arregla/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /abre solo lo que te interesa/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /calcula qué web encaja con tu negocio/i,
-  );
-  await expect(
-    page.getByRole("link", { name: /ir a contacto/i }),
-  ).toBeVisible();
+  await expect(page.locator("body")).toContainText(/mantenimiento/i);
+  await expect(page.locator("body")).toContainText(/automatización/i);
 });
 
 test("servicio de diseño web no arrastra promesas comerciales antiguas", async ({
@@ -206,22 +162,12 @@ test("servicio de diseño web no arrastra promesas comerciales antiguas", async 
 test("contacto refuerza enfoque local y vías de contacto", async ({ page }) => {
   await page.goto("/contacto/");
 
-  await expect(page).toHaveTitle(/contacto \| web fuengirola/i);
+  await expect(page).toHaveTitle(/contacta con wf-studio en fuengirola/i);
   await expect(
-    page.getByRole("heading", { name: /cuéntanos qué necesita tu negocio/i }),
+    page.getByRole("heading", { name: /contacta con wf-studio en fuengirola/i }).first(),
   ).toBeVisible();
-  await expect(page.locator("body")).toContainText(
-    /fuengirola, mijas, benalmádena y málaga/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /respondemos en menos de 24h/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /encaja especialmente bien si ahora mismo estás en uno de estos puntos/i,
-  );
-  await expect(
-    page.getByRole("link", { name: /escribir por whatsapp/i }),
-  ).toBeVisible();
+  await expect(page.locator("form[data-contact-form]")).toBeVisible();
+  await expect(page.getByRole("link", { name: /whatsapp/i })).toBeVisible();
 });
 
 test("calculadora de precios orienta sin etiquetas de próximamente", async ({
@@ -444,13 +390,13 @@ test("los hubs de diseño web y seo local mantienen intención local clara", asy
   const checks = [
     {
       url: "/servicios/diseno-web/",
-      title: /servicio de diseño web \| web fuengirola/i,
+      title: /servicio de diseño web.*web fuengirola/i,
       heading:
         /servicio de diseño web para negocios locales que quieren captar mejor/i,
     },
     {
       url: "/servicios/seo-local/",
-      title: /servicio de seo local \| web fuengirola/i,
+      title: /servicio de seo local.*web fuengirola/i,
       heading:
         /servicio de seo local para negocios que necesitan visibilidad real/i,
     },
@@ -515,7 +461,7 @@ test("sobre nosotros y como trabajamos mantienen branding y confianza claros", a
   page,
 }) => {
   await page.goto("/sobre-nosotros/");
-  await expect(page).toHaveTitle(/sobre nosotros \| web fuengirola/i);
+  await expect(page).toHaveTitle(/sobre nosotros.*web fuengirola/i);
   await expect(
     page.getByRole("heading", { name: /quién hay detrás de web fuengirola/i }),
   ).toBeVisible();
@@ -524,7 +470,7 @@ test("sobre nosotros y como trabajamos mantienen branding y confianza claros", a
   );
 
   await page.goto("/como-trabajamos/");
-  await expect(page).toHaveTitle(/cómo trabajamos \| web fuengirola/i);
+  await expect(page).toHaveTitle(/cómo trabajamos.*web fuengirola/i);
   await expect(
     page.getByRole("heading", {
       name: /cómo trabajamos para que la web salga clara desde el principio/i,
@@ -539,22 +485,18 @@ test("casos, recursos y blog mantienen branding público consistente", async ({
   page,
 }) => {
   await page.goto("/casos/");
-  await expect(page).toHaveTitle(/casos de éxito \| web fuengirola/i);
+  await expect(page).toHaveTitle(/casos de éxito.*web fuengirola/i);
   await expect(
     page.getByRole("heading", {
-      name: /negocios reales, resultados concretos/i,
+      name: /casos de éxito de wf-studio en fuengirola/i,
     }),
   ).toBeVisible();
-  await expect(page.locator("body")).toContainText(
-    /webs, seo local y automatización para negocios locales en la costa del sol/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /calcula qué web necesita tu negocio\s*después de ver los casos/i,
-  );
+  await expect(page.locator("body")).toContainText(/sport massage fuengirola/i);
+  await expect(page.getByRole("link", { name: /pedir presupuesto/i }).first()).toBeVisible();
 
   await page.goto("/recursos/");
   await expect(page).toHaveTitle(
-    /calculadora de precios web \| web fuengirola/i,
+    /calculadora de precios web.*web fuengirola/i,
   );
   await expect(page.locator("h1")).toBeVisible();
   await expect(page.locator("h1")).toContainText(
@@ -572,7 +514,7 @@ test("casos, recursos y blog mantienen branding público consistente", async ({
 
   await page.goto("/blog/");
   await expect(page).toHaveTitle(
-    /blog de diseño web en fuengirola \| web fuengirola/i,
+    /blog de diseño web en fuengirola.*web fuengirola/i,
   );
   await expect(
     page.getByRole("heading", {
@@ -599,18 +541,18 @@ test("casos, recursos y blog mantienen branding público consistente", async ({
 test("el interior profundo mantiene la marca actualizada", async ({ page }) => {
   await page.goto("/casos/sport-massage-fuengirola/");
   await expect(page).toHaveTitle(
-    /caso: sport massage fuengirola \| web fuengirola/i,
+    /caso: sport massage fuengirola.*web fuengirola/i,
   );
   await expect(page.locator("body")).toContainText(
     /webs, seo local y automatización para negocios locales en la costa del sol/i,
   );
   await expect(
-    page.locator('img[alt*="caso de éxito de Web Fuengirola"]').first(),
+    page.locator('img[alt*="caso de éxito de WF-Studio · Web Fuengirola"]').first(),
   ).toBeVisible();
 
   await page.goto("/recursos/herramientas/");
   await expect(page).toHaveTitle(
-    /herramientas gratuitas para negocios \| web fuengirola/i,
+    /herramientas gratuitas para negocios.*web fuengirola/i,
   );
   await expect(page.locator("body")).toContainText(
     /webs, seo local y automatización para negocios locales en la costa del sol/i,
@@ -621,7 +563,7 @@ test("el interior profundo mantiene la marca actualizada", async ({ page }) => {
     /diseñado por wf studio/i,
   );
   await expect(
-    page.locator('a.logo[aria-label="Web Fuengirola"]').first(),
+    page.locator('a.logo[aria-label="WF-Studio · Web Fuengirola"]').first(),
   ).toBeVisible();
 
   await page.goto("/blog/cuanto-tarda-el-seo-local/");
@@ -633,28 +575,21 @@ test("el interior profundo mantiene la marca actualizada", async ({ page }) => {
   );
 });
 
-test("servicios secundarios y productos mantienen branding consistente", async ({
+test("servicios secundarios mantienen marca y los productos antiguos redirigen", async ({
   page,
 }) => {
   await page.goto("/servicios/mantenimiento/");
-  await expect(page).toHaveTitle(/mantenimiento web \| web fuengirola/i);
+  await expect(page).toHaveTitle(/mantenimiento web.*web fuengirola/i);
   await expect(
-    page.locator('a.logo[aria-label="Web Fuengirola"]').first(),
+    page.locator('a.logo[aria-label="WF-Studio · Web Fuengirola"]').first(),
   ).toBeVisible();
   await expect(page.locator("body")).toContainText(
     /webs, seo local y automatización para negocios locales en la costa del sol/i,
   );
 
   await page.goto("/productos/lite-blog-wordpress/");
-  await expect(page).toHaveTitle(
-    /ejemplos de lite \+ blog wordpress \| web fuengirola/i,
-  );
-  await expect(
-    page.locator('a.logo[aria-label="Web Fuengirola"]').first(),
-  ).toBeVisible();
-  await expect(page.locator("body")).toContainText(
-    /webs, seo local y automatización para negocios locales en la costa del sol/i,
-  );
+  await expect(page).toHaveURL(/\/precios-diseno-web-fuengirola\/$/);
+  await expect(page.getByRole("heading", { name: /precios de diseño web/i }).first()).toBeVisible();
 });
 
 test("legal y landings locales mantienen branding actualizado", async ({
@@ -667,47 +602,29 @@ test("legal y landings locales mantienen branding actualizado", async ({
   await expect(
     page.locator('a.logo[aria-label="Web Fuengirola"]').first(),
   ).toBeVisible();
-  await expect(page.locator("body")).not.toContainText(/wf studio/i);
+  await expect(page.locator("body")).toContainText(/web fuengirola/i);
 
   await page.goto("/seo-local-fuengirola/");
   await expect(
-    page.locator('a.logo[aria-label="Web Fuengirola"]').first(),
+    page.locator('a[aria-label="WF-Studio · Web Fuengirola"]').first(),
   ).toBeVisible();
   await expect(page.locator("body")).toContainText(
-    /diseño web en fuengirola para negocios locales que necesitan una presencia clara, rápida y preparada para captar mejor|webs para comercios locales con una presencia clara y profesional/i,
+    /wf-studio crea una presencia coherente entre web y google para negocios que necesitan visibilidad local en fuengirola/i,
   );
 });
 
-test("las landings BOFU principales refuerzan decisión y arranque comercial", async ({
+test("las landings BOFU principales refuerzan modalidades y conversión", async ({
   page,
 }) => {
   await page.goto("/diseno-web-fuengirola/");
-  await expect(page.locator("body")).toContainText(
-    /no hace falta elegir “la web más grande”/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /te diremos qué formato encaja/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /las dudas que más frenan aquí suelen ser de alcance, no de diseño/i,
-  );
-  await expect(
-    page.getByRole("link", { name: /quiero esta opción/i }),
-  ).toBeVisible();
+  await expect(page.locator("body")).toContainText(/Web Lite/i);
+  await expect(page.locator("body")).toContainText(/Web Express/i);
+  await expect(page.locator("body")).toContainText(/Web Profesional/i);
+  await expect(page.getByRole("link", { name: /pedir presupuesto/i }).first()).toBeVisible();
 
   await page.goto("/seo-local-fuengirola/");
-  await expect(page.locator("body")).toContainText(
-    /antes de prometer posiciones, hay que decidir si toca ordenar la base/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /primero se audita el punto de partida/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /las dudas que frenan el seo local suelen ser de base y de tiempos, no de herramientas/i,
-  );
-  await expect(
-    page.getByRole("link", { name: /quiero valorar este arranque/i }),
-  ).toBeVisible();
+  await expect(page.locator("h1")).toContainText(/SEO local en Fuengirola/i);
+  await expect(page.getByRole("link", { name: /auditoría gratuita/i }).first()).toBeVisible();
 
   await page.goto("/diseno-web-malaga/");
   await expect(page.locator("body")).toContainText(

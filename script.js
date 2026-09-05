@@ -1029,7 +1029,7 @@
     return {
       decisionStorageKey: cookieDecisionKey,
       preferencesStorageKey: cookiePreferencesKey,
-      imageSrc: "img/cookie-funny.webp",
+      imageSrc: "/img/cookie-funny.webp",
       imageAlt: "Funny cookie illustration",
       imageWidth: 180,
       imageHeight: 180,
@@ -1649,6 +1649,14 @@
     var autoAdvanceTimer;
     var shareFeedbackTimer;
 
+    function trackEstimator(eventName, details) {
+      if (!window.WFAnalytics || !window.WFAnalytics.trackEvent) return;
+      var payload = details || {};
+      payload.locale = document.documentElement.lang || "es";
+      payload.sector = document.body.dataset.sector || "resources";
+      window.WFAnalytics.trackEvent(eventName, payload);
+    }
+
     function formatOneTime(amount, isFrom) {
       return (isFrom ? "Desde " : "") + amount + "€ + IVA";
     }
@@ -1959,6 +1967,15 @@
       if (stepKey === "summary") {
         updateSummary();
         updateLinks();
+        var recommendation = deriveRecommendation();
+        var totals = computeTotals(recommendation);
+        trackEstimator("calculator_result", {
+          service: recommendation.service,
+          support: recommendation.support,
+          analytics: recommendation.analytics ? "yes" : "no",
+          initialTotal: String(totals.once),
+          monthlyTotal: String(totals.monthly),
+        });
       }
       updateNav();
     }
@@ -1979,6 +1996,10 @@
         .forEach(function (btn) {
           btn.addEventListener("click", function () {
             state[field] = btn.getAttribute("data-key");
+            trackEstimator("calculator_choice", {
+              field: field,
+              choice: state[field],
+            });
             syncSelections();
             updateNav();
             queueAutoAdvance(field);
@@ -2361,7 +2382,8 @@
     /* ---- Language switcher ---- */
     langButtons.forEach(function (button) {
       button.addEventListener("click", function () {
-        setLanguage(button.getAttribute("data-lang"));
+        var selectedLang = button.getAttribute("data-lang");
+        if (selectedLang) setLanguage(selectedLang);
       });
     });
 
@@ -2379,11 +2401,19 @@
       });
 
     /* ---- Initial language ---- */
-    if (langButtons.length > 0) {
+    var hasDynamicLanguageButtons = Array.prototype.some.call(
+      langButtons,
+      function (button) {
+        return button.hasAttribute("data-lang");
+      },
+    );
+    if (hasDynamicLanguageButtons) {
       var savedLang = window.localStorage.getItem("webfuengirola-language");
       setLanguage(savedLang || defaultLang);
     } else {
-      applyTranslations(defaultLang);
+      applyTranslations(
+        (document.documentElement.lang || defaultLang).split("-")[0],
+      );
     }
 
     /* Run directly (not inside requestAnimationFrame): rAF can be throttled
@@ -2410,4 +2440,39 @@
   } else {
     initApp();
   }
+})();
+
+(function () {
+  "use strict";
+
+  function inferredEvent(element) {
+    var href = element.getAttribute("href") || "";
+    if (element.matches("[data-estimator-share], [data-estimator-email]"))
+      return "calculator_interaction";
+    if (element.matches("[hreflang]")) return "language_switch";
+    if (href.indexOf("mailto:") === 0) return "email_click";
+    if (href.indexOf("tel:") === 0) return "phone_click";
+    if (
+      element.closest(".blog-page") &&
+      /(diseno-web|web-design|webdesign|verkkosivut|seo-local|local-seo|lokales-seo|paikallinen-seo|precios|prices|preise|hinnat|auditoria|audit|analyse|analyysi)/i.test(
+        href,
+      )
+    )
+      return "blog_to_landing";
+    return "";
+  }
+
+  document.addEventListener("click", function (event) {
+    var link = event.target.closest("a, button, [data-analytics-event]");
+    if (!link || !window.WFAnalytics || !window.WFAnalytics.trackEvent) return;
+    var eventName = link.dataset.analyticsEvent || inferredEvent(link);
+    if (!eventName) return;
+    window.WFAnalytics.trackEvent(eventName, {
+      locale: link.dataset.analyticsLocale || document.documentElement.lang || "es",
+      tier: link.dataset.analyticsTier || "",
+      sector: link.dataset.analyticsSector || document.body.dataset.sector || "",
+      targetLocale: link.dataset.analyticsTargetLocale || link.getAttribute("hreflang") || "",
+      destination: link.getAttribute("href") || "",
+    });
+  });
 })();

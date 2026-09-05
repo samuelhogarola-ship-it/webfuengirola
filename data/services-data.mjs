@@ -5,7 +5,7 @@ export const services = [
     shortTitle: "Diseño Web",
     subtitle:
       "Servicio de diseño web para negocios locales que necesitan una base clara para captar mejor",
-    metaTitle: "Servicio de Diseño Web | Web Fuengirola",
+    metaTitle: "Servicio de Diseño Web | WF-Studio · Web Fuengirola",
     metaDescription:
       "Servicio de diseño web para negocios locales que necesitan una web clara, rápida y preparada para captar contactos reales.",
     heroHeadline:
@@ -202,7 +202,7 @@ export const services = [
     shortTitle: "SEO Local",
     subtitle:
       "Servicio de SEO local para negocios que necesitan visibilidad útil antes de abrir más frentes",
-    metaTitle: "Servicio de SEO Local | Web Fuengirola",
+    metaTitle: "Servicio de SEO Local | WF-Studio · Web Fuengirola",
     metaDescription:
       "Servicio de SEO local para negocios que necesitan mejorar visibilidad en Google Maps y búsquedas cercanas con intención real.",
     heroHeadline:
@@ -351,7 +351,7 @@ export const services = [
     shortTitle: "Mantenimiento",
     subtitle:
       "Tu web actualizada, segura y funcionando sin que tengas que preocuparte",
-    metaTitle: "Mantenimiento Web | Web Fuengirola",
+    metaTitle: "Mantenimiento Web | WF-Studio · Web Fuengirola",
     metaDescription:
       "Mantenimiento web profesional para negocios locales. Actualizaciones, seguridad, copias de seguridad y soporte técnico mensual.",
     heroHeadline: "Tu web en manos expertas",
@@ -434,7 +434,7 @@ export const services = [
     title: "Hosting Gestionado",
     shortTitle: "Hosting",
     subtitle: "Hosting gestionado con soporte en español para negocios locales",
-    metaTitle: "Hosting Web Gestionado | Web Fuengirola",
+    metaTitle: "Hosting Web Gestionado | WF-Studio · Web Fuengirola",
     metaDescription:
       "Hosting web gestionado con soporte en español para negocios locales en la Costa del Sol. Sin tecnicismos ni sorpresas.",
     heroHeadline: "Hosting sin complicaciones",
@@ -515,7 +515,7 @@ export const services = [
     shortTitle: "Automatización e IA",
     subtitle:
       "Chatbots, flujos automáticos y herramientas con IA para ahorrar tiempo",
-    metaTitle: "Automatización e IA para Negocios | Web Fuengirola",
+    metaTitle: "Automatización e IA para Negocios | WF-Studio · Web Fuengirola",
     metaDescription:
       "Chatbots, automatizaciones y herramientas con IA adaptadas a tu negocio. Sin tecnicismos, con resultados concretos.",
     heroHeadline: "Ahorra tiempo con tecnología inteligente",
@@ -590,7 +590,7 @@ export const services = [
     shortTitle: "Apps a medida",
     subtitle:
       "Herramientas y aplicaciones web desarrolladas exactamente para lo que necesita tu negocio",
-    metaTitle: "Aplicaciones Web a Medida | Web Fuengirola",
+    metaTitle: "Aplicaciones Web a Medida | WF-Studio · Web Fuengirola",
     metaDescription:
       "Desarrollo de aplicaciones web a medida para negocios. Paneles de gestión, herramientas internas y soluciones digitales personalizadas.",
     heroHeadline: "La herramienta exacta para tu negocio",

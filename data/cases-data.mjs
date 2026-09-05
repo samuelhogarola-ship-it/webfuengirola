@@ -13,8 +13,8 @@ export const cases = [
     result: "Web publicada en 5 días. Reservas directas desde el primer mes.",
     image: "img/sport-massage-fuengirola.webp",
     ogImage: "https://webfuengirola.com/img/sport-massage-fuengirola.webp",
-    ogAlt: "Sport Massage Fuengirola — caso de éxito de Web Fuengirola",
-    metaTitle: "Caso: Sport Massage Fuengirola | Web Fuengirola",
+    ogAlt: "Sport Massage Fuengirola — caso de éxito de WF-Studio · Web Fuengirola",
+    metaTitle: "Caso: Sport Massage Fuengirola | WF-Studio · Web Fuengirola",
     metaDescription:
       "Cómo Sport Massage Fuengirola empezó a recibir reservas directas con su nueva web en 5 días.",
     whatsappText:
@@ -34,8 +34,8 @@ export const cases = [
     result: "Web publicada en 7 días con formulario de contacto directo.",
     image: "img/personal-trainer.webp",
     ogImage: "https://webfuengirola.com/img/personal-trainer.webp",
-    ogAlt: "Personal Trainer Fuengirola — caso de éxito de Web Fuengirola",
-    metaTitle: "Caso: Personal Trainer Fuengirola | Web Fuengirola",
+    ogAlt: "Personal Trainer Fuengirola — caso de éxito de WF-Studio · Web Fuengirola",
+    metaTitle: "Caso: Personal Trainer Fuengirola | WF-Studio · Web Fuengirola",
     metaDescription:
       "Cómo un entrenador personal en Fuengirola empezó a captar clientes directamente con su nueva web.",
     whatsappText:
@@ -105,8 +105,8 @@ export const cases = [
     image: "img/gimnasio-nuevo-estilo.webp",
     ogImage: "https://webfuengirola.com/img/gimnasio-nuevo-estilo.webp",
     ogAlt:
-      "Gimnasio Nuevo Estilo — caso de éxito de diseño web local de Web Fuengirola",
-    metaTitle: "Caso: Gimnasio Nuevo Estilo | Web Fuengirola",
+      "Gimnasio Nuevo Estilo — caso de éxito de diseño web local de WF-Studio · Web Fuengirola",
+    metaTitle: "Caso: Gimnasio Nuevo Estilo | WF-Studio · Web Fuengirola",
     metaDescription:
       "Web local para Gimnasio Nuevo Estilo con estructura para Fuengirola y Arroyo de la Miel, contacto directo y base de SEO local.",
     whatsappText: "Hola, me interesa una web similar a Gimnasio Nuevo Estilo",
@@ -174,8 +174,8 @@ export const cases = [
     `,
     image: "img/agama.webp",
     ogImage: "https://webfuengirola.com/img/agama.webp",
-    ogAlt: "Agama — caso de éxito de Web Fuengirola",
-    metaTitle: "Caso: Agama | Web Fuengirola",
+    ogAlt: "Agama — caso de éxito de WF-Studio · Web Fuengirola",
+    metaTitle: "Caso: Agama | WF-Studio · Web Fuengirola",
     metaDescription:
       "Cómo Agama digitalizó su gestión de clientes con un panel web a medida desarrollado en Next.js.",
     whatsappText: "Hola, me interesa un panel de gestión similar al de Agama",
@@ -194,8 +194,8 @@ export const cases = [
     result: "Plataforma web con usuarios activos y contenido propio publicado.",
     image: "img/samuel-coach.webp",
     ogImage: "https://webfuengirola.com/img/samuel-coach.webp",
-    ogAlt: "Samuel Coach Alemán — caso de éxito de Web Fuengirola",
-    metaTitle: "Caso: Samuel Coach Alemán | Web Fuengirola",
+    ogAlt: "Samuel Coach Alemán — caso de éxito de WF-Studio · Web Fuengirola",
+    metaTitle: "Caso: Samuel Coach Alemán | WF-Studio · Web Fuengirola",
     metaDescription:
       "Plataforma de aprendizaje de alemán construida a medida para un coach de idiomas con usuarios activos.",
     whatsappText:
@@ -216,8 +216,8 @@ export const cases = [
       "Panel operativo adaptado al flujo de trabajo exacto de la clínica.",
     image: "img/clinica-demo-v2.webp",
     ogImage: "https://webfuengirola.com/img/clinica-demo-v2.webp",
-    ogAlt: "FisioApp Panel Clínica — caso de éxito de Web Fuengirola",
-    metaTitle: "Caso: FisioApp Panel Clínica | Web Fuengirola",
+    ogAlt: "FisioApp Panel Clínica — caso de éxito de WF-Studio · Web Fuengirola",
+    metaTitle: "Caso: FisioApp Panel Clínica | WF-Studio · Web Fuengirola",
     metaDescription:
       "Panel de gestión digital para clínica de fisioterapia con seguimiento de pacientes y sesiones a medida.",
     whatsappText: "Hola, me interesa un panel de gestión similar a FisioApp",
@@ -237,8 +237,8 @@ export const cases = [
     result: "Suite de tres herramientas activas con usuarios recurrentes.",
     image: "img/vokabellab.webp",
     ogImage: "https://webfuengirola.com/img/vokabellab.webp",
-    ogAlt: "Vokabellab — caso de éxito de Web Fuengirola",
-    metaTitle: "Caso: Vokabellab | Web Fuengirola",
+    ogAlt: "Vokabellab — caso de éxito de WF-Studio · Web Fuengirola",
+    metaTitle: "Caso: Vokabellab | WF-Studio · Web Fuengirola",
     metaDescription:
       "Plataforma educativa de alemán con herramientas interactivas de vocabulario y IA construidas a medida.",
     whatsappText:
