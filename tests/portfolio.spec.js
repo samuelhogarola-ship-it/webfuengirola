@@ -1,12 +1,10 @@
 const { test, expect } = require("@playwright/test");
 
-let projects = [];
 let productCategories = [];
 let successCases = [];
 
 test.beforeAll(async () => {
-  ({ portfolioProjects: projects, productCategories } =
-    await import("../portfolio/projects-data.mjs"));
+  ({ productCategories } = await import("../portfolio/projects-data.mjs"));
   ({ cases: successCases } = await import("../data/cases-data.mjs"));
 });
 
@@ -16,7 +14,7 @@ test("casos listing enlaza cada tarjeta a su ficha propia", async ({
   await page.goto("/casos/");
 
   for (const project of successCases) {
-    const href = `../casos/${project.slug}/`;
+    const href = `/casos/${project.slug}/`;
     await expect(page.locator(`a[href="${href}"]`).first()).toBeVisible();
   }
 });
@@ -102,68 +100,33 @@ test("casos muestra enlaces a fichas individuales y CTA final", async ({
 
   await expect(
     page.getByRole("heading", {
-      name: /negocios reales, resultados concretos/i,
+      name: /casos de éxito de wf-studio en fuengirola/i,
     }),
   ).toBeVisible();
   await expect(
-    page.getByRole("link", { name: /hablar con nosotros/i }),
+    page.getByRole("link", { name: /pedir presupuesto/i }).first(),
   ).toBeVisible();
 });
 
-test.describe("product category pages", () => {
-  for (const categorySlug of [
-    "lite-blog-wordpress",
-    "express-300-blog-wordpress",
-    "web-personalizada",
-    "express-migracion-optimizacion-formularios",
-    "personalizada-webapp",
-    "mini-saas-personalizado",
-  ]) {
-    test(`${categorySlug} carga y muestra solo sus proyectos`, async ({
-      page,
-    }) => {
-      const category = productCategories.find(
-        (item) => item.slug === categorySlug,
-      );
-      const filteredProjects = projects.filter(
-        (item) => item.productCategorySlug === categorySlug,
-      );
-      expect(filteredProjects.length).toBeGreaterThan(0);
+test("las categorías de producto antiguas redirigen a la oferta vigente", async ({
+  page,
+}) => {
+  const redirects = {
+    "lite-blog-wordpress": "/precios-diseno-web-fuengirola/",
+    "express-300-blog-wordpress": "/precios-diseno-web-fuengirola/",
+    "web-personalizada": "/diseno-web-fuengirola/",
+    "express-migracion-optimizacion-formularios": "/diseno-web-fuengirola/",
+    "personalizada-webapp": "/servicios/aplicaciones-web/",
+    "mini-saas-personalizado": "/servicios/aplicaciones-web/",
+  };
 
-      await page.goto(`/productos/${categorySlug}/`);
-
-      await expect(page).toHaveTitle(category.seoTitle);
-      await expect(page.locator("h1")).toHaveText(category.heroTitle);
-      await expect(page.locator('meta[name="description"]')).toHaveAttribute(
-        "content",
-        category.seoDescription,
-      );
-      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
-        "href",
-        `https://webfuengirola.com/productos/${category.slug}/`,
-      );
-      await expect(page.locator(".portfolio-card")).toHaveCount(
-        filteredProjects.length,
-      );
-      await expect(
-        page.locator(".portfolio-card__title-link").first(),
-      ).toHaveAttribute(
-        "href",
-        new RegExp(`\\.\\./\\.\\./casos/${filteredProjects[0].slug}/`),
-      );
-      await expect(page.locator(".project-detail__cta").first()).toContainText(
-        category.label,
-      );
-
-      const visibleTitles = await page
-        .locator(".portfolio-card__title-link")
-        .allTextContents();
-      expect(visibleTitles).toEqual(filteredProjects.map((item) => item.title));
-    });
+  for (const [categorySlug, destination] of Object.entries(redirects)) {
+    await page.goto(`/productos/${categorySlug}/`);
+    await expect(page).toHaveURL(new RegExp(`${destination.replaceAll("/", "\\/")}$`));
   }
 });
 
-test("sitemap incluye casos, categorías de producto y excluye páginas no indexables", async ({
+test("sitemap incluye casos y excluye categorías de producto consolidadas", async ({
   request,
 }) => {
   const response = await request.get("/sitemap.xml");
@@ -172,7 +135,7 @@ test("sitemap incluye casos, categorías de producto y excluye páginas no index
 
   expect(xml).toContain("https://webfuengirola.com/casos/");
   for (const category of productCategories) {
-    expect(xml).toContain(
+    expect(xml).not.toContain(
       `https://webfuengirola.com/productos/${category.slug}/`,
     );
   }
@@ -233,11 +196,11 @@ test("la ficha de FisioApp expone imagen indexable y CTA de servicio", async ({
   );
   await expect(
     page.locator(
-      'main img[alt="FisioApp Panel Clínica — caso de éxito de Web Fuengirola"]',
+      'main img[alt="FisioApp Panel Clínica — caso de éxito de WF-Studio · Web Fuengirola"]',
     ),
   ).toHaveAttribute(
     "alt",
-    "FisioApp Panel Clínica — caso de éxito de Web Fuengirola",
+    "FisioApp Panel Clínica — caso de éxito de WF-Studio · Web Fuengirola",
   );
   await expect(
     page.getByRole("link", { name: /ver servicio/i }),

@@ -10,6 +10,7 @@ export default [
       "saulofitness/**",
       "testing/**",
       ".tools/**",
+      ".worktrees/**",
       "img/**",
       "**/*.min.js",
       "madamebleuewatches-preview/**",
@@ -44,7 +45,7 @@ export default [
   // umami-analytics-core.js is a browser script with a UMD-style tail
   // (`if (typeof module !== 'undefined') module.exports = ...`) so tests can require() it
   {
-    files: ["umami-analytics-core.js"],
+    files: ["umami-analytics-core.js", "contact-form-core.js"],
     languageOptions: {
       globals: {
         ...globals.commonjs,
@@ -76,6 +77,20 @@ export default [
     },
     rules: {
       "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+    },
+  },
+  // These helpers remain available to the legacy portfolio generator even
+  // though its public category pages now resolve through SEO redirects.
+  {
+    files: ["scripts/build-portfolio.mjs"],
+    rules: {
+      "no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^render(Header|Footer|Head|PortfolioCard)$",
+        },
+      ],
     },
   },
 ];

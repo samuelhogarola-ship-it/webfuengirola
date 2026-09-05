@@ -47,7 +47,7 @@ function renderHead({
   <meta property="og:description" content="${escapeHtml(ogDescription)}" />
   <meta property="og:url" content="${canonical}" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Web Fuengirola" />
+  <meta property="og:site_name" content="WF-Studio · Web Fuengirola" />
   <meta property="og:locale" content="es_ES" />
   <meta property="og:image" content="${ogImage}" />
   <meta property="og:image:secure_url" content="${ogImage}" />
@@ -77,8 +77,8 @@ function renderHeader(prefix, activePage) {
   return `
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="${prefix}index.html" class="logo" aria-label="Web Fuengirola">
-        <img src="${prefix}img/logo-wf.webp" alt="Web Fuengirola" class="logo__img" width="36" height="36" loading="eager"/>
+      <a href="${prefix}index.html" class="logo" aria-label="WF-Studio · Web Fuengirola">
+        <img src="${prefix}img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="eager"/>
       </a>
       <nav class="nav" id="nav" aria-label="Navegación principal">
         <ul class="nav__list">
@@ -107,8 +107,8 @@ function renderFooter(
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <a href="${prefix}index.html" class="logo logo--light" aria-label="Web Fuengirola">
-          <img src="${prefix}img/logo-wf.webp" alt="Web Fuengirola" class="logo__img" width="36" height="36" loading="lazy"/>
+        <a href="${prefix}index.html" class="logo logo--light" aria-label="WF-Studio · Web Fuengirola">
+          <img src="${prefix}img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="lazy"/>
         </a>
         <p class="footer__tagline">Webs, SEO local y automatización para negocios locales en la Costa del Sol.</p>
       </div>
@@ -151,7 +151,7 @@ function renderFooter(
     </div>
     <div class="footer__bottom">
       <div class="container">
-        <p>&copy; <span id="footer-year"></span> Web Fuengirola. Todos los derechos reservados.</p>
+        <p>&copy; <span id="footer-year"></span> WF-Studio · Web Fuengirola. Todos los derechos reservados.</p>
       </div>
     </div>
   </footer>
@@ -181,7 +181,7 @@ function buildCasosHub() {
         {
           "@type": ["Organization", "LocalBusiness"],
           "@id": "https://webfuengirola.com/#organization",
-          name: "Web Fuengirola",
+          name: "WF-Studio · Web Fuengirola",
           url: "https://webfuengirola.com/",
           telephone: "+34622923988",
           email: "info@webfuengirola.com",
@@ -236,15 +236,15 @@ function buildCasosHub() {
   const html = `<!doctype html>
 <html lang="es">
 ${renderHead({
-  title: "Casos de Éxito | Web Fuengirola",
+  title: "Casos de Éxito | WF-Studio · Web Fuengirola",
   description:
-    "Casos de éxito reales de negocios locales en Fuengirola que han mejorado su presencia digital con Web Fuengirola.",
+    "Casos de éxito reales de negocios locales en Fuengirola que han mejorado su presencia digital con WF-Studio · Web Fuengirola.",
   canonical,
-  ogTitle: "Casos de Éxito | Web Fuengirola",
+  ogTitle: "Casos de Éxito | WF-Studio · Web Fuengirola",
   ogDescription:
     "Negocios locales reales con resultados concretos. Diseño web, apps a medida y automatización para la Costa del Sol.",
   ogImage: "https://webfuengirola.com/img/og-cover.webp",
-  ogAlt: "Casos de éxito Web Fuengirola",
+  ogAlt: "Casos de éxito WF-Studio · Web Fuengirola",
   prefix,
   jsonLd,
 })}
@@ -262,7 +262,7 @@ ${renderHeader(prefix, "casos")}
         <div class="content-grid content-grid--cards content-grid--offset">
           <article class="portfolio-card category-visual-card">
             <div class="category-visual-card__mockup">
-              <img src="${prefix}img/category-web-design.svg?v=2" alt="Ordenador con una web de Web Fuengirola clara y preparada para convertir" class="category-visual-card__image" width="960" height="620" loading="lazy" />
+              <img src="${prefix}img/category-web-design.svg?v=2" alt="Ordenador con una web de WF-Studio · Web Fuengirola clara y preparada para convertir" class="category-visual-card__image" width="960" height="620" loading="lazy" />
             </div>
             <div class="portfolio-card__body">
               <span class="tag tag--blue inline-tag">Captación local</span>
@@ -275,7 +275,7 @@ ${renderHeader(prefix, "casos")}
           </article>
           <article class="portfolio-card category-visual-card">
             <div class="category-visual-card__mockup">
-              <img src="${prefix}img/category-custom-apps.svg?v=2" alt="Teléfono con una app operativa de Web Fuengirola para clientes, tareas y paneles" class="category-visual-card__image" width="960" height="620" loading="lazy" />
+              <img src="${prefix}img/category-custom-apps.svg?v=2" alt="Teléfono con una app operativa de WF-Studio · Web Fuengirola para clientes, tareas y paneles" class="category-visual-card__image" width="960" height="620" loading="lazy" />
             </div>
             <div class="portfolio-card__body">
               <span class="tag tag--purple inline-tag">Operativa interna</span>
@@ -288,7 +288,7 @@ ${renderHeader(prefix, "casos")}
           </article>
           <article class="portfolio-card category-visual-card">
             <div class="category-visual-card__mockup">
-              <img src="${prefix}img/category-local-seo.svg?v=2" alt="Google Maps y búsqueda local con posición útil y logo de Web Fuengirola" class="category-visual-card__image" width="960" height="620" loading="lazy" />
+              <img src="${prefix}img/category-local-seo.svg?v=2" alt="Google Maps y búsqueda local con posición útil y logo de WF-Studio · Web Fuengirola" class="category-visual-card__image" width="960" height="620" loading="lazy" />
             </div>
             <div class="portfolio-card__body">
               <span class="tag tag--green inline-tag">Visibilidad local</span>
@@ -346,7 +346,7 @@ function buildCasePage(caso) {
         {
           "@type": ["Organization", "LocalBusiness"],
           "@id": "https://webfuengirola.com/#organization",
-          name: "Web Fuengirola",
+          name: "WF-Studio · Web Fuengirola",
           url: "https://webfuengirola.com/",
           telephone: "+34622923988",
           email: "info@webfuengirola.com",

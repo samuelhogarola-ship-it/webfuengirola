@@ -9,6 +9,7 @@ RUN cp -R \
   /app/index.html \
   /app/style.css \
   /app/script.js \
+  /app/contact-form-core.js \
   /app/contact-form.js \
   /app/cookie-banner-core.css \
   /app/cookie-banner-core.js \
@@ -24,6 +25,9 @@ RUN cp -R \
   /app/apple-touch-icon.png \
   /app/site.webmanifest \
   /app/blog \
+  /app/auditoria-web-gratis \
+  /app/aplicaciones-web-fuengirola \
+  /app/automatizacion-ia-fuengirola \
   /app/casos \
   /app/como-trabajamos \
   /app/contacto \
@@ -39,6 +43,7 @@ RUN cp -R \
   /app/proceso.html \
   /app/publicidad-ia-fuengirola \
   /app/publicidad-ia-malaga \
+  /app/precios-diseno-web-fuengirola \
   /app/recursos \
   /app/seo-local-fuengirola \
   /app/seo-local-malaga \
@@ -46,6 +51,13 @@ RUN cp -R \
   /app/servicios.html \
   /app/sobre-nosotros \
   /app/web-solidaria \
+  /app/web-multidioma-fuengirola \
+  /app/web-para-clinicas-fuengirola \
+  /app/web-para-entrenadores-personales-fuengirola \
+  /app/web-para-fisioterapeutas-fuengirola \
+  /app/web-para-gimnasios-fuengirola \
+  /app/web-para-negocios-locales-fuengirola \
+  /app/web-para-restaurantes-fuengirola \
   /out/
 RUN rm -f \
   /out/blog/og-blog-home.html \

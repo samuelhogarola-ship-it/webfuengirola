@@ -7,6 +7,7 @@ const ignoredRoots = new Set([
   ".git",
   ".husky",
   ".tools",
+  ".worktrees",
   "apps",
   "madamebleuewatches-preview",
   "madamebleuewatches-preview-src",
@@ -93,17 +94,11 @@ test("el blog no publica fechas futuras y usa imágenes WebP ligeras", () => {
   }
 });
 
-test("los casos de producto enlazan a fichas publicadas", async ({ page }) => {
+test("las categorías de producto antiguas se consolidan sin indexarse", async ({
+  page,
+}) => {
   await page.goto("/productos/personalizada-webapp/");
-  await expect(
-    page.locator('a[href="../../casos/im-kontext-vokabellab/"]'),
-  ).toHaveCount(0);
-  await expect(
-    page.locator('a[href="../../casos/der-die-das-vokabellab/"]'),
-  ).toHaveCount(0);
-  expect(
-    await page.locator('a[href="../../casos/vokabellab/"]').count(),
-  ).toBeGreaterThanOrEqual(6);
+  await expect(page).toHaveURL(/\/servicios\/aplicaciones-web\/$/);
 });
 
 test("nginx fuerza dominio canónico, compresión y caché", () => {

@@ -81,10 +81,10 @@ test("el post principal tiene SEO completo y enlaces internos clave", async ({
   await expect(page.locator(".blog-featured-media__image")).toBeVisible();
   await expect(
     page.getByRole("link", { name: /empezar con web lite/i }),
-  ).toHaveAttribute("href", "../../productos/lite-blog-wordpress/");
+  ).toHaveAttribute("href", "../../precios-diseno-web-fuengirola/");
   await expect(
     page.getByRole("link", { name: /ver web express/i }),
-  ).toHaveAttribute("href", "../../productos/express-300-blog-wordpress/");
+  ).toHaveAttribute("href", "../../precios-diseno-web-fuengirola/");
   await expect(page.locator(".footer__bottom")).toContainText(
     /Web Fuengirola\. Todos los derechos reservados\./i,
   );

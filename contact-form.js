@@ -4,10 +4,6 @@
   var FORM_SELECTOR = "[data-contact-form]";
   var DEFAULT_API_BASE = "https://admin.webfuengirola.com";
 
-  function isEmail(value) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-  }
-
   function setStatus(node, message, type) {
     if (!node) return;
     node.textContent = message || "";
@@ -70,17 +66,47 @@
   }
 
   function initContactForm(form) {
+    var core = window.WFContactFormCore;
+    if (!core) return;
     var apiBase = form.getAttribute("data-api-base") || DEFAULT_API_BASE;
+    var locale = form.getAttribute("data-form-locale") || "es";
+    var formKind = form.getAttribute("data-form-kind") || "contact";
+    var query = new URLSearchParams(window.location.search);
+    var requestedPlan = query.get("plan") || "";
+    if (!["lite", "express", "professional"].includes(requestedPlan)) {
+      requestedPlan = "";
+    }
+    var requestedSector = query.get("sector") || "";
+    if (!/^[a-z][a-zA-Z0-9-]{0,39}$/.test(requestedSector)) requestedSector = "";
+    var pageSector = requestedSector || document.body.dataset.sector || "";
+    var copy = core.localeMessages(locale);
     var submitBtn = form.querySelector("[data-contact-submit]");
     var statusNode = form.querySelector("[data-contact-status]");
     var turnstileSlot = form.querySelector("[data-turnstile]");
     var honeypot = form.querySelector('input[name="website"]');
     var turnstileWidgetId = null;
+    var hasTrackedStart = false;
+
+    function track(stage) {
+      if (!window.WFAnalytics || !window.WFAnalytics.trackEvent) return;
+      window.WFAnalytics.trackEvent(core.eventForForm(formKind, stage), {
+        locale: locale,
+        form: formKind,
+        plan: requestedPlan,
+        sector: pageSector,
+      });
+    }
+
+    form.addEventListener("focusin", function () {
+      if (hasTrackedStart) return;
+      hasTrackedStart = true;
+      track("start");
+    });
 
     function showUnavailable() {
       setStatus(
         statusNode,
-        "El formulario está temporalmente no disponible. Puedes escribirnos por WhatsApp o email.",
+        copy.unavailable,
         "error",
       );
       if (submitBtn) submitBtn.disabled = true;
@@ -114,17 +140,33 @@
       var formData = new FormData(form);
       var interest = String(formData.get("interest") || "").trim();
       var rawMessage = String(formData.get("message") || "").trim();
-      var fullMessage = interest
-        ? "[" + interest + "] " + rawMessage
-        : rawMessage;
-
-      var payload = {
+      var formValues = {
         name: String(formData.get("name") || "").trim(),
         email: String(formData.get("email") || "").trim(),
         company: String(formData.get("company") || "").trim(),
-        message: fullMessage,
+        message: rawMessage,
+        auditUrl: String(formData.get("auditUrl") || "").trim(),
+        sector: String(formData.get("sector") || "").trim(),
+        location: String(formData.get("location") || "").trim(),
+        consent: formData.get("consent") === "on",
         website: String(formData.get("website") || "").trim(),
         token: String(formData.get("cf-turnstile-response") || "").trim(),
+      };
+      var fullMessage = core.composeMessage(formValues, formKind);
+      if (requestedPlan) {
+        fullMessage = "[Plan: " + requestedPlan + "] " + fullMessage;
+      }
+      if (requestedSector) {
+        fullMessage = "[Sector: " + requestedSector + "] " + fullMessage;
+      }
+      if (interest) fullMessage = "[" + interest + "] " + fullMessage;
+      var payload = {
+        name: formValues.name,
+        email: formValues.email,
+        company: formValues.company,
+        message: fullMessage,
+        website: formValues.website,
+        token: formValues.token,
         pageUrl: window.location.href,
       };
 
@@ -134,36 +176,15 @@
         return;
       }
 
-      if (!payload.name || payload.name.length < 2) {
-        setStatus(statusNode, "Escribe tu nombre.", "error");
-        return;
-      }
-
-      if (!isEmail(payload.email)) {
-        setStatus(statusNode, "Introduce un email válido.", "error");
-        return;
-      }
-
-      if (!interest && (!payload.message || payload.message.length < 10)) {
-        setStatus(
-          statusNode,
-          "Cuéntanos un poco más para poder ayudarte.",
-          "error",
-        );
-        return;
-      }
-
-      if (!payload.token) {
-        setStatus(
-          statusNode,
-          "Confirma primero la verificación anti-spam.",
-          "error",
-        );
+      var validation = core.validate(formValues, formKind, locale);
+      if (!validation.ok) {
+        setStatus(statusNode, validation.message, "error");
+        track("error");
         return;
       }
 
       if (submitBtn) submitBtn.disabled = true;
-      setStatus(statusNode, "Enviando...", "");
+      setStatus(statusNode, copy.sending, "");
 
       fetch(apiBase + "/api/contact", {
         method: "POST",
@@ -193,16 +214,14 @@
           }
           setStatus(
             statusNode,
-            "Mensaje enviado. Te responderemos en menos de 24h.",
+            formKind === "audit" ? copy.auditSuccess : copy.success,
             "success",
           );
+          track("success");
         })
         .catch(function () {
-          setStatus(
-            statusNode,
-            "No hemos podido enviar el formulario. Puedes escribirnos por WhatsApp o email.",
-            "error",
-          );
+          setStatus(statusNode, copy.error, "error");
+          track("error");
         })
         .finally(function () {
           if (submitBtn) submitBtn.disabled = false;

@@ -24,6 +24,14 @@ const legacyPortfolioFallbackMap = new Map([
   ["im-kontext-vokabellab", "vokabellab"],
   ["der-die-das-vokabellab", "vokabellab"],
 ]);
+const productRedirects = new Map([
+  ["lite-blog-wordpress", "/precios-diseno-web-fuengirola/"],
+  ["express-300-blog-wordpress", "/precios-diseno-web-fuengirola/"],
+  ["web-personalizada", "/diseno-web-fuengirola/"],
+  ["express-migracion-optimizacion-formularios", "/diseno-web-fuengirola/"],
+  ["personalizada-webapp", "/servicios/aplicaciones-web/"],
+  ["mini-saas-personalizado", "/servicios/aplicaciones-web/"],
+]);
 
 const portfolioIntro = {
   title: "Portfolio de Diseño Web en Fuengirola | Casos Reales",
@@ -239,7 +247,7 @@ function renderHead({
   <meta property="og:description" content="${escapeHtml(ogDescription)}" />
   <meta property="og:url" content="${canonical}" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Web Fuengirola" />
+  <meta property="og:site_name" content="WF-Studio · Web Fuengirola" />
   <meta property="og:locale" content="es_ES" />
   <meta property="og:image" content="${ogImage}" />
   <meta property="og:image:secure_url" content="${ogImage}" />
@@ -350,8 +358,8 @@ function renderLegacyRedirectPage({
 </head>
 <body>
   <main style="font-family: Inter, Arial, sans-serif; padding: 2rem; max-width: 720px; margin: 0 auto; line-height: 1.6">
-    <h1 style="font-size: 1.5rem; margin-bottom: 0.75rem">Redirigiendo al caso actualizado</h1>
-    <p>Esta URL legacy de portfolio se ha consolidado en la sección de casos de éxito.</p>
+    <h1 style="font-size: 1.5rem; margin-bottom: 0.75rem">Redirigiendo a la página actualizada</h1>
+    <p>Esta URL anterior se ha consolidado en una página comercial actualizada.</p>
     <p><a href="${targetPath}">Continuar a ${escapeHtml(targetPath)}</a></p>
   </main>
 </body>
@@ -387,113 +395,17 @@ function renderDetailPage(project) {
  * @returns {string}
  */
 function renderProductCategoryPage(category) {
-  const prefix = "../../";
-  const canonical = `https://webfuengirola.com/productos/${category.slug}/`;
-  const categoryProjects = portfolioProjects.filter(
-    (project) => project.productCategorySlug === category.slug,
-  );
-  const cards = categoryProjects
-    .map((project) => {
-      const publishedCase = getPublishedCase(project);
-      const detailHref = publishedCase
-        ? `${prefix}casos/${publishedCase.slug}/`
-        : `${prefix}casos/`;
-      return renderPortfolioCard(project, {
-        detailHref,
-        imagePrefix: prefix,
-      });
-    })
-    .join("\n");
-  const siblingLinks = productCategories
-    .filter((item) => item.slug !== category.slug)
-    .map(
-      (item) =>
-        `<a href="../${item.slug}/" class="project-detail__related-link">${escapeHtml(item.label)}</a>`,
-    )
-    .join("");
-  const examplesLabel = `${categoryProjects.length} ejemplo${categoryProjects.length === 1 ? "" : "s"} real${categoryProjects.length === 1 ? "" : "es"}`;
+  const targetPath =
+    productRedirects.get(category.slug) ?? "/precios-diseno-web-fuengirola/";
 
-  return `<!DOCTYPE html>
-<html lang="es">
-${renderHead({
-  title: category.seoTitle,
-  description: category.seoDescription,
-  canonical,
-  ogTitle: category.seoTitle,
-  ogDescription: category.seoDescription,
-  ogImage: "https://webfuengirola.com/img/og-cover.jpg",
-  ogAlt: `Ejemplos de ${category.label} en Web Fuengirola`,
-  preloadImage: "img/og-cover.webp",
-  prefix,
-})}
-<body>
-${renderHeader(prefix, "services")}
-
-  <main class="project-page">
-    <section class="subpage-hero project-subhero">
-      <div class="container project-subhero__inner">
-        <nav class="project-breadcrumb" aria-label="Breadcrumb">
-          <a href="${navHref(prefix, "servicios/")}">Servicios</a>
-          <span>/</span>
-          <span>${escapeHtml(category.label)}</span>
-        </nav>
-        <span class="badge">Ejemplos filtrados</span>
-        <h1 class="subpage-hero__title">${escapeHtml(category.heroTitle)}</h1>
-        <p class="subpage-hero__sub">${escapeHtml(category.heroDescription)}</p>
-        <div class="project-subhero__actions">
-          <a href="${navHref(prefix, category.serviceHref)}" class="btn btn--primary btn--lg">Ver servicio</a>
-          <a href="https://wa.me/34622923988?text=${encodeURIComponent(category.whatsappText)}" class="btn btn--outline btn--lg" target="_blank" rel="noopener noreferrer">Quiero algo así</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="service-detail project-detail">
-      <div class="container">
-        <section class="project-detail__cta" style="margin-top:0;">
-          <div class="project-detail__cta-copy">
-            <span class="section-label">Encaje de producto</span>
-            <h2 class="section-title">${escapeHtml(category.label)}</h2>
-            <p class="project-detail__copy">${escapeHtml(category.summary)}</p>
-          </div>
-          <div class="project-detail__cta-actions">
-            <span class="tag">${escapeHtml(category.serviceLabel)}</span>
-            <span class="tag">${escapeHtml(examplesLabel)}</span>
-          </div>
-        </section>
-
-        <div class="section-header" style="margin-top:48px;">
-          <span class="section-label">Casos reales</span>
-          <h2 class="section-title">Proyectos dentro de esta categoría</h2>
-          <p class="section-sub">Solo aparecen ejemplos marcados como ${escapeHtml(category.label)} para que el cliente vea referentes parecidos al encargo que tiene en mente.</p>
-        </div>
-
-        <div class="portfolio__grid">
-${cards}
-        </div>
-
-        <section class="project-detail__cta">
-          <div class="project-detail__cta-copy">
-            <span class="section-label">Siguiente paso</span>
-            <h2 class="section-title">¿Quieres una solución de este tipo?</h2>
-            <p class="project-detail__copy">Podemos valorar si esta categoría encaja tal cual o si merece una versión más personalizada según tu negocio, tu contenido y el nivel de funcionalidad que necesitas.</p>
-          </div>
-          <div class="project-detail__cta-actions">
-            <a href="https://wa.me/34622923988?text=${encodeURIComponent(category.whatsappText)}" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">Pedir algo parecido</a>
-            <a href="${navHref(prefix, "casos/")}" class="btn btn--ghost btn--lg">Ver todos los casos</a>
-          </div>
-        </section>
-
-        <section class="project-detail__related">
-          <span class="section-label">Otras categorías</span>
-          <div class="project-detail__related-links">${siblingLinks}</div>
-        </section>
-      </div>
-    </section>
-  </main>
-
-${renderFooter(prefix, category.whatsappText)}
-</body>
-</html>`;
+  return renderLegacyRedirectPage({
+    title: `${category.seoTitle} | Redirección`,
+    description: `${category.seoDescription} Consulta la oferta actualizada de WF-Studio.`,
+    canonical: `https://webfuengirola.com${targetPath}`,
+    targetPath,
+    ogImage: "https://webfuengirola.com/img/og-cover.jpg",
+    ogAlt: "WF-Studio · Web Fuengirola",
+  });
 }
 
 /**
@@ -514,10 +426,6 @@ function renderSitemap() {
   ];
   const urls = [
     { loc: "https://webfuengirola.com/", lastmod: today },
-    ...productCategories.map((category) => ({
-      loc: `https://webfuengirola.com/productos/${category.slug}/`,
-      lastmod: today,
-    })),
     { loc: "https://webfuengirola.com/legal.html", lastmod: today },
     { loc: "https://webfuengirola.com/servicios/", lastmod: today },
     ...indexableServices.map((s) => ({

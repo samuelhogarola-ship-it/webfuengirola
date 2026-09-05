@@ -10,6 +10,7 @@ const ignoredRoots = new Set([
   ".git",
   ".husky",
   ".tools",
+  ".worktrees",
   "apps",
   "madamebleuewatches-preview",
   "madamebleuewatches-preview-src",

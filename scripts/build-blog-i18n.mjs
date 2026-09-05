@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { getPageGroup } from "../data/commercial-pages-data.mjs";
 
 const root = process.cwd();
 const site = "https://webfuengirola.com";
@@ -15,7 +16,7 @@ const localeMeta = {
 
 const ui = {
   en: {
-    blogTitle: "Web design blog in Fuengirola | Web Fuengirola",
+    blogTitle: "Web design blog in Fuengirola | WF-Studio · Web Fuengirola",
     blogDescription:
       "Clear articles about websites, local SEO, Google, social media and AI for local businesses that want better online enquiries.",
     eyebrow: "Editorial plan",
@@ -32,7 +33,7 @@ const ui = {
     read: "Read article",
     minutes: "min",
     articleBadge: "Local business guide",
-    author: "By Samuel, Web Fuengirola",
+    author: "By Samuel, WF-Studio · Web Fuengirola",
     keyIdeas: "Key ideas",
     faqTitle: "Frequently asked questions",
     related: "Related articles",
@@ -57,7 +58,7 @@ const ui = {
     a3: "Start with clarity, mobile speed, visible contact options and content that explains your services in the language customers use.",
   },
   de: {
-    blogTitle: "Blog über Webdesign in Fuengirola | Web Fuengirola",
+    blogTitle: "Blog über Webdesign in Fuengirola | WF-Studio · Web Fuengirola",
     blogDescription:
       "Klare Artikel über Websites, lokales SEO, Google, soziale Netzwerke und KI für lokale Unternehmen mit mehr echten Anfragen.",
     eyebrow: "Redaktionsplan",
@@ -74,7 +75,7 @@ const ui = {
     read: "Artikel lesen",
     minutes: "Min.",
     articleBadge: "Ratgeber für lokale Unternehmen",
-    author: "Von Samuel, Web Fuengirola",
+    author: "Von Samuel, WF-Studio · Web Fuengirola",
     keyIdeas: "Wichtige Punkte",
     faqTitle: "Häufige Fragen",
     related: "Ähnliche Artikel",
@@ -99,7 +100,7 @@ const ui = {
     a3: "Beginne mit Klarheit, mobiler Ladezeit, sichtbaren Kontaktmöglichkeiten und Inhalten, die deine Leistungen in der Sprache der Kunden erklären.",
   },
   fi: {
-    blogTitle: "Verkkosivublogi Fuengirolassa | Web Fuengirola",
+    blogTitle: "Verkkosivublogi Fuengirolassa | WF-Studio · Web Fuengirola",
     blogDescription:
       "Selkeitä artikkeleita verkkosivuista, paikallisesta SEO:sta, Googlesta, somesta ja tekoälystä paikallisille yrityksille.",
     eyebrow: "Julkaisusuunnitelma",
@@ -116,7 +117,7 @@ const ui = {
     read: "Lue artikkeli",
     minutes: "min",
     articleBadge: "Opas paikalliselle yritykselle",
-    author: "Samuel, Web Fuengirola",
+    author: "Samuel, WF-Studio · Web Fuengirola",
     keyIdeas: "Tärkeimmät ajatukset",
     faqTitle: "Usein kysytyt kysymykset",
     related: "Aiheeseen liittyvät artikkelit",
@@ -463,7 +464,7 @@ function extractSpanishPosts() {
         .trim() ||
       html
         .match(/<title>([\s\S]*?)<\/title>/)?.[1]
-        ?.replace(/\s*\|\s*Web Fuengirola$/, "")
+        ?.replace(/\s*\|\s*WF-Studio · Web Fuengirola$/, "")
         .trim() ||
       slug;
     const description =
@@ -573,22 +574,22 @@ function languageSwitcher(slug = "", currentLang) {
 function nav(lang, depth = 2) {
   const prefix = "../".repeat(depth);
   const copy = ui[lang];
+  const route = (key) => getPageGroup(key).routes[lang];
   return `<header class="header" id="header">
     <div class="container header__inner">
-      <a href="${prefix}" class="logo" aria-label="Web Fuengirola">
-        <img src="${prefix}img/logo-wf.webp" alt="Web Fuengirola" class="logo__img" width="36" height="36" loading="eager" />
+      <a href="${route("home")}" class="logo" aria-label="WF-Studio · Web Fuengirola">
+        <img src="${prefix}img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="eager" />
       </a>
       <nav class="nav" id="nav" aria-label="Main navigation">
         <ul class="nav__list">
-          <li><a href="${prefix}" class="nav__link">${copy.home}</a></li>
-          <li><a href="${prefix}servicios/" class="nav__link">${copy.services}</a></li>
+          <li><a href="${route("home")}" class="nav__link">${copy.home}</a></li>
+          <li><a href="${route("design")}" class="nav__link">${copy.services}</a></li>
           <li><a href="${prefix}casos/" class="nav__link">${copy.cases}</a></li>
           <li><a href="${localeMeta[lang].blogPath}" class="nav__link nav__link--active">${copy.blog}</a></li>
-          <li><a href="${prefix}recursos/" class="nav__link">${copy.calculator}</a></li>
-          <li><a href="${prefix}sobre-nosotros/" class="nav__link">${copy.about}</a></li>
+          <li><a href="${route("prices")}" class="nav__link">${copy.calculator}</a></li>
         </ul>
       </nav>
-      <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20una%20web%20para%20mi%20negocio" class="btn btn--primary header__cta" target="_blank" rel="noopener noreferrer">${copy.cta}</a>
+      <a href="${route("contact")}" class="btn btn--primary header__cta" data-analytics-event="quote_click" data-analytics-locale="${lang}">${copy.cta}</a>
       <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
         <span></span><span></span><span></span>
       </button>
@@ -598,20 +599,21 @@ function nav(lang, depth = 2) {
 
 function footer(lang, depth = 2) {
   const prefix = "../".repeat(depth);
+  const route = (key) => getPageGroup(key).routes[lang];
   return `<footer class="footer">
     <div class="container footer__inner">
       <div>
-        <a href="${prefix}" class="footer__brand">
-          <img src="${prefix}img/logo-wf.webp" alt="Web Fuengirola" width="34" height="34" loading="lazy" />
-          <span>Web Fuengirola</span>
+        <a href="${route("home")}" class="footer__brand">
+          <img src="${prefix}img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" width="34" height="34" loading="lazy" />
+          <span>WF-Studio · Web Fuengirola</span>
         </a>
         <p class="footer__tagline">${ui[lang].footer}</p>
       </div>
       <nav class="footer__nav" aria-label="Footer navigation">
         <ul>
           <li><a href="${localeMeta[lang].blogPath}">${ui[lang].blog}</a></li>
-          <li><a href="${prefix}servicios/">${ui[lang].services}</a></li>
-          <li><a href="${prefix}contacto/">Contacto</a></li>
+          <li><a href="${route("design")}">${ui[lang].services}</a></li>
+          <li><a href="${route("contact")}">${ui[lang].contactLabel ?? ui[lang].cta}</a></li>
         </ul>
       </nav>
     </div>
@@ -627,9 +629,9 @@ function head({
   type = "article",
   slug = "",
 }) {
-  const pageTitle = title.includes("Web Fuengirola")
+  const pageTitle = title.includes("WF-Studio · Web Fuengirola")
     ? title
-    : `${title} | Web Fuengirola`;
+    : `${title} | WF-Studio · Web Fuengirola`;
   return `<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -650,7 +652,7 @@ ${hrefLangLinks(slug)}
   <meta property="og:image:secure_url" content="${site}/img/${image}" />
   <meta property="og:image:type" content="image/webp" />
   <meta property="og:image:alt" content="${escapeHtml(title)}" />
-  <meta property="og:site_name" content="Web Fuengirola" />
+  <meta property="og:site_name" content="WF-Studio · Web Fuengirola" />
   <meta property="og:locale" content="${localeMeta[lang].og}" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${escapeHtml(title)}" />
@@ -688,7 +690,7 @@ ${head({ lang, title: copy.blogTitle, description: copy.blogDescription, canonic
   <main>
     <section class="subpage-hero blog-hero">
       <div class="container blog-hero__inner">
-        <nav class="project-breadcrumb" aria-label="Breadcrumb"><a href="../../">${copy.home}</a><span>/</span><span>${copy.blog}</span></nav>
+        <nav class="project-breadcrumb" aria-label="Breadcrumb"><a href="${getPageGroup("home").routes[lang]}">${copy.home}</a><span>/</span><span>${copy.blog}</span></nav>
         ${languageSwitcher("", lang)}
         <span class="badge">${copy.eyebrow}</span>
         <h1 class="subpage-hero__title">${copy.hero}</h1>
@@ -758,7 +760,7 @@ function articlePage(lang, post, relatedPosts) {
         },
         publisher: {
           "@type": "Organization",
-          name: "Web Fuengirola",
+          name: "WF-Studio · Web Fuengirola",
           logo: { "@type": "ImageObject", url: `${site}/img/logo-wf.webp` },
         },
       },
@@ -782,12 +784,12 @@ ${head({ lang, title: p.title, description: p.description, canonical, image: p.i
     <article>
       <section class="subpage-hero blog-post-hero">
         <div class="container">
-          <nav class="project-breadcrumb" aria-label="Breadcrumb"><a href="../../../">${copy.home}</a><span>/</span><a href="../">${copy.blog}</a><span>/</span><span>${escapeHtml(p.title)}</span></nav>
+          <nav class="project-breadcrumb" aria-label="Breadcrumb"><a href="${getPageGroup("home").routes[lang]}">${copy.home}</a><span>/</span><a href="../">${copy.blog}</a><span>/</span><span>${escapeHtml(p.title)}</span></nav>
           ${languageSwitcher(post.slug, lang)}
           <span class="badge">${copy.articleBadge}</span>
           <h1 class="subpage-hero__title">${escapeHtml(p.title)}</h1>
           <p class="subpage-hero__sub">${escapeHtml(p.description)}</p>
-          <div class="blog-card__meta"><span>${escapeHtml(p.dateLabel)}</span><span>${escapeHtml(p.minutes)}</span><span><a href="../../../sobre-nosotros/">${escapeHtml(copy.author)}</a></span></div>
+          <div class="blog-card__meta"><span>${escapeHtml(p.dateLabel)}</span><span>${escapeHtml(p.minutes)}</span><span>${escapeHtml(copy.author)}</span></div>
         </div>
       </section>
       <section class="service-detail">
@@ -822,7 +824,7 @@ ${head({ lang, title: p.title, description: p.description, canonical, image: p.i
               <div class="blog-post-cta">
                 <h2>${escapeHtml(copy.cta)}</h2>
                 <p>${escapeHtml(copy.footer)}</p>
-                <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20una%20web%20para%20mi%20negocio" class="btn btn--primary" target="_blank" rel="noopener noreferrer">${escapeHtml(copy.cta)}</a>
+                <a href="${getPageGroup("contact").routes[lang]}" class="btn btn--primary" data-analytics-event="quote_click" data-analytics-locale="${lang}">${escapeHtml(copy.cta)}</a>
               </div>
             </div>
             <aside class="blog-post-sidebar">
