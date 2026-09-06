@@ -1,4 +1,4 @@
-/* Adapted from the shared core legal module for Web Fuengirola. */
+/* Adapted from the shared core legal module for WF-Studio. */
 (function (globalScope) {
   "use strict";
 
@@ -11,9 +11,8 @@
       .replace(/'/g, "&#39;");
   }
 
-  function field(value, placeholder) {
-    if (value) return escapeHtml(value);
-    return '<span class="legal-rellenar">' + escapeHtml(placeholder) + "</span>";
+  function field(value) {
+    return value ? escapeHtml(value) : "";
   }
 
   function createLegalPageMarkup(appConfig) {
@@ -23,12 +22,12 @@
     var brandName = cfg.brandName || appName || "este sitio web";
     var legalTitle = cfg.legalTitle || "Información legal";
     var legalIntro = cfg.legalIntro || "";
-    var ownerName = field(cfg.ownerName, "[RELLENAR: nombre completo o razón social]");
-    var ownerNif = field(cfg.ownerNif, "[RELLENAR: DNI con letra o CIF de la empresa]");
-    var ownerAddress = field(cfg.ownerAddress, "[RELLENAR: dirección postal completa]");
-    var contactEmail = field(cfg.contactEmail, "[RELLENAR: email de contacto]");
-    var siteUrl = field(cfg.siteUrl, "[RELLENAR: URL del sitio]");
-    var hostingProvider = field(cfg.hostingProvider, "[RELLENAR: proveedor de hosting o email]");
+    var ownerName = field(cfg.ownerName);
+    var ownerNif = field(cfg.ownerNif);
+    var ownerAddress = field(cfg.ownerAddress);
+    var contactEmail = field(cfg.contactEmail);
+    var siteUrl = field(cfg.siteUrl);
+    var hostingProvider = field(cfg.hostingProvider);
     var lastUpdated = escapeHtml(cfg.lastUpdated || "mayo de 2026");
     var extraSections = cfg.extraSections || [];
 
@@ -62,8 +61,8 @@
     h += "<p>En cumplimiento con el deber de información recogido en el artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico (LSSI-CE), se facilitan a continuación los datos identificativos del titular de este sitio web.</p>";
     h += '<table class="legal-table">';
     h += "<tr><td>Titular de la web</td><td>" + ownerName + "</td></tr>";
-    h += "<tr><td>NIF / CIF</td><td>" + ownerNif + "</td></tr>";
-    h += "<tr><td>Domicilio fiscal</td><td>" + ownerAddress + "</td></tr>";
+    if (ownerNif) h += "<tr><td>NIF / CIF</td><td>" + ownerNif + "</td></tr>";
+    if (ownerAddress) h += "<tr><td>Domicilio fiscal</td><td>" + ownerAddress + "</td></tr>";
     h += "<tr><td>Email de contacto</td><td>" + contactEmail + "</td></tr>";
     h += "<tr><td>Sitio web</td><td>" + siteUrl + "</td></tr>";
     h += "</table>";
@@ -77,7 +76,9 @@
     h += "<h2>2. Política de Privacidad y Protección de Datos</h2>";
     h += "<p>En cumplimiento del Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo (RGPD) y de la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD), se informa al usuario de la siguiente política de tratamiento de datos personales.</p>";
     h += "<h3>Responsable del tratamiento</h3>";
-    h += "<p>" + ownerName + "<br>NIF / CIF: " + ownerNif + "<br>Email: " + contactEmail + "</p>";
+    h += "<p>" + ownerName;
+    if (ownerNif) h += "<br>NIF / CIF: " + ownerNif;
+    h += "<br>Email: " + contactEmail + "</p>";
     h += "<h3>Finalidad del tratamiento</h3>";
     h += "<p>Los datos personales que pudieran recogerse a través del formulario de contacto o del correo electrónico facilitado en esta web se utilizan exclusivamente para:</p>";
     h += "<ul><li>Responder a las consultas y mensajes enviados por el usuario.</li><li>Gestionar solicitudes de presupuesto, información comercial y comunicaciones relacionadas con los servicios de " + escapeHtml(brandName) + ".</li></ul>";
@@ -85,7 +86,13 @@
     h += "<h3>Base de legitimación</h3>";
     h += "<p>El tratamiento de los datos se basa en el consentimiento del usuario, prestado de forma libre, específica, informada e inequívoca al enviar un mensaje de contacto o solicitar información a través de este sitio.</p>";
     h += "<h3>Destinatarios</h3>";
-    h += "<p>No se cederán datos personales a terceros, salvo obligación legal. Los datos pueden almacenarse en servicios gestionados por " + hostingProvider + " y en herramientas imprescindibles para el funcionamiento técnico del sitio, dentro del Espacio Económico Europeo o con garantías adecuadas conforme a la normativa vigente.</p>";
+    h += "<p>No se cederán datos personales a terceros, salvo obligación legal. ";
+    if (hostingProvider) {
+      h += "Los datos pueden almacenarse en servicios gestionados por " + hostingProvider + " y en herramientas imprescindibles para el funcionamiento técnico del sitio";
+    } else {
+      h += "Los datos pueden almacenarse en herramientas imprescindibles para el funcionamiento técnico del sitio";
+    }
+    h += ", dentro del Espacio Económico Europeo o con garantías adecuadas conforme a la normativa vigente.</p>";
     h += "<h3>Plazo de conservación</h3>";
     h += "<p>Los datos se conservarán durante el tiempo necesario para atender la solicitud del usuario y, posteriormente, durante los plazos legalmente establecidos para atender posibles responsabilidades derivadas del tratamiento.</p>";
     h += "<h3>Derechos del usuario</h3>";

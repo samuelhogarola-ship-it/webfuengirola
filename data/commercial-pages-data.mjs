@@ -527,126 +527,291 @@ const sectorInsights = {
   },
 };
 
+const headlineOverrides = {
+  home: {
+    es: "WF-Studio: diseño web en Fuengirola para convertir visitas en contactos",
+    en: "WF-Studio: web design in Fuengirola that turns visits into enquiries",
+    de: "WF-Studio: Webdesign in Fuengirola, das Besucher zu Anfragen führt",
+    fi: "WF-Studio: verkkosivut Fuengirolassa, jotka muuttavat kävijät yhteydenotoiksi",
+  },
+  design: {
+    es: "Diseño web en Fuengirola para captar clientes desde Google y móvil",
+    en: "Web design in Fuengirola for more enquiries from search and mobile",
+    de: "Webdesign in Fuengirola, das über Google und Mobilgeräte neue Kunden gewinnt",
+    fi: "Verkkosivujen suunnittelu Fuengirolassa Google- ja mobiiliasiakkaita varten",
+  },
+  seo: {
+    es: "SEO local en Fuengirola para atraer clientes cercanos",
+    en: "Local SEO in Fuengirola for visibility among nearby customers",
+    de: "Lokales SEO in Fuengirola für mehr Sichtbarkeit bei Kunden in der Nähe",
+    fi: "Paikallinen SEO Fuengirolassa lähialueen asiakkaita varten",
+  },
+  prices: {
+    es: "Precios de diseño web en Fuengirola: Lite, Express y Profesional",
+    en: "Web design prices in Fuengirola: Lite, Express and Professional",
+    de: "Webdesign-Preise in Fuengirola: Lite, Express und Professional",
+    fi: "Verkkosivujen hinnat Fuengirolassa: Lite, Express ja Professional",
+  },
+  audit: {
+    es: "Auditoría web gratuita en Fuengirola con prioridades claras",
+    en: "Free website audit in Fuengirola with clear next steps",
+    de: "Kostenlose Website-Analyse in Fuengirola mit klaren nächsten Schritten",
+    fi: "Maksuton verkkosivuanalyysi Fuengirolassa selkeillä jatkotoimilla",
+  },
+  contact: {
+    es: "Contacta con WF-Studio en Fuengirola",
+    en: "Contact WF-Studio in Fuengirola",
+    de: "Kontakt zu WF-Studio in Fuengirola",
+    fi: "Ota yhteyttä WF-Studioon Fuengirolassa",
+  },
+  cases: {
+    es: "Proyectos de WF-Studio en Fuengirola y otros mercados",
+    en: "WF-Studio case studies from Fuengirola and international projects",
+    de: "WF-Studio-Referenzen aus Fuengirola und internationalen Projekten",
+    fi: "WF-Studion asiakastyöt Fuengirolassa ja kansainvälisissä projekteissa",
+  },
+  apps: {
+    es: "Aplicaciones web a medida en Fuengirola para ahorrar tareas y centralizar operaciones",
+    en: "Custom web applications in Fuengirola for more efficient operations",
+    de: "Individuelle Webanwendungen in Fuengirola für effizientere Abläufe",
+    fi: "Räätälöidyt verkkosovellukset Fuengirolassa sujuvampaan työhön",
+  },
+  automation: {
+    es: "Automatización e IA para negocios de Fuengirola",
+    en: "Automation and AI for businesses in Fuengirola",
+    de: "Automatisierung und KI für Unternehmen in Fuengirola",
+    fi: "Automaatio ja tekoäly Fuengirolan yrityksille",
+  },
+  clinics: {
+    es: "Web para clínicas en Fuengirola que transmite confianza y genera citas",
+    en: "Websites for clinics in Fuengirola that build trust and win appointment enquiries",
+    de: "Websites für Praxen in Fuengirola, die Vertrauen schaffen und Terminanfragen gewinnen",
+    fi: "Verkkosivut Fuengirolan klinikoille – luottamusta ja ajanvarauksia",
+  },
+  physio: {
+    es: "Web para fisioterapeutas en Fuengirola con reserva directa",
+    en: "Websites for physiotherapists in Fuengirola for more direct bookings",
+    de: "Websites für Physiotherapie in Fuengirola für mehr direkte Terminanfragen",
+    fi: "Verkkosivut Fuengirolan fysioterapeuteille suoria ajanvarauksia varten",
+  },
+  trainers: {
+    es: "Web para entrenadores personales en Fuengirola que convierte búsquedas en clientes",
+    en: "Websites for personal trainers in Fuengirola that turn local searches into clients",
+    de: "Websites für Personal Trainer in Fuengirola, die lokale Kunden überzeugen",
+    fi: "Verkkosivut Fuengirolan personal trainereille paikallisten asiakkaiden hankintaan",
+  },
+  gyms: {
+    es: "Web para gimnasios en Fuengirola orientada a pruebas y nuevas altas",
+    en: "Websites for gyms in Fuengirola for trials and new memberships",
+    de: "Websites für Fitnessstudios in Fuengirola für Probetrainings und neue Mitglieder",
+    fi: "Verkkosivut Fuengirolan kuntosaleille kokeilukäyntejä ja jäsenyyksiä varten",
+  },
+  restaurants: {
+    es: "Web para restaurantes en Fuengirola con reservas directas",
+    en: "Websites for restaurants in Fuengirola for more direct bookings",
+    de: "Websites für Restaurants in Fuengirola für mehr Direktreservierungen",
+    fi: "Verkkosivut Fuengirolan ravintoloille suoria pöytävarauksia varten",
+  },
+  localBusiness: {
+    es: "Web para negocios locales en Fuengirola que genera contactos cercanos",
+    en: "Websites for local businesses in Fuengirola that win nearby enquiries",
+    de: "Websites für lokale Unternehmen in Fuengirola, die Anfragen aus der Nähe gewinnen",
+    fi: "Verkkosivut Fuengirolan paikallisille yrityksille lähialueen yhteydenottoja varten",
+  },
+  multilingual: {
+    es: "Web multidioma en Fuengirola para clientes internacionales",
+    en: "Multilingual websites in Fuengirola for international customers",
+    de: "Mehrsprachige Websites in Fuengirola für internationale Gäste und Einwohner",
+    fi: "Monikieliset verkkosivut Fuengirolassa kansainvälisille asiakkaille",
+  },
+};
+
+const metadataDescriptionOverrides = {
+  audit: {
+    es: "Auditoría web gratuita en Fuengirola para detectar prioridades de SEO, contenido, velocidad y conversión.",
+    en: "Free website audit in Fuengirola to identify priorities across SEO, content, speed and conversion.",
+    de: "Kostenlose Website-Analyse in Fuengirola mit klaren Prioritäten für SEO, Inhalte, Tempo und Anfragen.",
+    fi: "Maksuton verkkosivuanalyysi Fuengirolassa: selkeät prioriteetit SEO:on, sisältöön, nopeuteen ja yhteydenottoihin.",
+  },
+  contact: {
+    es: "Contacta con WF-Studio en Fuengirola para valorar tu web, SEO local, automatización o aplicación a medida.",
+    en: "Contact WF-Studio in Fuengirola about web design, local SEO, automation or a custom web application.",
+    de: "Kontakt zu WF-Studio in Fuengirola für Webdesign, lokales SEO, Automatisierung oder individuelle Webanwendungen.",
+    fi: "Ota yhteyttä WF-Studioon Fuengirolassa: verkkosivut, paikallinen SEO, automaatio ja räätälöidyt sovellukset.",
+  },
+  cases: {
+    es: "Proyectos reales de WF-Studio en diseño web, SEO y aplicaciones para Fuengirola y otros mercados.",
+    en: "Real WF-Studio projects in web design, SEO and applications for Fuengirola and international markets.",
+    de: "Reale Projekte von WF-Studio in Webdesign, SEO und Anwendungen für Fuengirola und internationale Märkte.",
+    fi: "WF-Studion toteuttamia verkkosivu-, SEO- ja sovellusprojekteja Fuengirolasta ja kansainvälisiltä markkinoilta.",
+  },
+  apps: {
+    es: "Aplicaciones web a medida en Fuengirola para centralizar reservas, paneles, clientes y procesos de trabajo.",
+    en: "Custom web applications in Fuengirola for bookings, dashboards, customer management and business workflows.",
+    de: "Individuelle Webanwendungen in Fuengirola für Buchungen, Dashboards, Kundenverwaltung und Arbeitsabläufe.",
+    fi: "Räätälöidyt verkkosovellukset Fuengirolassa varauksiin, hallintapaneeleihin ja liiketoiminnan työnkulkuihin.",
+  },
+  automation: {
+    es: "Automatización e IA para negocios de Fuengirola que quieren ahorrar tiempo y reducir tareas administrativas repetitivas.",
+    en: "Automation and AI for Fuengirola businesses that want to save time and reduce repetitive administrative work.",
+    de: "Automatisierung und KI für Unternehmen in Fuengirola, die Zeit sparen und wiederkehrende Verwaltung reduzieren möchten.",
+    fi: "Automaatio ja tekoäly Fuengirolan yrityksille, jotka haluavat säästää aikaa ja vähentää toistuvaa hallintotyötä.",
+  },
+};
+
+function metadataDescription(locale, subject, groupKey) {
+  const override = metadataDescriptionOverrides[groupKey]?.[locale];
+  if (override) return override;
+  return {
+    es: `${subject}. Soluciones Lite, Express y Profesional de WF-Studio con alcance claro y atención directa.`,
+    en: `${subject}. Lite, Express and Professional websites from WF-Studio, with clear scope and direct support.`,
+    de: `${subject}. Websites von WF-Studio in Lite, Express oder Professional – mit klarem Umfang und direktem Kontakt.`,
+    fi: `${subject}. WF-Studion Lite-, Express- ja Professional-verkkosivut selkeällä laajuudella ja suoralla palvelulla.`,
+  }[locale];
+}
+
 function makeContent(locale, topic, groupKey) {
-  const [subject, audience, solution, outcome] = topic[locale];
+  const [subject, audience, , outcome] = topic[locale];
   if (locale === "es") {
     const content = {
-      title: `${subject} | WF-Studio · Web Fuengirola`,
-      description: `${subject} para ${audience}: ${solution} para ${outcome}. Presupuesto claro y trato directo en Fuengirola.`,
+      title: `${subject} | WF-Studio`,
+      description: metadataDescription(locale, subject, groupKey),
       h1: `${subject} para ${outcome}`,
-      intro: `WF-Studio crea ${solution} para ${audience}. Diseñamos cada recorrido pensando en cómo busca, compara y contacta un cliente real en Fuengirola, con una propuesta clara y sin añadir complejidad que el negocio no necesita.`,
+      intro: `WF-Studio crea una solución digital clara para ${audience}. Diseñamos cada recorrido pensando en cómo busca, compara y contacta un cliente real en Fuengirola, sin añadir complejidad que el negocio no necesita.`,
       problems: [
-        `${audience} pierden oportunidades cuando no muestran ${solution} desde la primera visita.`,
+        `Una oferta poco clara hace perder oportunidades antes del primer contacto.`,
         `Quien quiere ${outcome} necesita entender la propuesta, la prueba y el siguiente paso desde el móvil.`,
         `Una página genérica no responde a las dudas concretas que plantea ${subject.toLowerCase()}.`,
       ],
       benefits: [
-        `${solution} presentada con una jerarquía específica para ${audience}.`,
+        `Una jerarquía clara para presentar la oferta a ${audience}.`,
         `Recorridos de llamada, WhatsApp y formulario diseñados para ${outcome}.`,
         `Contenido local que conecta ${subject.toLowerCase()} con búsquedas reales en Fuengirola.`,
       ],
       tierUses: [
-        `Una página centrada en ${solution} y un único recorrido para ${outcome}.`,
+        `Una página centrada en una oferta y un único recorrido para ${outcome}.`,
         `Hasta cinco páginas para explicar la oferta de ${audience}, resolver objeciones y captar contactos.`,
         `Hasta diez páginas para cubrir variantes de ${subject.toLowerCase()}, contenidos y recorridos avanzados.`,
       ],
       faqs: [
-        [`¿Cómo ayuda ${subject.toLowerCase()} a ${audience}?`, `Ordena ${solution} para que el cliente pueda ${outcome} con menos fricción y más confianza.`],
+        [`¿Qué aporta esta solución a ${audience}?`, `Presenta la oferta con claridad y facilita que el negocio pueda ${outcome}.`],
         [`¿Qué modalidad encaja con este proyecto?`, `Lite cubre un recorrido concreto; Express separa los contenidos principales; Profesional permite trabajar más búsquedas, servicios y puntos de conversión.`],
         [`¿Qué extras suelen aportar valor aquí?`, `Se añaden blog, idiomas, formularios, integraciones o mantenimiento solo cuando ayudan a ${outcome}; no se venden como productos aislados.`],
       ],
       whatsappText: `Hola, me interesa ${subject.toLowerCase()}`,
     };
-    return applySectorInsight(content, locale, sectorInsights[groupKey]?.[locale]);
+    return finalizeContent(content, locale, groupKey);
   }
   if (locale === "en") {
     const content = {
-      title: `${subject} | WF-Studio · Web Fuengirola`,
-      description: `${subject} for ${audience}: ${solution} built to ${outcome}. Clear pricing and direct support in Fuengirola.`,
+      title: `${subject} | WF-Studio`,
+      description: metadataDescription(locale, subject, groupKey),
       h1: `${subject} built to ${outcome}`,
-      intro: `WF-Studio delivers ${solution} for ${audience}. Each journey reflects how real customers search, compare and get in touch in Fuengirola, with clear scope and no unnecessary complexity.`,
+      intro: `WF-Studio creates a clear digital solution for ${audience}. Each journey reflects how real customers search, compare and get in touch in Fuengirola, with clear scope and no unnecessary complexity.`,
       problems: [
-        `${audience} lose opportunities when ${solution} is not clear from the first visit.`,
+        `An unclear offer loses opportunities before the first enquiry.`,
         `People who want to ${outcome} need to find the offer, proof and next step quickly on mobile.`,
         `A generic page does not answer the specific questions behind ${subject.toLowerCase()}.`,
       ],
       benefits: [
-        `${solution} presented with a hierarchy designed for ${audience}.`,
+        `A clear hierarchy that presents the offer to ${audience}.`,
         `Call, WhatsApp and form journeys built to ${outcome}.`,
         `Local content connecting ${subject.toLowerCase()} with real searches in Fuengirola.`,
       ],
       tierUses: [
-        `One page focused on ${solution} and one direct journey to ${outcome}.`,
+        `One page focused on one offer and one direct journey to ${outcome}.`,
         `Up to five pages to explain the offer for ${audience}, answer objections and receive enquiries.`,
         `Up to ten pages for variants of ${subject.toLowerCase()}, content and advanced enquiry journeys.`,
       ],
       faqs: [
-        [`How does ${subject.toLowerCase()} help ${audience}?`, `It organises ${solution} so customers can ${outcome} with less friction and more confidence.`],
+        [`What does this solution do for ${audience}?`, `It presents the offer clearly and helps the business ${outcome}.`],
         [`Which package suits this project?`, `Lite covers one focused journey, Express separates the main content, and Professional supports more searches, services and conversion points.`],
         [`Which extras are useful here?`, `Blog, languages, forms, integrations or maintenance are added only when they help the business ${outcome}; they are not separate headline products.`],
       ],
       whatsappText: `Hello, I am interested in ${subject.toLowerCase()}`,
     };
-    return applySectorInsight(content, locale, sectorInsights[groupKey]?.[locale]);
+    return finalizeContent(content, locale, groupKey);
   }
   if (locale === "de") {
     const content = {
-      title: `${subject} | WF-Studio · Web Fuengirola`,
-      description: `${subject} für ${audience}: ${solution}, um ${outcome}. Klare Preise und direkter Kontakt in Fuengirola.`,
-      h1: `${subject}, um ${outcome}`,
-      intro: `WF-Studio entwickelt ${solution} für ${audience}. Jede Seite berücksichtigt, wie echte Kunden in Fuengirola suchen, vergleichen und Kontakt aufnehmen – mit klarem Umfang und ohne unnötige Komplexität.`,
+      title: `${subject} | WF-Studio`,
+      description: metadataDescription(locale, subject, groupKey),
+      h1: subject,
+      intro: `Zielgruppe: ${audience}. WF-Studio entwickelt eine klare digitale Lösung, die berücksichtigt, wie echte Kunden in Fuengirola suchen, vergleichen und Kontakt aufnehmen.`,
       problems: [
-        `${audience} verlieren Chancen, wenn ${solution} beim ersten Besuch nicht klar wird.`,
-        `Wer ${outcome} möchte, muss Angebot, Nachweise und den nächsten Schritt mobil schnell finden.`,
-        `Eine allgemeine Seite beantwortet nicht die konkreten Fragen zu ${subject}.`,
+        `Das Angebot muss schon beim ersten Besuch verständlich und leicht vergleichbar sein.`,
+        `Das geschäftliche Ziel ist klar: ${outcome}. Dafür müssen Angebot, Nachweise und der nächste Schritt mobil schnell auffindbar sein.`,
+        `Eine allgemeine Seite beantwortet die konkreten Fragen der Zielgruppe nicht ausreichend.`,
       ],
       benefits: [
-        `${solution} mit einer Hierarchie, die auf ${audience} abgestimmt ist.`,
-        `Anruf-, WhatsApp- und Formularwege mit dem Ziel, ${outcome}.`,
-        `Lokale Inhalte verbinden ${subject} mit echten Suchanfragen in Fuengirola.`,
+        `Eine klare Inhaltshierarchie für Angebot, Nachweise und Kontakt.`,
+        `Kurze Wege zu Anruf, WhatsApp und Formular. Ziel: ${outcome}.`,
+        `Lokale Inhalte verbinden das Angebot mit echten Suchanfragen in Fuengirola.`,
       ],
       tierUses: [
-        `Eine Seite mit Fokus auf ${solution}, um ${outcome}.`,
-        `Bis zu fünf Seiten, um das Angebot für ${audience} zu erklären, Einwände zu klären und Anfragen zu gewinnen.`,
-        `Bis zu zehn Seiten für Varianten von ${subject}, Inhalte und erweiterte Kontaktwege.`,
+        `Eine Seite mit einem klaren Angebot und einem direkten Kontaktweg.`,
+        `Bis zu fünf Seiten, um Angebot, Vertrauen und Kontaktwege verständlich zu trennen.`,
+        `Bis zu zehn Seiten für zusätzliche Suchthemen, Inhalte und erweiterte Kontaktwege.`,
       ],
       faqs: [
-        [`Wie hilft ${subject} ${audience}?`, `Die Website ordnet ${solution}, damit Kunden leichter ${outcome}.`],
+        [`Was leistet diese Lösung konkret?`, `Die Website macht das Angebot verständlich, schafft Vertrauen und erleichtert den nächsten Schritt. Ziel: ${outcome}.`],
         [`Welches Paket passt zu diesem Projekt?`, `Lite deckt einen klaren Weg ab, Express trennt die wichtigsten Inhalte und Professional ermöglicht mehr Suchthemen, Leistungen und Kontaktpunkte.`],
-        [`Welche Extras sind hier sinnvoll?`, `Blog, Sprachen, Formulare, Integrationen oder Wartung kommen nur hinzu, wenn sie dabei helfen, ${outcome}.`],
+        [`Welche Extras sind hier sinnvoll?`, `Blog, Sprachen, Formulare, Integrationen oder Wartung kommen nur hinzu, wenn sie ein konkretes Geschäftsziel unterstützen.`],
       ],
       whatsappText: `Hallo, ich interessiere mich für ${subject}`,
     };
-    return applySectorInsight(content, locale, sectorInsights[groupKey]?.[locale]);
+    return finalizeContent(content, locale, groupKey);
   }
   const content = {
-    title: `${subject} | WF-Studio · Web Fuengirola`,
-    description: `${subject} kohderyhmälle ${audience}: ${solution}, jotta yritys voi ${outcome}. Selkeät hinnat ja suora palvelu Fuengirolassa.`,
-    h1: `${subject}, joiden avulla yritys voi ${outcome}`,
-    intro: `WF-Studio toteuttaa ${solution} kohderyhmälle ${audience}. Rakenne perustuu siihen, miten oikeat asiakkaat etsivät, vertailevat ja ottavat yhteyttä Fuengirolassa – selkeästi ja ilman tarpeetonta monimutkaisuutta.`,
+    title: `${subject} | WF-Studio`,
+    description: metadataDescription(locale, subject, groupKey),
+    h1: subject,
+    intro: `Kohderyhmä: ${audience}. WF-Studio suunnittelee selkeän digitaalisen ratkaisun, joka tukee tapaa, jolla oikeat asiakkaat etsivät, vertailevat ja ottavat yhteyttä.`,
     problems: [
-      `${audience} menettävät mahdollisuuksia, jos ${solution} ei avaudu heti ensimmäisellä käynnillä.`,
-      `Kun tavoitteena on ${outcome}, tarjonnan, näytön osaamisesta ja seuraavan askeleen pitää löytyä nopeasti mobiilissa.`,
-      `Yleinen sivu ei vastaa palveluun ${subject.toLowerCase()} liittyviin erityiskysymyksiin.`,
+      `Tarjonnan pitää avautua heti ensimmäisellä käynnillä ja olla helppo vertailla.`,
+      `Liiketoiminnan tavoite on ${outcome}. Siksi tarjonnan, osaamisen näyttöjen ja seuraavan askeleen pitää löytyä nopeasti mobiilissa.`,
+      `Yleinen sivu ei vastaa kohderyhmän tärkeimpiin kysymyksiin riittävän tarkasti.`,
     ],
     benefits: [
-      `${solution} esitetään kohderyhmälle ${audience} suunnitellulla hierarkialla.`,
-      `Puhelu-, WhatsApp- ja lomakepolut tukevat tavoitetta ${outcome}.`,
-      `Paikallinen sisältö yhdistää aiheen ${subject.toLowerCase()} todellisiin Fuengirolan hakuihin.`,
+      `Selkeä sisältöhierarkia tarjonnalle, näytöille ja yhteydenotolle.`,
+      `Lyhyet polut puheluun, WhatsAppiin ja lomakkeelle. Tavoite: ${outcome}.`,
+      `Paikallinen sisältö yhdistää tarjonnan todellisiin Fuengirolan hakuihin.`,
     ],
     tierUses: [
-      `Yksi sivu keskittyy ratkaisuun ${solution} ja tavoitteeseen ${outcome}.`,
-      `Enintään viisi sivua kohderyhmän ${audience} tarjonnan, luottamuksen ja yhteydenottojen esittämiseen.`,
-      `Enintään kymmenen sivua aiheen ${subject.toLowerCase()} eri hakuihin, sisältöihin ja asiakaspolkuihin.`,
+      `Yksi sivu selkeälle tarjonnalle ja suoralle yhteydenottopolulle.`,
+      `Enintään viisi sivua tarjonnan, luottamuksen ja yhteydenottopolkujen erottamiseen.`,
+      `Enintään kymmenen sivua lisähakuihin, sisältöihin ja edistyneisiin asiakaspolkuihin.`,
     ],
     faqs: [
-      [`Miten ${subject.toLowerCase()} auttaa kohderyhmää ${audience}?`, `Se järjestää ratkaisun ${solution}, jotta asiakas voi ${outcome} sujuvammin ja luottavaisemmin.`],
+      [`Mitä hyötyä tästä ratkaisusta on?`, `Sivusto esittelee tarjonnan selkeästi, vahvistaa luottamusta ja helpottaa yhteydenottoa. Tavoite: ${outcome}.`],
       [`Mikä paketti sopii tähän projektiin?`, `Lite kattaa yhden selkeän polun, Express erottaa tärkeimmät sisällöt ja Ammattitaso tukee useampia hakuja, palveluja ja yhteydenottopisteitä.`],
-      [`Mitkä lisäpalvelut ovat hyödyllisiä?`, `Blogi, kielet, lomakkeet, integraatiot tai ylläpito lisätään vain, jos ne auttavat tavoitetta ${outcome}.`],
+      [`Mitkä lisäpalvelut ovat hyödyllisiä?`, `Blogi, kielet, lomakkeet, integraatiot tai ylläpito lisätään vain, kun ne tukevat konkreettista liiketoimintatavoitetta.`],
     ],
     whatsappText: `Hei, olen kiinnostunut palvelusta: ${subject}`,
   };
-  return applySectorInsight(content, locale, sectorInsights[groupKey]?.[locale]);
+  return finalizeContent(content, locale, groupKey);
+}
+
+function finalizeContent(content, locale, groupKey) {
+  const withSectorInsight = applySectorInsight(content, locale, sectorInsights[groupKey]?.[locale]);
+  const headline = headlineOverrides[groupKey]?.[locale];
+  const finalized = headline
+    ? { ...withSectorInsight, h1: headline }
+    : withSectorInsight;
+
+  if (groupKey === "home" && locale === "es") {
+    finalized.faqs[0] = [
+      "¿Qué puede aportar una web clara a un negocio de Fuengirola?",
+      "Explica la oferta sin rodeos, transmite confianza y facilita que una visita termine en llamada, mensaje o solicitud de presupuesto.",
+    ];
+  }
+  if (groupKey === "home" && locale === "en") {
+    finalized.faqs[0] = [
+      "What can a clear website do for a business in Fuengirola?",
+      "It explains the offer plainly, builds trust and makes it easier for a visit to become a call, message or quote request.",
+    ];
+  }
+  return finalized;
 }
 
 function applySectorInsight(content, locale, insight) {
@@ -664,14 +829,14 @@ function applySectorInsight(content, locale, insight) {
       tiers: [`One landing page focused on ${focus}.`, `Up to five pages to separate ${focus} and explain ${trust}.`, `Up to ten pages to develop ${searches}, content and advanced conversions.`],
     },
     de: {
-      problems: [`Kunden müssen ${focus} vor der Kontaktaufnahme vergleichen können.`, `Entscheidungen stocken, wenn ${trust} fehlen.`, `Die Website muss ${searches} beantworten, ohne dünne Seiten zu erzeugen.`],
-      benefits: [`Eine branchenspezifische Struktur für ${focus}.`, `Eigene Vertrauensbereiche zu ${trust}.`, `Inhalte und interne Links für ${searches}.`],
-      tiers: [`Eine Landingpage mit Fokus auf ${focus}.`, `Bis zu fünf Seiten, um ${focus} zu trennen und ${trust} zu erklären.`, `Bis zu zehn Seiten für ${searches}, Inhalte und erweiterte Kontaktwege.`],
+      problems: [`Vor der Kontaktaufnahme vergleichen Kunden vor allem: ${focus}.`, `Für die Entscheidung wichtig: ${trust}.`, `Die lokale Suche dreht sich unter anderem um: ${searches}.`],
+      benefits: [`Klare Inhaltsstruktur für: ${focus}.`, `Eigene Vertrauensbereiche für: ${trust}.`, `Inhalte und interne Links zu: ${searches}.`],
+      tiers: [`Eine Landingpage mit einem Schwerpunkt: ${focus}.`, `Bis zu fünf Seiten für Angebot und Vertrauen: ${focus}; ${trust}.`, `Bis zu zehn Seiten für Suchthemen, Inhalte und Kontaktwege: ${searches}.`],
     },
     fi: {
-      problems: [`Asiakkaan pitää voida vertailla aiheita ${focus} ennen yhteydenottoa.`, `Päätös viivästyy, jos ${trust} puuttuvat.`, `Sivuston pitää vastata hakuihin ${searches} ilman ohuita sivuja.`],
-      benefits: [`Toimialakohtainen rakenne aiheille ${focus}.`, `Omat luottamusosiot aiheille ${trust}.`, `Sisältö ja sisäiset linkit hakuihin ${searches}.`],
-      tiers: [`Yksi laskeutumissivu aiheille ${focus}.`, `Enintään viisi sivua erottamaan ${focus} ja selittämään ${trust}.`, `Enintään kymmenen sivua hakuihin ${searches}, sisältöihin ja edistyneisiin yhteydenottoihin.`],
+      problems: [`Ennen yhteydenottoa asiakas vertailee erityisesti näitä: ${focus}.`, `Päätöstä tukevat: ${trust}.`, `Paikalliset haut liittyvät esimerkiksi näihin: ${searches}.`],
+      benefits: [`Selkeä sisältörakenne seuraaville aiheille: ${focus}.`, `Omat luottamusosiot seuraaville asioille: ${trust}.`, `Sisältö ja sisäiset linkit seuraaviin hakuihin: ${searches}.`],
+      tiers: [`Yksi laskeutumissivu yhdelle kokonaisuudelle: ${focus}.`, `Enintään viisi sivua tarjonnalle ja luottamustekijöille: ${focus}; ${trust}.`, `Enintään kymmenen sivua hakuteemoille, sisällöille ja yhteydenottopoluille: ${searches}.`],
     },
   }[locale];
   return { ...content, problems: copy.problems, benefits: copy.benefits, tierUses: copy.tiers, faqs: [[question, answer], ...content.faqs.slice(1)] };

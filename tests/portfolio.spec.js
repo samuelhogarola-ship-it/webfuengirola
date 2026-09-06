@@ -100,7 +100,7 @@ test("casos muestra enlaces a fichas individuales y CTA final", async ({
 
   await expect(
     page.getByRole("heading", {
-      name: /casos de éxito de wf-studio en fuengirola/i,
+      name: /proyectos de wf-studio en fuengirola y otros mercados/i,
     }),
   ).toBeVisible();
   await expect(

@@ -4,7 +4,7 @@ const { test, expect } = require("@playwright/test");
 
 test("landing principal carga con hero y CTA principal", async ({ page }) => {
   await page.goto("/");
-  await expect(page).toHaveTitle(/Web Fuengirola/i);
+  await expect(page).toHaveTitle(/WF-Studio:.*Fuengirola.*\| WF-Studio/i);
   await expect(page.locator("h1")).toBeVisible();
   await expect(
     page.getByRole("link", { name: /pedir presupuesto/i }).first(),
@@ -485,10 +485,10 @@ test("casos, recursos y blog mantienen branding público consistente", async ({
   page,
 }) => {
   await page.goto("/casos/");
-  await expect(page).toHaveTitle(/casos de éxito.*web fuengirola/i);
+  await expect(page).toHaveTitle(/casos de éxito.*fuengirola.*wf-studio/i);
   await expect(
     page.getByRole("heading", {
-      name: /casos de éxito de wf-studio en fuengirola/i,
+      name: /proyectos de wf-studio en fuengirola y otros mercados/i,
     }),
   ).toBeVisible();
   await expect(page.locator("body")).toContainText(/sport massage fuengirola/i);
@@ -596,11 +596,9 @@ test("legal y landings locales mantienen branding actualizado", async ({
   page,
 }) => {
   await page.goto("/legal.html");
-  await expect(page).toHaveTitle(
-    /aviso legal, privacidad y cookies \| web fuengirola/i,
-  );
+  await expect(page).toHaveTitle(/información legal y privacidad \| wf-studio/i);
   await expect(
-    page.locator('a.logo[aria-label="Web Fuengirola"]').first(),
+    page.locator('a.logo[aria-label="WF-Studio · Web Fuengirola"]').first(),
   ).toBeVisible();
   await expect(page.locator("body")).toContainText(/web fuengirola/i);
 
@@ -609,7 +607,7 @@ test("legal y landings locales mantienen branding actualizado", async ({
     page.locator('a[aria-label="WF-Studio · Web Fuengirola"]').first(),
   ).toBeVisible();
   await expect(page.locator("body")).toContainText(
-    /wf-studio crea una presencia coherente entre web y google para negocios que necesitan visibilidad local en fuengirola/i,
+    /wf-studio crea una solución digital clara para negocios que necesitan visibilidad local en fuengirola/i,
   );
 });
 

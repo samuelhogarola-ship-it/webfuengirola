@@ -9,6 +9,7 @@
     "build:blog": "node scripts/build-blog-campaign.mjs && node scripts/build-blog-i18n.mjs",
     "build:commercial": "node scripts/build-commercial-pages.mjs",
     "build:sitemap": "node scripts/build-sitemap.mjs",
+    "build:brand-visuals": "node scripts/generate-brand-visuals.mjs",
     "build:all": "npm run build:services && npm run build:casos && npm run build:portfolio && npm run build:blog && npm run build:commercial && npm run build:sitemap",
     "content:social": "node scripts/prepare-social-campaign.mjs",
     "test": "playwright test",

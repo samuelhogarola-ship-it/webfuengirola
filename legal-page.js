@@ -5,8 +5,8 @@
   if (!mount || !window.LegalCore || typeof window.LegalCore.createLegalPageMarkup !== "function") return;
 
   mount.innerHTML = window.LegalCore.createLegalPageMarkup({
-    appName: "Web Fuengirola",
-    brandName: "Web Fuengirola",
+    appName: "WF-Studio · Web Fuengirola",
+    brandName: "WF-Studio",
     legalTitle: "Información legal, privacidad y cookies",
     legalIntro: "Aquí encontrarás la base legal del sitio, cómo tratamos los datos de contacto y qué almacenamiento técnico utilizamos para el funcionamiento básico de la web.",
     ownerName: "WF-Studio",

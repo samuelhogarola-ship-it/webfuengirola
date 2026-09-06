@@ -127,7 +127,7 @@ const visuals = [
     file: "sport-massage-fuengirola",
     html: `
       <div class="stage">
-        <div class="brand"><div class="logo">WF</div><span>Web Fuengirola</span></div>
+        <div class="brand"><div class="logo">WF</div><span>WF-Studio</span></div>
         <div class="card" style="position:absolute;left:96px;top:162px;width:650px;height:470px;padding:34px">
           <div class="label">Google Maps</div>
           <div style="position:absolute;left:34px;right:34px;top:96px;bottom:34px;border-radius:24px;overflow:hidden;background:#dfe6dc">
@@ -161,7 +161,7 @@ const visuals = [
     file: "personal-trainer",
     html: `
       <div class="stage">
-        <div class="brand"><div class="logo">WF</div><span>Diseño web</span></div>
+        <div class="brand"><div class="logo">WF</div><span>WF-Studio</span></div>
         <div class="screen" style="position:absolute;left:214px;top:128px;width:920px;height:530px;background:#111">
           <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div>
           <div style="display:grid;grid-template-columns:1fr 1fr;height:486px;background:#0e0f0f;color:white">
@@ -189,7 +189,7 @@ const visuals = [
     file: "agama",
     html: `
       <div class="stage">
-        <div class="brand"><div class="logo">WF</div><span>App a medida</span></div>
+        <div class="brand"><div class="logo">WF</div><span>WF-Studio</span></div>
         <div class="screen" style="position:absolute;left:90px;top:150px;width:850px;height:500px;background:#f5f7f6">
           <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div>
           <div style="display:grid;grid-template-columns:190px 1fr;height:456px;background:#f7faf8">
@@ -243,7 +243,7 @@ const visuals = [
     file: "vokabellab",
     html: `
       <div class="stage">
-        <div class="brand"><div class="logo">WF</div><span>Vokabel Lab</span></div>
+        <div class="brand"><div class="logo">WF</div><span>WF-Studio</span></div>
         <div class="screen" style="position:absolute;left:108px;top:150px;width:800px;height:500px;background:#101216">
           <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div>
           <div style="height:456px;padding:46px;background:linear-gradient(145deg,#15181f,#24282f);color:white">

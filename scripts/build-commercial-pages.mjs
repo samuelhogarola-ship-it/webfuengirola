@@ -132,13 +132,7 @@ function renderExtras(locale) {
 
 function renderCases(group, locale) {
   if (!group.cases.length) {
-    const message = {
-      es: "Esta solución se mostrará con una demostración sectorial. No atribuimos resultados a clientes que no existen.",
-      en: "This solution will use a sector demonstration. We never attribute results to clients that do not exist.",
-      de: "Diese Lösung wird mit einer Branchendemonstration gezeigt. Wir schreiben erfundenen Kunden keine Ergebnisse zu.",
-      fi: "Ratkaisu esitellään toimialakohtaisella demolla. Emme liitä tuloksia keksittyihin asiakkaisiin.",
-    };
-    return `<p class="commercial-proof-note">${escapeHtml(message[locale])}</p>`;
+    return "";
   }
   const caseHub = getPageGroup("cases").routes[locale];
   return `<div class="commercial-case-links">${group.cases
@@ -308,7 +302,7 @@ function renderLocalizedLegalPage(locale) {
     .join("\n");
   return `<!doctype html>
 <html lang="${locale}"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${escapeHtml(copy.title)}</title><meta name="description" content="${escapeHtml(copy.description)}" /><meta name="robots" content="index, follow" />
+  <title>${escapeHtml(copy.title)}</title><meta name="description" content="${escapeHtml(copy.description)}" /><meta name="robots" content="noindex, follow" />
   <link rel="canonical" href="${canonical}" />
 ${languageLinks}
   <link rel="alternate" hreflang="x-default" href="${absolute(legalRoutes.es)}" />
