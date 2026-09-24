@@ -11,17 +11,17 @@ test("landing principal carga con hero y CTA principal", async ({ page }) => {
   ).toBeVisible();
 });
 
-test("landing explica la propuesta local y la arquitectura comercial", async () => {
+test("landing conserva la portada visual original y enlaza el portfolio", async () => {
   const html = fs.readFileSync(
     path.join(__dirname, "..", "index.html"),
     "utf8",
   );
 
   expect(html).toMatch(/WF-Studio: diseño web en Fuengirola/i);
-  expect(html).toMatch(/Tres modalidades, el mismo precio para cada sector/i);
-  expect(html).toMatch(/Web Lite[\s\S]*data-tier-price="200"/i);
-  expect(html).toMatch(/Web Express[\s\S]*data-tier-price="350"/i);
-  expect(html).toMatch(/Web Profesional[\s\S]*data-tier-price="600"/i);
+  expect(html).toMatch(/hero--cinematic/);
+  expect(html).toMatch(/hero-northern-lights-screen-branded\.png/);
+  expect(html).toMatch(/href="\/casos\/"[^>]*>Ver portfolio/);
+  expect(html).toMatch(/class="case-showcase/);
 });
 
 test("landing enlaza versiones equivalentes desde la cabecera", async ({ page }) => {
@@ -90,20 +90,9 @@ test("landing muestra los botones principales del hero", async ({ page }) => {
   await expect(
     page.getByRole("link", { name: /pedir presupuesto/i }).first(),
   ).toBeVisible();
-  await expect(page.locator("h1")).toContainText(
-    /WF-Studio: diseño web en Fuengirola/i,
-  );
-  await expect(
-    page.getByRole("heading", { name: /lo que resolvemos en Fuengirola/i }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: /una web pensada para tu sector/i }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", {
-      name: /tres modalidades, el mismo precio para cada sector/i,
-    }),
-  ).toBeVisible();
+  await expect(page.locator("h1")).toHaveText("La web que tu negocio se merece.");
+  await expect(page.getByRole("link", { name: "Ver portfolio", exact: true })).toBeVisible();
+  await expect(page.locator(".hero__site-screen--front img")).toBeVisible();
   await expect(page.locator(".lang-switcher")).toHaveCount(2);
   await expect(page.getByRole("link", { name: /auditoría gratuita/i }).first()).toBeVisible();
 });
@@ -488,7 +477,7 @@ test("casos, recursos y blog mantienen branding público consistente", async ({
   await expect(page).toHaveTitle(/casos de éxito.*fuengirola.*wf-studio/i);
   await expect(
     page.getByRole("heading", {
-      name: /proyectos de wf-studio en fuengirola y otros mercados/i,
+      name: "Portfolio",
     }),
   ).toBeVisible();
   await expect(page.locator("body")).toContainText(/sport massage fuengirola/i);

@@ -72,7 +72,7 @@ function renderHeader(prefix, activePage) {
   const navItems = [
     { href: "index.html", label: "Inicio", key: "home" },
     { href: "servicios/", label: "Servicios", key: "services" },
-    { href: "casos/", label: "Casos de éxito", key: "casos" },
+    { href: "casos/", label: "Portfolio", key: "casos" },
     { href: "blog/", label: "Blog", key: "blog" },
     { href: "recursos/", label: "Recursos", key: "recursos" },
     { href: "sobre-nosotros/", label: "Sobre nosotros", key: "sobre" },
@@ -131,7 +131,7 @@ function renderFooter(
         <ul class="footer__links">
           <li><a href="${prefix}sobre-nosotros/">Sobre nosotros</a></li>
           <li><a href="${prefix}como-trabajamos/">Cómo trabajamos</a></li>
-          <li><a href="${prefix}casos/">Casos de éxito</a></li>
+          <li><a href="${prefix}casos/">Portfolio</a></li>
           <li><a href="${prefix}recursos/">Recursos</a></li>
         </ul>
       </div>

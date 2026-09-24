@@ -24,7 +24,8 @@ test("the commercial catalog exposes four equally complete locales", () => {
       const content = group.content[locale];
       assert.ok(content.title.includes("Fuengirola"), `${group.key}:${locale}:title`);
       assert.ok(content.description.includes("Fuengirola"), `${group.key}:${locale}:description`);
-      assert.ok(content.h1.includes("Fuengirola"), `${group.key}:${locale}:h1`);
+      if (group.kind === "cases") assert.equal(content.h1, "Portfolio");
+      else assert.ok(content.h1.includes("Fuengirola"), `${group.key}:${locale}:h1`);
       assert.ok(content.intro.length >= 80, `${group.key}:${locale}:intro`);
       assert.equal(content.problems.length, 3, `${group.key}:${locale}:problems`);
       assert.equal(content.benefits.length, 3, `${group.key}:${locale}:benefits`);

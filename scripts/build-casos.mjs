@@ -68,7 +68,7 @@ function renderHeader(prefix, activePage) {
   const navItems = [
     { href: "index.html", label: "Inicio", key: "home" },
     { href: "servicios/", label: "Servicios", key: "services" },
-    { href: "casos/", label: "Casos de éxito", key: "casos" },
+    { href: "casos/", label: "Portfolio", key: "casos" },
     { href: "blog/", label: "Blog", key: "blog" },
     { href: "recursos/", label: "Recursos", key: "recursos" },
     { href: "sobre-nosotros/", label: "Sobre nosotros", key: "sobre" },
@@ -127,7 +127,7 @@ function renderFooter(
         <ul class="footer__links">
           <li><a href="${prefix}sobre-nosotros/">Sobre nosotros</a></li>
           <li><a href="${prefix}como-trabajamos/">Cómo trabajamos</a></li>
-          <li><a href="${prefix}casos/">Casos de éxito</a></li>
+          <li><a href="${prefix}casos/">Portfolio</a></li>
           <li><a href="${prefix}recursos/">Recursos</a></li>
         </ul>
       </div>
@@ -448,7 +448,7 @@ ${renderHeader(prefix, "casos")}
           <ol style="display:flex;gap:0.5rem;list-style:none;padding:0;margin:0;font-size:0.85rem;color:var(--color-text-muted)">
             <li><a href="${prefix}index.html" style="color:inherit">Inicio</a></li>
             <li aria-hidden="true">›</li>
-            <li><a href="${prefix}casos/" style="color:inherit">Casos de éxito</a></li>
+            <li><a href="${prefix}casos/" style="color:inherit">Portfolio</a></li>
             <li aria-hidden="true">›</li>
             <li style="color:var(--color-text)">${escapeHtml(caso.title)}</li>
           </ol>

@@ -1,6 +1,7 @@
 export const cases = [
   {
     slug: "sport-massage-fuengirola",
+    portfolioImage: "img/sport-massage-landing.png",
     portfolioSlug: "sport-massage-fuengirola",
     title: "Sport Massage Fuengirola",
     client: "Sport Massage Fuengirola",
@@ -22,6 +23,7 @@ export const cases = [
   },
   {
     slug: "personal-trainer-fuengirola",
+    portfolioImage: "img/hero-personal-trainer-real-screen.png",
     portfolioSlug: "personal-trainer-fuengirola",
     title: "Personal Trainer Fuengirola",
     client: "Personal Trainer Fuengirola",
@@ -113,6 +115,7 @@ export const cases = [
   },
   {
     slug: "agama",
+    portfolioImage: "img/agama-tienda-online.png",
     portfolioSlug: "agama",
     title: "Agama",
     client: "Agama",
