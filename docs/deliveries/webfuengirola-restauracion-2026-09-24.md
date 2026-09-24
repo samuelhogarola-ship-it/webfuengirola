@@ -4,7 +4,7 @@ Fecha de desarrollo y última actualización: 2026-09-24T23:32:56+08:00 (Asia/Ma
 
 ## Estado
 
-- Desarrollado: cambios locales implementados y verificados; revisión en GitHub pendiente de enlazar.
+- Desarrollado: cambios locales implementados y verificados; revisión en GitHub: https://github.com/samuelhogarola-ship-it/webfuengirola/pull/117 (borrador).
 - Fusionado: no. Rama `fix/restore-visual-home-portfolio`.
 - Publicado: no. La web de producción aún muestra la versión anterior a esta recuperación.
 - Registro en WF-Studio pendiente: el panel exige iniciar sesión y la configuración local antigua de Supabase falla al resolver DNS. No se ha creado ninguna entrega ni adjunto en el panel. Identificadores de cliente/proyecto y búsqueda de duplicados pendientes de acceso.
@@ -32,7 +32,7 @@ Se versionan estilos y JavaScript para renovar la caché en un futuro despliegue
 - Repositorio: https://github.com/samuelhogarola-ship-it/webfuengirola
 - Preview local: http://127.0.0.1:3466/ (solo este ordenador).
 - Producción: https://webfuengirola.com/ (sin esta recuperación publicada).
-- PR: pendiente de enlazar.
+- PR: https://github.com/samuelhogarola-ship-it/webfuengirola/pull/117 (borrador).
 - [Portada móvil](webfuengirola-restauracion-2026-09-24/portada-movil.png)
 - [Portfolio móvil](webfuengirola-restauracion-2026-09-24/portfolio-movil.png)
 
