@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import { cases } from "../data/cases-data.mjs";
+import { demos } from "../data/demos-data.mjs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -326,6 +327,18 @@ ${renderHeader({ key: "legal", routes: legalRoutes }, locale)}
 ${renderFooter(locale)}<script src="/cookie-banner-core.js"></script><script src="/umami-analytics-core.js"></script><script src="/script.js?v=13"></script></body></html>`;
 }
 
+function renderDemos(group, locale) {
+  if (locale !== "es" || !["cases", "pricing"].includes(group.kind)) return "";
+  return `<section class="section portfolio" id="ejemplos-lite" aria-labelledby="demos-heading"><div class="container">
+    <span class="section-label">Ejemplos de diseño</span>
+    <h2 id="demos-heading">Web LITE: una web sencilla para tu negocio</h2>
+    <p>Propuestas de diseño para explorar cómo podría ser tu web. Son demos de portfolio, independientes de los proyectos de clientes.</p>
+    <div class="portfolio__grid commercial-portfolio">${demos.map((demo) => `<article class="portfolio-card">
+      <a class="portfolio-card__cover" href="${escapeHtml(demo.url)}" target="_blank" rel="noopener noreferrer" aria-label="Ver demo: ${escapeHtml(demo.title)}"><img src="/${escapeHtml(demo.image)}" alt="${escapeHtml(demo.imageAlt)}" class="portfolio-card__img" loading="lazy" width="${demo.imageWidth}" height="${demo.imageHeight}" /></a>
+      <div class="portfolio-card__body"><p><span class="tag tag--purple">${escapeHtml(demo.category)}</span> <span class="tag">Demo de diseño</span></p><h3 class="portfolio-card__title">${escapeHtml(demo.title)}</h3><p>${escapeHtml(demo.description)}</p><p style="font-size:0.85rem;color:var(--color-text-muted)">${escapeHtml(demo.note)}</p><a class="btn btn--outline" href="${escapeHtml(demo.url)}" target="_blank" rel="noopener noreferrer">Ver demo</a></div>
+    </article>`).join("")}</div></div></section>`;
+}
+
 export function renderCommercialPage(group, locale) {
   const content = group.content[locale];
   const ui = locales[locale];
@@ -372,6 +385,7 @@ ${showForm || group.kind === "cases" ? "" : `<section class="section"><div class
 ${showForm || group.kind === "cases" ? "" : `<section class="section commercial-section--warm"><div class="container"><span class="section-label">${escapeHtml(ui.benefitsLabel)}</span><h2>${escapeHtml(ui.benefitsLabel)}</h2>${renderCards(content.benefits)}${renderCases(group, locale)}</div></section>`}
 ${group.kind === "cases" ? `<section class="section portfolio"><div class="container">${renderCases(group, locale)}</div></section>` : ""}
 ${showTiers ? `<section class="section" id="modalidades"><div class="container"><span class="section-label">Lite · Express · Profesional</span><h2>${escapeHtml(ui.tiersLabel)}</h2>${renderTierCards(group, locale)}</div></section><section class="section commercial-section--warm"><div class="container"><span class="section-label">${escapeHtml(ui.extrasLabel)}</span><h2>${escapeHtml(ui.extrasLabel)}</h2>${renderExtras(locale)}</div></section>` : ""}
+${renderDemos(group, locale)}
 ${renderForm(group, locale)}
   <section class="section"><div class="container"><span class="section-label">${escapeHtml(ui.faqLabel)}</span><h2>${escapeHtml(ui.faqLabel)} · Fuengirola</h2>${renderFaqs(content)}<div class="commercial-related-wrap"><h2>${escapeHtml(ui.relatedLabel)}</h2>${renderRelated(group, locale)}</div></div></section>
 </main>
