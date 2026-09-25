@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { cases } from "../data/cases-data.mjs";
+import { demos } from "../data/demos-data.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -233,6 +234,26 @@ function buildCasosHub() {
     )
     .join("\n");
 
+  const demoCards = demos.map((demo) => `
+        <article class="portfolio-card">
+          <a class="portfolio-card__img-link" href="${escapeHtml(demo.url)}" target="_blank" rel="noopener noreferrer" aria-label="Ver demo: ${escapeHtml(demo.title)}">
+            <img src="${prefix}${escapeHtml(demo.image)}" alt="${escapeHtml(demo.imageAlt)}" class="portfolio-card__img" loading="lazy" width="${demo.imageWidth}" height="${demo.imageHeight}" />
+          </a>
+          <div class="portfolio-card__body">
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem">
+              <span class="tag tag--purple">${escapeHtml(demo.category)}</span>
+              <span class="tag tag--blue">${escapeHtml(demo.sector)}</span>
+              <span class="tag">Demo de diseño</span>
+            </div>
+            <h3 class="portfolio-card__title">${escapeHtml(demo.title)}</h3>
+            <p class="portfolio-card__desc">${escapeHtml(demo.description)}</p>
+            <p style="font-size:0.85rem;color:var(--color-text-muted);margin-top:1rem">${escapeHtml(demo.note)}</p>
+          </div>
+          <div class="portfolio-card__footer">
+            <a href="${escapeHtml(demo.url)}" class="btn btn--outline" target="_blank" rel="noopener noreferrer">Ver demo</a>
+          </div>
+        </article>`).join("\n");
+
   const html = `<!doctype html>
 <html lang="es">
 ${renderHead({
@@ -308,6 +329,17 @@ ${renderHeader(prefix, "casos")}
         <div class="portfolio__grid" style="margin-top: 3rem">
           ${caseCards}
         </div>
+      </div>
+    </section>
+
+    <section class="section" id="ejemplos-lite" aria-labelledby="demos-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Ejemplos de diseño</span>
+          <h2 class="section-title" id="demos-heading">Web LITE: una web sencilla para tu negocio</h2>
+          <p class="section-desc">Explora propuestas de diseño para ver cómo podría ser tu web. Estos ejemplos son demos, independientes de los casos de clientes anteriores.</p>
+        </div>
+        <div class="portfolio__grid" style="margin-top:3rem">${demoCards}</div>
       </div>
     </section>
 
