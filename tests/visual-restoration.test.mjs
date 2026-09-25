@@ -20,3 +20,18 @@ test('each portfolio project has a linked cover and scroll entrance in every lan
     }
   }
 });
+
+
+test('restoration keeps the complete original homepage shell while retaining current SEO', () => {
+  const group = getPageGroup('home');
+  const html = renderCommercialPage(group, 'es');
+  assert.match(html, /class="container header__inner"/);
+  assert.doesNotMatch(html, /commercial-logo|commercial-header__inner/);
+  assert.match(html, /class="whatsapp-fab"/);
+  assert.match(html, /id="page-transition"/);
+  assert.match(html, /navClientAccess/);
+  assert.match(html, /rel="canonical" href="https:\/\/webfuengirola.com\/"/);
+  assert.match(html, /hreflang="fi"/);
+  assert.ok(html.includes(group.content.es.description));
+  assert.match(html, /href="\/seo-local-fuengirola\/"/);
+});

@@ -18,6 +18,7 @@ for (const width of [360, 390, 768, 1440]) {
     if (width < 1000) {
       await page.locator('#hamburger').click();
       await expect(page.locator('#hamburger')).toHaveAttribute('aria-expanded', 'true');
+      await expect(page.locator('#nav')).toHaveCSS('background-color', 'rgb(9, 9, 9)');
       await page.locator('#nav').getByRole('link', { name: 'Portfolio', exact: true }).click();
     } else {
       await page.getByRole('link', { name: 'Ver portfolio', exact: true }).click();
@@ -55,4 +56,15 @@ test('portfolio remains visible with reduced motion and without JavaScript', asy
     await expect(first).toHaveCSS('opacity', '1');
     await context.close();
   }
+});
+
+
+test('restored Services transition animates and arrives at the real page', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/');
+  await page.waitForTimeout(900);
+  await page.locator('#nav a[data-page-transition="services"]').click({ noWaitAfter: true });
+  await expect(page.locator('#page-transition')).toHaveClass(/is-active/);
+  await expect(page).toHaveURL(/\/servicios\/$/);
+  await expect(page.locator('h1')).toBeVisible();
 });

@@ -2248,7 +2248,7 @@
 
   function initPageTransition() {
     var overlay = document.getElementById("page-transition");
-    if (!overlay) return;
+    if (!overlay || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     var isLeaving = false;
 
@@ -2274,6 +2274,7 @@
       .querySelectorAll('a[data-page-transition="services"]')
       .forEach(function (link) {
         link.addEventListener("click", function (event) {
+          if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
           var href = link.getAttribute("href");
           if (!href || href.charAt(0) === "#") return;
           if (link.target === "_blank" || link.hasAttribute("download")) return;

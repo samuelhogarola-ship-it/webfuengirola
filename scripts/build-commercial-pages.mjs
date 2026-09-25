@@ -317,7 +317,7 @@ function renderLocalizedLegalPage(locale) {
   <link rel="canonical" href="${canonical}" />
 ${languageLinks}
   <link rel="alternate" hreflang="x-default" href="${absolute(legalRoutes.es)}" />
-  <link rel="stylesheet" href="/style.css?v=11" /><link rel="stylesheet" href="/legal-core.css" /><link rel="stylesheet" href="/cookie-banner-core.css" />
+  <link rel="stylesheet" href="/style.css?v=12" /><link rel="stylesheet" href="/legal-core.css" /><link rel="stylesheet" href="/cookie-banner-core.css" />
 </head><body class="commercial-page legal-page" data-sector="legal">
 ${renderHeader({ key: "legal", routes: legalRoutes }, locale)}
 <section class="commercial-hero"><div class="container"><span class="section-label">${brand.displayName}</span><h1>${escapeHtml(copy.h1)}</h1><p>${escapeHtml(copy.intro)}</p></div></section>
@@ -325,7 +325,7 @@ ${renderHeader({ key: "legal", routes: legalRoutes }, locale)}
 <section class="legal-section" id="legal-notice"><h2>${escapeHtml(copy.notice)}</h2><p>${escapeHtml(copy.noticeText)}</p></section>
 <section class="legal-section" id="privacy"><h2>${escapeHtml(copy.privacy)}</h2><p>${escapeHtml(copy.privacyText)}</p><p>${escapeHtml(copy.rights)}</p></section>
 <section class="legal-section" id="cookies"><h2>${escapeHtml(copy.cookies)}</h2><p>${escapeHtml(copy.cookiesText)}</p><p><a href="#" data-cookie-preferences-link>${escapeHtml(locales[locale].cookieSettingsLabel)}</a></p></section><p>${escapeHtml(copy.updated)}</p></main>
-${renderFooter(locale)}<script src="/cookie-banner-core.js"></script><script src="/umami-analytics-core.js"></script><script src="/script.js?v=11"></script></body></html>`;
+${renderFooter(locale)}<script src="/cookie-banner-core.js"></script><script src="/umami-analytics-core.js"></script><script src="/script.js?v=12"></script></body></html>`;
 }
 
 export function renderCommercialPage(group, locale) {
@@ -359,7 +359,7 @@ ${renderHreflang(group.key)}
   <meta name="twitter:description" content="${escapeHtml(content.description)}" />
   <meta name="twitter:image" content="${brand.site}/img/og-cover.webp" />
   <script type="application/ld+json">${renderJsonLd(group, locale)}</script>
-  <link rel="stylesheet" href="/style.css?v=11" />
+  <link rel="stylesheet" href="/style.css?v=12" />
   <link rel="stylesheet" href="/cookie-banner-core.css" />
   <noscript><style>[data-reveal] { opacity: 1; transform: none; }</style></noscript>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -381,13 +381,17 @@ ${renderFooter(locale)}
 <script src="/cookie-banner-core.js"></script>
 <script src="/umami-analytics-core.js"></script>
 ${showForm ? `<script src="/contact-form-core.js"></script>\n<script src="/contact-form.js"></script>` : ""}
-<script src="/script.js?v=11"></script>
+<script src="/script.js?v=12"></script>
 </body>
 </html>`;
   if (group.key === "home" && locale === "es") {
     // Preserve the authored homepage recovered from 0e69a920; SEO builds must not replace its layout.
-    const template = fs.readFileSync(path.join(root, "templates/home-es.html"), "utf8");
-    html = html.replace(/<main>[\s\S]*?<\/main>/, template);
+    const template = fs.readFileSync(path.join(root, "templates/home-es.html"), "utf8")
+      .replace("<!-- HOME_LANGUAGE_LINKS -->", renderLanguageSelector(group, locale));
+    const scripts = `<script src="/cookie-banner-core.js"></script>
+<script src="/umami-analytics-core.js"></script>
+<script src="/script.js?v=12"></script>`;
+    html = html.replace(/(<body[^>]*>)[\s\S]*?(<\/body>)/, (_, opening, closing) => `${opening}\n${template}\n${scripts}\n${closing}`);
     html = html.replace('class="commercial-page commercial-page--home"', 'class="home-page"');
   }
   return html;

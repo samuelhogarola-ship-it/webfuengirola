@@ -11232,3 +11232,8 @@ body.is-transitioning {
 .commercial-portfolio img[src$="sport-massage-landing.png"] {
   object-position: center 40%;
 }
+
+/* The restored dark home header needs a dark mobile navigation surface too. */
+@media (max-width: 1024px) {
+  .home-page .nav { background: #090909; }
+}
