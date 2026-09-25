@@ -4,10 +4,10 @@ Primera versión desarrollada: 2026-09-24T23:32:56+08:00. Última actualización
 
 ## Estado
 
-- Desarrollado: cambios locales implementados y verificados; revisión en GitHub: https://github.com/samuelhogarola-ship-it/webfuengirola/pull/117 (borrador).
-- Fusionado: no. Rama `fix/restore-visual-home-portfolio`.
-- Publicado: no. La web de producción aún muestra la versión anterior a esta recuperación.
-- Registro en WF-Studio pendiente: el panel exige iniciar sesión y la configuración local antigua de Supabase falla al resolver DNS. No se ha creado ninguna entrega ni adjunto en el panel. Identificadores de cliente/proyecto y búsqueda de duplicados pendientes de acceso.
+- Desarrollado: cambios locales implementados y verificados; revisión en GitHub: https://github.com/samuelhogarola-ship-it/webfuengirola/pull/117.
+- Fusionado: sí, en `main`, el 2026-09-25T15:33:31+08:00 (Asia/Makassar). PR #117. Commit de merge `b6704c0c690dbd7cde09d09af435b650087d1a45`, confirmado mediante una nueva consulta a GitHub.
+- Publicado: pendiente de confirmación. Después del merge, la consulta a producción aún devuelve la portada comercial anterior, sin Northern Lights ni los recursos v12.
+- Registro en WF-Studio pendiente: el panel sigue mostrando campos de acceso; la configuración local antigua de Supabase falla al resolver DNS y el navegador integrado no está disponible para recuperar la sesión autenticada. No se ha creado ninguna entrega ni adjunto en el panel. Identificadores de cliente/proyecto y búsqueda de duplicados pendientes de acceso.
 
 ## Cambios
 
@@ -34,10 +34,12 @@ Se versionan estilos y JavaScript para renovar la caché en un futuro despliegue
 - Repositorio: https://github.com/samuelhogarola-ship-it/webfuengirola
 - Preview local: http://127.0.0.1:3466/ (solo este ordenador).
 - Producción: https://webfuengirola.com/ (sin esta recuperación publicada).
-- PR: https://github.com/samuelhogarola-ship-it/webfuengirola/pull/117 (borrador).
+- PR: https://github.com/samuelhogarola-ship-it/webfuengirola/pull/117.
 - [Portada móvil](webfuengirola-restauracion-2026-09-24/portada-movil.png)
 - [Portfolio móvil](webfuengirola-restauracion-2026-09-24/portfolio-movil.png)
 
 ## Pendientes
 
-Revisar la propuesta, fusionar y desplegar solo cuando corresponda; verificar después la versión real en producción. Acceder a WF-Studio, identificar el cliente y proyecto concretos, buscar una entrega existente, registrar o actualizar esta ficha y sus capturas, y releer el registro y los adjuntos para confirmar persistencia y acceso.
+Merge completado. Pendiente confirmar despliegue y verificar la versión real en producción. Acceder a WF-Studio, identificar el cliente y proyecto concretos, buscar una entrega existente, registrar o actualizar esta ficha y sus capturas, y releer el registro y los adjuntos para confirmar persistencia y acceso.
+
+Última comprobación del merge y publicación: 2026-09-25T15:35:01+08:00. Esta actualización de estado queda preparada localmente para WF-Studio; no se ha registrado en el panel.
