@@ -238,9 +238,9 @@ export const cases = [
     summary:
       "Plataforma educativa para aprender alemán que necesitaba herramientas interactivas de vocabulario, artículos gramaticales y contexto de uso generado con IA.",
     result: "Suite de tres herramientas activas con usuarios recurrentes.",
-    image: "img/vokabellab.webp",
-    ogImage: "https://webfuengirola.com/img/vokabellab.webp",
-    ogAlt: "Vokabellab — caso de éxito de WF-Studio · Web Fuengirola",
+    image: "img/vokabellab-real.webp",
+    ogImage: "https://webfuengirola.com/img/vokabellab-real.webp",
+    ogAlt: "Captura real de la portada de Vokabel Lab, aplicación para practicar vocabulario alemán",
     metaTitle: "Caso: Vokabellab | WF-Studio · Web Fuengirola",
     metaDescription:
       "Plataforma educativa de alemán con herramientas interactivas de vocabulario y IA construidas a medida.",

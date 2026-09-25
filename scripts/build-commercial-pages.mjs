@@ -47,15 +47,14 @@ export function renderHreflang(groupKey) {
   return `${alternates}\n  <link rel="alternate" hreflang="x-default" href="${absolute(group.routes.es)}" />`;
 }
 
-function renderLanguageSelector(group, locale, mobile = false) {
-  return `<div class="lang-switcher${mobile ? " lang-switcher--mobile" : ""}" aria-label="Language">
-    ${localeCodes
-      .map(
-        (code) =>
-          `<a class="lang-switcher__btn${code === locale ? " is-active" : ""}" href="${absolute(group.routes[code])}" hreflang="${code}" lang="${code}" data-analytics-event="language_switch" data-analytics-locale="${locale}" data-analytics-target-locale="${code}">${escapeHtml(locales[code].label)}</a>`,
-      )
-      .join("\n    ")}
-  </div>`;
+function renderLanguageSelector(group, locale) {
+  const label = { es: "Cambiar idioma", en: "Change language", de: "Sprache ändern", fi: "Vaihda kieli" }[locale];
+  return `<details class="language-menu">
+    <summary aria-label="${label}: ${escapeHtml(locales[locale].label)}"><span aria-hidden="true">${locale.toUpperCase()}</span><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12"><path d="m3 4.5 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" /></svg></summary>
+    <div class="language-menu__options">${localeCodes.map((code) =>
+      `<a href="${group.routes[code]}" hreflang="${code}" lang="${code}"${code === locale ? ' aria-current="page"' : ''} data-analytics-event="language_switch" data-analytics-locale="${locale}" data-analytics-target-locale="${code}">${escapeHtml(locales[code].label)}${code === locale ? ' <span aria-hidden="true">✓</span>' : ''}</a>`
+    ).join("")}</div>
+  </details>`;
 }
 
 function renderHeader(group, locale) {
@@ -77,7 +76,6 @@ function renderHeader(group, locale) {
           <li><a href="${route("cases")}" class="nav__link">${escapeHtml(ui.casesLabel)}</a></li>
           <li><a href="${route("prices")}" class="nav__link">${escapeHtml(ui.pricesLabel)}</a></li>
           <li><a href="${blogRoute}" class="nav__link">${escapeHtml(ui.blogLabel)}</a></li>
-          <li class="commercial-mobile-languages">${renderLanguageSelector(group, locale, true)}</li>
         </ul>
       </nav>
       ${renderLanguageSelector(group, locale)}
@@ -317,7 +315,7 @@ function renderLocalizedLegalPage(locale) {
   <link rel="canonical" href="${canonical}" />
 ${languageLinks}
   <link rel="alternate" hreflang="x-default" href="${absolute(legalRoutes.es)}" />
-  <link rel="stylesheet" href="/style.css?v=12" /><link rel="stylesheet" href="/legal-core.css" /><link rel="stylesheet" href="/cookie-banner-core.css" />
+  <link rel="stylesheet" href="/style.css?v=13" /><link rel="stylesheet" href="/legal-core.css" /><link rel="stylesheet" href="/cookie-banner-core.css" />
 </head><body class="commercial-page legal-page" data-sector="legal">
 ${renderHeader({ key: "legal", routes: legalRoutes }, locale)}
 <section class="commercial-hero"><div class="container"><span class="section-label">${brand.displayName}</span><h1>${escapeHtml(copy.h1)}</h1><p>${escapeHtml(copy.intro)}</p></div></section>
@@ -325,7 +323,7 @@ ${renderHeader({ key: "legal", routes: legalRoutes }, locale)}
 <section class="legal-section" id="legal-notice"><h2>${escapeHtml(copy.notice)}</h2><p>${escapeHtml(copy.noticeText)}</p></section>
 <section class="legal-section" id="privacy"><h2>${escapeHtml(copy.privacy)}</h2><p>${escapeHtml(copy.privacyText)}</p><p>${escapeHtml(copy.rights)}</p></section>
 <section class="legal-section" id="cookies"><h2>${escapeHtml(copy.cookies)}</h2><p>${escapeHtml(copy.cookiesText)}</p><p><a href="#" data-cookie-preferences-link>${escapeHtml(locales[locale].cookieSettingsLabel)}</a></p></section><p>${escapeHtml(copy.updated)}</p></main>
-${renderFooter(locale)}<script src="/cookie-banner-core.js"></script><script src="/umami-analytics-core.js"></script><script src="/script.js?v=12"></script></body></html>`;
+${renderFooter(locale)}<script src="/cookie-banner-core.js"></script><script src="/umami-analytics-core.js"></script><script src="/script.js?v=13"></script></body></html>`;
 }
 
 export function renderCommercialPage(group, locale) {
@@ -359,7 +357,7 @@ ${renderHreflang(group.key)}
   <meta name="twitter:description" content="${escapeHtml(content.description)}" />
   <meta name="twitter:image" content="${brand.site}/img/og-cover.webp" />
   <script type="application/ld+json">${renderJsonLd(group, locale)}</script>
-  <link rel="stylesheet" href="/style.css?v=12" />
+  <link rel="stylesheet" href="/style.css?v=13" />
   <link rel="stylesheet" href="/cookie-banner-core.css" />
   <noscript><style>[data-reveal] { opacity: 1; transform: none; }</style></noscript>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -381,7 +379,7 @@ ${renderFooter(locale)}
 <script src="/cookie-banner-core.js"></script>
 <script src="/umami-analytics-core.js"></script>
 ${showForm ? `<script src="/contact-form-core.js"></script>\n<script src="/contact-form.js"></script>` : ""}
-<script src="/script.js?v=12"></script>
+<script src="/script.js?v=13"></script>
 </body>
 </html>`;
   if (group.key === "home" && locale === "es") {
@@ -390,7 +388,7 @@ ${showForm ? `<script src="/contact-form-core.js"></script>\n<script src="/conta
       .replace("<!-- HOME_LANGUAGE_LINKS -->", renderLanguageSelector(group, locale));
     const scripts = `<script src="/cookie-banner-core.js"></script>
 <script src="/umami-analytics-core.js"></script>
-<script src="/script.js?v=12"></script>`;
+<script src="/script.js?v=13"></script>`;
     html = html.replace(/(<body[^>]*>)[\s\S]*?(<\/body>)/, (_, opening, closing) => `${opening}\n${template}\n${scripts}\n${closing}`);
     html = html.replace('class="commercial-page commercial-page--home"', 'class="home-page"');
   }

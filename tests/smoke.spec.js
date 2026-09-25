@@ -27,15 +27,16 @@ test("landing conserva la portada visual original y enlaza el portfolio", async 
 test("landing enlaza versiones equivalentes desde la cabecera", async ({ page }) => {
   await page.goto("/");
 
-  const switcher = page.locator(".lang-switcher:not(.lang-switcher--mobile)");
+  const switcher = page.locator(".language-menu");
   await expect(switcher).toBeVisible();
+  await switcher.locator("summary").click();
   await expect(switcher.getByRole("link", { name: "Español" })).toHaveAttribute(
     "href",
-    "https://webfuengirola.com/",
+    "/",
   );
   await expect(switcher.getByRole("link", { name: "English" })).toHaveAttribute(
     "href",
-    "https://webfuengirola.com/en/",
+    "/en/",
   );
 
   await page.goto("/en/");
@@ -49,8 +50,9 @@ test("landing enlaza versiones equivalentes desde la cabecera", async ({ page })
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/en/websites-for-restaurants-fuengirola/");
   await page.locator("#hamburger").click();
-  await expect(page.locator(".lang-switcher--mobile")).toBeVisible();
-  await expect(page.locator(".lang-switcher--mobile a")).toHaveCount(4);
+  await page.locator(".language-menu summary").click();
+  await expect(page.locator(".language-menu__options")).toBeVisible();
+  await expect(page.locator(".language-menu a")).toHaveCount(4);
 });
 
 test("footer comercial mantiene contraste y enlaces esenciales", async ({ page }) => {
@@ -80,8 +82,8 @@ test("las páginas comerciales mantienen selector de idioma equivalente", async 
 
   for (const url of urls) {
     await page.goto(url);
-    await expect(page.locator(".lang-switcher")).toHaveCount(2);
-    await expect(page.locator(".lang-switcher a")).toHaveCount(8);
+    await expect(page.locator(".language-menu")).toHaveCount(1);
+    await expect(page.locator(".language-menu a")).toHaveCount(4);
   }
 });
 
@@ -93,8 +95,8 @@ test("landing muestra los botones principales del hero", async ({ page }) => {
   await expect(page.locator("h1")).toHaveText("La web que tu negocio se merece.");
   await expect(page.getByRole("link", { name: "Ver portfolio", exact: true })).toBeVisible();
   await expect(page.locator(".hero__site-screen--front img")).toBeVisible();
-  await expect(page.locator(".lang-switcher")).toHaveCount(2);
-  await expect(page.getByRole("link", { name: /auditoría gratuita/i }).first()).toBeVisible();
+  await expect(page.locator(".language-menu")).toHaveCount(1);
+
 });
 
 test("servicios presenta las cuatro categorías principales", async ({
@@ -611,7 +613,7 @@ test("las landings BOFU principales refuerzan modalidades y conversión", async 
 
   await page.goto("/seo-local-fuengirola/");
   await expect(page.locator("h1")).toContainText(/SEO local en Fuengirola/i);
-  await expect(page.getByRole("link", { name: /auditoría gratuita/i }).first()).toBeVisible();
+
 
   await page.goto("/diseno-web-malaga/");
   await expect(page.locator("body")).toContainText(

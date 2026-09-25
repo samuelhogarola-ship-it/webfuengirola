@@ -2375,9 +2375,23 @@
     });
 
     window.addEventListener("resize", function () {
-      if (window.innerWidth > 768 && nav.classList.contains("open")) {
+      if (window.innerWidth >= 1200 && nav.classList.contains("open")) {
         closeMobileMenu();
       }
+    });
+
+    /* Native details keeps language links available without JavaScript. */
+    document.querySelectorAll(".language-menu").forEach(function (menu) {
+      document.addEventListener("click", function (event) {
+        if (!menu.contains(event.target)) menu.open = false;
+      });
+      menu.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && menu.open) {
+          menu.open = false;
+          menu.querySelector("summary").focus();
+          event.stopPropagation();
+        }
+      });
     });
 
     /* ---- Language switcher ---- */

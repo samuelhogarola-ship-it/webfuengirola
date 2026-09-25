@@ -257,7 +257,7 @@ function renderHead({
   <meta name="twitter:description" content="${escapeHtml(ogDescription)}" />
   <meta name="twitter:image" content="${ogImage}" />
   <link rel="preload" as="image" href="${assetHref(prefix, preloadImage)}" type="image/webp" />
-  <link rel="stylesheet" href="${assetHref(prefix, "style.css?v=9")}" />
+  <link rel="stylesheet" href="${assetHref(prefix, "style.css?v=13")}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
