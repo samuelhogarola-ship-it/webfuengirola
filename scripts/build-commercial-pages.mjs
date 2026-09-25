@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { cases } from "../data/cases-data.mjs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -81,7 +82,7 @@ function renderHeader(group, locale) {
       </nav>
       ${renderLanguageSelector(group, locale)}
       <a href="${route("contact")}?sector=${group.key}" class="btn btn--primary header__cta" data-analytics-event="quote_click" data-analytics-sector="${group.key}" data-analytics-locale="${locale}">${escapeHtml(ui.quoteLabel)}</a>
-      <button type="button" class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+      <button type="button" class="hamburger" id="hamburger" aria-label="${locale === "es" ? "Abrir menú" : "Menu"}" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
     </div>
   </header>`;
 }
@@ -131,13 +132,23 @@ function renderExtras(locale) {
 }
 
 function renderCases(group, locale) {
-  if (!group.cases.length) {
-    return "";
+  if (!group.cases.length) return "";
+  if (group.kind !== "cases") {
+    const hub = getPageGroup("cases").routes[locale];
+    return `<div class="commercial-case-links">${group.cases.map((slug) => `<a href="${locale === "es" ? `/casos/${slug}/` : `${hub}#${slug}`}">${escapeHtml(cases.find((item) => item.slug === slug)?.title || slug)} →</a>`).join("")}</div>`;
   }
-  const caseHub = getPageGroup("cases").routes[locale];
-  return `<div class="commercial-case-links">${group.cases
-    .map((caseSlug) => `<a${group.key === "cases" ? ` id="${caseSlug}"` : ""} href="${locale === "es" ? `/casos/${caseSlug}/` : `${caseHub}#${caseSlug}`}">${escapeHtml(caseSlug.split("-").map((word) => word[0].toUpperCase() + word.slice(1)).join(" "))} →</a>`)
-    .join("")}</div>`;
+  const labels = { es: "Ver proyecto", en: "View project", de: "Projekt ansehen", fi: "Katso projekti" };
+  return `<div class="portfolio__grid commercial-portfolio">${group.cases.map((slug) => {
+    const project = cases.find((item) => item.slug === slug);
+    if (!project) throw new Error(`Missing portfolio project: ${slug}`);
+    return `<article class="portfolio-card" id="${slug}" data-reveal="portfolio">
+      <a class="portfolio-card__cover" href="/casos/${slug}/" aria-label="${escapeHtml(labels[locale])}: ${escapeHtml(project.title)}">
+        <img src="/${project.portfolioImage || project.image}" alt="${escapeHtml(project.title)}" class="portfolio-card__img" loading="lazy" width="800" height="500" />
+      </a>
+      <div class="portfolio-card__body"><h2 class="portfolio-card__title"><a href="/casos/${slug}/">${escapeHtml(project.title)}</a></h2>
+      <a class="btn btn--outline" href="/casos/${slug}/">${labels[locale]} →</a></div>
+    </article>`;
+  }).join("")}</div>`;
 }
 
 function renderFaqs(content) {
@@ -238,7 +249,7 @@ function renderJsonLd(group, locale) {
           inLanguage: locale,
           about: { "@id": `${brand.site}/#organization` },
         },
-        faq,
+        ...(group.key === "home" && locale === "es" ? [] : [faq]),
       ],
     },
     null,
@@ -306,7 +317,7 @@ function renderLocalizedLegalPage(locale) {
   <link rel="canonical" href="${canonical}" />
 ${languageLinks}
   <link rel="alternate" hreflang="x-default" href="${absolute(legalRoutes.es)}" />
-  <link rel="stylesheet" href="/style.css?v=10" /><link rel="stylesheet" href="/legal-core.css" /><link rel="stylesheet" href="/cookie-banner-core.css" />
+  <link rel="stylesheet" href="/style.css?v=12" /><link rel="stylesheet" href="/legal-core.css" /><link rel="stylesheet" href="/cookie-banner-core.css" />
 </head><body class="commercial-page legal-page" data-sector="legal">
 ${renderHeader({ key: "legal", routes: legalRoutes }, locale)}
 <section class="commercial-hero"><div class="container"><span class="section-label">${brand.displayName}</span><h1>${escapeHtml(copy.h1)}</h1><p>${escapeHtml(copy.intro)}</p></div></section>
@@ -314,7 +325,7 @@ ${renderHeader({ key: "legal", routes: legalRoutes }, locale)}
 <section class="legal-section" id="legal-notice"><h2>${escapeHtml(copy.notice)}</h2><p>${escapeHtml(copy.noticeText)}</p></section>
 <section class="legal-section" id="privacy"><h2>${escapeHtml(copy.privacy)}</h2><p>${escapeHtml(copy.privacyText)}</p><p>${escapeHtml(copy.rights)}</p></section>
 <section class="legal-section" id="cookies"><h2>${escapeHtml(copy.cookies)}</h2><p>${escapeHtml(copy.cookiesText)}</p><p><a href="#" data-cookie-preferences-link>${escapeHtml(locales[locale].cookieSettingsLabel)}</a></p></section><p>${escapeHtml(copy.updated)}</p></main>
-${renderFooter(locale)}<script src="/cookie-banner-core.js"></script><script src="/umami-analytics-core.js"></script><script src="/script.js"></script></body></html>`;
+${renderFooter(locale)}<script src="/cookie-banner-core.js"></script><script src="/umami-analytics-core.js"></script><script src="/script.js?v=12"></script></body></html>`;
 }
 
 export function renderCommercialPage(group, locale) {
@@ -324,7 +335,7 @@ export function renderCommercialPage(group, locale) {
   const showTiers = ["home", "service", "pricing", "sector"].includes(group.kind);
   const showForm = ["audit", "contact"].includes(group.kind);
   const whatsapp = `https://wa.me/${brand.whatsapp}?text=${encodeURIComponent(content.whatsappText)}`;
-  return `<!doctype html>
+  let html = `<!doctype html>
 <html lang="${locales[locale].htmlLang}">
 <head>
   <meta charset="UTF-8" />
@@ -348,8 +359,9 @@ ${renderHreflang(group.key)}
   <meta name="twitter:description" content="${escapeHtml(content.description)}" />
   <meta name="twitter:image" content="${brand.site}/img/og-cover.webp" />
   <script type="application/ld+json">${renderJsonLd(group, locale)}</script>
-  <link rel="stylesheet" href="/style.css?v=10" />
+  <link rel="stylesheet" href="/style.css?v=12" />
   <link rel="stylesheet" href="/cookie-banner-core.css" />
+  <noscript><style>[data-reveal] { opacity: 1; transform: none; }</style></noscript>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -358,8 +370,9 @@ ${renderHreflang(group.key)}
 ${renderHeader(group, locale)}
 <main>
   <section class="commercial-hero"><div class="container">${renderBreadcrumbs(group, locale)}<span class="section-label">${brand.displayName}</span><h1>${escapeHtml(content.h1)}</h1><p>${escapeHtml(content.intro)}</p><div class="commercial-hero__actions"><a class="btn btn--primary btn--lg" href="${getPageGroup("contact").routes[locale]}?sector=${group.key}" data-analytics-event="quote_click" data-analytics-sector="${group.key}" data-analytics-locale="${locale}">${escapeHtml(ui.quoteLabel)}</a><a class="btn btn--outline btn--lg" href="${whatsapp}" target="_blank" rel="noopener noreferrer" data-analytics-event="whatsapp_click" data-analytics-sector="${group.key}" data-analytics-locale="${locale}">WhatsApp</a></div></div></section>
-${showForm ? "" : `<section class="section"><div class="container"><span class="section-label">${escapeHtml(ui.problemsLabel)}</span><h2>${escapeHtml(ui.problemsLabel)} ${escapeHtml(ui.localContextLabel)}</h2>${renderCards(content.problems)}</div></section>`}
-${showForm ? "" : `<section class="section commercial-section--warm"><div class="container"><span class="section-label">${escapeHtml(ui.benefitsLabel)}</span><h2>${escapeHtml(ui.benefitsLabel)}</h2>${renderCards(content.benefits)}${renderCases(group, locale)}</div></section>`}
+${showForm || group.kind === "cases" ? "" : `<section class="section"><div class="container"><span class="section-label">${escapeHtml(ui.problemsLabel)}</span><h2>${escapeHtml(ui.problemsLabel)} ${escapeHtml(ui.localContextLabel)}</h2>${renderCards(content.problems)}</div></section>`}
+${showForm || group.kind === "cases" ? "" : `<section class="section commercial-section--warm"><div class="container"><span class="section-label">${escapeHtml(ui.benefitsLabel)}</span><h2>${escapeHtml(ui.benefitsLabel)}</h2>${renderCards(content.benefits)}${renderCases(group, locale)}</div></section>`}
+${group.kind === "cases" ? `<section class="section portfolio"><div class="container">${renderCases(group, locale)}</div></section>` : ""}
 ${showTiers ? `<section class="section" id="modalidades"><div class="container"><span class="section-label">Lite · Express · Profesional</span><h2>${escapeHtml(ui.tiersLabel)}</h2>${renderTierCards(group, locale)}</div></section><section class="section commercial-section--warm"><div class="container"><span class="section-label">${escapeHtml(ui.extrasLabel)}</span><h2>${escapeHtml(ui.extrasLabel)}</h2>${renderExtras(locale)}</div></section>` : ""}
 ${renderForm(group, locale)}
   <section class="section"><div class="container"><span class="section-label">${escapeHtml(ui.faqLabel)}</span><h2>${escapeHtml(ui.faqLabel)} · Fuengirola</h2>${renderFaqs(content)}<div class="commercial-related-wrap"><h2>${escapeHtml(ui.relatedLabel)}</h2>${renderRelated(group, locale)}</div></div></section>
@@ -368,9 +381,20 @@ ${renderFooter(locale)}
 <script src="/cookie-banner-core.js"></script>
 <script src="/umami-analytics-core.js"></script>
 ${showForm ? `<script src="/contact-form-core.js"></script>\n<script src="/contact-form.js"></script>` : ""}
-<script src="/script.js"></script>
+<script src="/script.js?v=12"></script>
 </body>
 </html>`;
+  if (group.key === "home" && locale === "es") {
+    // Preserve the authored homepage recovered from 0e69a920; SEO builds must not replace its layout.
+    const template = fs.readFileSync(path.join(root, "templates/home-es.html"), "utf8")
+      .replace("<!-- HOME_LANGUAGE_LINKS -->", renderLanguageSelector(group, locale));
+    const scripts = `<script src="/cookie-banner-core.js"></script>
+<script src="/umami-analytics-core.js"></script>
+<script src="/script.js?v=12"></script>`;
+    html = html.replace(/(<body[^>]*>)[\s\S]*?(<\/body>)/, (_, opening, closing) => `${opening}\n${template}\n${scripts}\n${closing}`);
+    html = html.replace('class="commercial-page commercial-page--home"', 'class="home-page"');
+  }
+  return html;
 }
 
 export function generateCommercialPages(outputRoot = root) {

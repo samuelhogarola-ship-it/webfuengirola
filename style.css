@@ -11181,3 +11181,59 @@ body.is-transitioning {
     right: 22px;
   }
 }
+
+
+/* Visual portfolio: covers stay readable and tappable at phone widths. */
+.commercial-portfolio .portfolio-card__cover {
+  display: block;
+  overflow: hidden;
+}
+.commercial-portfolio .portfolio-card__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top;
+}
+.commercial-portfolio .portfolio-card__title {
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.25rem, 2.5vw, 1.7rem);
+  line-height: 1.2;
+}
+.commercial-portfolio a:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 4px;
+}
+.commercial-page--cases .commercial-hero {
+  padding-bottom: 2.5rem;
+}
+@media (max-width: 640px) {
+  .commercial-portfolio { grid-template-columns: minmax(0, 1fr); }
+  .commercial-page--cases .commercial-hero {
+    padding-top: calc(var(--header-h) + 2rem);
+  }
+  .commercial-page--cases .commercial-hero h1 {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  .commercial-portfolio .btn { min-height: 48px; }
+}
+.commercial-portfolio.portfolio__grid {
+  display: grid;
+  overflow: visible;
+  margin: 0;
+  padding: 0;
+  scroll-snap-type: none;
+}
+.commercial-portfolio > .portfolio-card {
+  min-width: 0;
+  width: 100%;
+}
+.commercial-portfolio img[src$="sport-massage-landing.png"] {
+  object-position: center 40%;
+}
+
+/* The restored dark home header needs a dark mobile navigation surface too. */
+@media (max-width: 1024px) {
+  .home-page .nav { background: #090909; }
+}

@@ -17,7 +17,7 @@ export const locales = {
     homeLabel: "Inicio",
     servicesLabel: "Webs especializadas",
     seoLabel: "SEO local",
-    casesLabel: "Casos",
+    casesLabel: "Portfolio",
     pricesLabel: "Precios",
     blogLabel: "Blog",
     contactLabel: "Contacto",
@@ -810,6 +810,16 @@ function finalizeContent(content, locale, groupKey) {
       "What can a clear website do for a business in Fuengirola?",
       "It explains the offer plainly, builds trust and makes it easier for a visit to become a call, message or quote request.",
     ];
+  }
+  if (groupKey === "cases") {
+    const portfolioCopy = {
+      es: ["Portfolio", "Webs y aplicaciones que hemos creado. Toca una portada para conocer el proyecto."],
+      en: ["Portfolio", "Explore websites and applications we have built. Tap a cover to discover each project."],
+      de: ["Portfolio", "Websites und Anwendungen aus unserer Arbeit. Tippen Sie auf ein Bild, um das Projekt anzusehen."],
+      fi: ["Portfolio", "Tekemiämme verkkosivuja ja sovelluksia yrityksille. Tutustu projektiin napauttamalla kuvaa."],
+    }[locale];
+    finalized.h1 = portfolioCopy[0];
+    finalized.intro = portfolioCopy[1];
   }
   return finalized;
 }

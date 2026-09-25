@@ -15,7 +15,7 @@ function filesBelow(directory) {
 
 test("the home presents WF-Studio as the primary brand with the local alias", () => {
   const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
-  assert.match(html, /<strong>WF-Studio<\/strong><small>Web Fuengirola<\/small>/);
+  assert.match(html, /class="logo" aria-label="WF-Studio · Web Fuengirola"/);
   assert.match(html, /"name": "WF-Studio"/);
   assert.match(html, /"alternateName": "Web Fuengirola"/);
 });

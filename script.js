@@ -15,7 +15,7 @@
         "Diseño web en Fuengirola para negocios locales: webs claras, rápidas y orientadas a captar mejor desde Google y desde el propio contacto directo.",
       navHome: "Inicio",
       navServices: "Servicios",
-      navCases: "Casos de éxito",
+      navCases: "Portfolio",
       navBlog: "Blog",
       navResources: "Calculadora de precios",
       navAbout: "Sobre nosotros",
@@ -1327,7 +1327,7 @@
       });
     });
 
-    document.querySelectorAll(".portfolio__grid").forEach(function (grid) {
+    document.querySelectorAll(".portfolio__grid:not(.commercial-portfolio)").forEach(function (grid) {
       var cards = Array.prototype.slice.call(
         grid.querySelectorAll(":scope > .portfolio-card"),
       );
@@ -1362,7 +1362,7 @@
   /* ---- Portfolio hover popup ---- */
   function initPortfolioPopup() {
     var cards = Array.prototype.slice.call(
-      document.querySelectorAll(".portfolio-card"),
+      document.querySelectorAll(".portfolio-card:not(.commercial-portfolio .portfolio-card)"),
     );
     if (
       !cards.length ||
@@ -2248,7 +2248,7 @@
 
   function initPageTransition() {
     var overlay = document.getElementById("page-transition");
-    if (!overlay) return;
+    if (!overlay || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     var isLeaving = false;
 
@@ -2274,6 +2274,7 @@
       .querySelectorAll('a[data-page-transition="services"]')
       .forEach(function (link) {
         link.addEventListener("click", function (event) {
+          if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
           var href = link.getAttribute("href");
           if (!href || href.charAt(0) === "#") return;
           if (link.target === "_blank" || link.hasAttribute("download")) return;
