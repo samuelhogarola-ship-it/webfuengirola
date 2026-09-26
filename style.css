@@ -11024,14 +11024,7 @@ body.is-transitioning {
 }
 
 .services-home-deck__card::after {
-  content: "0" counter(service-card);
-  position: absolute;
-  top: clamp(24px, 4vw, 42px);
-  right: clamp(24px, 4vw, 42px);
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  opacity: 0.38;
+  content: none;
 }
 
 .services-home-deck__card:nth-child(even) {
