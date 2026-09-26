@@ -11274,3 +11274,7 @@ body.is-transitioning {
 @media (min-width: 769px) and (max-width: 1199px) {
   .home-page .case-showcase { margin-inline: -24px; }
 }
+
+.solidaria-project__cover { display: block; border-radius: 16px; overflow: hidden; border: 1px solid var(--color-border); }
+.solidaria-project__cover img { display: block; width: 100%; height: auto; }
+.solidaria-project__cover:focus-visible { outline: 3px solid #28483d; outline-offset: 4px; }

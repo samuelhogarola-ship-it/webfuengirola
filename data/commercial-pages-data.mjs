@@ -402,7 +402,7 @@ const topics = {
   },
   cases: {
     kind: "cases",
-    cases: ["sport-massage-fuengirola", "personal-trainer-fuengirola", "gimnasio-nuevo-estilo", "agama", "samuel-coach-aleman", "fisioapp-panel-clinica", "vokabellab"],
+    cases: ["sport-massage-fuengirola", "personal-trainer-fuengirola", "gimnasio-nuevo-estilo", "agama", "samuel-coach-aleman", "fisioapp-panel-clinica", "vokabellab", "suvilla"],
     es: ["Casos de éxito de WF-Studio en Fuengirola", "negocios con proyectos digitales reales", "ejemplos claros de webs, SEO y aplicaciones", "valorar el enfoque antes de pedir presupuesto"],
     en: ["WF-Studio case studies in Fuengirola", "businesses looking for real digital project examples", "clear examples of websites, SEO and applications", "assess our approach before requesting a quote"],
     de: ["Referenzen von WF-Studio in Fuengirola", "Unternehmen, die reale digitale Projekte sehen möchten", "klare Beispiele für Websites, SEO und Anwendungen", "unseren Ansatz vor einer Anfrage beurteilen"],

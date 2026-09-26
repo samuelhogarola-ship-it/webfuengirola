@@ -56,9 +56,22 @@ test('real Vokabel Lab cover and honest Horses of Gili project are visible', asy
   await page.goto('/web-solidaria/');
   const project = page.locator('#horses-of-gili');
   await project.scrollIntoViewIfNeeded();
-  await expect(project).toContainText('En desarrollo');
+  await expect(project).toContainText('Web disponible');
   await expect(project).toContainText('Horses of Gili');
-  await expect(project.getByRole('link')).toHaveAttribute('href','https://www.horsesofgili.com/wordpress/index.php');
+  await expect(project.getByRole('link', { name: 'Visitar la nueva web ↗', exact: true })).toHaveAttribute('href','https://horses-of-gili.vercel.app/');
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await project.screenshot({path:'output/horses-solidaria-mobile.png'});
+});
+
+
+test('SuVilla is available in all portfolio locales with its real cover and live site link', async ({ page }) => {
+  for (const route of ['/casos/', '/en/case-studies/', '/de/referenzen/', '/fi/asiakastyot/']) {
+    await page.goto(route);
+    const cover = page.locator('#suvilla img');
+    await cover.scrollIntoViewIfNeeded();
+    await expect(cover).toHaveAttribute('src', '/img/suvilla-real.webp');
+    await expect.poll(()=>cover.evaluate(img=>img.complete&&img.naturalWidth===1440)).toBe(true);
+  }
+  await page.goto('/casos/suvilla/');
+  await expect(page.getByRole('link', { name: 'Visitar la web de SuVilla ↗' })).toHaveAttribute('href', 'https://suvilla-web.vercel.app/es');
 });
