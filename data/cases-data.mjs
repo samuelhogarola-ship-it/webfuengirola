@@ -247,4 +247,27 @@ export const cases = [
     whatsappText:
       "Hola, me interesa una plataforma educativa similar a Vokabellab",
   },
+  {
+    slug: "suvilla",
+    portfolioSlug: "suvilla",
+    title: "SuVilla Inmobiliaria",
+    client: "SuVilla",
+    sector: "Inmobiliaria",
+    service: "diseno-web",
+    serviceLabel: "Diseño web multidioma",
+    headline: "SuVilla: propiedades en la Costa del Sol",
+    summary: "Web inmobiliaria con catálogo de propiedades, búsqueda por zona y contacto directo en español, inglés y finés.",
+    result: "Web disponible con buscador de propiedades y presentación del equipo.",
+    image: "img/suvilla-real.webp",
+    ogImage: "https://webfuengirola.com/img/suvilla-real.webp",
+    ogAlt: "Captura real de la web de SuVilla Inmobiliaria",
+    metaTitle: "SuVilla: web inmobiliaria multidioma | WF-Studio",
+    metaDescription: "Proyecto de diseño web para SuVilla: propiedades en la Costa del Sol, búsqueda por zona y tres idiomas.",
+    whatsappText: "Hola, me interesa una web inmobiliaria como SuVilla",
+    bodyHtml: `<section class="section"><div class="container" style="max-width:880px">
+      <h2 class="section-title">Una web para encontrar tu próxima propiedad</h2>
+      <p class="section-desc">Catálogo con filtros, información del equipo y vías de contacto para compradores y vendedores de la Costa del Sol.</p>
+      <a class="btn btn--primary" href="https://suvilla-web.vercel.app/es" target="_blank" rel="noopener noreferrer">Visitar la web de SuVilla ↗</a>
+    </div></section>`,
+  },
 ];

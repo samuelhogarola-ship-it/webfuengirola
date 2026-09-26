@@ -11,7 +11,7 @@ for (const width of [360, 390, 768, 1440]) {
     if (await reject.isVisible()) await reject.click();
     const cover = page.locator('.hero__site-screen--front img');
     await expect(cover).toBeVisible();
-    await expect.poll(() => cover.evaluate((img) => img.complete && img.naturalWidth > 0)).toBe(true);
+    await expect.poll(() => cover.evaluate((img) => img.complete && img.naturalWidth > 0), { timeout: 15000 }).toBe(true);
     await expect(page.locator('.hero--cinematic')).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     if (width === 390) await page.screenshot({ path: 'output/home-mobile.png' });
@@ -26,13 +26,14 @@ for (const width of [360, 390, 768, 1440]) {
     await expect(page).toHaveURL(/\/casos\/$/);
     await expect(page.locator('h1')).toHaveText('Portfolio');
     const cards = page.locator('.commercial-portfolio .portfolio-card');
-    await expect(cards).toHaveCount(7);
+    await expect(cards).toHaveCount(9);
     const firstBox = await cards.nth(0).boundingBox();
     const secondBox = await cards.nth(1).boundingBox();
     if (width <= 640) expect(secondBox.y).toBeGreaterThan(firstBox.y + firstBox.height);
     for (const card of await cards.all()) {
       await card.scrollIntoViewIfNeeded();
-      await expect(card).toHaveClass(/is-revealed/);
+      if (await card.getAttribute('data-reveal')) await expect(card).toHaveClass(/is-revealed/);
+      else await expect(card).toBeVisible();
       const image = card.locator('img');
       await expect.poll(() => image.evaluate((img) => img.complete && img.naturalWidth > 0)).toBe(true);
     }

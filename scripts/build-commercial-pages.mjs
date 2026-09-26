@@ -316,7 +316,7 @@ function renderLocalizedLegalPage(locale) {
   <link rel="canonical" href="${canonical}" />
 ${languageLinks}
   <link rel="alternate" hreflang="x-default" href="${absolute(legalRoutes.es)}" />
-  <link rel="stylesheet" href="/style.css?v=13" /><link rel="stylesheet" href="/legal-core.css" /><link rel="stylesheet" href="/cookie-banner-core.css" />
+  <link rel="stylesheet" href="/style.css?v=15" /><link rel="stylesheet" href="/legal-core.css" /><link rel="stylesheet" href="/cookie-banner-core.css" />
 </head><body class="commercial-page legal-page" data-sector="legal">
 ${renderHeader({ key: "legal", routes: legalRoutes }, locale)}
 <section class="commercial-hero"><div class="container"><span class="section-label">${brand.displayName}</span><h1>${escapeHtml(copy.h1)}</h1><p>${escapeHtml(copy.intro)}</p></div></section>
@@ -370,7 +370,7 @@ ${renderHreflang(group.key)}
   <meta name="twitter:description" content="${escapeHtml(content.description)}" />
   <meta name="twitter:image" content="${brand.site}/img/og-cover.webp" />
   <script type="application/ld+json">${renderJsonLd(group, locale)}</script>
-  <link rel="stylesheet" href="/style.css?v=13" />
+  <link rel="stylesheet" href="/style.css?v=15" />
   <link rel="stylesheet" href="/cookie-banner-core.css" />
   <noscript><style>[data-reveal] { opacity: 1; transform: none; }</style></noscript>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
