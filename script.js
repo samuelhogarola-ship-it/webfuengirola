@@ -2318,18 +2318,53 @@
   }
 
   function initApp() {
-    function closeMobileMenu() {
+    var mobileMenuLinks = Array.prototype.slice.call(
+      nav.querySelectorAll(".nav__link"),
+    );
+    var mobileLanguageMenu = header.querySelector(".language-menu");
+    var mobileMenuBackground = [
+      document.querySelector(".skip-link"),
+      document.querySelector("main"),
+      document.querySelector("footer"),
+      document.querySelector(".whatsapp-fab"),
+    ].filter(Boolean);
+
+    function setMobileMenuBackgroundInert(isInert) {
+      mobileMenuBackground.forEach(function (element) {
+        if (isInert) element.setAttribute("inert", "");
+        else element.removeAttribute("inert");
+      });
+    }
+
+    function mobileMenuLabel(isOpen) {
+      var labels = {
+        es: ["Abrir menú", "Cerrar menú"],
+        en: ["Open menu", "Close menu"],
+        de: ["Menü öffnen", "Menü schließen"],
+        fi: ["Avaa valikko", "Sulje valikko"],
+      };
+      var locale = (document.documentElement.lang || "es").split("-")[0];
+      return (labels[locale] || labels.es)[isOpen ? 1 : 0];
+    }
+
+    function closeMobileMenu(restoreFocus) {
       nav.classList.remove("open");
       hamburger.classList.remove("open");
       hamburger.setAttribute("aria-expanded", "false");
+      hamburger.setAttribute("aria-label", mobileMenuLabel(false));
+      setMobileMenuBackgroundInert(false);
       document.body.classList.remove("is-menu-open");
+      if (restoreFocus) hamburger.focus();
     }
 
     function openMobileMenu() {
       nav.classList.add("open");
       hamburger.classList.add("open");
       hamburger.setAttribute("aria-expanded", "true");
+      hamburger.setAttribute("aria-label", mobileMenuLabel(true));
+      setMobileMenuBackgroundInert(true);
       document.body.classList.add("is-menu-open");
+      if (mobileMenuLinks.length > 0) mobileMenuLinks[0].focus();
     }
 
     /* ---- Smooth scroll for anchor links ---- */
@@ -2341,7 +2376,14 @@
         var headerH = header.offsetHeight;
         var top =
           target.getBoundingClientRect().top + window.scrollY - headerH - 8;
-        window.scrollTo({ top: top, behavior: "smooth" });
+        var behavior = window.matchMedia("(prefers-reduced-motion: reduce)")
+          .matches
+          ? "auto"
+          : "smooth";
+        window.scrollTo({ top: top, behavior: behavior });
+        if (this.classList.contains("skip-link")) {
+          target.focus({ preventScroll: true });
+        }
       });
     });
 
@@ -2351,7 +2393,7 @@
     /* ---- Mobile menu ---- */
     hamburger.addEventListener("click", function () {
       var isOpen = nav.classList.contains("open");
-      if (isOpen) closeMobileMenu();
+      if (isOpen) closeMobileMenu(true);
       else openMobileMenu();
     });
 
@@ -2362,14 +2404,42 @@
     });
 
     document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape" && nav.classList.contains("open")) {
-        closeMobileMenu();
+      if (!nav.classList.contains("open")) return;
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeMobileMenu(true);
+        return;
       }
+
+      if (event.key !== "Tab" || mobileMenuLinks.length === 0) return;
+
+      var focusTargets = mobileMenuLinks.slice();
+      if (mobileLanguageMenu) {
+        focusTargets.push(mobileLanguageMenu.querySelector("summary"));
+        if (mobileLanguageMenu.open) {
+          focusTargets = focusTargets.concat(
+            Array.prototype.slice.call(mobileLanguageMenu.querySelectorAll("a[href]")),
+          );
+        }
+      }
+      focusTargets.push(hamburger);
+      focusTargets = focusTargets.filter(function (element) {
+        return element && element.getClientRects().length > 0;
+      });
+      var activeIndex = focusTargets.indexOf(document.activeElement);
+      var direction = event.shiftKey ? -1 : 1;
+      var nextIndex = (activeIndex + direction + focusTargets.length) % focusTargets.length;
+      event.preventDefault();
+      focusTargets[nextIndex].focus();
     });
 
     document.addEventListener("click", function (event) {
       if (!nav.classList.contains("open")) return;
-      if (nav.contains(event.target) || hamburger.contains(event.target))
+      if (
+        nav.contains(event.target) || hamburger.contains(event.target) ||
+        (mobileLanguageMenu && mobileLanguageMenu.contains(event.target))
+      )
         return;
       closeMobileMenu();
     });
