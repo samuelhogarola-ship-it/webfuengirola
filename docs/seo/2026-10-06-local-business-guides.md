@@ -34,7 +34,7 @@ Las capturas se conservan en la carpeta de revisión de la entrega (`output/seo-
 
 ## Revisión y pendientes
 
-PR: pendiente de creación; el enlace se incorpora al registro de entrega al crearla.
+PR de revisión: https://github.com/samuelhogarola-ship-it/webfuengirola/pull/123 (abierta; sin fusionar).
 WF-Studio: registro pendiente a cargo de la coordinación, sin escritura desde esta subtarea.
 Publicación: comprobar las tres páginas y su versión después de fusionar; no basta con HTTP 200.
 
