@@ -886,7 +886,10 @@ function addSpanishHreflang(posts) {
   }
 }
 
-const posts = extractSpanishPosts();
+// Publish only articles with an explicit translation in every supported language.
+const posts = extractSpanishPosts().filter((post) =>
+  langs.every((lang) => postTranslations[post.slug]?.[lang]),
+);
 writeLocalizedPages(posts);
 addSpanishHreflang(posts);
 console.log(`Generated ${posts.length} blog posts in ${langs.join(", ")}.`);

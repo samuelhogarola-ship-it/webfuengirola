@@ -1,0 +1,369 @@
+[
+  {
+    "slug": "web-para-entrenador-personal-contenidos-contacto",
+    "title": "Web para entrenador personal: del servicio a la primera consulta",
+    "description": "Qué incluir en la web de un entrenador personal: modalidades, zona, proceso, confianza y un contacto sencillo para recibir consultas con contexto útil.",
+    "excerpt": "Una guía para explicar cómo trabajas, ayudar a comparar modalidades y recibir una primera consulta sin convertir la web en un catálogo de promesas.",
+    "date": "2026-10-06",
+    "dateLabel": "6 octubre 2026",
+    "minutes": "5 min",
+    "image": "blog-local-web-fuengirola.webp",
+    "tag": "Servicios profesionales",
+    "tagClass": "tag--blue",
+    "badge": "Web para entrenadores",
+    "section": "Diseño web",
+    "keywords": [
+      "web para entrenador personal",
+      "contenidos web entrenador",
+      "consultas entrenamiento personal"
+    ],
+    "relatedSlugs": [
+      "cuando-conviene-una-web-de-una-sola-pagina",
+      "whatsapp-en-la-web-para-convertir-mas-clientes",
+      "velocidad-web-en-movil-y-seo-local"
+    ],
+    "takeaways": [
+      "Explica modalidad, lugar y primer paso antes de pedir contacto.",
+      "Muestra credenciales y trabajo real, sin garantizar resultados físicos.",
+      "Una consulta útil necesita contexto básico, no un historial de salud en el formulario."
+    ],
+    "sources": [
+      {
+        "label": "Google Search Central: contenido útil, fiable y dirigido a personas",
+        "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content?hl=es"
+      }
+    ],
+    "sections": [
+      [
+        "Empieza por la decisión que necesita tomar el visitante",
+        [
+          "Una persona que busca entrenador necesita saber si puede entrenar contigo en su situación cotidiana: en qué lugar, con qué modalidad, en qué idioma y cómo empieza. Una portada llena de frases sobre superación deja esas preguntas sin resolver. Escribe primero una explicación breve del servicio y después decide qué fotografías la acompañan.",
+          "Como ejemplo de redacción, un profesional que realmente ofrece ese servicio podría decir: Entrenamiento personal presencial en Fuengirola y seguimiento online. Cuéntame tu disponibilidad y qué tipo de acompañamiento buscas. Es una muestra de estructura, no una oferta de WF-Studio ni una descripción de todos los entrenadores. Adapta cada dato a lo que de verdad prestas."
+        ]
+      ],
+      [
+        "Separa modalidades cuando cambian las condiciones",
+        [
+          "Presencial, a domicilio y online no significan lo mismo para el cliente. Para cada modalidad, aclara dónde se realiza, qué incluye, cómo se reserva y qué material debe aportar. Si te desplazas, explica la zona y las condiciones del desplazamiento. Si utilizas instalaciones ajenas, indica cuándo debe comprobarse el acceso o pagarse por separado.",
+          "Puedes empezar con bloques dentro de una sola página. Una página independiente tiene sentido cuando permite resolver dudas distintas con suficiente información propia. No hace falta crear una URL por cada barrio ni multiplicar páginas con el mismo texto: eso dificulta el mantenimiento y no ayuda a elegir."
+        ],
+        [
+          {
+            "label": "Ver una estructura de web para entrenadores personales",
+            "url": "/web-para-entrenadores-personales-fuengirola/"
+          }
+        ]
+      ],
+      [
+        "Explica qué sucede después de escribirte",
+        [
+          "Describe la secuencia real: recibes una consulta, revisas disponibilidad, respondes con las opciones y, si encaja, acordáis el siguiente paso. No anuncies una valoración gratuita o una respuesta inmediata si no forman parte de tu servicio. Un botón como Consultar disponibilidad comunica mejor esa intención que un botón ambiguo de Empezar.",
+          "Si publicas precios, indica a qué modalidad y duración corresponden, qué está incluido y cuándo pueden cambiar. Si trabajas con presupuesto, explica qué información necesitas para prepararlo. La web debe ayudar a comparar condiciones; no conviene esconder diferencias entre una sesión individual, un bono y un seguimiento continuado."
+        ]
+      ],
+      [
+        "Construye confianza con información comprobable",
+        [
+          "Presenta quién presta el servicio y las titulaciones que pueda acreditar. Las fotografías propias del espacio o de una sesión preparada para mostrar el método aportan contexto. Evita presentar imágenes de archivo como clientes reales, publicar testimonios inventados o prometer un cambio físico en un plazo fijo.",
+          "Google Search Central recomienda que el contenido muestre quién lo crea y ofrezca información útil y fiable. En esta web eso se traduce en una presentación honesta y explicaciones concretas. Es un criterio editorial; cumplirlo no garantiza una posición en Google. Si muestras experiencias de clientes, utiliza material autorizado y cuenta el contexto sin convertir un resultado individual en una promesa general."
+        ],
+        [
+          {
+            "label": "Consultar los criterios de contenido útil de Google",
+            "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content?hl=es"
+          }
+        ]
+      ],
+      [
+        "Pide pocos datos en el primer contacto",
+        [
+          "Para orientar una consulta inicial suele ser suficiente preguntar nombre, vía de contacto, modalidad de interés y disponibilidad aproximada. Deja que el visitante describa qué busca con sus propias palabras. La conversación profesional posterior es el lugar para precisar el servicio; el formulario comercial no necesita recopilar diagnósticos ni documentación de salud.",
+          "Prueba el recorrido completo desde un móvil: abrir el botón, enviar una consulta de prueba autorizada, comprobar que llega y ver qué confirmación recibe la persona. Un clic en WhatsApp solo abre un canal; no demuestra que se haya enviado un mensaje. Evita botones que parezcan reservar una sesión cuando únicamente solicitan información."
+        ]
+      ],
+      [
+        "Prepara el material antes de encargar la web",
+        [
+          "Reúne una descripción por modalidad, fotografías utilizables, tu presentación, las condiciones de contratación y las preguntas que más se repiten. Decide quién actualizará horarios y disponibilidad. Esa carpeta permite diseñar una web ajustada al servicio, con menos correcciones que si se empieza por una plantilla llena de textos provisionales.",
+          "Si necesitas ayuda, el encargo puede comenzar por ordenar esa información y construir una primera versión ligera. Después podrás valorar si hacen falta reservas, pagos o un área privada. Añadirlos de inicio solo compensa cuando existe una operativa concreta que vayan a resolver."
+        ],
+        [
+          {
+            "label": "Consultar el servicio de diseño web",
+            "url": "/servicios/diseno-web/"
+          },
+          {
+            "label": "Ver un caso de entrenador personal",
+            "url": "/casos/personal-trainer-fuengirola/"
+          }
+        ]
+      ]
+    ],
+    "faq": [
+      [
+        "¿Puedo empezar con una sola página?",
+        "Sí, si permite entender las modalidades, conocer al profesional y contactar sin ambigüedad. Separa páginas cuando cada servicio necesite información propia, no para repetir ubicaciones."
+      ],
+      [
+        "¿Es obligatorio añadir una agenda de reservas?",
+        "No. Una consulta de disponibilidad puede ser más adecuada si necesitas hablar antes de aceptar una sesión. La reserva automática requiere horarios y condiciones bien mantenidos."
+      ],
+      [
+        "¿Qué reviso antes de publicar?",
+        "Que los servicios y credenciales sean exactos, que puedas usar las imágenes, que los contactos funcionen y que la página sea legible y rápida en un móvil."
+      ]
+    ]
+  },
+  {
+    "slug": "como-medir-contactos-web-negocio-local",
+    "title": "Cómo medir los contactos de una web de negocio local",
+    "description": "Distingue visitas, clics, consultas y citas en tu web local. Prepara un registro sencillo para revisar qué canales aportan contactos útiles a tu negocio.",
+    "excerpt": "Una web puede acumular clics sin recibir consultas útiles. Este método separa las señales y te ayuda a decidir qué revisar primero.",
+    "date": "2026-10-06",
+    "dateLabel": "6 octubre 2026",
+    "minutes": "5 min",
+    "image": "blog-google-business-web.webp",
+    "tag": "Medición",
+    "tagClass": "tag--orange",
+    "badge": "Medición de contactos",
+    "section": "Analítica local",
+    "keywords": [
+      "medir contactos web",
+      "consultas negocio local",
+      "clics y contactos web"
+    ],
+    "relatedSlugs": [
+      "google-business-profile-y-web-como-trabajan-juntos",
+      "whatsapp-en-la-web-para-convertir-mas-clientes",
+      "cuanto-tarda-el-seo-local"
+    ],
+    "takeaways": [
+      "Un clic en un botón no equivale a una conversación.",
+      "Define consulta válida antes de comparar canales.",
+      "Revisa por separado búsqueda, comportamiento web y resultado comercial."
+    ],
+    "sources": [
+      {
+        "label": "Google Search Console: impresiones, posición y clics",
+        "url": "https://support.google.com/webmasters/answer/7042828?hl=es"
+      },
+      {
+        "label": "Google Business Profile: rendimiento y estadísticas",
+        "url": "https://support.google.com/business/answer/9918094?hl=es"
+      }
+    ],
+    "sections": [
+      [
+        "Define qué vas a contar como contacto",
+        [
+          "Antes de abrir un panel de estadísticas, acuerda una definición sencilla. Una consulta válida puede ser un mensaje o llamada de alguien que pregunta por un servicio que realmente ofreces y en una zona que atiendes. Sepárala de spam, proveedores, solicitudes duplicadas y conversaciones de clientes actuales si tu objetivo es captar nuevos clientes.",
+          "Mantén distintas etapas: clic de contacto, formulario recibido, conversación válida, cita acordada y servicio contratado. Son señales diferentes. Una sola persona puede pulsar WhatsApp, llamar y escribir después; sumar las tres acciones como tres nuevos clientes inflaría el resultado. Usa un registro interno para relacionar esas conversaciones sin enviar datos personales a la herramienta de analítica."
+        ]
+      ],
+      [
+        "Lee cada herramienta por lo que realmente mide",
+        [
+          "Search Console informa de impresiones y clics desde los resultados de Google, entre otras métricas. No confirma que esas visitas hayan contactado. En el rendimiento del Perfil de Empresa, Google define llamadas como clics en el botón de llamada y clics en el sitio web como pulsaciones sobre su enlace. Tampoco son, por sí solos, ventas o llamadas atendidas.",
+          "La analítica de la web puede registrar eventos como pulsar un teléfono o completar un formulario, según cómo se configure. Una etiqueta llamada contacto no vuelve equivalente cualquier acción: deja escrito qué la activa. Tampoco sumes cifras de herramientas distintas como si identificaran a las mismas personas; tienen ámbitos y métodos de conteo diferentes."
+        ],
+        [
+          {
+            "label": "Qué cuenta Search Console como clic e impresión",
+            "url": "https://support.google.com/webmasters/answer/7042828?hl=es"
+          },
+          {
+            "label": "Cómo define Google las interacciones del Perfil de Empresa",
+            "url": "https://support.google.com/business/answer/9918094?hl=es"
+          }
+        ]
+      ],
+      [
+        "Crea un registro pequeño que puedas mantener",
+        [
+          "Empieza con estas columnas en tu herramienta interna: fecha, canal declarado, página o campaña conocida, servicio solicitado, consulta válida, cita acordada y resultado. Añade una categoría desconocido: es preferible admitir que no sabes el origen a asignarlo automáticamente a Google. Si preguntas cómo te encontraron, guarda esa respuesta como origen declarado, no como una atribución técnica infalible.",
+          "Al revisar los totales, usa el mismo periodo y definición. Por ejemplo, puedes comparar consultas válidas recibidas durante dos meses completos y anotar cierres por vacaciones o cambios de horario. Con pocas consultas, una diferencia pequeña puede deberse a circunstancias puntuales; evita convertirla de inmediato en una conclusión sobre el diseño."
+        ]
+      ],
+      [
+        "Comprueba el evento antes de confiar en el gráfico",
+        [
+          "En un formulario, cuenta el envío aceptado después de la confirmación del servidor, no solo la pulsación del botón. Prueba también un error de validación y un fallo de conexión: ninguno debería contarse como consulta recibida. Comprueba que una recarga de la confirmación no duplique el evento y que las pruebas del equipo no se mezclen con la actividad que analizas.",
+          "En enlaces de teléfono y WhatsApp, el navegador puede confirmar el clic, pero no necesariamente lo que ocurre dentro de la aplicación externa. Conserva nombres explícitos, como clic_whatsapp, y contrasta después con las conversaciones recibidas. No incluyas nombres, correos, teléfonos ni el texto del mensaje en URLs o parámetros de eventos."
+        ],
+        [
+          {
+            "label": "Revisar el recorrido de WhatsApp en una web local",
+            "url": "/blog/whatsapp-en-la-web-para-convertir-mas-clientes/"
+          }
+        ]
+      ],
+      [
+        "Convierte los datos en una revisión concreta",
+        [
+          "Si una página recibe visitas relevantes pero apenas clics de contacto, revisa si explica el servicio, las condiciones y el siguiente paso. Si hay muchos clics pero pocas conversaciones, comprueba los enlaces y si se entiende qué pasará al pulsarlos. Si llegan consultas que no encajan, quizá falte aclarar la zona, el tipo de trabajo o los requisitos básicos.",
+          "Si las conversaciones son adecuadas pero no avanzan, la respuesta puede estar después de la web: disponibilidad, condiciones, tiempo de respuesta o encaje del servicio. La medición ayuda a localizar una pregunta; no demuestra por sí sola cuál es la causa. Cambia un elemento bien definido y anota cuándo lo haces para poder revisar su efecto."
+        ]
+      ],
+      [
+        "Qué pedir en una revisión de tu web",
+        [
+          "Pide un mapa breve de eventos, una comprobación de los canales reales y un informe que distinga intención de contacto de consultas confirmadas. No necesitas empezar con un panel complejo. Un registro mantenido y unas pocas señales fiables suelen resultar más útiles para decidir que una pantalla llena de indicadores sin definición.",
+          "El objetivo es saber qué información falta y qué paso del recorrido conviene mejorar. Ni un aumento de visitas ni una mejor posición aseguran más contrataciones. La comparación debe acompañarse siempre de lo que sucede en el negocio y de la calidad de las consultas recibidas."
+        ],
+        [
+          {
+            "label": "Solicitar una revisión de la web",
+            "url": "/auditoria-web-gratis/"
+          },
+          {
+            "label": "Ver el servicio de mantenimiento",
+            "url": "/servicios/mantenimiento/"
+          }
+        ]
+      ]
+    ],
+    "faq": [
+      [
+        "¿Un clic en WhatsApp cuenta como cliente nuevo?",
+        "No. Indica que alguien pulsó el enlace. Para contar una consulta válida debes comprobar que hubo una conversación y que corresponde al servicio que analizas."
+      ],
+      [
+        "¿Por qué Google y mi analítica muestran cifras diferentes?",
+        "Cada herramienta observa una parte del recorrido y utiliza sus propias definiciones. Compara métricas equivalentes y no sumes sus cifras como si fueran personas distintas."
+      ],
+      [
+        "¿Cuándo puedo valorar si una mejora funciona?",
+        "Cuando tengas suficientes observaciones comparables para tu negocio. Documenta el cambio y el contexto; no hay un plazo o una tasa de conversión universal que garantice una conclusión."
+      ]
+    ]
+  },
+  {
+    "slug": "contenidos-locales-utiles-sin-duplicar-paginas",
+    "title": "Contenidos locales útiles sin duplicar páginas por ciudad",
+    "description": "Planifica contenidos locales con preguntas reales, ejemplos propios y servicios claros. Decide cuándo crear una página y cuándo mejorar una que ya existe.",
+    "excerpt": "Cómo convertir dudas de clientes en páginas útiles, elegir qué actualizar y evitar un blog lleno de variaciones del mismo texto.",
+    "date": "2026-10-06",
+    "dateLabel": "6 octubre 2026",
+    "minutes": "5 min",
+    "image": "blog-home-og.webp",
+    "tag": "Contenido local",
+    "tagClass": "tag--green",
+    "badge": "Plan editorial local",
+    "section": "SEO local",
+    "keywords": [
+      "contenidos locales útiles",
+      "blog negocio local",
+      "evitar páginas duplicadas"
+    ],
+    "relatedSlugs": [
+      "seo-local-para-servicios-a-domicilio",
+      "resenas-de-google-y-pagina-web",
+      "errores-comunes-en-webs-de-negocios-locales"
+    ],
+    "takeaways": [
+      "Empieza por una duda de cliente y la decisión que necesita tomar.",
+      "Una ubicación merece una página cuando hay información propia que aportar.",
+      "Actualizar una página útil puede ser mejor que publicar otra casi igual."
+    ],
+    "sources": [
+      {
+        "label": "Google Search Central: contenido útil y dirigido a personas",
+        "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content?hl=es"
+      },
+      {
+        "label": "Google Search Central: políticas de spam y páginas puerta",
+        "url": "https://developers.google.com/search/docs/essentials/spam-policies?hl=es#doorway-abuse"
+      }
+    ],
+    "sections": [
+      [
+        "Recoge preguntas antes de elegir palabras clave",
+        [
+          "Anota las dudas que aparecen en llamadas, presupuestos y visitas al negocio. No copies datos personales de esas conversaciones: conserva la pregunta general. Por ejemplo, qué incluye una primera visita, cómo preparar un espacio para una instalación o qué cambia si el servicio se presta fuera del horario habitual.",
+          "Añade junto a cada pregunta quién la plantea, qué decisión necesita tomar y qué explicación puedes aportar desde tu trabajo. Si no tienes una respuesta propia, quizá haga falta hablar con la persona que presta el servicio antes de redactar. Este inventario permite elegir temas con una utilidad concreta en lugar de publicar solo porque ha pasado una semana."
+        ]
+      ],
+      [
+        "Decide si la respuesta pertenece a un servicio o al blog",
+        [
+          "Una duda imprescindible para contratar suele pertenecer a la página del servicio: zona, condiciones, proceso y formas de contacto. Una comparación que necesita ejemplos, alternativas o preparación puede convertirse en una guía del blog. Después enlaza esa guía desde el servicio cuando ayude a tomar la decisión.",
+          "Imagina un negocio que realiza trabajos a domicilio. Las zonas atendidas y cómo pide presupuesto deben estar en su página comercial. Una explicación sobre las fotografías y medidas necesarias para preparar una consulta puede ser un artículo independiente. Son objetivos distintos; repetir en ambos una descripción genérica del negocio no aporta lo mismo."
+        ],
+        [
+          {
+            "label": "Cómo presentar servicios a domicilio",
+            "url": "/blog/seo-local-para-servicios-a-domicilio/"
+          }
+        ]
+      ],
+      [
+        "Aporta detalles locales que puedas mantener",
+        [
+          "Lo local no consiste en insertar Fuengirola o Málaga en todos los títulos. Puede consistir en explicar un acceso real al establecimiento, un tipo de desplazamiento que realizas, un proyecto documentado o una condición de servicio que cambia según la zona. Usa fotografías propias cuando aclaren la explicación y revisa que los datos sigan vigentes.",
+          "No inventes una oficina, un caso o una relación con una asociación para hacer el texto más cercano. Si trabajas en varias poblaciones con las mismas condiciones, una página clara sobre tu zona de servicio puede resolver mejor la consulta. Una ubicación merece contenido independiente cuando existen diferencias relevantes que puedes explicar con precisión."
+        ]
+      ],
+      [
+        "Evita las páginas que solo cambian el nombre del lugar",
+        [
+          "Las políticas de Google describen como abuso de páginas puerta determinadas páginas similares creadas para captar consultas y llevar al usuario a un destino común. Eso no significa que toda página local sea incorrecta: el problema es producir destinos de escaso valor para manipular la búsqueda.",
+          "Antes de crear otra URL, compárala con la existente. Si al quitar el nombre de la ciudad ambas dicen prácticamente lo mismo, revisa si es mejor ampliar la página actual. Google también orienta su documentación hacia contenido útil para personas. No existe un número de artículos que, por sí solo, garantice visibilidad ni una posición concreta."
+        ],
+        [
+          {
+            "label": "Política de Google sobre páginas puerta",
+            "url": "https://developers.google.com/search/docs/essentials/spam-policies?hl=es#doorway-abuse"
+          },
+          {
+            "label": "Criterios de contenido útil de Google",
+            "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content?hl=es"
+          }
+        ]
+      ],
+      [
+        "Usa una ficha editorial breve antes de redactar",
+        [
+          "Para cada propuesta escribe cinco datos: pregunta del cliente, respuesta principal, evidencia disponible, página comercial relacionada y persona que revisará la exactitud. Añade una decisión: crear, actualizar o descartar. Si la respuesta principal ya existe, empieza por actualizarla; si no puedes sostener la información, no la publiques todavía.",
+          "Un caso terminado puede servir para explicar el problema inicial, la solución y sus límites, siempre con permiso para usar el material. Separa lo comprobado de una expectativa. Una captura de la web demuestra una entrega visual; no demuestra un aumento de ventas. Esa distinción hace el contenido más útil para alguien que compara proveedores."
+        ],
+        [
+          {
+            "label": "Ver ejemplos de proyectos documentados",
+            "url": "/casos/"
+          }
+        ]
+      ],
+      [
+        "Revisa y enlaza con una finalidad concreta",
+        [
+          "Antes de publicar, comprueba títulos, fechas, enlaces, imágenes y lectura móvil. Elige artículos relacionados que amplíen la pregunta, no una lista idéntica en todos los posts. Si una guía lleva a un servicio, utiliza un texto de enlace que diga qué encontrará el lector. Un enlace claro ayuda más que encadenar frases llenas de palabras clave.",
+          "Después revisa si las consultas reales muestran nuevas dudas, si el servicio cambió o si alguna explicación se quedó corta. Actualiza la fecha cuando haya una revisión sustancial, no para aparentar novedad. Puedes mantener un blog pequeño y útil; no necesitas una cadena de páginas geográficas para empezar a explicar bien tu negocio."
+        ],
+        [
+          {
+            "label": "Ver cómo trabajamos el SEO local",
+            "url": "/servicios/seo-local/"
+          },
+          {
+            "label": "Consultar un plan de contenidos para tu negocio",
+            "url": "/contacto/"
+          }
+        ]
+      ]
+    ],
+    "faq": [
+      [
+        "¿Necesito un artículo por cada ciudad que atiendo?",
+        "No. Primero comprueba si hay diferencias de servicio o información local propia que justifiquen otra página. Si todo es igual, una explicación completa de la zona puede ser suficiente."
+      ],
+      [
+        "¿Es mejor publicar o actualizar?",
+        "Depende de la pregunta. Actualiza cuando una página existente ya tiene ese objetivo. Crea una nueva cuando resuelva una necesidad diferente y puedas desarrollarla con información propia."
+      ],
+      [
+        "¿Puedo usar IA para preparar un borrador?",
+        "Puede ayudar a ordenar ideas, pero debes revisar hechos, ejemplos y lenguaje. No inventes experiencia, referencias o resultados y no publiques en serie páginas casi idénticas."
+      ]
+    ]
+  }
+]

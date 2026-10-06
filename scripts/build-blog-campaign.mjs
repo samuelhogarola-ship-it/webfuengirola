@@ -3,6 +3,9 @@ import path from "node:path";
 
 const root = process.cwd();
 const blogDir = path.join(root, "blog");
+const additionalPosts = JSON.parse(
+  fs.readFileSync(path.join(root, "data/blog-guides-20261006.json"), "utf8"),
+);
 
 const existingPosts = [
   {
@@ -1070,9 +1073,9 @@ function article(post, relatedPosts) {
 
   const bodySections = post.sections
     .map(
-      ([heading, paragraphs], index) => `
+      ([heading, paragraphs, links = []], index) => `
             <h2>${escapeHtml(heading)}</h2>
-            ${paragraphs.map((p) => `<p>${escapeHtml(p)}</p>`).join("\n            ")}
+            ${paragraphs.map((p) => `<p>${escapeHtml(p)}</p>`).join("\n            ")}${links.length ? `\n            <ul>${links.map((link) => `<li><a href="${escapeHtml(link.url)}">${escapeHtml(link.label)}</a></li>`).join("")}</ul>` : ""}
             ${
               index === 0
                 ? `<div class="blog-callout">
@@ -1275,7 +1278,7 @@ ${faqHtml}
     </div>
     <div class="footer__bottom">
       <div class="container">
-        <p>&copy; <span id="footer-year"></span> WF-Studio · Web Fuengirola. Todos los derechos reservados.</p>
+        <p>&copy; <span id="footer-year"></span> WF-Studio · Web Fuengirola. Todos los derechos reservados.</p>${post.sources ? '\n        <p><a href="https://webfuengirola.com/">Diseñado por WF Studio</a></p>' : ""}
       </div>
     </div>
   </footer>
@@ -1336,7 +1339,9 @@ function buildIndex() {
     },
   ];
 
-  const allCards = [...posts, ...existingPosts].map(card).join("\n\n");
+  const allCards = [...additionalPosts, ...posts, ...existingPosts]
+    .map(card)
+    .join("\n\n");
   const footerLinks = posts
     .slice(0, 6)
     .map(
@@ -1531,6 +1536,24 @@ for (const [index, post] of posts.entries()) {
   fs.writeFileSync(path.join(postDir, "index.html"), article(post, related));
 }
 
+for (const post of additionalPosts) {
+  const postDir = path.join(blogDir, post.slug);
+  fs.mkdirSync(postDir, { recursive: true });
+  const related = post.relatedSlugs.map((slug) => {
+    const relatedPost = [...posts, ...existingPosts].find(
+      (item) => item.slug === slug,
+    );
+    if (!relatedPost) throw new Error(`Unknown related post: ${slug}`);
+    return relatedPost;
+  });
+  fs.writeFileSync(
+    path.join(postDir, "index.html"),
+    article(post, related).replace(/[\t ]+$/gm, ""),
+  );
+}
+
 fs.writeFileSync(path.join(blogDir, "index.html"), buildIndex());
 
-console.log(`Generated ${posts.length} blog posts and updated the blog index.`);
+console.log(
+  `Generated ${posts.length + additionalPosts.length} blog posts and updated the blog index.`,
+);
