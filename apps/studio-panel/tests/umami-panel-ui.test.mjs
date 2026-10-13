@@ -45,7 +45,8 @@ test("single-site view computes KPIs and previous-period comparisons", () => {
     series: { pageviews: [{ x: "2026-08-28", y: 10 }] },
     topPages: [{ x: "/servicios", y: 40 }],
     topReferrers: [{ x: "google.com", y: 30 }],
-    topCountries: [],
+    topCountries: [{ x: "ES", y: 35 }],
+    topRegions: [{ x: "Andalusia", y: 20 }],
     devices: [],
   };
 
@@ -59,6 +60,8 @@ test("single-site view computes KPIs and previous-period comparisons", () => {
   assert.equal(view.comparisons.visitors, 20);
   assert.equal(view.comparisons.pageviews, 2.5);
   assert.deepEqual(view.series, [{ x: "2026-08-28", y: 10 }]);
+  assert.deepEqual(view.topCountries, [{ x: "ES", y: 35 }]);
+  assert.deepEqual(view.topRegions, [{ x: "Andalusia", y: 20 }]);
 });
 
 test("multi-site view aggregates healthy sites and preserves unavailable sites", () => {
@@ -66,23 +69,66 @@ test("multi-site view aggregates healthy sites and preserves unavailable sites",
     {
       site: site("vokabellab", "VokabelLab"),
       status: "ok",
-      stats: { visitors: 20, visits: 30, pageviews: 70, bounces: 6, totaltime: 900 },
-      previousStats: { visitors: 10, visits: 20, pageviews: 50, bounces: 5, totaltime: 500 },
-      series: { pageviews: [{ x: "2026-08-28", y: 20 }, { x: "2026-08-29", y: 30 }] },
+      stats: {
+        visitors: 20,
+        visits: 30,
+        pageviews: 70,
+        bounces: 6,
+        totaltime: 900,
+      },
+      previousStats: {
+        visitors: 10,
+        visits: 20,
+        pageviews: 50,
+        bounces: 5,
+        totaltime: 500,
+      },
+      series: {
+        pageviews: [
+          { x: "2026-08-28", y: 20 },
+          { x: "2026-08-29", y: 30 },
+        ],
+      },
       topPages: [{ x: "/lernen", y: 20 }],
       topReferrers: [{ x: "google.com", y: 12 }],
-      topCountries: [],
+      topCountries: [{ x: "ES", y: 10 }],
+      topRegions: [{ x: "Andalusia", y: 7 }],
       devices: [],
     },
     {
       site: site("imkontext", "imKontext"),
       status: "ok",
-      stats: { visitors: 30, visits: 40, pageviews: 90, bounces: 8, totaltime: 1_600 },
-      previousStats: { visitors: 20, visits: 30, pageviews: 80, bounces: 6, totaltime: 900 },
+      stats: {
+        visitors: 30,
+        visits: 40,
+        pageviews: 90,
+        bounces: 8,
+        totaltime: 1_600,
+      },
+      previousStats: {
+        visitors: 20,
+        visits: 30,
+        pageviews: 80,
+        bounces: 6,
+        totaltime: 900,
+      },
       series: { pageviews: [{ x: "2026-08-28", y: 15 }] },
-      topPages: [{ x: "/lernen", y: 10 }, { x: "/kurs", y: 8 }],
-      topReferrers: [{ x: "google.com", y: 7 }, { x: "direct", y: 5 }],
-      topCountries: [],
+      topPages: [
+        { x: "/lernen", y: 10 },
+        { x: "/kurs", y: 8 },
+      ],
+      topReferrers: [
+        { x: "google.com", y: 7 },
+        { x: "direct", y: 5 },
+      ],
+      topCountries: [
+        { x: "ES", y: 11 },
+        { x: "DE", y: 4 },
+      ],
+      topRegions: [
+        { x: "Andalusia", y: 3 },
+        { x: "Bavaria", y: 2 },
+      ],
       devices: [],
     },
     {
@@ -111,11 +157,23 @@ test("multi-site view aggregates healthy sites and preserves unavailable sites",
     { x: "google.com", y: 19 },
     { x: "direct", y: 5 },
   ]);
+  assert.deepEqual(view.topCountries, [
+    { x: "ES", y: 21 },
+    { x: "DE", y: 4 },
+  ]);
+  assert.deepEqual(view.topRegions, [
+    { x: "Andalusia", y: 10 },
+    { x: "Bavaria", y: 2 },
+  ]);
 });
 
 test("an unavailable view keeps explicit per-site failures", () => {
   const view = buildUmamiAnalyticsView([
-    { site: site("todoplastico", "TodoPlástico"), status: "missing_connection", message: "Sin conexión" },
+    {
+      site: site("todoplastico", "TodoPlástico"),
+      status: "missing_connection",
+      message: "Sin conexión",
+    },
   ]);
 
   assert.equal(view.status, "unavailable");
@@ -124,8 +182,20 @@ test("an unavailable view keeps explicit per-site failures", () => {
 
 test("shared analytics UI is accessible and keeps credentials server-only", async () => {
   const [clientSource, serverSource] = await Promise.all([
-    readFile(new URL("../src/components/admin/umami-analytics-panel.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../src/components/admin/panel-analytics-section.tsx", import.meta.url), "utf8"),
+    readFile(
+      new URL(
+        "../src/components/admin/umami-analytics-panel.tsx",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+    readFile(
+      new URL(
+        "../src/components/admin/panel-analytics-section.tsx",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
   ]);
 
   assert.match(clientSource, /role="tablist"/);
@@ -133,6 +203,8 @@ test("shared analytics UI is accessible and keeps credentials server-only", asyn
   assert.match(clientSource, /aria-label="Serie diaria de páginas vistas"/);
   assert.match(clientSource, /Visitantes/);
   assert.match(clientSource, /Duración media/);
+  assert.match(clientSource, /Países/);
+  assert.match(clientSource, /Regiones/);
   assert.match(serverSource, /getPanelAnalytics/);
   assert.match(serverSource, /UMAMI_PERSONAL_URL/);
   assert.doesNotMatch(clientSource, /PASSWORD|USERNAME|getUmamiConnections/);

@@ -8,9 +8,7 @@ import {
   processMonthlyStatReport,
 } from "../src/lib/cron/monthly-stat-reports.mjs";
 import * as monthlyReports from "../src/lib/cron/monthly-stat-reports.mjs";
-import {
-  createMonthlyStatReportRepository,
-} from "../src/lib/data/monthly-stat-reports.mjs";
+import { createMonthlyStatReportRepository } from "../src/lib/data/monthly-stat-reports.mjs";
 
 function createReportDatabase(initialRows = []) {
   const rows = new Map(initialRows.map((row) => [row.month_key, { ...row }]));
@@ -24,7 +22,8 @@ function createReportDatabase(initialRows = []) {
       if (!row) return { data: null, error: { message: "report missing" } };
 
       if (name === "claim_monthly_stat_report_delivery") {
-        if (row.email_sent_at || claims.has(params.p_month_key)) return { data: false, error: null };
+        if (row.email_sent_at || claims.has(params.p_month_key))
+          return { data: false, error: null };
         claims.set(params.p_month_key, params.p_claim_token);
         return { data: true, error: null };
       }
@@ -47,7 +46,10 @@ function createReportDatabase(initialRows = []) {
       return {
         upsert(record, options) {
           assert.deepEqual(options, { onConflict: "month_key" });
-          rows.set(record.month_key, { ...rows.get(record.month_key), ...record });
+          rows.set(record.month_key, {
+            ...rows.get(record.month_key),
+            ...record,
+          });
           return {
             select() {
               return {
@@ -64,7 +66,9 @@ function createReportDatabase(initialRows = []) {
               assert.equal(column, "month_key");
               assert.deepEqual(options, { ascending: false });
               return {
-                data: [...rows.values()].sort((a, b) => b.month_key.localeCompare(a.month_key)),
+                data: [...rows.values()].sort((a, b) =>
+                  b.month_key.localeCompare(a.month_key),
+                ),
                 error: null,
               };
             },
@@ -91,33 +95,73 @@ test("configured report sites include all panels and keep missing website ids vi
   });
 
   assert.equal(sites.length, 14);
-  assert.equal(sites.find((site) => site.key === "webfuengirola")?.source, "personal");
-  assert.equal(sites.find((site) => site.key === "webfuengirola")?.websiteId, "wf-id");
-  assert.equal(sites.find((site) => site.key === "superentrenador")?.websiteId, "super-id");
-  assert.equal(sites.find((site) => site.key === "todoplastico")?.source, "agama");
-  assert.equal(sites.find((site) => site.key === "todoplastico")?.websiteId, undefined);
+  assert.equal(
+    sites.find((site) => site.key === "webfuengirola")?.source,
+    "personal",
+  );
+  assert.equal(
+    sites.find((site) => site.key === "webfuengirola")?.websiteId,
+    "wf-id",
+  );
+  assert.equal(
+    sites.find((site) => site.key === "superentrenador")?.websiteId,
+    "super-id",
+  );
+  assert.equal(
+    sites.find((site) => site.key === "todoplastico")?.source,
+    "agama",
+  );
+  assert.equal(
+    sites.find((site) => site.key === "todoplastico")?.websiteId,
+    undefined,
+  );
 });
 
 test("monthly cron authorization accepts shared and dedicated secrets", () => {
-  const input = { cronSecret: "vercel", monthlySecret: "external", headerSecret: null };
+  const input = {
+    cronSecret: "vercel",
+    monthlySecret: "external",
+    headerSecret: null,
+  };
 
-  assert.equal(monthlyReports.isAuthorizedMonthlyCronRequest({ ...input, authorization: "Bearer vercel" }), true);
-  assert.equal(monthlyReports.isAuthorizedMonthlyCronRequest({ ...input, authorization: "Bearer external" }), true);
-  assert.equal(monthlyReports.isAuthorizedMonthlyCronRequest({ ...input, authorization: "Bearer wrong" }), false);
+  assert.equal(
+    monthlyReports.isAuthorizedMonthlyCronRequest({
+      ...input,
+      authorization: "Bearer vercel",
+    }),
+    true,
+  );
+  assert.equal(
+    monthlyReports.isAuthorizedMonthlyCronRequest({
+      ...input,
+      authorization: "Bearer external",
+    }),
+    true,
+  );
+  assert.equal(
+    monthlyReports.isAuthorizedMonthlyCronRequest({
+      ...input,
+      authorization: "Bearer wrong",
+    }),
+    false,
+  );
 });
 
 test("monthly report configuration requires an explicit recipient", () => {
   assert.throws(
-    () => monthlyReports.getMonthlyStatReportConfig({
-      STAT_REPORT_UMAMI_URL: "https://analytics.example.com",
-      STAT_REPORT_UMAMI_PASSWORD: "secret",
-    }),
+    () =>
+      monthlyReports.getMonthlyStatReportConfig({
+        STAT_REPORT_UMAMI_URL: "https://analytics.example.com",
+        STAT_REPORT_UMAMI_PASSWORD: "secret",
+      }),
     /STAT_REPORT_EMAIL_TO or RESEND_TO_EMAIL is required/,
   );
 });
 
 test("website resolution skips the listing request when every id is configured", async () => {
-  const sites = [{ key: "wf", label: "WF", domain: "example.com", websiteId: "wf-id" }];
+  const sites = [
+    { key: "wf", label: "WF", domain: "example.com", websiteId: "wf-id" },
+  ];
 
   const resolved = await monthlyReports.resolveReportSites({
     baseUrl: "https://analytics.example.com",
@@ -184,6 +228,7 @@ test("monthly report persists markdown and sends it with a monthly idempotency k
         topPages: [{ x: "/servicios", y: 80 }],
         topReferrers: [{ x: "google.com", y: 44 }],
         topCountries: [{ x: "ES", y: 300 }],
+        topRegions: [{ x: "Andalusia", y: 240 }],
         devices: [{ x: "mobile", y: 260 }],
       };
     },
@@ -201,6 +246,8 @@ test("monthly report persists markdown and sends it with a monthly idempotency k
   assert.equal(saves.length, 1);
   assert.match(saves[0].markdown, /# Informe estadístico mensual - julio 2026/);
   assert.match(saves[0].markdown, /Web Fuengirola/);
+  assert.match(saves[0].markdown, /Regiones:/);
+  assert.match(saves[0].markdown, /Andalusia: 240/);
   assert.match(saves[0].markdown, /Conoce Fuengirola/);
   assert.match(saves[0].markdown, /Sin websiteId configurado/);
   assert.equal(sent.length, 1);
@@ -240,37 +287,77 @@ test("monthly report renders previous-period deltas from legacy Umami stats", as
     saveReport: async (report) => report.markdown,
   });
 
-  assert.match(result.storageRef, /Páginas vistas: 20 \(\+8 vs\. mes anterior\)/);
+  assert.match(
+    result.storageRef,
+    /Páginas vistas: 20 \(\+8 vs\. mes anterior\)/,
+  );
   assert.match(result.storageRef, /Visitantes: 8 \(-2 vs\. mes anterior\)/);
 });
 
 test("monthly report renders deltas from shared current and previous stats", async () => {
   const result = await processMonthlyStatReport({
     now: new Date("2026-08-25T10:30:00.000Z"),
-    sites: [{ key: "webfuengirola", label: "Web Fuengirola", domain: "webfuengirola.com", websiteId: "wf-id" }],
-    fetchSiteReports: async ({ sites }) => [{
-      site: sites[0],
-      status: "ok",
-      stats: { pageviews: { value: 20 }, visitors: { value: 8 }, visits: { value: 11 }, bounces: { value: 3 }, totaltime: { value: 120 } },
-      previousStats: { pageviews: { value: 12 }, visitors: { value: 10 }, visits: { value: 9 }, bounces: { value: 4 } },
-      series: { pageviews: [], sessions: [] },
-      topPages: [],
-      topReferrers: [],
-      topCountries: [],
-      devices: [],
-    }],
+    sites: [
+      {
+        key: "webfuengirola",
+        label: "Web Fuengirola",
+        domain: "webfuengirola.com",
+        websiteId: "wf-id",
+      },
+    ],
+    fetchSiteReports: async ({ sites }) => [
+      {
+        site: sites[0],
+        status: "ok",
+        stats: {
+          pageviews: { value: 20 },
+          visitors: { value: 8 },
+          visits: { value: 11 },
+          bounces: { value: 3 },
+          totaltime: { value: 120 },
+        },
+        previousStats: {
+          pageviews: { value: 12 },
+          visitors: { value: 10 },
+          visits: { value: 9 },
+          bounces: { value: 4 },
+        },
+        series: { pageviews: [], sessions: [] },
+        topPages: [],
+        topReferrers: [],
+        topCountries: [],
+        devices: [],
+      },
+    ],
     saveReport: async (report) => report.markdown,
   });
 
-  assert.match(result.storageRef, /Páginas vistas: 20 \(\+8 vs\. mes anterior\)/);
+  assert.match(
+    result.storageRef,
+    /Páginas vistas: 20 \(\+8 vs\. mes anterior\)/,
+  );
   assert.match(result.storageRef, /Visitantes: 8 \(-2 vs\. mes anterior\)/);
 });
 
 test("bulk dual-source results preserve source errors in the stored report", async () => {
   let savedReports;
   const sites = [
-    { key: "webfuengirola", label: "Web Fuengirola", domain: "webfuengirola.com", source: "personal", panelKey: "wf-studio", websiteId: "wf-id" },
-    { key: "todoplastico", label: "TodoPlástico", domain: "todo-plastico.com", source: "agama", panelKey: "todoplastico", websiteId: "todo-id" },
+    {
+      key: "webfuengirola",
+      label: "Web Fuengirola",
+      domain: "webfuengirola.com",
+      source: "personal",
+      panelKey: "wf-studio",
+      websiteId: "wf-id",
+    },
+    {
+      key: "todoplastico",
+      label: "TodoPlástico",
+      domain: "todo-plastico.com",
+      source: "agama",
+      panelKey: "todoplastico",
+      websiteId: "todo-id",
+    },
   ];
 
   const result = await processMonthlyStatReport({
@@ -278,7 +365,16 @@ test("bulk dual-source results preserve source errors in the stored report", asy
     sites,
     fetchSiteReports: async () => [
       { site: sites[0], status: "error", message: "personal offline" },
-      { site: sites[1], status: "ok", stats: { pageviews: 40 }, previousStats: { pageviews: 30 }, topPages: [], topReferrers: [], topCountries: [], devices: [] },
+      {
+        site: sites[1],
+        status: "ok",
+        stats: { pageviews: 40 },
+        previousStats: { pageviews: 30 },
+        topPages: [],
+        topReferrers: [],
+        topCountries: [],
+        devices: [],
+      },
     ],
     saveReport: async ({ siteReports }) => {
       savedReports = siteReports;
@@ -335,7 +431,10 @@ test("monthly report repository lists newest month first", async () => {
 
   const reports = await repository.list();
 
-  assert.deepEqual(reports.map((report) => report.month_key), ["2026-08", "2026-07", "2026-06"]);
+  assert.deepEqual(
+    reports.map((report) => report.month_key),
+    ["2026-08", "2026-07", "2026-06"],
+  );
 });
 
 test("monthly report repository surfaces Supabase write failures", async () => {
@@ -347,7 +446,10 @@ test("monthly report repository surfaces Supabase write failures", async () => {
             select() {
               return {
                 async single() {
-                  return { data: null, error: { message: "database unavailable" } };
+                  return {
+                    data: null,
+                    error: { message: "database unavailable" },
+                  };
                 },
               };
             },
@@ -381,8 +483,22 @@ test("monthly report repository claims delivery once and persists completion", a
     generatedAt: "2026-08-01T09:00:00.000Z",
   });
 
-  assert.equal(await repository.claimDelivery({ monthKey: "2026-07", claimToken: "claim-1", emailTo: "admin@example.com" }), true);
-  assert.equal(await repository.claimDelivery({ monthKey: "2026-07", claimToken: "claim-2", emailTo: "admin@example.com" }), false);
+  assert.equal(
+    await repository.claimDelivery({
+      monthKey: "2026-07",
+      claimToken: "claim-1",
+      emailTo: "admin@example.com",
+    }),
+    true,
+  );
+  assert.equal(
+    await repository.claimDelivery({
+      monthKey: "2026-07",
+      claimToken: "claim-2",
+      emailTo: "admin@example.com",
+    }),
+    false,
+  );
 
   await repository.completeDelivery({
     monthKey: "2026-07",
@@ -391,7 +507,14 @@ test("monthly report repository claims delivery once and persists completion", a
     messageId: "email-1",
   });
 
-  assert.equal(await repository.claimDelivery({ monthKey: "2026-07", claimToken: "claim-3", emailTo: "admin@example.com" }), false);
+  assert.equal(
+    await repository.claimDelivery({
+      monthKey: "2026-07",
+      claimToken: "claim-3",
+      emailTo: "admin@example.com",
+    }),
+    false,
+  );
   assert.equal(database.rows.get("2026-07").email_message_id, "email-1");
 });
 
