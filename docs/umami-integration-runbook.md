@@ -73,6 +73,50 @@ Para la instancia personal, WF Studio mantiene fallback temporal a
 `STAT_REPORT_UMAMI_URL`, `STAT_REPORT_UMAMI_USERNAME`,
 `STAT_REPORT_UMAMI_PASSWORD` y `STAT_REPORT_UMAMI_WEBSITE_ID_*`.
 
+## Admin multi-web y vista cliente
+
+El modelo final tiene dos vistas de la misma fuente Umami:
+
+- Sam entra como administrador y ve varias webs desde WF Studio, agrupadas por
+  `panelKey` o listadas en informes.
+- Cada cliente entra en su área y ve solo las estadísticas de su web/proyecto.
+  Por ejemplo, Sam puede ver AGAMA/TodoPlastico en el panel administrador, pero
+  Angel debe ver únicamente las estadísticas de AGAMA en su área cliente.
+
+Estado actual del repo:
+
+- Ya existe área cliente en `/cliente/...`.
+- Ya existe tabla `clients` con `project` y relación a `auth_user_id`.
+- Ya existe lectura Umami filtrable por `panelKey` desde
+  `getPanelAnalytics(panelKey)`.
+- Todavía no existe un vínculo explícito y seguro entre cada cliente y un
+  `siteKey` de `SITE_REGISTRY`; además, `requireClientAccess()` limita el acceso
+  cliente a `project = 'wf-studio'`.
+
+Contrato necesario antes de exponer métricas al cliente:
+
+- Añadir un campo o tabla de permisos, por ejemplo `client_analytics_site_key`,
+  que vincule `clients.id` con un `site.key` permitido.
+- La ruta esperada será `/cliente/estadisticas`.
+- La consulta de esa ruta debe resolver la identidad del cliente, leer solo su
+  `client_analytics_site_key` permitido y llamar a una función server-side que
+  devuelva únicamente ese `UmamiSiteReport`.
+- El componente visual puede reutilizar `UmamiAnalyticsPanel`, pero sin selector
+  multi-web cuando el cliente solo tenga una web.
+- Ningún `websiteId`, username o password de Umami debe llegar al navegador.
+
+Implementación mínima propuesta:
+
+1. Añadir migración para `client_analytics_site_key` o tabla
+   `client_analytics_sites(client_id, site_key)`.
+2. Crear helper server-side `getClientAnalytics(clientId)` que valide el vínculo
+   cliente -> siteKey antes de llamar a Umami.
+3. Crear `/cliente/estadisticas` y añadirlo al `ClientShell`.
+4. Añadir tests de seguridad que prueben que un cliente no puede pedir métricas
+   de otro `siteKey`.
+5. Añadir la asignación real para cada cliente cuando el proyecto tenga website
+   en Umami.
+
 ## Registrar una web nueva
 
 1. Crear el website en la instancia Umami correcta.
@@ -80,11 +124,13 @@ Para la instancia personal, WF Studio mantiene fallback temporal a
 3. Añadir el sitio a `SITE_REGISTRY` si debe aparecer en WF Studio o informes.
 4. Añadir `UMAMI_WEBSITE_ID_<KEY>` a `apps/studio-panel/.env.example`.
 5. Asignar `panelKey`: panel concreto o `reports-only`.
-6. Desplegar la web y confirmar que `/umami-config.json` contiene el host y el
+6. Si el cliente debe verlo en su área, asignar su `client_analytics_site_key`.
+7. Desplegar la web y confirmar que `/umami-config.json` contiene el host y el
    ID esperado.
-7. Abrir una visita de prueba y comprobar que aparece en Umami.
-8. Confirmar en WF Studio que el panel muestra datos o un estado pendiente
+8. Abrir una visita de prueba y comprobar que aparece en Umami.
+9. Confirmar en WF Studio que el panel muestra datos o un estado pendiente
    localizado.
+10. Confirmar en `/cliente/estadisticas` que el cliente solo ve su web.
 
 ## Checklist de verificacion
 

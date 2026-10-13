@@ -118,6 +118,9 @@ test("documenta el contrato portable y el inventario de webs sin IDs reales", ()
     "TodoPlastico",
     "Horses of Gili",
     "Leigan",
+    "Admin multi-web y vista cliente",
+    "client_analytics_site_key",
+    "/cliente/estadisticas",
   ]) {
     assert.match(runbook, new RegExp(requiredText));
   }
