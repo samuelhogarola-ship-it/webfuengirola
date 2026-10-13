@@ -40,7 +40,8 @@ function previousValue(metricName, stats, previousStats) {
 }
 
 function metricLine(label, value, previous) {
-  if (previous === null || previous === undefined) return `- ${label}: ${value}`;
+  if (previous === null || previous === undefined)
+    return `- ${label}: ${value}`;
   const delta = value - previous;
   const sign = delta > 0 ? "+" : "";
   return `- ${label}: ${value} (${sign}${delta} vs. mes anterior)`;
@@ -82,9 +83,13 @@ export function isAuthorizedMonthlyCronRequest({
   authorization,
   headerSecret,
 }) {
-  return [cronSecret, monthlySecret]
-    .filter(Boolean)
-    .some((configuredSecret) => isAuthorizedCronRequest({ configuredSecret, authorization, headerSecret }));
+  return [cronSecret, monthlySecret].filter(Boolean).some((configuredSecret) =>
+    isAuthorizedCronRequest({
+      configuredSecret,
+      authorization,
+      headerSecret,
+    }),
+  );
 }
 
 export function getMonthlyStatReportConfig(env = process.env) {
@@ -131,20 +136,32 @@ export async function deliverMonthlyStatReport({
       messageId: email?.id ?? null,
     });
   } catch (error) {
-    throw new Error(`Email accepted but completion failed: ${error instanceof Error ? error.message : String(error)}`);
+    throw new Error(
+      `Email accepted but completion failed: ${error instanceof Error ? error.message : String(error)}`,
+    );
   }
 
   return { sent: true };
 }
 
-export async function getUmamiToken({ baseUrl, username, password, fetchImpl = fetch }) {
+export async function getUmamiToken({
+  baseUrl,
+  username,
+  password,
+  fetchImpl = fetch,
+}) {
   return getSharedUmamiToken({
     connection: { source: "personal", baseUrl, username, password },
     fetchImpl,
   });
 }
 
-export async function resolveReportSites({ baseUrl, token, sites, fetchImpl = fetch }) {
+export async function resolveReportSites({
+  baseUrl,
+  token,
+  sites,
+  fetchImpl = fetch,
+}) {
   return resolveUmamiSites({
     connection: { source: "personal", baseUrl, username: "admin" },
     token,
@@ -161,7 +178,11 @@ export async function fetchUmamiSiteSummary({
   fetchImpl = fetch,
 }) {
   return fetchSharedUmamiSiteData({
-    connection: { source: site.source || "personal", baseUrl, username: "admin" },
+    connection: {
+      source: site.source || "personal",
+      baseUrl,
+      username: "admin",
+    },
     token,
     site,
     range,
@@ -169,7 +190,11 @@ export async function fetchUmamiSiteSummary({
   });
 }
 
-export function renderMonthlyStatReport({ range, siteReports, generatedAt = new Date() }) {
+export function renderMonthlyStatReport({
+  range,
+  siteReports,
+  generatedAt = new Date(),
+}) {
   const lines = [
     `# Informe estadístico mensual - ${range.label}`,
     "",
@@ -198,10 +223,34 @@ export function renderMonthlyStatReport({ range, siteReports, generatedAt = new 
     const bounces = numberValue(stats.bounces);
     const totaltime = numberValue(stats.totaltime);
 
-    lines.push(metricLine("Páginas vistas", pageviews, previousValue("pageviews", stats, report.previousStats)));
-    lines.push(metricLine("Visitantes", visitors, previousValue("visitors", stats, report.previousStats)));
-    lines.push(metricLine("Visitas", visits, previousValue("visits", stats, report.previousStats)));
-    lines.push(metricLine("Rebotes", bounces, previousValue("bounces", stats, report.previousStats)));
+    lines.push(
+      metricLine(
+        "Páginas vistas",
+        pageviews,
+        previousValue("pageviews", stats, report.previousStats),
+      ),
+    );
+    lines.push(
+      metricLine(
+        "Visitantes",
+        visitors,
+        previousValue("visitors", stats, report.previousStats),
+      ),
+    );
+    lines.push(
+      metricLine(
+        "Visitas",
+        visits,
+        previousValue("visits", stats, report.previousStats),
+      ),
+    );
+    lines.push(
+      metricLine(
+        "Rebotes",
+        bounces,
+        previousValue("bounces", stats, report.previousStats),
+      ),
+    );
     lines.push(`- Tiempo total: ${Math.round(totaltime / 60)} min`);
     lines.push("");
     lines.push("Páginas principales:");
@@ -212,6 +261,9 @@ export function renderMonthlyStatReport({ range, siteReports, generatedAt = new 
     lines.push("");
     lines.push("Países:");
     lines.push(renderMetricList(report.topCountries));
+    lines.push("");
+    lines.push("Regiones:");
+    lines.push(renderMetricList(report.topRegions));
     lines.push("");
     lines.push("Dispositivos:");
     lines.push(renderMetricList(report.devices));
@@ -249,7 +301,11 @@ export async function processMonthlyStatReport({
     }
   }
 
-  const markdown = renderMonthlyStatReport({ range, siteReports, generatedAt: now });
+  const markdown = renderMonthlyStatReport({
+    range,
+    siteReports,
+    generatedAt: now,
+  });
   const storageRef = await saveReport({
     monthKey: range.monthKey,
     label: range.label,

@@ -108,9 +108,18 @@ test("new website IDs override legacy IDs without hiding unconfigured sites", ()
     STAT_REPORT_UMAMI_WEBSITE_ID_VIVIRENFUENGIROLA: "legacy-vivir-id",
   });
 
-  assert.equal(sites.find((site) => site.key === "webfuengirola")?.websiteId, "new-wf-id");
-  assert.equal(sites.find((site) => site.key === "vivirenfuengirola")?.websiteId, "legacy-vivir-id");
-  assert.equal(sites.find((site) => site.key === "conocef")?.websiteId, undefined);
+  assert.equal(
+    sites.find((site) => site.key === "webfuengirola")?.websiteId,
+    "new-wf-id",
+  );
+  assert.equal(
+    sites.find((site) => site.key === "vivirenfuengirola")?.websiteId,
+    "legacy-vivir-id",
+  );
+  assert.equal(
+    sites.find((site) => site.key === "conocef")?.websiteId,
+    undefined,
+  );
 });
 
 test("30-day range ends now and compares the immediately preceding 30 days", () => {
@@ -141,7 +150,10 @@ test("configured source authenticates once and returns current plus comparison d
     panelKey: "wf-studio",
     websiteId: "wf-id",
   };
-  const range = getTrailingComparisonRange(new Date("2026-08-29T12:00:00.000Z"), 30);
+  const range = getTrailingComparisonRange(
+    new Date("2026-08-29T12:00:00.000Z"),
+    30,
+  );
 
   const reports = await fetchUmamiPanelData({
     connection,
@@ -149,23 +161,47 @@ test("configured source authenticates once and returns current plus comparison d
     range,
     fetchImpl: async (url, init = {}) => {
       const parsed = new URL(String(url));
-      requests.push([parsed.pathname, init.method ?? "GET", parsed.searchParams.get("startAt")]);
-      if (parsed.pathname === "/api/auth/login") return jsonResponse({ token: "personal-token" });
+      requests.push([
+        parsed.pathname,
+        init.method ?? "GET",
+        parsed.searchParams.get("startAt"),
+      ]);
+      if (parsed.pathname === "/api/auth/login")
+        return jsonResponse({ token: "personal-token" });
       if (parsed.pathname.endsWith("/stats")) {
-        return jsonResponse({ visitors: { value: parsed.searchParams.get("startAt") === String(range.startAt) ? 30 : 20 } });
+        return jsonResponse({
+          visitors: {
+            value:
+              parsed.searchParams.get("startAt") === String(range.startAt)
+                ? 30
+                : 20,
+          },
+        });
       }
       if (parsed.pathname.endsWith("/pageviews")) {
-        return jsonResponse({ pageviews: [{ x: "2026-08-29", y: 12 }], sessions: [] });
+        return jsonResponse({
+          pageviews: [{ x: "2026-08-29", y: 12 }],
+          sessions: [],
+        });
       }
-      if (parsed.searchParams.get("type") === "path") return jsonResponse([{ x: "/", y: 14 }]);
-      if (parsed.searchParams.get("type") === "referrer") return jsonResponse([{ x: "google.com", y: 9 }]);
-      if (parsed.searchParams.get("type") === "country") return jsonResponse([{ x: "ES", y: 18 }]);
-      if (parsed.searchParams.get("type") === "device") return jsonResponse([{ x: "mobile", y: 17 }]);
+      if (parsed.searchParams.get("type") === "path")
+        return jsonResponse([{ x: "/", y: 14 }]);
+      if (parsed.searchParams.get("type") === "referrer")
+        return jsonResponse([{ x: "google.com", y: 9 }]);
+      if (parsed.searchParams.get("type") === "country")
+        return jsonResponse([{ x: "ES", y: 18 }]);
+      if (parsed.searchParams.get("type") === "region")
+        return jsonResponse([{ x: "Andalusia", y: 12 }]);
+      if (parsed.searchParams.get("type") === "device")
+        return jsonResponse([{ x: "mobile", y: 17 }]);
       return jsonResponse({ message: "unexpected" }, 500);
     },
   });
 
-  assert.equal(requests.filter(([path]) => path === "/api/auth/login").length, 1);
+  assert.equal(
+    requests.filter(([path]) => path === "/api/auth/login").length,
+    1,
+  );
   assert.equal(reports[0].status, "ok");
   assert.equal(reports[0].stats.visitors.value, 30);
   assert.equal(reports[0].previousStats.visitors.value, 20);
@@ -173,6 +209,7 @@ test("configured source authenticates once and returns current plus comparison d
   assert.deepEqual(reports[0].topPages, [{ x: "/", y: 14 }]);
   assert.deepEqual(reports[0].topReferrers, [{ x: "google.com", y: 9 }]);
   assert.deepEqual(reports[0].topCountries, [{ x: "ES", y: 18 }]);
+  assert.deepEqual(reports[0].topRegions, [{ x: "Andalusia", y: 12 }]);
   assert.deepEqual(reports[0].devices, [{ x: "mobile", y: 17 }]);
   assert.equal(
     requests.some(([path]) => path.endsWith("/metrics")),
@@ -188,19 +225,25 @@ test("Umami v3 API errors keep their nested message", async () => {
       username: "admin",
       password: "secret",
     },
-    sites: [{
-      key: "webfuengirola",
-      label: "Web Fuengirola",
-      domain: "webfuengirola.com",
-      source: "personal",
-      panelKey: "wf-studio",
-      websiteId: "wf-id",
-    }],
+    sites: [
+      {
+        key: "webfuengirola",
+        label: "Web Fuengirola",
+        domain: "webfuengirola.com",
+        source: "personal",
+        panelKey: "wf-studio",
+        websiteId: "wf-id",
+      },
+    ],
     range: getTrailingComparisonRange(new Date("2026-08-29T12:00:00.000Z"), 30),
     fetchImpl: async (url) => {
       const parsed = new URL(String(url));
-      if (parsed.pathname === "/api/auth/login") return jsonResponse({ token: "token" });
-      return jsonResponse({ error: { message: "Bad request", code: "bad-request" } }, 400);
+      if (parsed.pathname === "/api/auth/login")
+        return jsonResponse({ token: "token" });
+      return jsonResponse(
+        { error: { message: "Bad request", code: "bad-request" } },
+        400,
+      );
     },
   });
 
@@ -252,46 +295,87 @@ test("failure of personal does not discard agama results or cross credentials", 
       if (parsed.pathname === "/api/auth/login") {
         const body = JSON.parse(init.body);
         loginBodies.push([parsed.origin, body]);
-        if (parsed.origin === "https://personal.example") return jsonResponse({ message: "offline" }, 503);
+        if (parsed.origin === "https://personal.example")
+          return jsonResponse({ message: "offline" }, 503);
         return jsonResponse({ token: "agama-token" });
       }
-      if (parsed.origin !== "https://agama.example") return jsonResponse({ message: "crossed source" }, 500);
-      if (parsed.pathname.endsWith("/stats")) return jsonResponse({ visitors: { value: 5 } });
-      if (parsed.pathname.endsWith("/pageviews")) return jsonResponse({ pageviews: [], sessions: [] });
+      if (parsed.origin !== "https://agama.example")
+        return jsonResponse({ message: "crossed source" }, 500);
+      if (parsed.pathname.endsWith("/stats"))
+        return jsonResponse({ visitors: { value: 5 } });
+      if (parsed.pathname.endsWith("/pageviews"))
+        return jsonResponse({ pageviews: [], sessions: [] });
       if (parsed.pathname.endsWith("/metrics")) return jsonResponse([]);
       return jsonResponse({ message: "unexpected" }, 500);
     },
   });
 
   assert.deepEqual(loginBodies, [
-    ["https://personal.example", { username: "personal-user", password: "personal-secret" }],
-    ["https://agama.example", { username: "agama-user", password: "agama-secret" }],
+    [
+      "https://personal.example",
+      { username: "personal-user", password: "personal-secret" },
+    ],
+    [
+      "https://agama.example",
+      { username: "agama-user", password: "agama-secret" },
+    ],
   ]);
-  assert.equal(reports.find((report) => report.site.source === "personal")?.status, "error");
-  assert.equal(reports.find((report) => report.site.source === "agama")?.status, "ok");
+  assert.equal(
+    reports.find((report) => report.site.source === "personal")?.status,
+    "error",
+  );
+  assert.equal(
+    reports.find((report) => report.site.source === "agama")?.status,
+    "ok",
+  );
 });
 
 test("missing connection and website IDs become explicit per-site states", async () => {
   const reports = await fetchAllUmamiPanelData({
     connections: {
       personal: { source: "personal", username: "admin" },
-      agama: { source: "agama", baseUrl: "https://agama.example", username: "admin", password: "secret" },
+      agama: {
+        source: "agama",
+        baseUrl: "https://agama.example",
+        username: "admin",
+        password: "secret",
+      },
     },
     sites: [
-      { key: "webfuengirola", label: "WF", domain: "webfuengirola.com", source: "personal", panelKey: "wf-studio", websiteId: "wf-id" },
-      { key: "todoplastico", label: "Todo", domain: "todo-plastico.com", source: "agama", panelKey: "todoplastico" },
+      {
+        key: "webfuengirola",
+        label: "WF",
+        domain: "webfuengirola.com",
+        source: "personal",
+        panelKey: "wf-studio",
+        websiteId: "wf-id",
+      },
+      {
+        key: "todoplastico",
+        label: "Todo",
+        domain: "todo-plastico.com",
+        source: "agama",
+        panelKey: "todoplastico",
+      },
     ],
     range: getTrailingComparisonRange(new Date("2026-08-29T12:00:00.000Z"), 30),
     fetchImpl: async (url) => {
       const parsed = new URL(String(url));
-      if (parsed.pathname === "/api/auth/login") return jsonResponse({ token: "token" });
+      if (parsed.pathname === "/api/auth/login")
+        return jsonResponse({ token: "token" });
       if (parsed.pathname === "/api/websites") return jsonResponse([]);
       return jsonResponse({ message: "unexpected" }, 500);
     },
   });
 
-  assert.equal(reports.find((report) => report.site.key === "webfuengirola")?.status, "missing_connection");
-  assert.equal(reports.find((report) => report.site.key === "todoplastico")?.status, "missing_website_id");
+  assert.equal(
+    reports.find((report) => report.site.key === "webfuengirola")?.status,
+    "missing_connection",
+  );
+  assert.equal(
+    reports.find((report) => report.site.key === "todoplastico")?.status,
+    "missing_website_id",
+  );
 });
 
 test("dashboard facade caches the shared dual-source fetch for five minutes", async () => {
@@ -308,10 +392,19 @@ test("dashboard facade caches the shared dual-source fetch for five minutes", as
 });
 
 test("environment example documents both Umami instances and every website ID without secrets", async () => {
-  const source = await readFile(new URL("../.env.example", import.meta.url), "utf8");
+  const source = await readFile(
+    new URL("../.env.example", import.meta.url),
+    "utf8",
+  );
 
-  assert.match(source, /UMAMI_PERSONAL_URL=https:\/\/analytics\.187\.124\.55\.36\.sslip\.io/);
-  assert.match(source, /UMAMI_AGAMA_URL=https:\/\/analytics\.2\.24\.10\.239\.sslip\.io/);
+  assert.match(
+    source,
+    /UMAMI_PERSONAL_URL=https:\/\/analytics\.187\.124\.55\.36\.sslip\.io/,
+  );
+  assert.match(
+    source,
+    /UMAMI_AGAMA_URL=https:\/\/analytics\.2\.24\.10\.239\.sslip\.io/,
+  );
   assert.match(source, /^UMAMI_PERSONAL_PASSWORD=$/m);
   assert.match(source, /^UMAMI_AGAMA_PASSWORD=$/m);
 
@@ -334,7 +427,10 @@ test("environment example documents both Umami instances and every website ID wi
     assert.match(source, new RegExp(`^UMAMI_WEBSITE_ID_${key}=$`, "m"), key);
   }
 
-  assert.doesNotMatch(source, /^(?:UMAMI_(?:PERSONAL|AGAMA)_PASSWORD|STAT_REPORT_UMAMI_PASSWORD)=.+$/m);
+  assert.doesNotMatch(
+    source,
+    /^(?:UMAMI_(?:PERSONAL|AGAMA)_PASSWORD|STAT_REPORT_UMAMI_PASSWORD)=.+$/m,
+  );
 });
 
 test("shared Umami requests abort after the configured timeout", async () => {
@@ -348,20 +444,27 @@ test("shared Umami requests abort after the configured timeout", async () => {
 
   const reports = await fetchUmamiPanelData({
     connection,
-    sites: [{
-      key: "webfuengirola",
-      label: "Web Fuengirola",
-      domain: "webfuengirola.com",
-      source: "personal",
-      panelKey: "wf-studio",
-      websiteId: "wf-id",
-    }],
+    sites: [
+      {
+        key: "webfuengirola",
+        label: "Web Fuengirola",
+        domain: "webfuengirola.com",
+        source: "personal",
+        panelKey: "wf-studio",
+        websiteId: "wf-id",
+      },
+    ],
     range: getTrailingComparisonRange(new Date("2026-08-29T12:00:00.000Z"), 30),
     requestTimeoutMs: 5,
-    fetchImpl: async (_url, init = {}) => new Promise((_resolve, reject) => {
-      assert.ok(init.signal, "fetch receives an abort signal");
-      init.signal.addEventListener("abort", () => reject(new Error("request timed out")), { once: true });
-    }),
+    fetchImpl: async (_url, init = {}) =>
+      new Promise((_resolve, reject) => {
+        assert.ok(init.signal, "fetch receives an abort signal");
+        init.signal.addEventListener(
+          "abort",
+          () => reject(new Error("request timed out")),
+          { once: true },
+        );
+      }),
   });
 
   assert.equal(reports[0].status, "error");

@@ -1,6 +1,10 @@
 export function metricValue(metric) {
   if (typeof metric === "number" && Number.isFinite(metric)) return metric;
-  if (metric && typeof metric.value === "number" && Number.isFinite(metric.value)) {
+  if (
+    metric &&
+    typeof metric.value === "number" &&
+    Number.isFinite(metric.value)
+  ) {
     return metric.value;
   }
   return 0;
@@ -65,7 +69,11 @@ export function buildUmamiAnalyticsView(reports) {
   const healthyReports = reports.filter((report) => report.status === "ok");
   const unavailableSites = reports
     .filter((report) => report.status !== "ok")
-    .map((report) => ({ site: report.site, status: report.status, message: report.message }));
+    .map((report) => ({
+      site: report.site,
+      status: report.status,
+      message: report.message,
+    }));
 
   if (healthyReports.length === 0) {
     return {
@@ -89,10 +97,15 @@ export function buildUmamiAnalyticsView(reports) {
       visits: percentChange(current.visits, previous.visits),
       pageviews: percentChange(current.pageviews, previous.pageviews),
       bounceRate: percentChange(current.bounceRate, previous.bounceRate),
-      averageDuration: percentChange(current.averageDuration, previous.averageDuration),
+      averageDuration: percentChange(
+        current.averageDuration,
+        previous.averageDuration,
+      ),
     },
     series: aggregateSeries(healthyReports),
     topPages: aggregateRows(healthyReports, "topPages"),
     topReferrers: aggregateRows(healthyReports, "topReferrers"),
+    topCountries: aggregateRows(healthyReports, "topCountries"),
+    topRegions: aggregateRows(healthyReports, "topRegions"),
   };
 }

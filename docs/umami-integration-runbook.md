@@ -89,21 +89,23 @@ Mínimo esperado para Sam y, más adelante, para cada cliente:
   `totaltime / visits` y `pagesPerVisit` derivado como `pageviews / visits`.
 - Qué dispositivo usa: dispositivo mediante `/metrics?type=device`; navegador
   puede añadirse con `/metrics?type=browser` si el panel lo necesita.
-- Ubicación aproximada: país mediante `/metrics?type=country`; `region` debe
-  tratarse como capacidad dependiente de la versión/configuración GeoIP de la
-  instancia Umami antes de exponerlo en UI.
+- Ubicación aproximada: país mediante `/metrics?type=country` y
+  región/provincia mediante `/metrics?type=region` cuando la instancia Umami
+  lo proporcione.
 
 Estado actual del repo:
 
 - `fetchUmamiSiteData()` ya consulta `stats`, `pageviews`, `type=path`,
-  `type=referrer`, `type=country` y `type=device`.
+  `type=referrer`, `type=country`, `type=region` y `type=device`.
 - `buildUmamiAnalyticsView()` ya calcula visitantes, visitas, páginas vistas,
   rebote y duración media con `totaltime`.
-- El panel administrador muestra duración media, páginas principales y
-  referrers; todavía no expone países/regiones, dispositivos ni
-  `pagesPerVisit`.
-- El informe mensual sí usa países como resumen textual.
-- No hay lectura de `region` en el panel actual.
+- El panel administrador muestra duración media, páginas principales,
+  referrers, países y regiones.
+- El informe mensual usa países y regiones como resumen textual.
+- `type=region` puede devolver una lista vacía si la instancia no tiene
+  GeoIP/cabeceras de ubicación suficientes. En ese caso no se debe tratar como
+  error de integración.
+- Todavía no se expone `pagesPerVisit` ni navegador en el panel.
 
 ## Admin multi-web y vista cliente
 
@@ -163,10 +165,10 @@ Implementación mínima propuesta:
 9. Confirmar en la red del navegador que ambas visitas envían `POST /api/send`
    con el `websiteId`, `hostname` y `url` esperados.
 10. Confirmar en Umami o WF Studio que `type=path` separa home y landing.
-11. Confirmar que `totaltime`, rebote, referrers y `type=country` devuelven
-    datos cuando haya tráfico suficiente.
-12. Si se quiere región, validar primero que la instancia devuelve `region` con
-    su configuración GeoIP actual.
+11. Confirmar que `totaltime`, rebote, referrers, `type=country` y
+    `type=region` devuelven datos cuando haya tráfico suficiente.
+12. Si `type=region` sale vacío, revisar la configuración GeoIP o cabeceras de
+    la instancia Umami antes de añadir una capa propia de post-procesado.
 13. Confirmar en WF Studio que el panel muestra datos o un estado pendiente
     localizado.
 14. Confirmar en `/cliente/estadisticas` que el cliente solo ve su web.
