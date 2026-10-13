@@ -121,6 +121,12 @@ test("documenta el contrato portable y el inventario de webs sin IDs reales", ()
     "Admin multi-web y vista cliente",
     "client_analytics_site_key",
     "/cliente/estadisticas",
+    "Metrica minima util",
+    "type=path",
+    "totaltime",
+    "type=country",
+    "region",
+    "pagesPerVisit",
   ]) {
     assert.match(runbook, new RegExp(requiredText));
   }

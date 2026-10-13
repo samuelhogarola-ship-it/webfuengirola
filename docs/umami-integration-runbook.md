@@ -73,6 +73,38 @@ Para la instancia personal, WF Studio mantiene fallback temporal a
 `STAT_REPORT_UMAMI_URL`, `STAT_REPORT_UMAMI_USERNAME`,
 `STAT_REPORT_UMAMI_PASSWORD` y `STAT_REPORT_UMAMI_WEBSITE_ID_*`.
 
+## Metrica minima util
+
+El objetivo no es convertir Umami en tracking invasivo, sino tener datos
+suficientes para decidir si una web funciona comercialmente. La medición debe
+seguir siendo cookieless y agregada.
+
+Mínimo esperado para Sam y, más adelante, para cada cliente:
+
+- Cuánta gente llega: visitantes, visitas y páginas vistas desde `/stats`.
+- Qué ve: home y cada landing separadas por URL/path mediante
+  `/metrics?type=path`.
+- De dónde llega: referrers mediante `/metrics?type=referrer`.
+- Si sigue navegando o se va: rebote desde `bounces`, duración media desde
+  `totaltime / visits` y `pagesPerVisit` derivado como `pageviews / visits`.
+- Qué dispositivo usa: dispositivo mediante `/metrics?type=device`; navegador
+  puede añadirse con `/metrics?type=browser` si el panel lo necesita.
+- Ubicación aproximada: país mediante `/metrics?type=country`; `region` debe
+  tratarse como capacidad dependiente de la versión/configuración GeoIP de la
+  instancia Umami antes de exponerlo en UI.
+
+Estado actual del repo:
+
+- `fetchUmamiSiteData()` ya consulta `stats`, `pageviews`, `type=path`,
+  `type=referrer`, `type=country` y `type=device`.
+- `buildUmamiAnalyticsView()` ya calcula visitantes, visitas, páginas vistas,
+  rebote y duración media con `totaltime`.
+- El panel administrador muestra duración media, páginas principales y
+  referrers; todavía no expone países/regiones, dispositivos ni
+  `pagesPerVisit`.
+- El informe mensual sí usa países como resumen textual.
+- No hay lectura de `region` en el panel actual.
+
 ## Admin multi-web y vista cliente
 
 El modelo final tiene dos vistas de la misma fuente Umami:
@@ -127,10 +159,17 @@ Implementación mínima propuesta:
 6. Si el cliente debe verlo en su área, asignar su `client_analytics_site_key`.
 7. Desplegar la web y confirmar que `/umami-config.json` contiene el host y el
    ID esperado.
-8. Abrir una visita de prueba y comprobar que aparece en Umami.
-9. Confirmar en WF Studio que el panel muestra datos o un estado pendiente
-   localizado.
-10. Confirmar en `/cliente/estadisticas` que el cliente solo ve su web.
+8. Abrir una visita de prueba a `/` y otra a una landing concreta.
+9. Confirmar en la red del navegador que ambas visitas envían `POST /api/send`
+   con el `websiteId`, `hostname` y `url` esperados.
+10. Confirmar en Umami o WF Studio que `type=path` separa home y landing.
+11. Confirmar que `totaltime`, rebote, referrers y `type=country` devuelven
+    datos cuando haya tráfico suficiente.
+12. Si se quiere región, validar primero que la instancia devuelve `region` con
+    su configuración GeoIP actual.
+13. Confirmar en WF Studio que el panel muestra datos o un estado pendiente
+    localizado.
+14. Confirmar en `/cliente/estadisticas` que el cliente solo ve su web.
 
 ## Checklist de verificacion
 
