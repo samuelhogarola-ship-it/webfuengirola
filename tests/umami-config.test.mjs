@@ -133,3 +133,35 @@ test("documenta el contrato portable y el inventario de webs sin IDs reales", ()
 
   assert.doesNotMatch(runbook, /957c045f-c060-4429-91d7-d2a1d1962ad5/);
 });
+
+test("documenta Web Fuengirola como modelo canonico de Umami extrapolable", () => {
+  const guide = readFileSync(
+    path.join(
+      repositoryRoot,
+      "docs",
+      "deliveries",
+      "2026-10-13-umami-canonical-model.md",
+    ),
+    "utf8",
+  );
+
+  for (const required of [
+    "umami-analytics-core.js",
+    "config/umami-config.template.json",
+    "scripts/render-umami-config.sh",
+    "UMAMI_PERSONAL_URL",
+    "UMAMI_AGAMA_URL",
+    "UMAMI_WEBSITE_ID_*",
+    "STAT_REPORT_UMAMI_*",
+    "PanelAnalyticsSection",
+    "fetchAllUmamiPanelData",
+    "crear y guardar el website ID",
+    "visita de prueba",
+    "Samuel Coach",
+    "TodoPlástico",
+  ]) {
+    assert.match(guide, new RegExp(required.replaceAll("*", "\\*")));
+  }
+
+  assert.doesNotMatch(guide, /UMAMI_(?:PERSONAL|AGAMA)_PASSWORD=\S+/);
+});
