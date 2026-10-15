@@ -353,11 +353,11 @@ export const services = [
       "Tu web actualizada, segura y funcionando sin que tengas que preocuparte",
     metaTitle: "Mantenimiento Web | WF-Studio · Web Fuengirola",
     metaDescription:
-      "Mantenimiento web profesional para negocios locales. Actualizaciones, seguridad, copias de seguridad y soporte técnico mensual.",
+      "Mantenimiento web para negocios locales desde 60€/mes: cambios de contenido, presencia digital y desarrollo web con planes mensuales claros.",
     heroHeadline: "Tu web en manos expertas",
     heroSubtitle:
       "Actualizaciones, seguridad, backups y soporte. Tú te ocupas de tu negocio. Nosotros de tu web.",
-    price: "Desde 29€/mes",
+    price: "Desde 60€/mes",
     ogImage: "https://webfuengirola.com/img/og-cover.webp",
     ogAlt: "Mantenimiento web profesional para negocios locales",
     relatedCases: [],
@@ -367,13 +367,35 @@ export const services = [
       <div class="container">
         <div style="max-width: 680px; margin-bottom: 3rem">
           <span class="section-label">Planes disponibles</span>
-          <h2 class="section-title" style="margin-top: 1rem; font-size: clamp(1.5rem, 3vw, 2rem)">Los mantenimientos mantienen. Los bonos impulsan.</h2>
-          <p style="color: var(--color-text-muted); line-height: 1.75; margin-top: 1rem">Los mantenimientos están pensados para el seguimiento continuado de tu presencia digital. Los bonos sirven para ejecutar acciones concretas cuando las necesitas, sin compromiso mensual.</p>
+          <h2 class="section-title" style="margin-top: 1rem; font-size: clamp(1.5rem, 3vw, 2rem)">Planes para mantener, impulsar y gestionar tu web.</h2>
+          <p style="color: var(--color-text-muted); line-height: 1.75; margin-top: 1rem">Elige entre horas sueltas para trabajos puntuales y planes mensuales para mantener, impulsar o gestionar tu web.</p>
         </div>
         <div class="maintenance__grid">
           <div class="maintenance__plan">
+            <h3 class="maintenance__plan-title">Horas sueltas</h3>
+            <p class="maintenance__plan-desc">50 €/hora. Para modificaciones, programación y desarrollo web facturados por tiempo, con la máxima flexibilidad.</p>
+            <ul class="maintenance__list">
+              <li>Modificaciones y ajustes puntuales</li>
+              <li>Programación y desarrollo web</li>
+              <li>Trabajo facturado por las horas realizadas</li>
+              <li>Sin cuota mensual</li>
+            </ul>
+            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesan%20las%20horas%20sueltas%20de%20mantenimiento" class="btn btn--ghost btn--sm" target="_blank" rel="noopener noreferrer">Consultar</a>
+          </div>
+          <div class="maintenance__plan">
+            <h3 class="maintenance__plan-title">Mantenimiento básico</h3>
+            <p class="maintenance__plan-desc">60 €/mes. Supervisión y hasta 4 cambios ligeros al mes sobre el contenido existente.</p>
+            <ul class="maintenance__list">
+              <li>Supervisión básica de la web</li>
+              <li>Hasta 4 cambios ligeros al mes</li>
+              <li>Fotos, precios y textos en contenido existente</li>
+              <li>Sin programación ni desarrollo</li>
+            </ul>
+            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20el%20Mantenimiento%20b%C3%A1sico" class="btn btn--ghost btn--sm" target="_blank" rel="noopener noreferrer">Consultar</a>
+          </div>
+          <div class="maintenance__plan">
             <h3 class="maintenance__plan-title">Marketing y Presencia Digital</h3>
-            <p class="maintenance__plan-desc">300 €/mes. Para negocios que quieren mantener una presencia digital activa y profesional de forma continuada.</p>
+            <p class="maintenance__plan-desc">200 €/mes. Para negocios que quieren mantener una presencia digital activa y profesional de forma continuada.</p>
             <ul class="maintenance__list">
               <li>Gestión de Google Business Profile y seguimiento de reseñas</li>
               <li>Publicaciones periódicas y optimización continua del perfil</li>
@@ -384,36 +406,24 @@ export const services = [
           </div>
           <div class="maintenance__plan maintenance__plan--highlight">
             <h3 class="maintenance__plan-title">Cero Preocupaciones</h3>
-            <p class="maintenance__plan-desc">400 €/mes. Para negocios que quieren delegar completamente la gestión digital habitual.</p>
+            <p class="maintenance__plan-desc">400 €/mes. 10 horas al mes para la gestión integral y el desarrollo web de tu negocio.</p>
             <ul class="maintenance__list">
               <li>Todo lo incluido en Marketing y Presencia Digital</li>
-              <li>Actualización de contenidos web e información comercial</li>
-              <li>Seguimiento técnico de la web y coordinación de mejoras</li>
-              <li>Soporte prioritario, supervisión continua e informes periódicos</li>
+              <li>10 horas de trabajo cada mes</li>
+              <li>Gestión integral de la presencia digital</li>
+              <li>Desarrollo web incluido dentro de esas horas</li>
             </ul>
             <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20el%20mantenimiento%20Cero%20Preocupaciones" class="btn btn--primary btn--sm" target="_blank" rel="noopener noreferrer">Consultar</a>
           </div>
           <div class="maintenance__plan">
-            <h3 class="maintenance__plan-title">Bono Flexible</h3>
-            <p class="maintenance__plan-desc">10 horas · 400 €. Para negocios que necesitan ejecutar acciones concretas con flexibilidad y rapidez.</p>
-            <ul class="maintenance__list">
-              <li>Ideal para SEO local, Google Business, mejoras web, landing pages o automatizaciones</li>
-              <li>Panel de seguimiento, Change Log e historial de actuaciones</li>
-              <li>Control de tareas realizadas y horas disponibles</li>
-              <li>Plazo orientativo de hasta 7 días laborables. Validez 12 meses</li>
-            </ul>
-            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20el%20Bono%20Flexible%20de%2010%20horas" class="btn btn--ghost btn--sm" target="_blank" rel="noopener noreferrer">Consultar</a>
-          </div>
-          <div class="maintenance__plan">
             <h3 class="maintenance__plan-title">Bono Prioritario</h3>
-            <p class="maintenance__plan-desc">10 horas · 550 €. Para negocios que necesitan capacidad de reacción rápida y atención preferente.</p>
+            <p class="maintenance__plan-desc">550 €/mes. 11 horas al mes para negocios que necesitan desarrollo web y atención prioritaria.</p>
             <ul class="maintenance__list">
-              <li>Todo lo incluido en el Bono Flexible</li>
+              <li>11 horas de trabajo cada mes</li>
+              <li>Desarrollo web incluido</li>
               <li>Atención prioritaria frente a solicitudes estándar</li>
-              <li>Resolución objetivo en 48 horas laborables para tareas pequeñas y medianas</li>
-              <li>Validez de 12 meses</li>
             </ul>
-            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20el%20Bono%20Prioritario%20de%2010%20horas" class="btn btn--ghost btn--sm" target="_blank" rel="noopener noreferrer">Consultar</a>
+            <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20el%20Bono%20Prioritario%20de%2011%20horas%20al%20mes" class="btn btn--ghost btn--sm" target="_blank" rel="noopener noreferrer">Consultar</a>
           </div>
         </div>
       </div>
