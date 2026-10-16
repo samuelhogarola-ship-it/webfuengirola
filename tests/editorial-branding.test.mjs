@@ -59,17 +59,27 @@ test("generic FAQs speak to the business instead of assigning its goal to the cu
 
   for (const group of pageGroups) {
     for (const locale of ["es", "en", "de", "fi"]) {
-      const questions = group.content[locale].faqs.map(([question]) => question).join("\n");
-      assert.doesNotMatch(questions, /ayuda wf-studio:|Wie hilft WF-Studio:|Miten wf-studio:/i);
+      const questions = group.content[locale].faqs
+        .map(([question]) => question)
+        .join("\n");
+      assert.doesNotMatch(
+        questions,
+        /ayuda wf-studio:|Wie hilft WF-Studio:|Miten wf-studio:/i,
+      );
     }
   }
 });
 
 test("commercial pages never expose internal demonstration notes", () => {
-  const forbidden = /demostración sectorial|sector demonstration|Branchendemonstration|toimialakohtaisella demolla/i;
+  const forbidden =
+    /demostración sectorial|sector demonstration|Branchendemonstration|toimialakohtaisella demolla/i;
   for (const group of pageGroups) {
     for (const locale of ["es", "en", "de", "fi"]) {
-      assert.doesNotMatch(renderCommercialPage(group, locale), forbidden, `${group.key}:${locale}`);
+      assert.doesNotMatch(
+        renderCommercialPage(group, locale),
+        forbidden,
+        `${group.key}:${locale}`,
+      );
     }
   }
 });
@@ -78,8 +88,14 @@ test("commercial metadata stays readable inside common search snippet limits", (
   for (const group of pageGroups) {
     for (const locale of ["es", "en", "de", "fi"]) {
       const { title, description } = group.content[locale];
-      assert.ok(title.length <= 70, `${group.key}:${locale} title has ${title.length} characters`);
-      assert.ok(description.length <= 160, `${group.key}:${locale} description has ${description.length} characters`);
+      assert.ok(
+        title.length <= 70,
+        `${group.key}:${locale} title has ${title.length} characters`,
+      );
+      assert.ok(
+        description.length <= 160,
+        `${group.key}:${locale} description has ${description.length} characters`,
+      );
     }
   }
 });
@@ -99,9 +115,18 @@ test("pages without package cards keep metadata focused on their actual purpose"
 test("Spanish generated sentences start cleanly and avoid fragile agreement", () => {
   for (const group of pageGroups) {
     const content = group.content.es;
-    for (const sentence of [content.intro, ...content.problems, ...content.benefits, ...content.tierUses]) {
+    for (const sentence of [
+      content.intro,
+      ...content.problems,
+      ...content.benefits,
+      ...content.tierUses,
+    ]) {
       assert.match(sentence, /^\p{Lu}/u, `${group.key}: ${sentence}`);
-      assert.doesNotMatch(sentence, /automatizaciones .* presentada|empresas .* presentada/i, group.key);
+      assert.doesNotMatch(
+        sentence,
+        /automatizaciones .* presentada|empresas .* presentada/i,
+        group.key,
+      );
     }
   }
 });
@@ -121,30 +146,88 @@ test("public HTML and deterministic image templates use the WF-Studio brand", ()
       !file.includes(`${path.sep}tests${path.sep}`) &&
       !file.includes(`${path.sep}apps${path.sep}studio-panel${path.sep}`),
   );
-  const legacyPattern = /(?<!WF-Studio · )Web Fuengirola\. Todos los derechos reservados|aria-label="Web Fuengirola"|alt="Web Fuengirola"/;
+  const legacyPattern =
+    /(?<!WF-Studio · )Web Fuengirola\. Todos los derechos reservados|aria-label="Web Fuengirola"|alt="Web Fuengirola"/;
   for (const file of publicFiles) {
     const source = fs.readFileSync(file, "utf8");
     assert.doesNotMatch(source, legacyPattern, path.relative(root, file));
-    assert.doesNotMatch(source, /WF-Studio · WF-Studio/, path.relative(root, file));
+    assert.doesNotMatch(
+      source,
+      /WF-Studio · WF-Studio/,
+      path.relative(root, file),
+    );
   }
 
-  const caseVisuals = fs.readFileSync(path.join(root, "scripts/generate-case-visuals.mjs"), "utf8");
-  assert.doesNotMatch(caseVisuals, /<span>(?:Web Fuengirola|Diseño web|App a medida)<\/span>/);
+  const caseVisuals = fs.readFileSync(
+    path.join(root, "scripts/generate-case-visuals.mjs"),
+    "utf8",
+  );
+  assert.doesNotMatch(
+    caseVisuals,
+    /<span>(?:Web Fuengirola|Diseño web|App a medida)<\/span>/,
+  );
   assert.match(caseVisuals, /<span>WF-Studio<\/span>/);
 
-  for (const source of ["og-blog-home.html", "og-web-2026.html", "og-ia-servicios.html"]) {
+  for (const source of [
+    "og-blog-home.html",
+    "og-web-2026.html",
+    "og-ia-servicios.html",
+  ]) {
     const blogVisual = fs.readFileSync(path.join(root, "blog", source), "utf8");
     assert.match(blogVisual, />WF-STUDIO</, source);
     assert.doesNotMatch(blogVisual, />WEB FUENGIROLA</, source);
   }
 
-  const packageJson = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
-  assert.equal(packageJson.scripts["build:brand-visuals"], "node scripts/generate-brand-visuals.mjs");
+  const packageJson = JSON.parse(
+    fs.readFileSync(path.join(root, "package.json"), "utf8"),
+  );
+  assert.equal(
+    packageJson.scripts["build:brand-visuals"],
+    "node scripts/generate-brand-visuals.mjs",
+  );
 });
 
 test("incomplete Spanish legal identity is not indexed", () => {
-  for (const relativePath of ["legal.html", "en/legal/index.html", "de/rechtliches/index.html", "fi/lakitiedot/index.html"]) {
+  for (const relativePath of [
+    "legal.html",
+    "en/legal/index.html",
+    "de/rechtliches/index.html",
+    "fi/lakitiedot/index.html",
+  ]) {
     const legalPage = fs.readFileSync(path.join(root, relativePath), "utf8");
-    assert.match(legalPage, /<meta name="robots" content="noindex, follow"/, relativePath);
+    assert.match(
+      legalPage,
+      /<meta name="robots" content="noindex, follow"/,
+      relativePath,
+    );
+  }
+});
+
+test("the Spanish blog index does not expose internal campaign-count copy", () => {
+  const generator = fs.readFileSync(
+    path.join(root, "scripts", "build-blog-campaign.mjs"),
+    "utf8",
+  );
+  const index = fs.readFileSync(path.join(root, "blog", "index.html"), "utf8");
+  const internalHeadline =
+    /14 artículos nuevos para atacar dudas de negocio local/i;
+
+  assert.doesNotMatch(generator, internalHeadline);
+  assert.doesNotMatch(index, internalHeadline);
+});
+
+test("public footers do not restore the specialized-websites block", () => {
+  const forbidden =
+    /Webs especializadas|web-para-clinicas-fuengirola|web-para-entrenadores-personales-fuengirola|web-para-restaurantes-fuengirola|web-multidioma-fuengirola/i;
+  const htmlFiles = filesBelow(root).filter(
+    (file) =>
+      file.endsWith(".html") &&
+      !file.includes(`${path.sep}node_modules${path.sep}`),
+  );
+
+  for (const file of htmlFiles) {
+    const source = fs.readFileSync(file, "utf8");
+    const footer = source.match(/<footer\b[\s\S]*?<\/footer>/i)?.[0] || "";
+    assert.doesNotMatch(footer, forbidden, path.relative(root, file));
   }
 });
