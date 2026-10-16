@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import { cases } from "../data/cases-data.mjs";
 import { demos } from "../data/demos-data.mjs";
+import { portfolioProjects } from "../portfolio/projects-data.mjs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -49,12 +50,20 @@ export function renderHreflang(groupKey) {
 }
 
 function renderLanguageSelector(group, locale) {
-  const label = { es: "Cambiar idioma", en: "Change language", de: "Sprache ändern", fi: "Vaihda kieli" }[locale];
+  const label = {
+    es: "Cambiar idioma",
+    en: "Change language",
+    de: "Sprache ändern",
+    fi: "Vaihda kieli",
+  }[locale];
   return `<details class="language-menu">
     <summary aria-label="${label}: ${escapeHtml(locales[locale].label)}"><span aria-hidden="true">${locale.toUpperCase()}</span><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12"><path d="m3 4.5 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" /></svg></summary>
-    <div class="language-menu__options">${localeCodes.map((code) =>
-      `<a href="${group.routes[code]}" hreflang="${code}" lang="${code}"${code === locale ? ' aria-current="page"' : ''} data-analytics-event="language_switch" data-analytics-locale="${locale}" data-analytics-target-locale="${code}">${escapeHtml(locales[code].label)}${code === locale ? ' <span aria-hidden="true">✓</span>' : ''}</a>`
-    ).join("")}</div>
+    <div class="language-menu__options">${localeCodes
+      .map(
+        (code) =>
+          `<a href="${group.routes[code]}" hreflang="${code}" lang="${code}"${code === locale ? ' aria-current="page"' : ""} data-analytics-event="language_switch" data-analytics-locale="${locale}" data-analytics-target-locale="${code}">${escapeHtml(locales[code].label)}${code === locale ? ' <span aria-hidden="true">✓</span>' : ""}</a>`,
+      )
+      .join("")}</div>
   </details>`;
 }
 
@@ -70,12 +79,8 @@ function renderHeader(group, locale) {
       </a>
       <nav class="nav" id="nav" aria-label="${escapeHtml(ui.servicesLabel)}">
         <ul class="nav__list">
-          <li><a href="${route("design")}" class="nav__link">${escapeHtml(ui.servicesLabel)}</a></li>
-          <li><a href="${route("seo")}" class="nav__link">${escapeHtml(ui.seoLabel)}</a></li>
-          <li><a href="${route("apps")}" class="nav__link">${escapeHtml(ui.appsLabel)}</a></li>
-          <li><a href="${route("automation")}" class="nav__link">${escapeHtml(ui.automationLabel)}</a></li>
+          <li><a href="${locale === "es" ? "/servicios/" : route("design")}" class="nav__link">${escapeHtml(ui.servicesLabel)}</a></li>
           <li><a href="${route("cases")}" class="nav__link">${escapeHtml(ui.casesLabel)}</a></li>
-          <li><a href="${route("prices")}" class="nav__link">${escapeHtml(ui.pricesLabel)}</a></li>
           <li><a href="${blogRoute}" class="nav__link">${escapeHtml(ui.blogLabel)}</a></li>
         </ul>
       </nav>
@@ -111,8 +116,15 @@ export function renderTierCards(group, locale) {
   return `<div class="commercial-tier-grid">
     ${tiers
       .map(
-        (tier, index) => `<article class="commercial-tier${tier.popular ? " commercial-tier--featured" : ""}">${tier.popular ? `
-      <span class="commercial-tier__badge">${locale === "es" ? "Más popular" : locale === "en" ? "Most popular" : locale === "de" ? "Am beliebtesten" : "Suosituin"}</span>` : ""}
+        (
+          tier,
+          index,
+        ) => `<article class="commercial-tier${tier.popular ? " commercial-tier--featured" : ""}">${
+          tier.popular
+            ? `
+      <span class="commercial-tier__badge">${locale === "es" ? "Más popular" : locale === "en" ? "Most popular" : locale === "de" ? "Am beliebtesten" : "Suosituin"}</span>`
+            : ""
+        }
       <h3>${escapeHtml(tier.name[locale])}</h3>
       <p class="commercial-tier__price"><span data-tier-price="${tier.price}">${tier.price} €</span> <small>${escapeHtml(ui.vatLabel)}</small></p>
       <p>${escapeHtml(content.tierUses[index])}</p>
@@ -136,34 +148,149 @@ function renderCases(group, locale) {
     const hub = getPageGroup("cases").routes[locale];
     return `<div class="commercial-case-links">${group.cases.map((slug) => `<a href="${locale === "es" ? `/casos/${slug}/` : `${hub}#${slug}`}">${escapeHtml(cases.find((item) => item.slug === slug)?.title || slug)} →</a>`).join("")}</div>`;
   }
-  const labels = { es: "Ver proyecto", en: "View project", de: "Projekt ansehen", fi: "Katso projekti" };
-  return `<div class="portfolio__grid commercial-portfolio">${group.cases.map((slug) => {
-    const project = cases.find((item) => item.slug === slug);
-    if (!project) throw new Error(`Missing portfolio project: ${slug}`);
-    return `<article class="portfolio-card" id="${slug}" data-reveal="portfolio">
+  if (locale === "es") return renderGroupedPortfolio();
+  const labels = {
+    es: "Ver proyecto",
+    en: "View project",
+    de: "Projekt ansehen",
+    fi: "Katso projekti",
+  };
+  return `<div class="portfolio__grid commercial-portfolio">${group.cases
+    .map((slug) => {
+      const project = cases.find((item) => item.slug === slug);
+      if (!project) throw new Error(`Missing portfolio project: ${slug}`);
+      return `<article class="portfolio-card" id="${slug}" data-reveal="portfolio">
       <a class="portfolio-card__cover" href="/casos/${slug}/" aria-label="${escapeHtml(labels[locale])}: ${escapeHtml(project.title)}">
         <img src="/${project.portfolioImage || project.image}" alt="${escapeHtml(project.title)}" class="portfolio-card__img" loading="lazy" width="800" height="500" />
       </a>
       <div class="portfolio-card__body"><h2 class="portfolio-card__title"><a href="/casos/${slug}/">${escapeHtml(project.title)}</a></h2>
       <a class="btn btn--outline" href="/casos/${slug}/">${labels[locale]} →</a></div>
     </article>`;
-  }).join("")}</div>`;
+    })
+    .join("")}</div>`;
+}
+
+function renderGroupedPortfolio() {
+  const groups = [
+    [
+      "lite",
+      "Lite",
+      "Webs sencillas, claras y preparadas para presentar un negocio sin complejidad innecesaria.",
+    ],
+    [
+      "express",
+      "Express",
+      "Webs con más estructura, contenido y recorrido comercial para negocios que necesitan crecer.",
+    ],
+    [
+      "pro",
+      "Pro",
+      "Proyectos de mayor alcance con identidad, contenido y soluciones profesionales a medida.",
+    ],
+    [
+      "apps",
+      "Web apps y funcionalidades",
+      "Productos digitales, CRM y herramientas enfocadas en resolver una tarea concreta.",
+    ],
+  ];
+
+  return groups
+    .map(([key, label, description]) => {
+      const cards = portfolioProjects
+        .filter((project) => project.portfolioGroup === key)
+        .sort(
+          (left, right) =>
+            (left.portfolioOrder ?? 0) - (right.portfolioOrder ?? 0),
+        )
+        .map((project) => {
+          const internalCase = cases.find((item) => item.slug === project.slug);
+          const href = internalCase ? `/casos/${project.slug}/` : project.url;
+          const target = href.startsWith("http")
+            ? ' target="_blank" rel="noopener noreferrer"'
+            : "";
+          return `<article class="portfolio-card" id="${escapeHtml(project.slug)}" data-reveal="portfolio">
+      <a class="portfolio-card__cover portfolio-card__cover--contain" href="${escapeHtml(href)}"${target} aria-label="Ver proyecto: ${escapeHtml(project.title)}">
+        <img src="/${escapeHtml(project.image)}" alt="${escapeHtml(project.imageAlt)}" class="portfolio-card__img portfolio-card__img--contain" loading="lazy" width="${project.imageWidth}" height="${project.imageHeight}" />
+      </a>
+      <div class="portfolio-card__body"><h3 class="portfolio-card__title"><a href="${escapeHtml(href)}"${target}>${escapeHtml(project.title)}</a></h3>
+      <p class="portfolio-card__desc">${escapeHtml(project.description)}</p>
+      <a class="btn btn--outline" href="${escapeHtml(href)}"${target}>Ver proyecto →</a></div>
+    </article>`;
+        })
+        .join("");
+      return `<section class="portfolio-category" id="portfolio-${key}" aria-labelledby="portfolio-${key}-title">
+      <div class="portfolio-category__header"><span class="section-label">Portfolio</span><h2 id="portfolio-${key}-title">${label}</h2><p>${description}</p></div>
+      <div class="portfolio__grid commercial-portfolio">${cards}</div>
+    </section>`;
+    })
+    .join("");
 }
 
 function renderFaqs(content) {
   return `<div class="commercial-faq">${content.faqs
     .map(
-      ([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`,
+      ([question, answer]) =>
+        `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`,
     )
     .join("")}</div>`;
 }
 
 function formLabels(locale, audit) {
   const copy = {
-    es: { name: "Nombre", email: "Email", company: "Empresa", url: "URL de la web", sector: "Sector", location: "Localidad", message: audit ? "¿Qué problema notas en tu web?" : "¿Qué necesitas?", consent: "Acepto que WF-Studio use estos datos para responder a mi solicitud.", submit: audit ? "Solicitar auditoría" : "Enviar consulta" },
-    en: { name: "Name", email: "Email", company: "Business", url: "Website URL", sector: "Sector", location: "Location", message: audit ? "What problem have you noticed on your website?" : "What do you need?", consent: "I agree that WF-Studio may use this information to answer my request.", submit: audit ? "Request audit" : "Send enquiry" },
-    de: { name: "Name", email: "E-Mail", company: "Unternehmen", url: "Website-URL", sector: "Branche", location: "Ort", message: audit ? "Welches Problem hat Ihre Website?" : "Was benötigen Sie?", consent: "Ich stimme zu, dass WF-Studio diese Angaben zur Beantwortung meiner Anfrage verwendet.", submit: audit ? "Analyse anfragen" : "Anfrage senden" },
-    fi: { name: "Nimi", email: "Sähköposti", company: "Yritys", url: "Verkkosivun osoite", sector: "Toimiala", location: "Paikkakunta", message: audit ? "Minkä ongelman olet huomannut sivustollasi?" : "Mitä tarvitset?", consent: "Hyväksyn, että WF-Studio käyttää tietoja pyyntööni vastaamiseen.", submit: audit ? "Pyydä analyysi" : "Lähetä viesti" },
+    es: {
+      name: "Nombre",
+      email: "Email",
+      company: "Empresa",
+      url: "URL de la web",
+      sector: "Sector",
+      location: "Localidad",
+      message: audit ? "¿Qué problema notas en tu web?" : "¿Qué necesitas?",
+      consent:
+        "Acepto que WF-Studio use estos datos para responder a mi solicitud.",
+      submit: audit ? "Solicitar auditoría" : "Enviar consulta",
+    },
+    en: {
+      name: "Name",
+      email: "Email",
+      company: "Business",
+      url: "Website URL",
+      sector: "Sector",
+      location: "Location",
+      message: audit
+        ? "What problem have you noticed on your website?"
+        : "What do you need?",
+      consent:
+        "I agree that WF-Studio may use this information to answer my request.",
+      submit: audit ? "Request audit" : "Send enquiry",
+    },
+    de: {
+      name: "Name",
+      email: "E-Mail",
+      company: "Unternehmen",
+      url: "Website-URL",
+      sector: "Branche",
+      location: "Ort",
+      message: audit
+        ? "Welches Problem hat Ihre Website?"
+        : "Was benötigen Sie?",
+      consent:
+        "Ich stimme zu, dass WF-Studio diese Angaben zur Beantwortung meiner Anfrage verwendet.",
+      submit: audit ? "Analyse anfragen" : "Anfrage senden",
+    },
+    fi: {
+      name: "Nimi",
+      email: "Sähköposti",
+      company: "Yritys",
+      url: "Verkkosivun osoite",
+      sector: "Toimiala",
+      location: "Paikkakunta",
+      message: audit
+        ? "Minkä ongelman olet huomannut sivustollasi?"
+        : "Mitä tarvitset?",
+      consent:
+        "Hyväksyn, että WF-Studio käyttää tietoja pyyntööni vastaamiseen.",
+      submit: audit ? "Pyydä analyysi" : "Lähetä viesti",
+    },
   };
   return copy[locale];
 }
@@ -192,9 +319,10 @@ ${audit ? `<div class="contact-field"><label for="form-url">${label.url}</label>
 function renderRelated(group, locale) {
   const ui = locales[locale];
   const route = (key) => getPageGroup(key).routes[locale];
+  const pricesHref = locale === "es" ? "/servicios/#precios" : route("design");
   return `<div class="commercial-related">
     <a href="${route("audit")}" data-analytics-event="audit_click" data-analytics-locale="${locale}">${escapeHtml(ui.auditLabel)} →</a>
-    <a href="${route("prices")}">${escapeHtml(ui.pricesLabel)} →</a>
+    <a href="${pricesHref}">${escapeHtml(ui.pricesLabel)} →</a>
     <a href="${route("contact")}?sector=${group.key}" data-analytics-event="quote_click" data-analytics-sector="${group.key}" data-analytics-locale="${locale}">${escapeHtml(ui.quoteLabel)} →</a>
   </div>`;
 }
@@ -202,14 +330,20 @@ function renderRelated(group, locale) {
 function renderFooter(locale) {
   const ui = locales[locale];
   const route = (key) => getPageGroup(key).routes[locale];
-  const legalAnchor = locale === "es"
-    ? { notice: "aviso-legal", privacy: "privacidad" }
-    : { notice: "legal-notice", privacy: "privacy" };
+  const servicesHref = locale === "es" ? "/servicios/" : route("design");
+  const pricesHref = locale === "es" ? "/servicios/#precios" : servicesHref;
+  const seoHref = locale === "es" ? "/servicios/#seo-local" : servicesHref;
+  const automationHref =
+    locale === "es" ? "/servicios/#automatizacion-ia" : servicesHref;
+  const legalAnchor =
+    locale === "es"
+      ? { notice: "aviso-legal", privacy: "privacidad" }
+      : { notice: "legal-notice", privacy: "privacy" };
   return `<footer class="footer"><div class="container footer__inner">
     <div class="footer__brand"><a href="${route("home")}" class="commercial-logo commercial-logo--footer"><img src="/img/logo-wf.webp" alt="WF-Studio" width="36" height="36" /><span><strong>WF-Studio</strong><small>Web Fuengirola</small></span></a><p class="footer__tagline">${escapeHtml(getPageGroup("home").content[locale].description)}</p></div>
-    <div class="footer__col"><h4>${escapeHtml(ui.servicesLabel)}</h4><ul class="footer__links"><li><a href="${route("clinics")}">${escapeHtml(getPageGroup("clinics").content[locale].h1)}</a></li><li><a href="${route("trainers")}">${escapeHtml(getPageGroup("trainers").content[locale].h1)}</a></li><li><a href="${route("restaurants")}">${escapeHtml(getPageGroup("restaurants").content[locale].h1)}</a></li><li><a href="${route("multilingual")}">${escapeHtml(getPageGroup("multilingual").content[locale].h1)}</a></li></ul></div>
-    <div class="footer__col"><h4>${escapeHtml(ui.capabilitiesLabel)}</h4><ul class="footer__links"><li><a href="${route("apps")}">${escapeHtml(ui.appsLabel)}</a></li><li><a href="${route("automation")}">${escapeHtml(ui.automationLabel)}</a></li><li><a href="${route("seo")}">${escapeHtml(ui.seoLabel)}</a></li><li><a href="${route("cases")}">${escapeHtml(ui.casesLabel)}</a></li></ul></div>
-    <div class="footer__col"><h4>${escapeHtml(ui.contactLabel)}</h4><ul class="footer__links"><li><a href="${route("prices")}">${escapeHtml(ui.pricesLabel)}</a></li><li><a href="${route("audit")}">${escapeHtml(ui.auditLabel)}</a></li><li><a href="${route("contact")}">${escapeHtml(ui.contactLabel)}</a></li><li><a href="mailto:${brand.email}" data-analytics-event="email_click" data-analytics-locale="${locale}">${brand.email}</a></li><li><a href="tel:${brand.phone}" data-analytics-event="phone_click" data-analytics-locale="${locale}">${brand.phone}</a></li></ul></div>
+    <div class="footer__col"><h4>${escapeHtml(ui.servicesLabel)}</h4><ul class="footer__links"><li><a href="${servicesHref}">${escapeHtml(ui.servicesLabel)}</a></li><li><a href="${pricesHref}">${escapeHtml(ui.pricesLabel)}</a></li><li><a href="${seoHref}">${escapeHtml(ui.seoLabel)}</a></li><li><a href="${automationHref}">${escapeHtml(ui.automationLabel)}</a></li></ul></div>
+    <div class="footer__col"><h4>${escapeHtml(ui.capabilitiesLabel)}</h4><ul class="footer__links"><li><a href="${route("cases")}">${escapeHtml(ui.casesLabel)}</a></li><li><a href="${route("audit")}">${escapeHtml(ui.auditLabel)}</a></li></ul></div>
+    <div class="footer__col"><h4>${escapeHtml(ui.contactLabel)}</h4><ul class="footer__links"><li><a href="${route("contact")}">${escapeHtml(ui.contactLabel)}</a></li><li><a href="mailto:${brand.email}" data-analytics-event="email_click" data-analytics-locale="${locale}">${brand.email}</a></li><li><a href="tel:${brand.phone}" data-analytics-event="phone_click" data-analytics-locale="${locale}">${brand.phone}</a></li></ul></div>
     <div class="footer__col"><h4>${escapeHtml(ui.legalLabel)}</h4><ul class="footer__links"><li><a href="${legalRoutes[locale]}#${legalAnchor.notice}">${escapeHtml(ui.legalLabel)}</a></li><li><a href="${legalRoutes[locale]}#${legalAnchor.privacy}">${escapeHtml(ui.privacyLabel)}</a></li><li><a href="${legalRoutes[locale]}#cookies">${escapeHtml(ui.cookiesLabel)}</a></li><li><a href="#" data-cookie-preferences-link>${escapeHtml(ui.cookieSettingsLabel)}</a></li></ul></div>
   </div><div class="footer__bottom"><div class="container"><p>© <span id="footer-year"></span> ${brand.displayName}</p></div></div></footer>`;
 }
@@ -259,47 +393,65 @@ function renderJsonLd(group, locale) {
 const legalCopy = {
   en: {
     title: "Legal notice, privacy and cookies | WF-Studio",
-    description: "Legal information, privacy policy and cookie policy for WF-Studio · Web Fuengirola.",
+    description:
+      "Legal information, privacy policy and cookie policy for WF-Studio · Web Fuengirola.",
     h1: "Legal information, privacy and cookies",
-    intro: "This page explains who operates the website, how contact data is handled and which technical storage the website uses.",
+    intro:
+      "This page explains who operates the website, how contact data is handled and which technical storage the website uses.",
     index: "Contents",
     notice: "Legal notice",
-    noticeText: "This website is operated by WF-Studio. Contact: info@webfuengirola.com. Website: https://webfuengirola.com. Access implies responsible use of the content and services. Text, images, design and code belong to the owner or are used with permission.",
+    noticeText:
+      "This website is operated by WF-Studio. Contact: info@webfuengirola.com. Website: https://webfuengirola.com. Access implies responsible use of the content and services. Text, images, design and code belong to the owner or are used with permission.",
     privacy: "Privacy policy",
-    privacyText: "Contact and quote-request data is used only to answer enquiries, prepare requested information and manage communications about WF-Studio services. Processing is based on the user's consent. Data is not sold and is shared only when legally required or with essential service providers under appropriate safeguards.",
-    rights: "You may request access, correction, deletion, restriction, objection or portability by emailing info@webfuengirola.com. You may also complain to the Spanish Data Protection Agency.",
+    privacyText:
+      "Contact and quote-request data is used only to answer enquiries, prepare requested information and manage communications about WF-Studio services. Processing is based on the user's consent. Data is not sold and is shared only when legally required or with essential service providers under appropriate safeguards.",
+    rights:
+      "You may request access, correction, deletion, restriction, objection or portability by emailing info@webfuengirola.com. You may also complain to the Spanish Data Protection Agency.",
     cookies: "Cookie policy",
-    cookiesText: "The website uses essential browser storage for language and consent preferences. Cookieless, privacy-oriented traffic measurement may be used without advertising profiles. Any future non-essential cookies will require prior consent.",
+    cookiesText:
+      "The website uses essential browser storage for language and consent preferences. Cookieless, privacy-oriented traffic measurement may be used without advertising profiles. Any future non-essential cookies will require prior consent.",
     updated: "Last updated: September 2026.",
   },
   de: {
     title: "Impressum, Datenschutz und Cookies | WF-Studio",
-    description: "Rechtliche Informationen, Datenschutz- und Cookie-Richtlinie von WF-Studio · Web Fuengirola.",
+    description:
+      "Rechtliche Informationen, Datenschutz- und Cookie-Richtlinie von WF-Studio · Web Fuengirola.",
     h1: "Rechtliche Informationen, Datenschutz und Cookies",
-    intro: "Diese Seite erklärt den Betreiber, die Verarbeitung von Kontaktdaten und die technische Speicherung der Website.",
+    intro:
+      "Diese Seite erklärt den Betreiber, die Verarbeitung von Kontaktdaten und die technische Speicherung der Website.",
     index: "Inhalt",
     notice: "Rechtliche Hinweise",
-    noticeText: "Diese Website wird von WF-Studio betrieben. Kontakt: info@webfuengirola.com. Website: https://webfuengirola.com. Der Zugriff setzt eine verantwortungsvolle Nutzung der Inhalte und Dienste voraus. Texte, Bilder, Design und Code gehören dem Betreiber oder werden mit Genehmigung verwendet.",
+    noticeText:
+      "Diese Website wird von WF-Studio betrieben. Kontakt: info@webfuengirola.com. Website: https://webfuengirola.com. Der Zugriff setzt eine verantwortungsvolle Nutzung der Inhalte und Dienste voraus. Texte, Bilder, Design und Code gehören dem Betreiber oder werden mit Genehmigung verwendet.",
     privacy: "Datenschutzerklärung",
-    privacyText: "Daten aus Kontakt- und Angebotsanfragen werden ausschließlich zur Beantwortung, zur Erstellung angeforderter Informationen und für die Kommunikation über WF-Studio-Leistungen verwendet. Grundlage ist die Einwilligung. Daten werden nicht verkauft und nur bei gesetzlicher Pflicht oder an notwendige Dienstleister mit geeigneten Garantien weitergegeben.",
-    rights: "Sie können Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch oder Datenübertragbarkeit per E-Mail an info@webfuengirola.com verlangen. Eine Beschwerde bei der spanischen Datenschutzbehörde ist ebenfalls möglich.",
+    privacyText:
+      "Daten aus Kontakt- und Angebotsanfragen werden ausschließlich zur Beantwortung, zur Erstellung angeforderter Informationen und für die Kommunikation über WF-Studio-Leistungen verwendet. Grundlage ist die Einwilligung. Daten werden nicht verkauft und nur bei gesetzlicher Pflicht oder an notwendige Dienstleister mit geeigneten Garantien weitergegeben.",
+    rights:
+      "Sie können Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch oder Datenübertragbarkeit per E-Mail an info@webfuengirola.com verlangen. Eine Beschwerde bei der spanischen Datenschutzbehörde ist ebenfalls möglich.",
     cookies: "Cookie-Richtlinie",
-    cookiesText: "Die Website verwendet notwendigen Browserspeicher für Sprach- und Einwilligungspräferenzen. Eine cookielose, datenschutzorientierte Reichweitenmessung kann ohne Werbeprofile eingesetzt werden. Zukünftige nicht notwendige Cookies erfordern vorherige Zustimmung.",
+    cookiesText:
+      "Die Website verwendet notwendigen Browserspeicher für Sprach- und Einwilligungspräferenzen. Eine cookielose, datenschutzorientierte Reichweitenmessung kann ohne Werbeprofile eingesetzt werden. Zukünftige nicht notwendige Cookies erfordern vorherige Zustimmung.",
     updated: "Letzte Aktualisierung: September 2026.",
   },
   fi: {
     title: "Lakitiedot, tietosuoja ja evästeet | WF-Studio",
-    description: "WF-Studio · Web Fuengirolan lakitiedot, tietosuojakäytäntö ja evästekäytäntö.",
+    description:
+      "WF-Studio · Web Fuengirolan lakitiedot, tietosuojakäytäntö ja evästekäytäntö.",
     h1: "Lakitiedot, tietosuoja ja evästeet",
-    intro: "Tällä sivulla kerrotaan sivuston ylläpitäjästä, yhteystietojen käsittelystä ja teknisestä tallennuksesta.",
+    intro:
+      "Tällä sivulla kerrotaan sivuston ylläpitäjästä, yhteystietojen käsittelystä ja teknisestä tallennuksesta.",
     index: "Sisältö",
     notice: "Lakitiedot",
-    noticeText: "Sivustoa ylläpitää WF-Studio. Yhteys: info@webfuengirola.com. Sivusto: https://webfuengirola.com. Sivustoa ja sen sisältöä on käytettävä vastuullisesti. Tekstit, kuvat, suunnittelu ja koodi kuuluvat omistajalle tai niitä käytetään luvalla.",
+    noticeText:
+      "Sivustoa ylläpitää WF-Studio. Yhteys: info@webfuengirola.com. Sivusto: https://webfuengirola.com. Sivustoa ja sen sisältöä on käytettävä vastuullisesti. Tekstit, kuvat, suunnittelu ja koodi kuuluvat omistajalle tai niitä käytetään luvalla.",
     privacy: "Tietosuojakäytäntö",
-    privacyText: "Yhteydenotto- ja tarjouspyyntötietoja käytetään vain kyselyihin vastaamiseen, pyydettyjen tietojen laatimiseen ja WF-Studion palveluviestintään. Käsittely perustuu käyttäjän suostumukseen. Tietoja ei myydä, ja niitä luovutetaan vain lain vaatiessa tai välttämättömille palveluntarjoajille asianmukaisin suojatoimin.",
-    rights: "Voit pyytää tietojen tarkastamista, oikaisua, poistamista, käsittelyn rajoittamista, vastustamista tai siirtoa sähköpostitse osoitteesta info@webfuengirola.com. Voit myös valittaa Espanjan tietosuojaviranomaiselle.",
+    privacyText:
+      "Yhteydenotto- ja tarjouspyyntötietoja käytetään vain kyselyihin vastaamiseen, pyydettyjen tietojen laatimiseen ja WF-Studion palveluviestintään. Käsittely perustuu käyttäjän suostumukseen. Tietoja ei myydä, ja niitä luovutetaan vain lain vaatiessa tai välttämättömille palveluntarjoajille asianmukaisin suojatoimin.",
+    rights:
+      "Voit pyytää tietojen tarkastamista, oikaisua, poistamista, käsittelyn rajoittamista, vastustamista tai siirtoa sähköpostitse osoitteesta info@webfuengirola.com. Voit myös valittaa Espanjan tietosuojaviranomaiselle.",
     cookies: "Evästekäytäntö",
-    cookiesText: "Sivusto käyttää välttämätöntä selaintallennusta kieli- ja suostumusasetuksiin. Evästeetöntä, yksityisyyttä kunnioittavaa kävijämittausta voidaan käyttää ilman mainosprofiileja. Tulevat ei-välttämättömät evästeet edellyttävät ennakkosuostumusta.",
+    cookiesText:
+      "Sivusto käyttää välttämätöntä selaintallennusta kieli- ja suostumusasetuksiin. Evästeetöntä, yksityisyyttä kunnioittavaa kävijämittausta voidaan käyttää ilman mainosprofiileja. Tulevat ei-välttämättömät evästeet edellyttävät ennakkosuostumusta.",
     updated: "Päivitetty viimeksi: syyskuu 2026.",
   },
 };
@@ -308,7 +460,10 @@ function renderLocalizedLegalPage(locale) {
   const copy = legalCopy[locale];
   const canonical = absolute(legalRoutes[locale]);
   const languageLinks = Object.entries(legalRoutes)
-    .map(([code, route]) => `  <link rel="alternate" hreflang="${code}" href="${absolute(route)}" />`)
+    .map(
+      ([code, route]) =>
+        `  <link rel="alternate" hreflang="${code}" href="${absolute(route)}" />`,
+    )
     .join("\n");
   return `<!doctype html>
 <html lang="${locale}"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -328,22 +483,28 @@ ${renderFooter(locale)}<script src="/cookie-banner-core.js"></script><script src
 }
 
 function renderDemos(group, locale) {
-  if (locale !== "es" || !["cases", "pricing"].includes(group.kind)) return "";
+  if (locale !== "es" || group.kind !== "pricing") return "";
   return `<section class="section portfolio" id="ejemplos-lite" aria-labelledby="demos-heading"><div class="container">
     <span class="section-label">Ejemplos de diseño</span>
     <h2 id="demos-heading">Web LITE: una web sencilla para tu negocio</h2>
     <p>Propuestas de diseño para explorar cómo podría ser tu web. Son demos de portfolio, independientes de los proyectos de clientes.</p>
-    <div class="portfolio__grid commercial-portfolio">${demos.map((demo) => `<article class="portfolio-card">
+    <div class="portfolio__grid commercial-portfolio">${demos
+      .map(
+        (demo) => `<article class="portfolio-card">
       <a class="portfolio-card__cover" href="${escapeHtml(demo.url)}" target="_blank" rel="noopener noreferrer" aria-label="Ver demo: ${escapeHtml(demo.title)}"><img src="/${escapeHtml(demo.image)}" alt="${escapeHtml(demo.imageAlt)}" class="portfolio-card__img" loading="lazy" width="${demo.imageWidth}" height="${demo.imageHeight}" /></a>
       <div class="portfolio-card__body"><p><span class="tag tag--purple">${escapeHtml(demo.category)}</span> <span class="tag">Demo de diseño</span></p><h3 class="portfolio-card__title">${escapeHtml(demo.title)}</h3><p>${escapeHtml(demo.description)}</p><p style="font-size:0.85rem;color:var(--color-text-muted)">${escapeHtml(demo.note)}</p><a class="btn btn--outline" href="${escapeHtml(demo.url)}" target="_blank" rel="noopener noreferrer">Ver demo</a></div>
-    </article>`).join("")}</div></div></section>`;
+    </article>`,
+      )
+      .join("")}</div></div></section>`;
 }
 
 export function renderCommercialPage(group, locale) {
   const content = group.content[locale];
   const ui = locales[locale];
   const canonical = absolute(group.routes[locale]);
-  const showTiers = ["home", "service", "pricing", "sector"].includes(group.kind);
+  const showTiers = ["home", "service", "pricing", "sector"].includes(
+    group.kind,
+  );
   const showForm = ["audit", "contact"].includes(group.kind);
   const whatsapp = `https://wa.me/${brand.whatsapp}?text=${encodeURIComponent(content.whatsappText)}`;
   let html = `<!doctype html>
@@ -398,13 +559,24 @@ ${showForm ? `<script src="/contact-form-core.js"></script>\n<script src="/conta
 </html>`;
   if (group.key === "home" && locale === "es") {
     // Preserve the authored homepage recovered from 0e69a920; SEO builds must not replace its layout.
-    const template = fs.readFileSync(path.join(root, "templates/home-es.html"), "utf8")
-      .replace("<!-- HOME_LANGUAGE_LINKS -->", renderLanguageSelector(group, locale));
+    const template = fs
+      .readFileSync(path.join(root, "templates/home-es.html"), "utf8")
+      .replace(
+        "<!-- HOME_LANGUAGE_LINKS -->",
+        renderLanguageSelector(group, locale),
+      );
     const scripts = `<script src="/cookie-banner-core.js"></script>
 <script src="/umami-analytics-core.js"></script>
 <script src="/script.js?v=13"></script>`;
-    html = html.replace(/(<body[^>]*>)[\s\S]*?(<\/body>)/, (_, opening, closing) => `${opening}\n${template}\n${scripts}\n${closing}`);
-    html = html.replace('class="commercial-page commercial-page--home"', 'class="home-page"');
+    html = html.replace(
+      /(<body[^>]*>)[\s\S]*?(<\/body>)/,
+      (_, opening, closing) =>
+        `${opening}\n${template}\n${scripts}\n${closing}`,
+    );
+    html = html.replace(
+      'class="commercial-page commercial-page--home"',
+      'class="home-page"',
+    );
   }
   return html;
 }
@@ -428,7 +600,10 @@ export function generateCommercialPages(outputRoot = root) {
   return written;
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+if (
+  process.argv[1] &&
+  path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)
+) {
   const written = generateCommercialPages();
   console.log(`Generated ${written.length} WF-Studio commercial pages.`);
 }

@@ -112,8 +112,8 @@ test("las categorías de producto antiguas redirigen a la oferta vigente", async
   page,
 }) => {
   const redirects = {
-    "lite-blog-wordpress": "/precios-diseno-web-fuengirola/",
-    "express-300-blog-wordpress": "/precios-diseno-web-fuengirola/",
+    "lite-blog-wordpress": "/servicios/#precios",
+    "express-300-blog-wordpress": "/servicios/#precios",
     "web-personalizada": "/diseno-web-fuengirola/",
     "express-migracion-optimizacion-formularios": "/diseno-web-fuengirola/",
     "personalizada-webapp": "/servicios/aplicaciones-web/",
@@ -122,7 +122,9 @@ test("las categorías de producto antiguas redirigen a la oferta vigente", async
 
   for (const [categorySlug, destination] of Object.entries(redirects)) {
     await page.goto(`/productos/${categorySlug}/`);
-    await expect(page).toHaveURL(new RegExp(`${destination.replaceAll("/", "\\/")}$`));
+    await expect(page).toHaveURL(
+      new RegExp(`${destination.replaceAll("/", "\\/")}$`),
+    );
   }
 });
 

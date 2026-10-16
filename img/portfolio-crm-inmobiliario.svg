@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">CRM Inmobiliario</title><desc id="desc">Panel conceptual para gestión inmobiliaria</desc>
+  <rect width="1200" height="750" rx="28" fill="#f4f7fb"/>
+  <rect x="55" y="55" width="1090" height="640" rx="24" fill="#fff" stroke="#d7dfeb" stroke-width="4"/>
+  <rect x="55" y="55" width="230" height="640" rx="24" fill="#15233b"/>
+  <text x="105" y="125" fill="#fff" font-family="Arial,sans-serif" font-size="30" font-weight="700">VILLA CRM</text>
+  <g fill="#60708a"><rect x="105" y="190" width="130" height="14" rx="7"/><rect x="105" y="245" width="105" height="14" rx="7"/><rect x="105" y="300" width="145" height="14" rx="7"/></g>
+  <text x="340" y="130" fill="#15233b" font-family="Arial,sans-serif" font-size="42" font-weight="700">Propiedades</text>
+  <g><rect x="340" y="185" width="220" height="190" rx="18" fill="#d8e5ef"/><rect x="600" y="185" width="220" height="190" rx="18" fill="#e9ddd0"/><rect x="860" y="185" width="220" height="190" rx="18" fill="#d8e8df"/></g>
+  <rect x="340" y="445" width="740" height="22" rx="11" fill="#15233b"/><rect x="340" y="500" width="650" height="16" rx="8" fill="#bcc8d8"/><rect x="340" y="545" width="700" height="16" rx="8" fill="#bcc8d8"/>
+</svg>
