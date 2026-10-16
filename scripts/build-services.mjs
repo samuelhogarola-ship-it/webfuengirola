@@ -216,6 +216,10 @@ function buildServiceHub() {
   )}
   </script>`;
 
+  const consolidatedHref = {
+    "seo-local": `${prefix}servicios/#seo-local`,
+    automatizacion: `${prefix}servicios/#automatizacion-ia`,
+  };
   const serviceCards = services
     .map(
       (s) => `
@@ -226,7 +230,7 @@ function buildServiceHub() {
             <p class="portfolio-card__price" style="font-weight:600;color:var(--color-accent);margin-top:0.5rem">${escapeHtml(s.price)}</p>
           </div>
           <div class="portfolio-card__footer">
-            <a href="${prefix}servicios/${s.slug}/" class="btn btn--outline">Ver servicio →</a>
+            <a href="${consolidatedHref[s.slug] ?? `${prefix}servicios/${s.slug}/`}" class="btn btn--outline">Ver servicio →</a>
           </div>
         </article>`,
     )
@@ -265,6 +269,41 @@ ${serviceCards.trimStart()}
         </div>
       </div>
     </section>
+
+    <section class="section" id="precios" style="background: var(--color-surface-warm)">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Precios</span>
+          <h2 class="section-title">Tres formas claras de empezar</h2>
+          <p class="section-desc">El alcance cambia, pero la base es la misma: una web rápida, responsive y preparada para que el negocio pueda explicar su oferta y recibir contactos.</p>
+        </div>
+        <div class="commercial-tier-grid" style="margin-top:3rem">
+          <article class="commercial-tier"><h3>Lite</h3><p class="commercial-tier__price">200 € <small>+ IVA</small></p><p>Una presencia compacta para presentar el negocio, sus servicios esenciales y una vía clara de contacto.</p><ul><li>✓ Una página enfocada</li><li>✓ Diseño responsive</li><li>✓ SEO técnico básico</li><li>✓ Contacto directo</li></ul></article>
+          <article class="commercial-tier commercial-tier--featured"><span class="commercial-tier__badge">Más popular</span><h3>Express</h3><p class="commercial-tier__price">350 € <small>+ IVA</small></p><p>Más secciones y recorrido comercial para explicar servicios, confianza y próximos pasos.</p><ul><li>✓ Estructura multipágina</li><li>✓ Contenido comercial</li><li>✓ Formularios y WhatsApp</li><li>✓ Base SEO ampliada</li></ul></article>
+          <article class="commercial-tier"><h3>Pro</h3><p class="commercial-tier__price">600 € <small>+ IVA</small></p><p>Una web con mayor alcance, estructura SEO, idiomas o integraciones según las necesidades reales.</p><ul><li>✓ Arquitectura a medida</li><li>✓ Más servicios y contenidos</li><li>✓ Integraciones útiles</li><li>✓ Preparada para crecer</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    ${
+      services
+        .find((service) => service.slug === "seo-local")
+        ?.bodyHtml.replace(
+          '<section class="section"',
+          '<section class="section" id="seo-local"',
+        )
+        .trim() ?? ""
+    }
+
+    ${
+      services
+        .find((service) => service.slug === "automatizacion")
+        ?.bodyHtml.replace(
+          '<section class="section"',
+          '<section class="section" id="automatizacion-ia"',
+        )
+        .trim() ?? ""
+    }
 
     <section class="section" style="background: var(--color-surface-warm)">
       <div class="container" style="text-align: center; max-width: 600px">

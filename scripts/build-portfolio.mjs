@@ -25,8 +25,8 @@ const legacyPortfolioFallbackMap = new Map([
   ["der-die-das-vokabellab", "vokabellab"],
 ]);
 const productRedirects = new Map([
-  ["lite-blog-wordpress", "/precios-diseno-web-fuengirola/"],
-  ["express-300-blog-wordpress", "/precios-diseno-web-fuengirola/"],
+  ["lite-blog-wordpress", "/servicios/#precios"],
+  ["express-300-blog-wordpress", "/servicios/#precios"],
   ["web-personalizada", "/diseno-web-fuengirola/"],
   ["express-migracion-optimizacion-formularios", "/diseno-web-fuengirola/"],
   ["personalizada-webapp", "/servicios/aplicaciones-web/"],

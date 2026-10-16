@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">Dede Art</title><desc id="desc">Composición visual para el portfolio artístico Dede Art</desc>
+  <rect width="1200" height="750" rx="28" fill="#f5efe6"/>
+  <path d="M0 610 310 160l205 310L720 95l480 655H0Z" fill="#171717"/>
+  <circle cx="915" cy="205" r="128" fill="#e85d3f"/>
+  <path d="M175 125h285v34H175zm0 62h190v15H175z" fill="#171717"/>
+  <text x="175" y="330" fill="#fff" font-family="Arial,sans-serif" font-size="86" font-weight="700">DEDE</text>
+  <text x="175" y="405" fill="#fff" font-family="Arial,sans-serif" font-size="38" letter-spacing="12">ART</text>
+</svg>

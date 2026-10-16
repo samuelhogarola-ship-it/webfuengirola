@@ -105,7 +105,7 @@ export const productCategories = [
 export const portfolioProjects = [
   {
     slug: "vokabellab",
-    title: "Vokabellab",
+    title: "Vokabel Lab",
     client: "Vokabellab",
     brand: "Vokabellab",
     category: "Web app educativa",
@@ -113,10 +113,10 @@ export const portfolioProjects = [
       "Plataforma de aprendizaje de vocabulario en alemán con una interfaz clara, rápida y pensada para repetir contenido útil sin fricción.",
     longDescription:
       "Vokabellab es una plataforma educativa enfocada en aprendizaje práctico de vocabulario en alemán. El trabajo se centró en construir una experiencia limpia, orientada a uso recurrente, con foco en claridad visual, organización por bloques y sensación de producto ligero.",
-    image: "img/vokabellab.webp",
-    ogImage: "https://webfuengirola.com/img/vokabellab.webp",
-    imageWidth: 800,
-    imageHeight: 400,
+    image: "img/vokabellab-real.webp",
+    ogImage: "https://webfuengirola.com/img/vokabellab-real.webp",
+    imageWidth: 1440,
+    imageHeight: 1000,
     imageAlt:
       "Captura de Vokabellab, plataforma para practicar vocabulario de alemán",
     ogAlt: "Vista previa de la plataforma educativa Vokabellab",
@@ -135,6 +135,8 @@ export const portfolioProjects = [
     seoDescription:
       "Caso real de Vokabellab: diseño y desarrollo de una web app educativa para practicar vocabulario en alemán con enfoque en claridad, producto y recurrencia.",
     heroLabel: "Caso real · Web app educativa",
+    portfolioGroup: "apps",
+    portfolioOrder: 1,
     productCategorySlug: "personalizada-webapp",
     cardTags: [
       { label: "Web app", className: "tag--blue" },
@@ -172,6 +174,7 @@ export const portfolioProjects = [
     seoDescription:
       "Proyecto real para Samuel Coach de Alemán: landing page de captación con estructura SEO, narrativa comercial clara y contacto directo.",
     heroLabel: "Caso real · Landing page",
+    portfolioGroup: "pro",
     productCategorySlug: "web-personalizada",
     cardTags: [
       { label: "Landing page", className: "tag--purple" },
@@ -209,6 +212,7 @@ export const portfolioProjects = [
     seoDescription:
       "Caso real de Personal Trainer Fuengirola: landing page local con SEO local, estructura clara y contacto directo por WhatsApp.",
     heroLabel: "Caso real · Captación local",
+    portfolioGroup: "express",
     productCategorySlug: "express-300-blog-wordpress",
     cardTags: [
       { label: "Landing page", className: "tag--purple" },
@@ -218,7 +222,7 @@ export const portfolioProjects = [
   },
   {
     slug: "im-kontext-vokabellab",
-    title: "Im Kontext — Vokabellab",
+    title: "ImKontext",
     client: "Vokabellab",
     brand: "Im Kontext",
     category: "Micro web app educativa",
@@ -247,6 +251,8 @@ export const portfolioProjects = [
     seoDescription:
       "Caso real de Im Kontext: herramienta educativa para aprender alemán en contexto con frases reales y una experiencia de producto clara.",
     heroLabel: "Caso real · Micro app educativa",
+    portfolioGroup: "apps",
+    portfolioOrder: 5,
     productCategorySlug: "personalizada-webapp",
     cardTags: [
       { label: "Web app", className: "tag--blue" },
@@ -255,7 +261,7 @@ export const portfolioProjects = [
   },
   {
     slug: "der-die-das-vokabellab",
-    title: "Der Die Das — Vokabellab",
+    title: "Der Die Das",
     client: "Vokabellab",
     brand: "Der Die Das",
     category: "Microproducto educativo",
@@ -285,6 +291,8 @@ export const portfolioProjects = [
     seoDescription:
       "Proyecto real de Der Die Das: micro herramienta educativa para practicar artículos en alemán con una interfaz directa y visual.",
     heroLabel: "Caso real · Microproducto",
+    portfolioGroup: "apps",
+    portfolioOrder: 4,
     productCategorySlug: "personalizada-webapp",
     cardTags: [
       { label: "Web app", className: "tag--blue" },
@@ -323,6 +331,7 @@ export const portfolioProjects = [
     seoDescription:
       "Caso real de Sport Massage Fuengirola: landing de captación local con foco en confianza, servicios y conversión a contacto.",
     heroLabel: "Caso real · Salud y captación local",
+    portfolioGroup: "lite",
     productCategorySlug: "lite-blog-wordpress",
     cardTags: [
       { label: "Landing page", className: "tag--purple" },
@@ -362,6 +371,7 @@ export const portfolioProjects = [
     seoDescription:
       "Proyecto real para Gimnasio Nuevo Estilo: web local para gimnasio con estructura para Fuengirola y Arroyo de la Miel.",
     heroLabel: "Caso real · Fitness local",
+    portfolioGroup: "express",
     productCategorySlug: "express-300-blog-wordpress",
     cardTags: [
       { label: "Diseño web", className: "tag--purple" },
@@ -400,6 +410,7 @@ export const portfolioProjects = [
     seoDescription:
       "Proyecto real de Agama: web corporativa industrial para presentar pigmentos, masterbatch y aditivos con estructura clara y comercial.",
     heroLabel: "Caso real · Web corporativa",
+    portfolioGroup: "pro",
     productCategorySlug: "express-migracion-optimizacion-formularios",
     cardTags: [
       { label: "Web corporativa", className: "tag--red" },
@@ -408,7 +419,7 @@ export const portfolioProjects = [
   },
   {
     slug: "fisioapp-panel-clinica",
-    title: "FisioApp — Panel de clínica",
+    title: "CRM para clínicas",
     client: "FisioApp demo comercial",
     brand: "FisioApp",
     category: "Web app / SaaS",
@@ -437,11 +448,222 @@ export const portfolioProjects = [
     seoDescription:
       "Caso real de FisioApp: panel SaaS para clínica con pacientes, sesiones, facturación y documentos en una experiencia de gestión clara y comercial.",
     heroLabel: "Caso real · SaaS / producto digital",
+    portfolioGroup: "apps",
+    portfolioOrder: 3,
     productCategorySlug: "mini-saas-personalizado",
     cardTags: [
       { label: "Web app", className: "tag--blue" },
       { label: "SaaS", className: "tag--purple" },
       { label: "Salud", className: "tag--green" },
     ],
+  },
+  {
+    slug: "hotel-bali-bhuana",
+    title: "Hotel sencillo · Bali Bhuana",
+    client: "Demo de portfolio",
+    brand: "Bali Bhuana",
+    category: "Web Lite para alojamiento",
+    description:
+      "Web ligera para presentar habitaciones, servicios, ubicación y contacto directo.",
+    longDescription:
+      "Una propuesta de portfolio para enseñar cómo una web Lite puede resolver la presencia esencial de un alojamiento sin sobrecargar la experiencia.",
+    image: "img/hotel-lite-bali-bhuana.jpg",
+    ogImage: "https://webfuengirola.com/img/hotel-lite-bali-bhuana.jpg",
+    imageWidth: 1108,
+    imageHeight: 900,
+    imageAlt: "Vista completa de la propuesta Web Lite para Bali Bhuana",
+    ogAlt: "Propuesta de portfolio para un hotel sencillo",
+    url: "https://bali-bhuana-villas.vercel.app/",
+    urlLabel: "Ver demo",
+    tech: ["HTML", "CSS", "JavaScript"],
+    services: ["Web Lite", "Diseño responsive", "Contacto directo"],
+    result:
+      "Una demo clara y ligera para explicar el formato Lite aplicado a un alojamiento.",
+    seoTitle: "Hotel sencillo Bali Bhuana | Demo Web Lite",
+    seoDescription:
+      "Demo Web Lite para un hotel sencillo con habitaciones, servicios, ubicación y contacto directo.",
+    heroLabel: "Demo · Web Lite",
+    portfolioGroup: "lite",
+    productCategorySlug: "lite-blog-wordpress",
+    cardTags: [{ label: "Lite", className: "tag--purple" }],
+  },
+  {
+    slug: "dede-art",
+    title: "Dede Art",
+    client: "Dede Art",
+    brand: "Dede Art",
+    category: "Portfolio creativo Lite",
+    description:
+      "Portfolio visual para presentar obra artística con una navegación sencilla y protagonismo de la imagen.",
+    longDescription:
+      "Una presencia visual compacta para organizar obra, identidad y contacto sin elementos que compitan con las piezas.",
+    image: "img/portfolio-dede-art.svg",
+    ogImage: "https://webfuengirola.com/img/portfolio-dede-art.svg",
+    imageWidth: 1200,
+    imageHeight: 750,
+    imageAlt: "Miniatura conceptual del portfolio Dede Art",
+    ogAlt: "Dede Art",
+    url: "/contacto/?project=dede-art",
+    urlLabel: "Consultar proyecto",
+    tech: ["Diseño web", "Portfolio visual"],
+    services: ["Web Lite", "Galería", "Contacto"],
+    result: "Una presentación visual centrada en la obra.",
+    seoTitle: "Dede Art | Portfolio creativo",
+    seoDescription:
+      "Portfolio visual compacto para presentar la obra y facilitar el contacto.",
+    heroLabel: "Portfolio · Web Lite",
+    portfolioGroup: "lite",
+    productCategorySlug: "lite-blog-wordpress",
+    cardTags: [{ label: "Arte", className: "tag--orange" }],
+  },
+  {
+    slug: "suvilla",
+    title: "SuVilla Inmobiliaria",
+    client: "SuVilla",
+    brand: "SuVilla",
+    category: "Web inmobiliaria multidioma",
+    description:
+      "Web inmobiliaria con catálogo, búsqueda por zona, equipo y contacto en tres idiomas.",
+    longDescription:
+      "Una web Express con suficiente estructura para explicar la agencia, mostrar propiedades y atender a un público internacional.",
+    image: "img/suvilla-real.webp",
+    ogImage: "https://webfuengirola.com/img/suvilla-real.webp",
+    imageWidth: 1200,
+    imageHeight: 750,
+    imageAlt: "Captura completa de la web de SuVilla Inmobiliaria",
+    ogAlt: "SuVilla Inmobiliaria",
+    url: "https://suvilla-web.vercel.app/es",
+    urlLabel: "Ver web",
+    tech: ["Diseño web", "Catálogo", "Multidioma"],
+    services: ["Web Express", "Propiedades", "Idiomas"],
+    result:
+      "Una presencia inmobiliaria clara para compradores y vendedores de la Costa del Sol.",
+    seoTitle: "SuVilla | Web inmobiliaria multidioma",
+    seoDescription:
+      "Web inmobiliaria con propiedades, filtros, equipo y contacto en tres idiomas.",
+    heroLabel: "Caso real · Web Express",
+    portfolioGroup: "express",
+    productCategorySlug: "express-300-blog-wordpress",
+    cardTags: [{ label: "Inmobiliaria", className: "tag--green" }],
+  },
+  {
+    slug: "todoplasticos",
+    title: "TodoPlásticos",
+    client: "TodoPlásticos",
+    brand: "TodoPlásticos",
+    category: "Marketplace especializado",
+    description:
+      "Marketplace profesional para empresas, productos y anuncios del sector del plástico.",
+    longDescription:
+      "Una plataforma profesional que combina presencia comercial, directorio sectorial y operativa de marketplace.",
+    image: "img/portfolio-todoplasticos.svg",
+    ogImage: "https://webfuengirola.com/img/portfolio-todoplasticos.svg",
+    imageWidth: 1200,
+    imageHeight: 750,
+    imageAlt: "Miniatura del marketplace TodoPlásticos",
+    ogAlt: "TodoPlásticos",
+    url: "https://todo-plastico.com",
+    urlLabel: "Ver plataforma",
+    tech: ["Marketplace", "Paneles", "Supabase"],
+    services: ["Web Pro", "Directorio", "Gestión de anuncios"],
+    result: "Una plataforma sectorial con operativa comercial propia.",
+    seoTitle: "TodoPlásticos | Marketplace profesional",
+    seoDescription:
+      "Marketplace profesional para empresas y productos del sector del plástico.",
+    heroLabel: "Proyecto · Web Pro",
+    portfolioGroup: "pro",
+    productCategorySlug: "web-personalizada",
+    cardTags: [{ label: "Marketplace", className: "tag--blue" }],
+  },
+  {
+    slug: "superentrenador",
+    title: "Superentrenador",
+    client: "Superentrenador",
+    brand: "Superentrenador",
+    category: "Plataforma profesional fitness",
+    description:
+      "Plataforma para presentar entrenadores, servicios y herramientas digitales del ecosistema fitness.",
+    longDescription:
+      "Un proyecto Pro con identidad propia, contenido comercial y una base preparada para conectar marketplace y herramientas de gestión.",
+    image: "img/portfolio-superentrenador.svg",
+    ogImage: "https://webfuengirola.com/img/portfolio-superentrenador.svg",
+    imageWidth: 1200,
+    imageHeight: 750,
+    imageAlt: "Miniatura de la plataforma Superentrenador",
+    ogAlt: "Superentrenador",
+    url: "https://superentrenador.com",
+    urlLabel: "Ver plataforma",
+    tech: ["React", "Marketplace", "PWA"],
+    services: ["Web Pro", "Perfiles", "Producto digital"],
+    result:
+      "Una presencia profesional preparada para ampliar la operativa del entrenador.",
+    seoTitle: "Superentrenador | Plataforma profesional fitness",
+    seoDescription:
+      "Plataforma profesional para entrenadores y servicios digitales del sector fitness.",
+    heroLabel: "Proyecto · Web Pro",
+    portfolioGroup: "pro",
+    productCategorySlug: "web-personalizada",
+    cardTags: [{ label: "Fitness", className: "tag--red" }],
+  },
+  {
+    slug: "crm-inmobiliario",
+    title: "CRM Inmobiliario",
+    client: "Demo de producto inmobiliario",
+    brand: "CRM Inmobiliario",
+    category: "CRM inmobiliario",
+    description:
+      "Panel para centralizar propiedades, contactos, seguimientos y tareas comerciales.",
+    longDescription:
+      "Una herramienta operativa para reunir el trabajo comercial inmobiliario en una interfaz clara y preparada para el uso diario.",
+    image: "img/portfolio-crm-inmobiliario.svg",
+    ogImage: "https://webfuengirola.com/img/portfolio-crm-inmobiliario.svg",
+    imageWidth: 1200,
+    imageHeight: 750,
+    imageAlt: "Miniatura conceptual del CRM inmobiliario",
+    ogAlt: "CRM Inmobiliario",
+    url: "/contacto/?project=crm-inmobiliario",
+    urlLabel: "Consultar CRM",
+    tech: ["Next.js", "CRM", "Panel"],
+    services: ["Propiedades", "Contactos", "Seguimiento"],
+    result:
+      "Una interfaz de trabajo enfocada en ordenar la actividad comercial inmobiliaria.",
+    seoTitle: "CRM Inmobiliario | Aplicación web",
+    seoDescription:
+      "CRM inmobiliario para propiedades, contactos, tareas y seguimiento comercial.",
+    heroLabel: "Producto · Aplicación web",
+    portfolioGroup: "apps",
+    portfolioOrder: 2,
+    productCategorySlug: "mini-saas-personalizado",
+    cardTags: [{ label: "CRM", className: "tag--blue" }],
+  },
+  {
+    slug: "farbentester",
+    title: "Farbentester",
+    client: "Farbentester",
+    brand: "Farbentester",
+    category: "Herramienta visual de color",
+    description:
+      "Herramienta visual para probar gamas, comparar tonos y trabajar decisiones de color.",
+    longDescription:
+      "Un microproducto centrado en una tarea concreta: explorar y comparar colores con una experiencia directa y visual.",
+    image: "img/portfolio-farbentester.svg",
+    ogImage: "https://webfuengirola.com/img/portfolio-farbentester.svg",
+    imageWidth: 1200,
+    imageHeight: 750,
+    imageAlt: "Miniatura conceptual de Farbentester con muestras de color",
+    ogAlt: "Farbentester",
+    url: "/contacto/?project=farbentester",
+    urlLabel: "Consultar herramienta",
+    tech: ["Web app", "Color", "Interfaz visual"],
+    services: ["Selector de color", "Comparación", "Responsive"],
+    result:
+      "Una herramienta visual compacta para tomar decisiones de color con menos fricción.",
+    seoTitle: "Farbentester | Herramienta web de color",
+    seoDescription: "Herramienta web visual para probar y comparar colores.",
+    heroLabel: "Microproducto · Web app",
+    portfolioGroup: "apps",
+    portfolioOrder: 6,
+    productCategorySlug: "personalizada-webapp",
+    cardTags: [{ label: "Color", className: "tag--orange" }],
   },
 ];

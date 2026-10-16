@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">TodoPlásticos</title><desc id="desc">Vista representativa del marketplace TodoPlásticos</desc>
+  <rect width="1200" height="750" rx="28" fill="#eef7f4"/>
+  <rect x="70" y="70" width="1060" height="610" rx="24" fill="#fff" stroke="#c9ded7" stroke-width="4"/>
+  <rect x="70" y="70" width="1060" height="92" rx="24" fill="#0b6b5b"/>
+  <text x="125" y="130" fill="#fff" font-family="Arial,sans-serif" font-size="42" font-weight="700">TodoPlásticos</text>
+  <g fill="#dcefe9"><rect x="125" y="220" width="270" height="170" rx="18"/><rect x="465" y="220" width="270" height="170" rx="18"/><rect x="805" y="220" width="270" height="170" rx="18"/></g>
+  <g fill="#0b6b5b"><circle cx="260" cy="295" r="42"/><circle cx="600" cy="295" r="42"/><circle cx="940" cy="295" r="42"/></g>
+  <rect x="125" y="455" width="620" height="22" rx="11" fill="#123b34"/><rect x="125" y="505" width="840" height="15" rx="8" fill="#aacbc1"/><rect x="125" y="545" width="760" height="15" rx="8" fill="#aacbc1"/>
+</svg>

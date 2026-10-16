@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">Farbentester</title><desc id="desc">Herramienta visual para probar y comparar colores</desc>
+  <rect width="1200" height="750" rx="28" fill="#fbfaf8"/>
+  <text x="90" y="120" fill="#242424" font-family="Arial,sans-serif" font-size="48" font-weight="700">Farbentester</text>
+  <text x="90" y="165" fill="#696969" font-family="Arial,sans-serif" font-size="24">Farben vergleichen. Sicher entscheiden.</text>
+  <g transform="translate(90 230)"><rect width="180" height="360" rx="22" fill="#c85b4d"/><rect x="205" width="180" height="360" rx="22" fill="#d69a46"/><rect x="410" width="180" height="360" rx="22" fill="#69866c"/><rect x="615" width="180" height="360" rx="22" fill="#516f91"/><rect x="820" width="180" height="360" rx="22" fill="#6c587d"/></g>
+  <g fill="#242424" font-family="Arial,sans-serif" font-size="20"><text x="125" y="635">Terrakotta</text><text x="340" y="635">Ocker</text><text x="545" y="635">Salbei</text><text x="755" y="635">Nebelblau</text><text x="955" y="635">Pflaume</text></g>
+</svg>

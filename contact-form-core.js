@@ -17,9 +17,12 @@
       token: "Confirma primero la verificación anti-spam.",
       sending: "Enviando...",
       success: "Mensaje enviado. Te responderemos en menos de 24h.",
-      auditSuccess: "Auditoría solicitada. Revisaremos la web y te responderemos en menos de 24h.",
-      error: "No hemos podido enviar el formulario. Puedes escribirnos por WhatsApp o email.",
-      unavailable: "El formulario está temporalmente no disponible. Puedes escribirnos por WhatsApp o email.",
+      auditSuccess:
+        "Auditoría solicitada. Revisaremos la web y te responderemos en menos de 24h.",
+      error:
+        "No hemos podido enviar el formulario. Puedes escribirnos por WhatsApp o email.",
+      unavailable:
+        "El formulario está temporalmente no disponible. Puedes escribirnos por WhatsApp o email.",
     },
     en: {
       name: "Enter your name.",
@@ -32,9 +35,12 @@
       token: "Complete the anti-spam check first.",
       sending: "Sending...",
       success: "Message sent. We will reply within 24 hours.",
-      auditSuccess: "Audit requested. We will review the website and reply within 24 hours.",
-      error: "We could not send the form. You can contact us by WhatsApp or email.",
-      unavailable: "The form is temporarily unavailable. You can contact us by WhatsApp or email.",
+      auditSuccess:
+        "Audit requested. We will review the website and reply within 24 hours.",
+      error:
+        "We could not send the form. You can contact us by WhatsApp or email.",
+      unavailable:
+        "The form is temporarily unavailable. You can contact us by WhatsApp or email.",
     },
     de: {
       name: "Bitte geben Sie Ihren Namen ein.",
@@ -43,13 +49,17 @@
       auditUrl: "Bitte geben Sie die vollständige Website-URL ein.",
       sector: "Bitte geben Sie die Branche an.",
       location: "Bitte geben Sie den Ort des Unternehmens an.",
-      consent: "Bitte stimmen Sie der Nutzung Ihrer Angaben zur Beantwortung zu.",
+      consent:
+        "Bitte stimmen Sie der Nutzung Ihrer Angaben zur Beantwortung zu.",
       token: "Bitte schließen Sie zuerst die Anti-Spam-Prüfung ab.",
       sending: "Wird gesendet...",
       success: "Nachricht gesendet. Wir antworten innerhalb von 24 Stunden.",
-      auditSuccess: "Analyse angefragt. Wir prüfen die Website und antworten innerhalb von 24 Stunden.",
-      error: "Das Formular konnte nicht gesendet werden. Kontaktieren Sie uns per WhatsApp oder E-Mail.",
-      unavailable: "Das Formular ist vorübergehend nicht verfügbar. Kontaktieren Sie uns per WhatsApp oder E-Mail.",
+      auditSuccess:
+        "Analyse angefragt. Wir prüfen die Website und antworten innerhalb von 24 Stunden.",
+      error:
+        "Das Formular konnte nicht gesendet werden. Kontaktieren Sie uns per WhatsApp oder E-Mail.",
+      unavailable:
+        "Das Formular ist vorübergehend nicht verfügbar. Kontaktieren Sie uns per WhatsApp oder E-Mail.",
     },
     fi: {
       name: "Kirjoita nimesi.",
@@ -62,9 +72,12 @@
       token: "Suorita ensin roskapostin estävä tarkistus.",
       sending: "Lähetetään...",
       success: "Viesti lähetetty. Vastaamme 24 tunnin kuluessa.",
-      auditSuccess: "Analyysi pyydetty. Tarkistamme sivuston ja vastaamme 24 tunnin kuluessa.",
-      error: "Lomaketta ei voitu lähettää. Voit ottaa yhteyttä WhatsAppilla tai sähköpostilla.",
-      unavailable: "Lomake ei ole juuri nyt käytettävissä. Voit ottaa yhteyttä WhatsAppilla tai sähköpostilla.",
+      auditSuccess:
+        "Analyysi pyydetty. Tarkistamme sivuston ja vastaamme 24 tunnin kuluessa.",
+      error:
+        "Lomaketta ei voitu lähettää. Voit ottaa yhteyttä WhatsAppilla tai sähköpostilla.",
+      unavailable:
+        "Lomake ei ole juuri nyt käytettävissä. Voit ottaa yhteyttä WhatsAppilla tai sähköpostilla.",
     },
   };
 
@@ -85,8 +98,9 @@
     return messages[locale] || messages.es;
   }
 
-  function validate(data, kind, locale) {
+  function validate(data, kind, locale, options) {
     var copy = localeMessages(locale);
+    var requireToken = !options || options.requireToken !== false;
     if (!data.name || String(data.name).trim().length < 2)
       return { ok: false, field: "name", message: copy.name };
     if (!isEmail(data.email))
@@ -101,7 +115,7 @@
       return { ok: false, field: "message", message: copy.message };
     if (!data.consent)
       return { ok: false, field: "consent", message: copy.consent };
-    if (!data.token)
+    if (requireToken && !data.token)
       return { ok: false, field: "token", message: copy.token };
     return { ok: true };
   }
