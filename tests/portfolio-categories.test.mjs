@@ -11,7 +11,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const expectedGroups = {
   lite: [
     "Sport Massage Fuengirola",
-    "Hotel sencillo · Bali Bhuana",
+    "Demo de diseño · Hotel sencillo (concepto Bali Bhuana)",
     "Dede Art",
   ],
   express: [
@@ -93,4 +93,20 @@ test("prices, local SEO and automation are consolidated in Services", () => {
     nginx,
     /location = \/automatizacion-ia-fuengirola\/[^]*return 301 \/servicios\/#automatizacion-ia;/,
   );
+});
+
+test("Bali Bhuana is presented as a Lite design concept, never as a client", () => {
+  const project = portfolioProjects.find(
+    ({ slug }) => slug === "hotel-bali-bhuana",
+  );
+  const html = fs.readFileSync(path.join(root, "casos/index.html"), "utf8");
+
+  assert.ok(project);
+  assert.equal(project.portfolioGroup, "lite");
+  assert.equal(project.client, "Demo de portfolio");
+  assert.match(project.title, /demo|concepto/i);
+  assert.match(project.description, /demo|concepto/i);
+  assert.match(html, /Bali Bhuana/);
+  assert.match(html, /demo|concepto/i);
+  assert.doesNotMatch(html, /Ver proyecto: Hotel sencillo · Bali Bhuana/);
 });

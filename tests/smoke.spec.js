@@ -88,7 +88,7 @@ test("las páginas comerciales mantienen selector de idioma equivalente", async 
   const urls = [
     "/contacto/",
     "/web-para-clinicas-fuengirola/",
-    "/precios-diseno-web-fuengirola/",
+    "/diseno-web-fuengirola/",
     "/auditoria-web-gratis/",
   ];
 
@@ -138,11 +138,7 @@ test("servicios presenta las cuatro categorías principales", async ({
       .first(),
   ).toBeVisible();
   await expect(
-    page
-      .locator(
-        'a[href="../servicios/seo-local/"], a[href="/servicios/seo-local/"]',
-      )
-      .first(),
+    page.locator('a[href="/servicios/#seo-local"]').first(),
   ).toBeVisible();
   await expect(page.locator("body")).toContainText(/mantenimiento/i);
   await expect(page.locator("body")).toContainText(/automatización/i);
@@ -357,11 +353,6 @@ test("las landings locales prioritarias cargan con title y H1 propios", async ({
       heading: /diseño web en fuengirola/i,
     },
     {
-      url: "/seo-local-fuengirola/",
-      title: /seo local en fuengirola/i,
-      heading: /seo local en fuengirola/i,
-    },
-    {
       url: "/diseno-web-malaga/",
       title: /diseño web en málaga/i,
       heading: /diseño web en málaga/i,
@@ -451,7 +442,7 @@ test("los hubs de diseño web y seo local mantienen intención local clara", asy
   );
   await expect(page.locator("body")).toContainText(/sport massage fuengirola/i);
   await expect(
-    page.locator('a.services-routes__link[href="../../seo-local-fuengirola/"]'),
+    page.locator('a.services-routes__link[href="../../servicios/#seo-local"]'),
   ).toBeVisible();
   await expect(
     page
@@ -801,12 +792,11 @@ test("legal y landings locales mantienen branding actualizado", async ({
   await expect(page.locator("body")).toContainText(/web fuengirola/i);
 
   await page.goto("/seo-local-fuengirola/");
+  await expect(page).toHaveURL(/\/servicios\/#seo-local$/);
   await expect(
     page.locator('a[aria-label="WF-Studio · Web Fuengirola"]').first(),
   ).toBeVisible();
-  await expect(page.locator("body")).toContainText(
-    /wf-studio crea una solución digital clara para negocios que necesitan visibilidad local en fuengirola/i,
-  );
+  await expect(page.locator("#seo-local")).toBeVisible();
 });
 
 test("las landings BOFU principales refuerzan modalidades y conversión", async ({
@@ -821,7 +811,8 @@ test("las landings BOFU principales refuerzan modalidades y conversión", async 
   ).toBeVisible();
 
   await page.goto("/seo-local-fuengirola/");
-  await expect(page.locator("h1")).toContainText(/SEO local en Fuengirola/i);
+  await expect(page).toHaveURL(/\/servicios\/#seo-local$/);
+  await expect(page.locator("#seo-local")).toContainText(/SEO local/i);
 
   await page.goto("/diseno-web-malaga/");
   await expect(page.locator("body")).toContainText(

@@ -160,7 +160,13 @@ test("sitemap incluye casos y excluye categorías de producto consolidadas", asy
   );
   expect(xml).toContain("https://webfuengirola.com/diseno-web-fuengirola/");
   expect(xml).toContain("https://webfuengirola.com/diseno-web-malaga/");
-  expect(xml).toContain("https://webfuengirola.com/seo-local-fuengirola/");
+  expect(xml).not.toContain("https://webfuengirola.com/seo-local-fuengirola/");
+  expect(xml).not.toContain(
+    "https://webfuengirola.com/precios-diseno-web-fuengirola/",
+  );
+  expect(xml).not.toContain(
+    "https://webfuengirola.com/automatizacion-ia-fuengirola/",
+  );
   expect(xml).toContain("https://webfuengirola.com/seo-local-malaga/");
   expect(xml).toContain("https://webfuengirola.com/publicidad-ia-fuengirola/");
   expect(xml).toContain("https://webfuengirola.com/publicidad-ia-malaga/");

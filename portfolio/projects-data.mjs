@@ -459,19 +459,20 @@ export const portfolioProjects = [
   },
   {
     slug: "hotel-bali-bhuana",
-    title: "Hotel sencillo · Bali Bhuana",
+    title: "Demo de diseño · Hotel sencillo (concepto Bali Bhuana)",
     client: "Demo de portfolio",
     brand: "Bali Bhuana",
     category: "Web Lite para alojamiento",
     description:
-      "Web ligera para presentar habitaciones, servicios, ubicación y contacto directo.",
+      "Demo conceptual de una web ligera para presentar habitaciones, servicios, ubicación y contacto directo; no es un proyecto contratado por el alojamiento.",
     longDescription:
       "Una propuesta de portfolio para enseñar cómo una web Lite puede resolver la presencia esencial de un alojamiento sin sobrecargar la experiencia.",
     image: "img/hotel-lite-bali-bhuana.jpg",
     ogImage: "https://webfuengirola.com/img/hotel-lite-bali-bhuana.jpg",
     imageWidth: 1108,
     imageHeight: 900,
-    imageAlt: "Vista completa de la propuesta Web Lite para Bali Bhuana",
+    imageAlt:
+      "Demo conceptual Web Lite inspirada en Bali Bhuana, no proyecto de cliente",
     ogAlt: "Propuesta de portfolio para un hotel sencillo",
     url: "https://bali-bhuana-villas.vercel.app/",
     urlLabel: "Ver demo",

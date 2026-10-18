@@ -6,6 +6,7 @@ import { services } from "../data/services-data.mjs";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "..");
+const editorialModified = "2026-10-18";
 const servicesDir = path.join(rootDir, "servicios");
 
 function ensureDir(dir) {
@@ -120,9 +121,10 @@ function renderFooter(
         <h4 class="footer__col-title">Servicios</h4>
         <ul class="footer__links">
           <li><a href="${prefix}servicios/diseno-web/">Diseño Web</a></li>
-          <li><a href="${prefix}servicios/seo-local/">SEO Local</a></li>
+          <li><a href="/servicios/#precios">Precios</a></li>
+          <li><a href="/servicios/#seo-local">SEO Local</a></li>
           <li><a href="${prefix}servicios/mantenimiento/">Mantenimiento</a></li>
-          <li><a href="${prefix}servicios/automatizacion/">Automatización e IA</a></li>
+          <li><a href="/servicios/#automatizacion-ia">Automatización e IA</a></li>
           <li><a href="${prefix}servicios/aplicaciones-web/">Apps a medida</a></li>
         </ul>
       </div>
@@ -193,6 +195,15 @@ function buildServiceHub() {
           areaServed: ["Fuengirola", "Costa del Sol", "España"],
         },
         {
+          "@type": "WebPage",
+          "@id": `${canonical}#page`,
+          url: canonical,
+          name: "Servicios web en Fuengirola",
+          inLanguage: "es",
+          dateModified: editorialModified,
+          about: { "@id": "https://webfuengirola.com/#organization" },
+        },
+        {
           "@type": "BreadcrumbList",
           itemListElement: [
             {
@@ -217,8 +228,8 @@ function buildServiceHub() {
   </script>`;
 
   const consolidatedHref = {
-    "seo-local": `${prefix}servicios/#seo-local`,
-    automatizacion: `${prefix}servicios/#automatizacion-ia`,
+    "seo-local": "/servicios/#seo-local",
+    automatizacion: "/servicios/#automatizacion-ia",
   };
   const serviceCards = services
     .map(

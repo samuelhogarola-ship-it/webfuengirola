@@ -90,3 +90,41 @@ test("obsolete product combinations redirect and stay out of the index", () => {
     );
   }
 });
+
+test("consolidated legacy service routes are noindex and absent from sitemap", () => {
+  const routes = {
+    "precios-diseno-web-fuengirola": "/servicios/#precios",
+    "seo-local-fuengirola": "/servicios/#seo-local",
+    "automatizacion-ia-fuengirola": "/servicios/#automatizacion-ia",
+    "en/web-design-prices-fuengirola": "/en/web-design-fuengirola/#precios",
+    "en/local-seo-fuengirola": "/en/web-design-fuengirola/#seo-local",
+    "en/automation-ai-fuengirola":
+      "/en/web-design-fuengirola/#automatizacion-ia",
+    "de/webdesign-preise-fuengirola": "/de/webdesign-fuengirola/#precios",
+    "de/lokales-seo-fuengirola": "/de/webdesign-fuengirola/#seo-local",
+    "de/automatisierung-ki-fuengirola":
+      "/de/webdesign-fuengirola/#automatizacion-ia",
+    "fi/verkkosivujen-hinnat-fuengirola": "/fi/verkkosivut-fuengirola/#precios",
+    "fi/paikallinen-seo-fuengirola": "/fi/verkkosivut-fuengirola/#seo-local",
+    "fi/automaatio-tekoaly-fuengirola":
+      "/fi/verkkosivut-fuengirola/#automatizacion-ia",
+  };
+  const sitemap = fs.readFileSync(path.join(root, "sitemap.xml"), "utf8");
+
+  for (const [route, destination] of Object.entries(routes)) {
+    const html = fs.readFileSync(path.join(root, route, "index.html"), "utf8");
+    assert.match(html, /content="noindex, follow/);
+    assert.match(
+      html,
+      new RegExp(
+        `<link rel="canonical" href="https://webfuengirola.com${destination.replaceAll("/", "\\/")}"`,
+      ),
+    );
+    assert.doesNotMatch(
+      sitemap,
+      new RegExp(
+        `<loc>https://webfuengirola.com/${route.replaceAll("/", "\\/")}/<\\/loc>`,
+      ),
+    );
+  }
+});

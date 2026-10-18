@@ -17,6 +17,12 @@ import {
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const localeCodes = Object.keys(locales);
+const editorialModified = "2026-10-18";
+const consolidatedServiceAnchors = {
+  prices: "precios",
+  seo: "seo-local",
+  automation: "automatizacion-ia",
+};
 
 function escapeHtml(value = "") {
   return String(value)
@@ -35,6 +41,12 @@ function routeFile(outputRoot, route) {
 
 function absolute(route) {
   return `${brand.site}${route}`;
+}
+
+function serviceHubRoute(locale, anchor) {
+  const hub =
+    locale === "es" ? "/servicios/" : getPageGroup("design").routes[locale];
+  return `${hub}#${anchor}`;
 }
 
 export function renderHreflang(groupKey) {
@@ -319,7 +331,7 @@ ${audit ? `<div class="contact-field"><label for="form-url">${label.url}</label>
 function renderRelated(group, locale) {
   const ui = locales[locale];
   const route = (key) => getPageGroup(key).routes[locale];
-  const pricesHref = locale === "es" ? "/servicios/#precios" : route("design");
+  const pricesHref = serviceHubRoute(locale, "precios");
   return `<div class="commercial-related">
     <a href="${route("audit")}" data-analytics-event="audit_click" data-analytics-locale="${locale}">${escapeHtml(ui.auditLabel)} →</a>
     <a href="${pricesHref}">${escapeHtml(ui.pricesLabel)} →</a>
@@ -331,10 +343,9 @@ function renderFooter(locale) {
   const ui = locales[locale];
   const route = (key) => getPageGroup(key).routes[locale];
   const servicesHref = locale === "es" ? "/servicios/" : route("design");
-  const pricesHref = locale === "es" ? "/servicios/#precios" : servicesHref;
-  const seoHref = locale === "es" ? "/servicios/#seo-local" : servicesHref;
-  const automationHref =
-    locale === "es" ? "/servicios/#automatizacion-ia" : servicesHref;
+  const pricesHref = serviceHubRoute(locale, "precios");
+  const seoHref = serviceHubRoute(locale, "seo-local");
+  const automationHref = serviceHubRoute(locale, "automatizacion-ia");
   const legalAnchor =
     locale === "es"
       ? { notice: "aviso-legal", privacy: "privacidad" }
@@ -381,6 +392,10 @@ function renderJsonLd(group, locale) {
           description: content.description,
           inLanguage: locale,
           about: { "@id": `${brand.site}/#organization` },
+          ...((group.key === "design" && locale !== "es") ||
+          (group.key === "cases" && locale === "es")
+            ? { dateModified: editorialModified }
+            : {}),
         },
         ...(group.key === "home" && locale === "es" ? [] : [faq]),
       ],
@@ -498,7 +513,70 @@ function renderDemos(group, locale) {
       .join("")}</div></div></section>`;
 }
 
+function renderConsolidatedServices(locale) {
+  if (locale === "es") return "";
+  const copy = {
+    en: {
+      label: "Services",
+      title: "Local visibility and automation in one service hub",
+      seoTitle: "Local SEO",
+      seoText:
+        "We align the website, local content and Google signals so nearby customers can find and understand the business.",
+      automationTitle: "Automation and AI",
+      automationText:
+        "We connect forms, enquiries and repetitive workflows so the website saves time as well as attracting customers.",
+    },
+    de: {
+      label: "Leistungen",
+      title: "Lokale Sichtbarkeit und Automatisierung in einem Leistungs-Hub",
+      seoTitle: "Lokales SEO",
+      seoText:
+        "Wir stimmen Website, lokale Inhalte und Google-Signale ab, damit Kunden in der Nähe das Unternehmen finden und verstehen.",
+      automationTitle: "Automatisierung und KI",
+      automationText:
+        "Wir verbinden Formulare, Anfragen und wiederkehrende Abläufe, damit die Website neben Kundengewinnung auch Zeit spart.",
+    },
+    fi: {
+      label: "Palvelut",
+      title:
+        "Paikallinen näkyvyys ja automaatio samassa palvelukokonaisuudessa",
+      seoTitle: "Paikallinen SEO",
+      seoText:
+        "Yhdistämme verkkosivun, paikallisen sisällön ja Google-signaalit, jotta lähialueen asiakkaat löytävät ja ymmärtävät yrityksen.",
+      automationTitle: "Automaatio ja tekoäly",
+      automationText:
+        "Yhdistämme lomakkeet, yhteydenotot ja toistuvat työnkulut, jotta sivusto säästää aikaa asiakkaiden hankinnan lisäksi.",
+    },
+  }[locale];
+  return `<section class="section commercial-section--warm" aria-labelledby="consolidated-services-title"><div class="container"><span class="section-label">${escapeHtml(copy.label)}</span><h2 id="consolidated-services-title">${escapeHtml(copy.title)}</h2><div class="commercial-card-grid"><article class="commercial-card" id="seo-local"><h3>${escapeHtml(copy.seoTitle)}</h3><p>${escapeHtml(copy.seoText)}</p></article><article class="commercial-card" id="automatizacion-ia"><h3>${escapeHtml(copy.automationTitle)}</h3><p>${escapeHtml(copy.automationText)}</p></article></div></div></section>`;
+}
+
+function renderConsolidatedRedirect(group, locale) {
+  const content = group.content[locale];
+  const targetPath = serviceHubRoute(
+    locale,
+    consolidatedServiceAnchors[group.key],
+  );
+  const canonical = absolute(targetPath);
+  return `<!doctype html>
+<html lang="${locales[locale].htmlLang}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${escapeHtml(content.title)} | Redirect</title>
+  <meta name="description" content="${escapeHtml(content.description)}" />
+  <meta name="robots" content="noindex, follow, max-image-preview:large" />
+  <link rel="canonical" href="${canonical}" />
+  <meta http-equiv="refresh" content="0; url=${targetPath}" />
+</head>
+<body><main><h1>${escapeHtml(content.h1)}</h1><p><a href="${targetPath}">${escapeHtml(locales[locale].servicesLabel)}</a></p></main></body>
+</html>`;
+}
+
 export function renderCommercialPage(group, locale) {
+  if (consolidatedServiceAnchors[group.key]) {
+    return renderConsolidatedRedirect(group, locale);
+  }
   const content = group.content[locale];
   const ui = locales[locale];
   const canonical = absolute(group.routes[locale]);
@@ -545,7 +623,8 @@ ${renderHeader(group, locale)}
 ${showForm || group.kind === "cases" ? "" : `<section class="section"><div class="container"><span class="section-label">${escapeHtml(ui.problemsLabel)}</span><h2>${escapeHtml(ui.problemsLabel)} ${escapeHtml(ui.localContextLabel)}</h2>${renderCards(content.problems)}</div></section>`}
 ${showForm || group.kind === "cases" ? "" : `<section class="section commercial-section--warm"><div class="container"><span class="section-label">${escapeHtml(ui.benefitsLabel)}</span><h2>${escapeHtml(ui.benefitsLabel)}</h2>${renderCards(content.benefits)}${renderCases(group, locale)}</div></section>`}
 ${group.kind === "cases" ? `<section class="section portfolio"><div class="container">${renderCases(group, locale)}</div></section>` : ""}
-${showTiers ? `<section class="section" id="modalidades"><div class="container"><span class="section-label">Lite · Express · Profesional</span><h2>${escapeHtml(ui.tiersLabel)}</h2>${renderTierCards(group, locale)}</div></section><section class="section commercial-section--warm"><div class="container"><span class="section-label">${escapeHtml(ui.extrasLabel)}</span><h2>${escapeHtml(ui.extrasLabel)}</h2>${renderExtras(locale)}</div></section>` : ""}
+${showTiers ? `<section class="section" id="${group.key === "design" && locale !== "es" ? "precios" : "modalidades"}"><div class="container"><span class="section-label">Lite · Express · Profesional</span><h2>${escapeHtml(ui.tiersLabel)}</h2>${renderTierCards(group, locale)}</div></section><section class="section commercial-section--warm"><div class="container"><span class="section-label">${escapeHtml(ui.extrasLabel)}</span><h2>${escapeHtml(ui.extrasLabel)}</h2>${renderExtras(locale)}</div></section>` : ""}
+${group.key === "design" ? renderConsolidatedServices(locale) : ""}
 ${renderDemos(group, locale)}
 ${renderForm(group, locale)}
   <section class="section"><div class="container"><span class="section-label">${escapeHtml(ui.faqLabel)}</span><h2>${escapeHtml(ui.faqLabel)} · Fuengirola</h2>${renderFaqs(content)}<div class="commercial-related-wrap"><h2>${escapeHtml(ui.relatedLabel)}</h2>${renderRelated(group, locale)}</div></div></section>
