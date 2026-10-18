@@ -112,8 +112,8 @@ test("las categorías de producto antiguas redirigen a la oferta vigente", async
   page,
 }) => {
   const redirects = {
-    "lite-blog-wordpress": "/precios-diseno-web-fuengirola/",
-    "express-300-blog-wordpress": "/precios-diseno-web-fuengirola/",
+    "lite-blog-wordpress": "/servicios/#precios",
+    "express-300-blog-wordpress": "/servicios/#precios",
     "web-personalizada": "/diseno-web-fuengirola/",
     "express-migracion-optimizacion-formularios": "/diseno-web-fuengirola/",
     "personalizada-webapp": "/servicios/aplicaciones-web/",
@@ -122,7 +122,9 @@ test("las categorías de producto antiguas redirigen a la oferta vigente", async
 
   for (const [categorySlug, destination] of Object.entries(redirects)) {
     await page.goto(`/productos/${categorySlug}/`);
-    await expect(page).toHaveURL(new RegExp(`${destination.replaceAll("/", "\\/")}$`));
+    await expect(page).toHaveURL(
+      new RegExp(`${destination.replaceAll("/", "\\/")}$`),
+    );
   }
 });
 
@@ -158,7 +160,13 @@ test("sitemap incluye casos y excluye categorías de producto consolidadas", asy
   );
   expect(xml).toContain("https://webfuengirola.com/diseno-web-fuengirola/");
   expect(xml).toContain("https://webfuengirola.com/diseno-web-malaga/");
-  expect(xml).toContain("https://webfuengirola.com/seo-local-fuengirola/");
+  expect(xml).not.toContain("https://webfuengirola.com/seo-local-fuengirola/");
+  expect(xml).not.toContain(
+    "https://webfuengirola.com/precios-diseno-web-fuengirola/",
+  );
+  expect(xml).not.toContain(
+    "https://webfuengirola.com/automatizacion-ia-fuengirola/",
+  );
   expect(xml).toContain("https://webfuengirola.com/seo-local-malaga/");
   expect(xml).toContain("https://webfuengirola.com/publicidad-ia-fuengirola/");
   expect(xml).toContain("https://webfuengirola.com/publicidad-ia-malaga/");

@@ -5,7 +5,6 @@ import {
   portfolioProjects,
   productCategories,
 } from "../portfolio/projects-data.mjs";
-import { services } from "../data/services-data.mjs";
 import { cases } from "../data/cases-data.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -13,7 +12,6 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "..");
 const portfolioDir = path.join(rootDir, "portfolio");
 const productsDir = path.join(rootDir, "productos");
-const today = new Date().toISOString().slice(0, 10);
 const productCategoryMap = new Map(
   productCategories.map((category) => [category.slug, category]),
 );
@@ -25,8 +23,8 @@ const legacyPortfolioFallbackMap = new Map([
   ["der-die-das-vokabellab", "vokabellab"],
 ]);
 const productRedirects = new Map([
-  ["lite-blog-wordpress", "/precios-diseno-web-fuengirola/"],
-  ["express-300-blog-wordpress", "/precios-diseno-web-fuengirola/"],
+  ["lite-blog-wordpress", "/servicios/#precios"],
+  ["express-300-blog-wordpress", "/servicios/#precios"],
   ["web-personalizada", "/diseno-web-fuengirola/"],
   ["express-migracion-optimizacion-formularios", "/diseno-web-fuengirola/"],
   ["personalizada-webapp", "/servicios/aplicaciones-web/"],
@@ -396,7 +394,7 @@ function renderDetailPage(project) {
  */
 function renderProductCategoryPage(category) {
   const targetPath =
-    productRedirects.get(category.slug) ?? "/precios-diseno-web-fuengirola/";
+    productRedirects.get(category.slug) ?? "/servicios/#precios";
 
   return renderLegacyRedirectPage({
     title: `${category.seoTitle} | Redirección`,
@@ -409,51 +407,7 @@ function renderProductCategoryPage(category) {
 }
 
 /**
- * Renders the XML sitemap for the current static output.
- * @returns {string}
- */
-function renderSitemap() {
-  const indexableServices = services.filter((service) => service.bodyHtml);
-  const indexableResourceUrls = [
-    "https://webfuengirola.com/recursos/herramientas/",
-    "https://webfuengirola.com/recursos/guias/",
-    "https://webfuengirola.com/recursos/checklists/",
-  ];
-  const blogUrls = [
-    "https://webfuengirola.com/blog/",
-    "https://webfuengirola.com/blog/por-que-crear-una-web-en-2026/",
-    "https://webfuengirola.com/blog/sabias-que-cada-vez-mas-gente-usa-ia-para-encontrar-un-servicio/",
-  ];
-  const urls = [
-    { loc: "https://webfuengirola.com/", lastmod: today },
-    { loc: "https://webfuengirola.com/legal.html", lastmod: today },
-    { loc: "https://webfuengirola.com/servicios/", lastmod: today },
-    ...indexableServices.map((s) => ({
-      loc: `https://webfuengirola.com/servicios/${s.slug}/`,
-      lastmod: today,
-    })),
-    { loc: "https://webfuengirola.com/casos/", lastmod: today },
-    ...cases.map((c) => ({
-      loc: `https://webfuengirola.com/casos/${c.slug}/`,
-      lastmod: today,
-    })),
-    ...blogUrls.map((loc) => ({ loc, lastmod: today })),
-    { loc: "https://webfuengirola.com/recursos/", lastmod: today },
-    ...indexableResourceUrls.map((loc) => ({ loc, lastmod: today })),
-    { loc: "https://webfuengirola.com/sobre-nosotros/", lastmod: today },
-    { loc: "https://webfuengirola.com/como-trabajamos/", lastmod: today },
-    { loc: "https://webfuengirola.com/contacto/", lastmod: today },
-  ];
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((entry) => `  <url>\n    <loc>${entry.loc}</loc>\n    <lastmod>${entry.lastmod}</lastmod>\n  </url>`).join("\n")}
-</urlset>
-`;
-}
-
-/**
- * Builds the generated portfolio, product pages, and sitemap files.
+ * Builds the generated portfolio and product pages.
  */
 function build() {
   ensureDir(portfolioDir);
@@ -491,8 +445,6 @@ function build() {
       "utf8",
     );
   }
-
-  fs.writeFileSync(path.join(rootDir, "sitemap.xml"), renderSitemap(), "utf8");
 }
 
 build();

@@ -43,12 +43,23 @@ test("an audit requires URL, sector, location, consent and anti-spam token", () 
   assert.deepEqual(validate(validAudit, "audit", "en"), { ok: true });
 });
 
+test("allows an audit without a token when the server disables Turnstile", () => {
+  const auditWithoutToken = { ...validAudit, token: "" };
+  assert.deepEqual(
+    validate(auditWithoutToken, "audit", "es", { requireToken: false }),
+    { ok: true },
+  );
+});
+
 test("composes audit details into the compatible message payload", () => {
   assert.equal(
     composeMessage(validAudit, "audit"),
     "[Website audit] URL: https://example.com | Sector: Restaurante | Location: Fuengirola | Problem: La web no recibe reservas directas.",
   );
-  assert.equal(composeMessage({ message: "Necesito una web" }, "contact"), "Necesito una web");
+  assert.equal(
+    composeMessage({ message: "Necesito una web" }, "contact"),
+    "Necesito una web",
+  );
 });
 
 test("uses stable analytics event names", () => {

@@ -71,10 +71,12 @@ for (const file of htmlFiles()) {
   const modified = html.match(
     /"dateModified"\s*:\s*"(\d{4}-\d{2}-\d{2})"/,
   )?.[1];
+  const previous = previousLastmod.get(canonical);
+  const validModified = modified && modified <= today ? modified : undefined;
   const lastmod =
-    modified && modified <= today
-      ? modified
-      : (previousLastmod.get(canonical) ?? today);
+    validModified && (!previous || validModified > previous)
+      ? validModified
+      : (previous ?? validModified ?? today);
   entries.set(canonical, { loc: canonical, lastmod });
 }
 

@@ -3,8 +3,14 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
-import { brand, getPageGroup, legalRoutes, pageGroups } from "../data/commercial-pages-data.mjs";
+import {
+  brand,
+  getPageGroup,
+  legalRoutes,
+  pageGroups,
+} from "../data/commercial-pages-data.mjs";
 import {
   generateCommercialPages,
   renderCommercialPage,
@@ -17,7 +23,7 @@ function htmlFile(outputRoot, route) {
     ? path.join(outputRoot, "index.html")
     : route.endsWith(".html")
       ? path.join(outputRoot, route.slice(1))
-    : path.join(outputRoot, route.slice(1), "index.html");
+      : path.join(outputRoot, route.slice(1), "index.html");
 }
 
 test("a commercial page renders the complete multilingual SEO contract", () => {
@@ -26,11 +32,19 @@ test("a commercial page renders the complete multilingual SEO contract", () => {
 
   assert.match(html, /<html lang="en">/);
   assert.match(html, /<h1[^>]*>[^<]*Fuengirola[^<]*<\/h1>/);
-  assert.match(html, new RegExp(`<link rel="canonical" href="${brand.site}/en/websites-for-clinics-fuengirola/"`));
+  assert.match(
+    html,
+    new RegExp(
+      `<link rel="canonical" href="${brand.site}/en/websites-for-clinics-fuengirola/"`,
+    ),
+  );
   for (const locale of localeCodes) {
     assert.match(html, new RegExp(`hreflang="${locale}"`));
   }
-  assert.match(html, /hreflang="x-default" href="https:\/\/webfuengirola\.com\/web-para-clinicas-fuengirola\/"/);
+  assert.match(
+    html,
+    /hreflang="x-default" href="https:\/\/webfuengirola\.com\/web-para-clinicas-fuengirola\/"/,
+  );
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
   assert.match(html, /WF-Studio · Web Fuengirola/);
   assert.match(html, /"alternateName": "Web Fuengirola"/);
@@ -53,6 +67,7 @@ test("the generator writes every route and keeps language switches equivalent", 
       const file = htmlFile(outputRoot, group.routes[locale]);
       assert.ok(fs.existsSync(file), `${group.key}:${locale}`);
       const html = fs.readFileSync(file, "utf8");
+      if (["prices", "seo", "automation"].includes(group.key)) continue;
       for (const alternate of Object.values(group.routes)) {
         assert.match(html, new RegExp(`href="${brand.site}${alternate}"`));
       }
@@ -65,10 +80,18 @@ test("sector pages have distinct content while sharing tier prices", () => {
   for (const locale of localeCodes) {
     const h1s = sectorGroups.map((group) => group.content[locale].h1);
     const intros = sectorGroups.map((group) => group.content[locale].intro);
-    const problems = sectorGroups.map((group) => group.content[locale].problems.join("|"));
-    const benefits = sectorGroups.map((group) => group.content[locale].benefits.join("|"));
-    const tierUses = sectorGroups.map((group) => group.content[locale].tierUses.join("|"));
-    const faqs = sectorGroups.map((group) => group.content[locale].faqs.flat().join("|"));
+    const problems = sectorGroups.map((group) =>
+      group.content[locale].problems.join("|"),
+    );
+    const benefits = sectorGroups.map((group) =>
+      group.content[locale].benefits.join("|"),
+    );
+    const tierUses = sectorGroups.map((group) =>
+      group.content[locale].tierUses.join("|"),
+    );
+    const faqs = sectorGroups.map((group) =>
+      group.content[locale].faqs.flat().join("|"),
+    );
     assert.equal(new Set(h1s).size, sectorGroups.length);
     assert.equal(new Set(intros).size, sectorGroups.length);
     assert.equal(new Set(problems).size, sectorGroups.length);
@@ -79,7 +102,9 @@ test("sector pages have distinct content while sharing tier prices", () => {
     for (const group of sectorGroups) {
       const html = renderCommercialPage(group, locale);
       assert.deepEqual(
-        [...html.matchAll(/data-tier-price="(\d+)"/g)].map((match) => Number(match[1])),
+        [...html.matchAll(/data-tier-price="(\d+)"/g)].map((match) =>
+          Number(match[1]),
+        ),
         [200, 350, 600],
       );
     }
@@ -87,33 +112,123 @@ test("sector pages have distinct content while sharing tier prices", () => {
 });
 
 test("sector pages answer sector-specific decisions instead of keyword substitution", () => {
-  assert.match(getPageGroup("clinics").content.en.faqs[0][0], /healthcare information/);
-  assert.match(getPageGroup("restaurants").content.en.faqs[0][0], /direct booking/);
-  assert.match(getPageGroup("gyms").content.de.problems.join(" "), /Kurse|Kursplan/);
-  assert.match(getPageGroup("multilingual").content.fi.benefits.join(" "), /kiel|URL/i);
+  assert.match(
+    getPageGroup("clinics").content.en.faqs[0][0],
+    /healthcare information/,
+  );
+  assert.match(
+    getPageGroup("restaurants").content.en.faqs[0][0],
+    /direct booking/,
+  );
+  assert.match(
+    getPageGroup("gyms").content.de.problems.join(" "),
+    /Kurse|Kursplan/,
+  );
+  assert.match(
+    getPageGroup("multilingual").content.fi.benefits.join(" "),
+    /kiel|URL/i,
+  );
 });
 
 test("localized legal pages are generated with equivalent language links", () => {
   const outputRoot = fs.mkdtempSync(path.join(os.tmpdir(), "wf-legal-"));
   generateCommercialPages(outputRoot);
   for (const locale of ["en", "de", "fi"]) {
-    const html = fs.readFileSync(htmlFile(outputRoot, legalRoutes[locale]), "utf8");
+    const html = fs.readFileSync(
+      htmlFile(outputRoot, legalRoutes[locale]),
+      "utf8",
+    );
     assert.match(html, new RegExp(`<html lang="${locale}">`));
-    assert.match(html, new RegExp(`<link rel="canonical" href="${brand.site}${legalRoutes[locale]}"`));
+    assert.match(
+      html,
+      new RegExp(
+        `<link rel="canonical" href="${brand.site}${legalRoutes[locale]}"`,
+      ),
+    );
     assert.match(html, /hreflang="es"/);
     assert.match(html, /id="privacy"/);
     assert.match(html, /id="cookies"/);
   }
 });
 
-test("commercial navigation is localized, mobile-ready and complete", () => {
+test("commercial navigation is localized, mobile-ready and consolidated", () => {
   const html = renderCommercialPage(getPageGroup("restaurants"), "en");
   assert.match(html, /href="\/en\/case-studies\/"/);
-  assert.match(html, /href="\/en\/web-applications-fuengirola\/"/);
-  assert.match(html, /href="\/en\/automation-ai-fuengirola\/"/);
+  assert.match(html, /href="\/en\/web-design-fuengirola\/"[^>]*>Services</);
+  assert.doesNotMatch(html, /href="\/en\/web-applications-fuengirola\/"/);
+  assert.doesNotMatch(html, /href="\/en\/automation-ai-fuengirola\/"/);
   assert.match(html, /<details class="language-menu">/);
   assert.match(html, /data-analytics-event="language_switch"/);
   assert.match(html, /data-sector="restaurants"/);
   assert.match(html, /href="\/en\/legal\/#privacy/);
   assert.match(html, /data-cookie-preferences-link/);
+});
+
+test("legacy prices, SEO and automation pages redirect to localized service anchors", () => {
+  const expectedDestinations = {
+    es: {
+      prices: "/servicios/#precios",
+      seo: "/servicios/#seo-local",
+      automation: "/servicios/#automatizacion-ia",
+    },
+    en: {
+      prices: "/en/web-design-fuengirola/#precios",
+      seo: "/en/web-design-fuengirola/#seo-local",
+      automation: "/en/web-design-fuengirola/#automatizacion-ia",
+    },
+    de: {
+      prices: "/de/webdesign-fuengirola/#precios",
+      seo: "/de/webdesign-fuengirola/#seo-local",
+      automation: "/de/webdesign-fuengirola/#automatizacion-ia",
+    },
+    fi: {
+      prices: "/fi/verkkosivut-fuengirola/#precios",
+      seo: "/fi/verkkosivut-fuengirola/#seo-local",
+      automation: "/fi/verkkosivut-fuengirola/#automatizacion-ia",
+    },
+  };
+
+  for (const [locale, destinations] of Object.entries(expectedDestinations)) {
+    for (const [groupKey, destination] of Object.entries(destinations)) {
+      const html = renderCommercialPage(getPageGroup(groupKey), locale);
+      assert.match(html, /content="noindex, follow/);
+      assert.match(
+        html,
+        new RegExp(
+          `<link rel="canonical" href="${brand.site}${destination.replaceAll("/", "\\/")}"`,
+        ),
+      );
+      assert.match(
+        html,
+        new RegExp(
+          `http-equiv="refresh" content="0; url=${destination.replaceAll("/", "\\/")}"`,
+        ),
+      );
+    }
+  }
+});
+
+test("localized service hubs expose direct prices, SEO and automation anchors", () => {
+  const spanishHub = fs.readFileSync(
+    path.join(
+      path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."),
+      "servicios/index.html",
+    ),
+    "utf8",
+  );
+  for (const anchor of ["precios", "seo-local", "automatizacion-ia"]) {
+    assert.match(spanishHub, new RegExp(`id="${anchor}"`));
+    assert.match(spanishHub, new RegExp(`href="/servicios/#${anchor}"`));
+  }
+
+  for (const locale of ["en", "de", "fi"]) {
+    const html = renderCommercialPage(getPageGroup("design"), locale);
+    const hub =
+      locale === "es" ? "/servicios/" : getPageGroup("design").routes[locale];
+
+    for (const anchor of ["precios", "seo-local", "automatizacion-ia"]) {
+      assert.match(html, new RegExp(`id="${anchor}"`));
+      assert.match(html, new RegExp(`href="${hub}#${anchor}"`));
+    }
+  }
 });

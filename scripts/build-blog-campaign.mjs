@@ -1441,7 +1441,6 @@ function buildIndex() {
       <div class="container">
         <div class="section-header">
           <span class="section-label">Plan editorial</span>
-          <h2 class="section-title">14 artículos nuevos para atacar dudas de negocio local</h2>
           <p class="section-sub">Una tanda publicada artículo a artículo para responder búsquedas concretas y conectar cada tema con una decisión real del negocio.</p>
         </div>
 
@@ -1459,7 +1458,7 @@ ${allCards}
             <a href="../servicios/diseno-web/" class="services-routes__link">Servicio de diseño web</a>
             <a href="../servicios/seo-local/" class="services-routes__link">Servicio de SEO local</a>
             <a href="../diseno-web-fuengirola/" class="services-routes__link">Diseño web en Fuengirola</a>
-            <a href="../seo-local-fuengirola/" class="services-routes__link">SEO local en Fuengirola</a>
+            <a href="../servicios/#seo-local" class="services-routes__link">SEO local en Fuengirola</a>
             <a href="../diseno-web-malaga/" class="services-routes__link">Diseño web en Málaga</a>
             <a href="../seo-local-malaga/" class="services-routes__link">SEO local en Málaga</a>
           </div>

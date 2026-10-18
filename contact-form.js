@@ -77,7 +77,8 @@
       requestedPlan = "";
     }
     var requestedSector = query.get("sector") || "";
-    if (!/^[a-z][a-zA-Z0-9-]{0,39}$/.test(requestedSector)) requestedSector = "";
+    if (!/^[a-z][a-zA-Z0-9-]{0,39}$/.test(requestedSector))
+      requestedSector = "";
     var pageSector = requestedSector || document.body.dataset.sector || "";
     var copy = core.localeMessages(locale);
     var submitBtn = form.querySelector("[data-contact-submit]");
@@ -85,6 +86,7 @@
     var turnstileSlot = form.querySelector("[data-turnstile]");
     var honeypot = form.querySelector('input[name="website"]');
     var turnstileWidgetId = null;
+    var turnstileRequired = true;
     var hasTrackedStart = false;
 
     function track(stage) {
@@ -104,11 +106,7 @@
     });
 
     function showUnavailable() {
-      setStatus(
-        statusNode,
-        copy.unavailable,
-        "error",
-      );
+      setStatus(statusNode, copy.unavailable, "error");
       if (submitBtn) submitBtn.disabled = true;
     }
 
@@ -120,6 +118,11 @@
         return response.json();
       })
       .then(function (config) {
+        if (config && config.turnstileEnabled === false) {
+          turnstileRequired = false;
+          if (turnstileSlot) turnstileSlot.hidden = true;
+          return;
+        }
         if (!config || !config.turnstileSiteKey) {
           throw new Error("turnstile");
         }
@@ -176,7 +179,9 @@
         return;
       }
 
-      var validation = core.validate(formValues, formKind, locale);
+      var validation = core.validate(formValues, formKind, locale, {
+        requireToken: turnstileRequired,
+      });
       if (!validation.ok) {
         setStatus(statusNode, validation.message, "error");
         track("error");

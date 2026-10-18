@@ -294,7 +294,7 @@ export const services = [
           <p style="color:var(--color-text-muted); line-height:1.75; margin-top:1rem">Esta página sirve para entender el servicio general. Si ya vienes con una ciudad o una búsqueda local cerrada, aquí tienes las rutas más útiles para entrar por intención exacta.</p>
         </div>
         <div class="services-routes__grid" style="justify-content:flex-start">
-          <a href="../../seo-local-fuengirola/" class="services-routes__link">SEO local en Fuengirola</a>
+          <a href="../../servicios/#seo-local" class="services-routes__link">SEO local en Fuengirola</a>
           <a href="../../seo-local-malaga/" class="services-routes__link">SEO local en Málaga</a>
           <a href="../../blog/como-salir-en-google-maps-en-fuengirola-y-malaga/" class="services-routes__link">Guía para Google Maps</a>
           <a href="../../recursos/checklists/" class="services-routes__link">Checklist SEO local</a>
