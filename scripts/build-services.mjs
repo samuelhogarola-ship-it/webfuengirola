@@ -75,7 +75,6 @@ function renderHeader(prefix, activePage) {
     { href: "servicios/", label: "Servicios", key: "services" },
     { href: "casos/", label: "Portfolio", key: "casos" },
     { href: "blog/", label: "Blog", key: "blog" },
-    { href: "recursos/", label: "Recursos", key: "recursos" },
     { href: "sobre-nosotros/", label: "Sobre nosotros", key: "sobre" },
   ];
 
@@ -134,7 +133,6 @@ function renderFooter(
           <li><a href="${prefix}sobre-nosotros/">Sobre nosotros</a></li>
           <li><a href="${prefix}como-trabajamos/">Cómo trabajamos</a></li>
           <li><a href="${prefix}casos/">Portfolio</a></li>
-          <li><a href="${prefix}recursos/">Recursos</a></li>
         </ul>
       </div>
       <div class="footer__col">

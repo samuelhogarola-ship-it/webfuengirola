@@ -174,26 +174,6 @@ test("contacto refuerza enfoque local y vías de contacto", async ({ page }) => 
   await expect(page.getByRole("link", { name: /whatsapp/i })).toBeVisible();
 });
 
-test("calculadora de precios orienta sin etiquetas de próximamente", async ({
-  page,
-}) => {
-  await page.goto("/recursos/");
-
-  await expect(page).toHaveTitle(/calculadora de precios web/i);
-  await expect(page.locator("h1")).toBeVisible();
-  await expect(page.locator("h1")).toContainText(
-    /calcula qué web necesita tu negocio/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /le metes contenido real a la decisión/i,
-  );
-  await expect(page.getByText(/calculadora de precios/i).first()).toBeVisible();
-  await expect(
-    page.getByRole("link", { name: /casos de éxito/i }).first(),
-  ).toBeVisible();
-  await expect(page.locator("body")).not.toContainText(/próximamente/i);
-});
-
 test("servicios legacy consolida hacia la ruta canónica", async () => {
   const legacyHtml = fs.readFileSync(
     path.join(process.cwd(), "servicios.html"),
@@ -321,7 +301,7 @@ test("sitemap público solo expone rutas indexables y actuales", async ({
   expect(xml).toContain("https://webfuengirola.com/servicios/");
   expect(xml).toContain("https://webfuengirola.com/casos/");
   expect(xml).toContain("https://webfuengirola.com/blog/");
-  expect(xml).toContain("https://webfuengirola.com/recursos/");
+  expect(xml).not.toContain("https://webfuengirola.com/recursos/");
   expect(xml).toContain("https://webfuengirola.com/contacto/");
   expect(xml).toContain("https://webfuengirola.com/como-trabajamos/");
 
@@ -480,7 +460,7 @@ test("sobre nosotros y como trabajamos mantienen branding y confianza claros", a
   );
 });
 
-test("sobre nosotros permite saltar al contenido y marca la navegación actual", async ({
+test("sobre nosotros permite saltar al contenido y conserva la navegación común", async ({
   page,
 }) => {
   await page.goto("/sobre-nosotros/");
@@ -491,8 +471,8 @@ test("sobre nosotros permite saltar al contenido y marca la navegación actual",
   await skipLink.click();
   await expect(page.locator("#main-content")).toBeFocused();
   await expect(
-    page.locator('.nav__link[href="../sobre-nosotros/"]'),
-  ).toHaveAttribute("aria-current", "page");
+    page.locator('.nav__link[href="https://portal.webfuengirola.com/cliente"]'),
+  ).toHaveText("Área cliente");
 });
 
 test("sobre nosotros mantiene una composición legible en móvil", async ({
@@ -666,7 +646,7 @@ test("sobre nosotros demuestra experiencia con casos visuales reales", async ({
   await expect(caseLinks).toHaveCount(3);
 });
 
-test("casos, recursos y blog mantienen branding público consistente", async ({
+test("casos y blog mantienen branding público consistente", async ({
   page,
 }) => {
   await page.goto("/casos/");
@@ -679,22 +659,6 @@ test("casos, recursos y blog mantienen branding público consistente", async ({
   await expect(page.locator("body")).toContainText(/sport massage fuengirola/i);
   await expect(
     page.getByRole("link", { name: /pedir presupuesto/i }).first(),
-  ).toBeVisible();
-
-  await page.goto("/recursos/");
-  await expect(page).toHaveTitle(/calculadora de precios web.*web fuengirola/i);
-  await expect(page.locator("h1")).toBeVisible();
-  await expect(page.locator("h1")).toContainText(
-    /calcula qué web necesita tu negocio/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /si vas a trabajar seo, si te hace falta mantenimiento y qué nivel de seguimiento encaja con tu negocio/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /la calculadora es para decidir mejor\. cuando ya sabes qué te encaja, lo útil es ir al servicio o ver casos parecidos al tuyo/i,
-  );
-  await expect(
-    page.getByRole("link", { name: /diseño web/i }).first(),
   ).toBeVisible();
 
   await page.goto("/blog/");
@@ -736,14 +700,6 @@ test("el interior profundo mantiene la marca actualizada", async ({ page }) => {
       .locator('img[alt*="caso de éxito de WF-Studio · Web Fuengirola"]')
       .first(),
   ).toBeVisible();
-
-  await page.goto("/recursos/herramientas/");
-  await expect(page).toHaveTitle(
-    /herramientas gratuitas para negocios.*web fuengirola/i,
-  );
-  await expect(page.locator("body")).toContainText(
-    /webs, seo local y automatización para negocios locales en la costa del sol/i,
-  );
 
   await page.goto("/blog/por-que-crear-una-web-en-2026/");
   await expect(page.locator("body")).not.toContainText(

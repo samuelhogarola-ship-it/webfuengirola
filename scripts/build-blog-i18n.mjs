@@ -586,7 +586,6 @@ function nav(lang, depth = 2) {
           <li><a href="${route("design")}" class="nav__link">${copy.services}</a></li>
           <li><a href="${prefix}casos/" class="nav__link">${copy.cases}</a></li>
           <li><a href="${localeMeta[lang].blogPath}" class="nav__link nav__link--active">${copy.blog}</a></li>
-          <li><a href="${route("design")}#precios" class="nav__link">${copy.calculator}</a></li>
         </ul>
       </nav>
       <a href="${route("contact")}" class="btn btn--primary header__cta" data-analytics-event="quote_click" data-analytics-locale="${lang}">${copy.cta}</a>

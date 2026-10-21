@@ -14,6 +14,7 @@ import {
   pageGroups,
   tiers,
 } from "../data/commercial-pages-data.mjs";
+import { normalizeSiteHeader, renderSiteHeader } from "./site-navigation.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const localeCodes = Object.keys(locales);
@@ -80,27 +81,11 @@ function renderLanguageSelector(group, locale) {
 }
 
 function renderHeader(group, locale) {
-  const ui = locales[locale];
-  const route = (key) => getPageGroup(key).routes[locale];
-  const blogRoute = locale === "es" ? "/blog/" : `/${locale}/blog/`;
-  return `<header class="header" id="header">
-    <div class="container header__inner commercial-header__inner">
-      <a href="${route("home")}" class="logo commercial-logo" aria-label="${brand.displayName}">
-        <img src="/img/logo-wf.webp" alt="WF-Studio" class="logo__img" width="36" height="36" loading="eager" />
-        <span><strong>WF-Studio</strong><small>Web Fuengirola</small></span>
-      </a>
-      <nav class="nav" id="nav" aria-label="${escapeHtml(ui.servicesLabel)}">
-        <ul class="nav__list">
-          <li><a href="${locale === "es" ? "/servicios/" : route("design")}" class="nav__link">${escapeHtml(ui.servicesLabel)}</a></li>
-          <li><a href="${route("cases")}" class="nav__link">${escapeHtml(ui.casesLabel)}</a></li>
-          <li><a href="${blogRoute}" class="nav__link">${escapeHtml(ui.blogLabel)}</a></li>
-        </ul>
-      </nav>
-      ${renderLanguageSelector(group, locale)}
-      <a href="${route("contact")}?sector=${group.key}" class="btn btn--primary header__cta" data-analytics-event="quote_click" data-analytics-sector="${group.key}" data-analytics-locale="${locale}">${escapeHtml(ui.quoteLabel)}</a>
-      <button type="button" class="hamburger" id="hamburger" aria-label="${locale === "es" ? "Abrir menú" : "Menu"}" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
-    </div>
-  </header>`;
+  return renderSiteHeader({
+    locale,
+    pathname: group.routes[locale],
+    languageMenu: renderLanguageSelector(group, locale),
+  });
 }
 
 function renderBreadcrumbs(group, locale) {
@@ -183,6 +168,12 @@ function renderCases(group, locale) {
 }
 
 function renderGroupedPortfolio() {
+  const projectTypeLabels = {
+    case: { badge: "Caso", cta: "Ver caso →" },
+    demo: { badge: "Demo", cta: "Ver demo →" },
+    concept: { badge: "Concepto", cta: "Consultar concepto →" },
+    product: { badge: "Producto", cta: "Visitar web →" },
+  };
   const groups = [
     [
       "lite",
@@ -215,6 +206,10 @@ function renderGroupedPortfolio() {
             (left.portfolioOrder ?? 0) - (right.portfolioOrder ?? 0),
         )
         .map((project) => {
+          const typeCopy = projectTypeLabels[project.projectType];
+          if (!typeCopy) {
+            throw new Error(`Unknown portfolio project type: ${project.slug}`);
+          }
           const internalCase = cases.find((item) => item.slug === project.slug);
           const href = internalCase ? `/casos/${project.slug}/` : project.url;
           const target = href.startsWith("http")
@@ -224,9 +219,9 @@ function renderGroupedPortfolio() {
       <a class="portfolio-card__cover portfolio-card__cover--contain" href="${escapeHtml(href)}"${target} aria-label="Ver proyecto: ${escapeHtml(project.title)}">
         <img src="/${escapeHtml(project.image)}" alt="${escapeHtml(project.imageAlt)}" class="portfolio-card__img portfolio-card__img--contain" loading="lazy" width="${project.imageWidth}" height="${project.imageHeight}" />
       </a>
-      <div class="portfolio-card__body"><h3 class="portfolio-card__title"><a href="${escapeHtml(href)}"${target}>${escapeHtml(project.title)}</a></h3>
+      <div class="portfolio-card__body"><span class="portfolio-card__type">${typeCopy.badge}</span><h3 class="portfolio-card__title"><a href="${escapeHtml(href)}"${target}>${escapeHtml(project.title)}</a></h3>
       <p class="portfolio-card__desc">${escapeHtml(project.description)}</p>
-      <a class="btn btn--outline" href="${escapeHtml(href)}"${target}>Ver proyecto →</a></div>
+      <a class="btn btn--outline" href="${escapeHtml(href)}"${target}>${typeCopy.cta}</a></div>
     </article>`;
         })
         .join("");
@@ -619,7 +614,7 @@ ${renderHreflang(group.key)}
 <body class="commercial-page commercial-page--${group.kind}" data-sector="${group.key}">
 ${renderHeader(group, locale)}
 <main>
-  <section class="commercial-hero"><div class="container">${renderBreadcrumbs(group, locale)}<span class="section-label">${brand.displayName}</span><h1>${escapeHtml(content.h1)}</h1><p>${escapeHtml(content.intro)}</p><div class="commercial-hero__actions"><a class="btn btn--primary btn--lg" href="${getPageGroup("contact").routes[locale]}?sector=${group.key}" data-analytics-event="quote_click" data-analytics-sector="${group.key}" data-analytics-locale="${locale}">${escapeHtml(ui.quoteLabel)}</a><a class="btn btn--outline btn--lg" href="${whatsapp}" target="_blank" rel="noopener noreferrer" data-analytics-event="whatsapp_click" data-analytics-sector="${group.key}" data-analytics-locale="${locale}">WhatsApp</a></div></div></section>
+  <section class="commercial-hero${group.kind === "cases" ? " commercial-hero--portfolio" : ""}"><div class="container" data-page-enter>${renderBreadcrumbs(group, locale)}<span class="section-label">${brand.displayName}</span><h1>${escapeHtml(content.h1)}</h1><p>${escapeHtml(content.intro)}</p><div class="commercial-hero__actions"><a class="btn btn--primary btn--lg" href="${getPageGroup("contact").routes[locale]}?sector=${group.key}" data-analytics-event="quote_click" data-analytics-sector="${group.key}" data-analytics-locale="${locale}">${escapeHtml(ui.quoteLabel)}</a><a class="btn btn--outline btn--lg" href="${whatsapp}" target="_blank" rel="noopener noreferrer" data-analytics-event="whatsapp_click" data-analytics-sector="${group.key}" data-analytics-locale="${locale}">WhatsApp</a></div></div></section>
 ${showForm || group.kind === "cases" ? "" : `<section class="section"><div class="container"><span class="section-label">${escapeHtml(ui.problemsLabel)}</span><h2>${escapeHtml(ui.problemsLabel)} ${escapeHtml(ui.localContextLabel)}</h2>${renderCards(content.problems)}</div></section>`}
 ${showForm || group.kind === "cases" ? "" : `<section class="section commercial-section--warm"><div class="container"><span class="section-label">${escapeHtml(ui.benefitsLabel)}</span><h2>${escapeHtml(ui.benefitsLabel)}</h2>${renderCards(content.benefits)}${renderCases(group, locale)}</div></section>`}
 ${group.kind === "cases" ? `<section class="section portfolio"><div class="container">${renderCases(group, locale)}</div></section>` : ""}
@@ -656,6 +651,7 @@ ${showForm ? `<script src="/contact-form-core.js"></script>\n<script src="/conta
       'class="commercial-page commercial-page--home"',
       'class="home-page"',
     );
+    html = normalizeSiteHeader(html, group.routes[locale]);
   }
   return html;
 }

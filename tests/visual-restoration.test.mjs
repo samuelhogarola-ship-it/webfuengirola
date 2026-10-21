@@ -27,6 +27,18 @@ test("each portfolio project has a linked cover and scroll entrance in every lan
   }
 });
 
+test("portfolio uses the shared full-height hero treatment with a single H1", () => {
+  for (const locale of ["es", "en", "de", "fi"]) {
+    const html = renderCommercialPage(getPageGroup("cases"), locale);
+    assert.match(
+      html,
+      /<section class="commercial-hero commercial-hero--portfolio"[^>]*>/,
+    );
+    assert.match(html, /<div class="container" data-page-enter>/);
+    assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
+  }
+});
+
 test("restoration keeps the complete original homepage shell while retaining current SEO", () => {
   const group = getPageGroup("home");
   const html = renderCommercialPage(group, "es");
@@ -34,7 +46,7 @@ test("restoration keeps the complete original homepage shell while retaining cur
   assert.doesNotMatch(html, /commercial-logo|commercial-header__inner/);
   assert.match(html, /class="whatsapp-fab"/);
   assert.match(html, /id="page-transition"/);
-  assert.match(html, /navClientAccess/);
+  assert.match(html, /https:\/\/portal\.webfuengirola\.com\/cliente/);
   assert.match(html, /rel="canonical" href="https:\/\/webfuengirola.com\/"/);
   assert.match(html, /hreflang="fi"/);
   assert.ok(html.includes(group.content.es.description));

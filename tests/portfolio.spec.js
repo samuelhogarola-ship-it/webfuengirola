@@ -170,9 +170,7 @@ test("sitemap incluye casos y excluye categorías de producto consolidadas", asy
   expect(xml).toContain("https://webfuengirola.com/seo-local-malaga/");
   expect(xml).toContain("https://webfuengirola.com/publicidad-ia-fuengirola/");
   expect(xml).toContain("https://webfuengirola.com/publicidad-ia-malaga/");
-  expect(xml).toContain("https://webfuengirola.com/recursos/herramientas/");
-  expect(xml).toContain("https://webfuengirola.com/recursos/guias/");
-  expect(xml).toContain("https://webfuengirola.com/recursos/checklists/");
+  expect(xml).not.toContain("https://webfuengirola.com/recursos/");
 
   expect(xml).not.toContain(
     "https://webfuengirola.com/portfolio/sport-massage-fuengirola/",
@@ -204,11 +202,11 @@ test("la ficha de FisioApp expone imagen indexable y CTA de servicio", async ({
   );
   await expect(
     page.locator(
-      'main img[alt="FisioApp Panel Clínica — caso de éxito de WF-Studio · Web Fuengirola"]',
+      'main img[alt="FisioApp Panel Clínica — demo de producto de WF-Studio · Web Fuengirola"]',
     ),
   ).toHaveAttribute(
     "alt",
-    "FisioApp Panel Clínica — caso de éxito de WF-Studio · Web Fuengirola",
+    "FisioApp Panel Clínica — demo de producto de WF-Studio · Web Fuengirola",
   );
   await expect(
     page.getByRole("link", { name: /ver servicio/i }),

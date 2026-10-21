@@ -105,6 +105,7 @@ export const productCategories = [
 export const portfolioProjects = [
   {
     slug: "vokabellab",
+    projectType: "case",
     title: "Vokabel Lab",
     client: "Vokabellab",
     brand: "Vokabellab",
@@ -145,6 +146,7 @@ export const portfolioProjects = [
   },
   {
     slug: "samuel-coach-aleman",
+    projectType: "case",
     title: "Samuel Coach de Alemán",
     client: "Samuel Coach de Alemán",
     brand: "Samuel Coach de Alemán",
@@ -183,6 +185,7 @@ export const portfolioProjects = [
   },
   {
     slug: "personal-trainer-fuengirola",
+    projectType: "case",
     title: "Personal Trainer Fuengirola",
     client: "Personal Trainer Fuengirola",
     brand: "Personal Trainer Fuengirola",
@@ -222,6 +225,7 @@ export const portfolioProjects = [
   },
   {
     slug: "im-kontext-vokabellab",
+    projectType: "product",
     title: "ImKontext",
     client: "Vokabellab",
     brand: "Im Kontext",
@@ -261,6 +265,7 @@ export const portfolioProjects = [
   },
   {
     slug: "der-die-das-vokabellab",
+    projectType: "product",
     title: "Der Die Das",
     client: "Vokabellab",
     brand: "Der Die Das",
@@ -302,6 +307,7 @@ export const portfolioProjects = [
   },
   {
     slug: "sport-massage-fuengirola",
+    projectType: "case",
     title: "Sport Massage Fuengirola",
     client: "Sport Massage Fuengirola",
     brand: "Sport Massage Fuengirola",
@@ -341,6 +347,7 @@ export const portfolioProjects = [
   },
   {
     slug: "gimnasio-nuevo-estilo",
+    projectType: "case",
     title: "Gimnasio Nuevo Estilo",
     client: "Gimnasio Nuevo Estilo",
     brand: "Gimnasio Nuevo Estilo",
@@ -381,6 +388,7 @@ export const portfolioProjects = [
   },
   {
     slug: "agama",
+    projectType: "case",
     title: "Agama",
     client: "Agama Pigmentos & Masterbatch",
     brand: "Agama",
@@ -419,6 +427,7 @@ export const portfolioProjects = [
   },
   {
     slug: "fisioapp-panel-clinica",
+    projectType: "demo",
     title: "CRM para clínicas",
     client: "FisioApp demo comercial",
     brand: "FisioApp",
@@ -444,10 +453,10 @@ export const portfolioProjects = [
     ],
     result:
       "Una demo comercial que deja ver un producto utilitario y serio, orientado a mejorar la gestión diaria de una clínica sin mezclar entorno público y entorno real.",
-    seoTitle: "FisioApp | Caso real de panel SaaS para clínica",
+    seoTitle: "FisioApp | Demo de panel SaaS para clínica",
     seoDescription:
-      "Caso real de FisioApp: panel SaaS para clínica con pacientes, sesiones, facturación y documentos en una experiencia de gestión clara y comercial.",
-    heroLabel: "Caso real · SaaS / producto digital",
+      "Demo de FisioApp: panel SaaS para clínica con pacientes, sesiones, facturación y documentos en una experiencia de gestión clara y comercial.",
+    heroLabel: "Demo de producto · SaaS",
     portfolioGroup: "apps",
     portfolioOrder: 3,
     productCategorySlug: "mini-saas-personalizado",
@@ -459,6 +468,7 @@ export const portfolioProjects = [
   },
   {
     slug: "hotel-bali-bhuana",
+    projectType: "concept",
     title: "Demo de diseño · Hotel sencillo (concepto Bali Bhuana)",
     client: "Demo de portfolio",
     brand: "Bali Bhuana",
@@ -490,6 +500,7 @@ export const portfolioProjects = [
   },
   {
     slug: "dede-art",
+    projectType: "concept",
     title: "Dede Art",
     client: "Dede Art",
     brand: "Dede Art",
@@ -519,6 +530,7 @@ export const portfolioProjects = [
   },
   {
     slug: "suvilla",
+    projectType: "case",
     title: "SuVilla Inmobiliaria",
     client: "SuVilla",
     brand: "SuVilla",
@@ -549,6 +561,7 @@ export const portfolioProjects = [
   },
   {
     slug: "todoplasticos",
+    projectType: "product",
     title: "TodoPlásticos",
     client: "TodoPlásticos",
     brand: "TodoPlásticos",
@@ -578,6 +591,7 @@ export const portfolioProjects = [
   },
   {
     slug: "superentrenador",
+    projectType: "product",
     title: "Superentrenador",
     client: "Superentrenador",
     brand: "Superentrenador",
@@ -608,6 +622,7 @@ export const portfolioProjects = [
   },
   {
     slug: "crm-inmobiliario",
+    projectType: "concept",
     title: "CRM Inmobiliario",
     client: "Demo de producto inmobiliario",
     brand: "CRM Inmobiliario",
@@ -639,6 +654,7 @@ export const portfolioProjects = [
   },
   {
     slug: "farbentester",
+    projectType: "concept",
     title: "Farbentester",
     client: "Farbentester",
     brand: "Farbentester",

@@ -71,7 +71,6 @@ function renderHeader(prefix, activePage) {
     { href: "servicios/", label: "Servicios", key: "services" },
     { href: "casos/", label: "Portfolio", key: "casos" },
     { href: "blog/", label: "Blog", key: "blog" },
-    { href: "recursos/", label: "Recursos", key: "recursos" },
     { href: "sobre-nosotros/", label: "Sobre nosotros", key: "sobre" },
   ];
 
@@ -129,7 +128,6 @@ function renderFooter(
           <li><a href="${prefix}sobre-nosotros/">Sobre nosotros</a></li>
           <li><a href="${prefix}como-trabajamos/">Cómo trabajamos</a></li>
           <li><a href="${prefix}casos/">Portfolio</a></li>
-          <li><a href="${prefix}recursos/">Recursos</a></li>
         </ul>
       </div>
       <div class="footer__col">
@@ -234,7 +232,9 @@ function buildCasosHub() {
     )
     .join("\n");
 
-  const demoCards = demos.map((demo) => `
+  const demoCards = demos
+    .map(
+      (demo) => `
         <article class="portfolio-card">
           <a class="portfolio-card__img-link" href="${escapeHtml(demo.url)}" target="_blank" rel="noopener noreferrer" aria-label="Ver demo: ${escapeHtml(demo.title)}">
             <img src="${prefix}${escapeHtml(demo.image)}" alt="${escapeHtml(demo.imageAlt)}" class="portfolio-card__img" loading="lazy" width="${demo.imageWidth}" height="${demo.imageHeight}" />
@@ -252,7 +252,9 @@ function buildCasosHub() {
           <div class="portfolio-card__footer">
             <a href="${escapeHtml(demo.url)}" class="btn btn--outline" target="_blank" rel="noopener noreferrer">Ver demo</a>
           </div>
-        </article>`).join("\n");
+        </article>`,
+    )
+    .join("\n");
 
   const html = `<!doctype html>
 <html lang="es">
@@ -350,7 +352,7 @@ ${renderHeader(prefix, "casos")}
         <p style="color: var(--color-text-muted); margin: 1rem 0 1rem">Una conversación de 10 minutos es suficiente para saber si podemos ayudarte y cómo.</p>
         <p style="color: var(--color-text-muted); margin: 0 0 2rem">Calcula qué web necesita tu negocio después de ver los casos, o entra directamente por WhatsApp si ya tienes claro el tipo de proyecto.</p>
         <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap">
-          <a href="${prefix}recursos/" class="btn btn--outline">Calcular orientación →</a>
+          <a href="${prefix}auditoria-web-gratis/" class="btn btn--outline">Solicitar auditoría →</a>
           <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20hablar%20sobre%20un%20proyecto%20para%20mi%20negocio" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Hablar con nosotros →</a>
         </div>
       </div>

@@ -1401,7 +1401,6 @@ function buildIndex() {
           <li><a href="../servicios/" class="nav__link">Servicios</a></li>
           <li><a href="../casos/" class="nav__link">Casos de éxito</a></li>
           <li><a href="./" class="nav__link nav__link--active">Blog</a></li>
-          <li><a href="../recursos/" class="nav__link">Calculadora de precios</a></li>
           <li><a href="../sobre-nosotros/" class="nav__link">Sobre nosotros</a></li>
         </ul>
       </nav>
