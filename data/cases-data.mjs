@@ -210,22 +210,22 @@ export const cases = [
     slug: "fisioapp-panel-clinica",
     portfolioSlug: "fisioapp-panel-clinica",
     title: "FisioApp Panel Clínica",
-    client: "FisioApp · demo comercial",
+    client: "FisioApp · CRM funcional",
     sector: "Salud",
     service: "aplicaciones-web",
     serviceLabel: "App a medida",
-    headline: "Demo de panel de gestión para clínica de fisioterapia",
+    headline: "CRM funcional para clínicas de fisioterapia",
     summary:
-      "Demo comercial que muestra cómo centralizar pacientes, sesiones y seguimiento de tratamientos sin depender de herramientas genéricas.",
+      "CRM funcional que centraliza pacientes, sesiones y seguimiento de tratamientos sin depender de herramientas genéricas.",
     result:
-      "Una demostración funcional del flujo de trabajo propuesto para una clínica.",
+      "Un flujo de trabajo operativo para gestionar la actividad diaria de una clínica.",
     image: "img/clinica-demo-v2.webp",
     ogImage: "https://webfuengirola.com/img/clinica-demo-v2.webp",
     ogAlt:
-      "FisioApp Panel Clínica — demo de producto de WF-Studio · Web Fuengirola",
-    metaTitle: "Demo: FisioApp Panel Clínica | WF-Studio · Web Fuengirola",
+      "FisioApp Panel Clínica — CRM funcional de WF-Studio · Web Fuengirola",
+    metaTitle: "FisioApp: CRM funcional para clínicas | WF-Studio",
     metaDescription:
-      "Demo de panel de gestión para clínica de fisioterapia con seguimiento de pacientes y sesiones a medida.",
+      "CRM funcional para clínicas de fisioterapia con gestión de pacientes, sesiones y seguimiento a medida.",
     whatsappText: "Hola, me interesa un panel de gestión similar a FisioApp",
   },
   {

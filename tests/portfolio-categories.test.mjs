@@ -5,6 +5,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import { portfolioProjects } from "../portfolio/projects-data.mjs";
+import { cases } from "../data/cases-data.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -117,6 +118,7 @@ test("every portfolio card declares an honest type with a matching call to actio
     demo: "Ver demo →",
     concept: "Consultar concepto →",
     product: "Visitar web →",
+    crm: "Ver CRM →",
   };
 
   for (const project of portfolioProjects) {
@@ -124,13 +126,40 @@ test("every portfolio card declares an honest type with a matching call to actio
   }
 
   const html = fs.readFileSync(path.join(root, "casos/index.html"), "utf8");
-  for (const label of Object.values(expectedLabels)) {
-    assert.match(html, new RegExp(label), label);
+  for (const project of portfolioProjects) {
+    const label = expectedLabels[project.projectType];
+    assert.match(html, new RegExp(label), `${project.slug}: ${label}`);
   }
 
   const fisioApp = portfolioProjects.find(
     ({ slug }) => slug === "fisioapp-panel-clinica",
   );
-  assert.equal(fisioApp.projectType, "demo");
-  assert.doesNotMatch(fisioApp.heroLabel, /caso real/i);
+  assert.equal(fisioApp.projectType, "crm");
+  assert.match(fisioApp.heroLabel, /CRM funcional/i);
+  assert.doesNotMatch(
+    [
+      fisioApp.client,
+      fisioApp.longDescription,
+      fisioApp.result,
+      fisioApp.seoTitle,
+      fisioApp.seoDescription,
+      fisioApp.heroLabel,
+    ].join(" "),
+    /demo/i,
+  );
+
+  const fisioCase = cases.find(({ slug }) => slug === "fisioapp-panel-clinica");
+  assert.ok(fisioCase);
+  assert.doesNotMatch(
+    [
+      fisioCase.client,
+      fisioCase.headline,
+      fisioCase.summary,
+      fisioCase.result,
+      fisioCase.ogAlt,
+      fisioCase.metaTitle,
+      fisioCase.metaDescription,
+    ].join(" "),
+    /demo/i,
+  );
 });

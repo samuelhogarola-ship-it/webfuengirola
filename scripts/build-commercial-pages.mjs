@@ -173,6 +173,7 @@ function renderGroupedPortfolio() {
     demo: { badge: "Demo", cta: "Ver demo →" },
     concept: { badge: "Concepto", cta: "Consultar concepto →" },
     product: { badge: "Producto", cta: "Visitar web →" },
+    crm: { badge: "CRM funcional", cta: "Ver CRM →" },
   };
   const groups = [
     [
