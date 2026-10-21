@@ -14,7 +14,8 @@ export const cases = [
     result: "Web publicada en 5 días. Reservas directas desde el primer mes.",
     image: "img/sport-massage-fuengirola.webp",
     ogImage: "https://webfuengirola.com/img/sport-massage-fuengirola.webp",
-    ogAlt: "Sport Massage Fuengirola — caso de éxito de WF-Studio · Web Fuengirola",
+    ogAlt:
+      "Sport Massage Fuengirola — caso de éxito de WF-Studio · Web Fuengirola",
     metaTitle: "Caso: Sport Massage Fuengirola | WF-Studio · Web Fuengirola",
     metaDescription:
       "Cómo Sport Massage Fuengirola empezó a recibir reservas directas con su nueva web en 5 días.",
@@ -36,7 +37,8 @@ export const cases = [
     result: "Web publicada en 7 días con formulario de contacto directo.",
     image: "img/personal-trainer.webp",
     ogImage: "https://webfuengirola.com/img/personal-trainer.webp",
-    ogAlt: "Personal Trainer Fuengirola — caso de éxito de WF-Studio · Web Fuengirola",
+    ogAlt:
+      "Personal Trainer Fuengirola — caso de éxito de WF-Studio · Web Fuengirola",
     metaTitle: "Caso: Personal Trainer Fuengirola | WF-Studio · Web Fuengirola",
     metaDescription:
       "Cómo un entrenador personal en Fuengirola empezó a captar clientes directamente con su nueva web.",
@@ -208,21 +210,22 @@ export const cases = [
     slug: "fisioapp-panel-clinica",
     portfolioSlug: "fisioapp-panel-clinica",
     title: "FisioApp Panel Clínica",
-    client: "FisioApp",
+    client: "FisioApp · CRM funcional",
     sector: "Salud",
     service: "aplicaciones-web",
     serviceLabel: "App a medida",
-    headline: "Panel de gestión digital para clínica de fisioterapia",
+    headline: "CRM funcional para clínicas de fisioterapia",
     summary:
-      "Clínica de fisioterapia que necesitaba digitalizar la gestión de pacientes, sesiones y seguimiento de tratamientos sin herramientas genéricas.",
+      "CRM funcional que centraliza pacientes, sesiones y seguimiento de tratamientos sin depender de herramientas genéricas.",
     result:
-      "Panel operativo adaptado al flujo de trabajo exacto de la clínica.",
+      "Un flujo de trabajo operativo para gestionar la actividad diaria de una clínica.",
     image: "img/clinica-demo-v2.webp",
     ogImage: "https://webfuengirola.com/img/clinica-demo-v2.webp",
-    ogAlt: "FisioApp Panel Clínica — caso de éxito de WF-Studio · Web Fuengirola",
-    metaTitle: "Caso: FisioApp Panel Clínica | WF-Studio · Web Fuengirola",
+    ogAlt:
+      "FisioApp Panel Clínica — CRM funcional de WF-Studio · Web Fuengirola",
+    metaTitle: "FisioApp: CRM funcional para clínicas | WF-Studio",
     metaDescription:
-      "Panel de gestión digital para clínica de fisioterapia con seguimiento de pacientes y sesiones a medida.",
+      "CRM funcional para clínicas de fisioterapia con gestión de pacientes, sesiones y seguimiento a medida.",
     whatsappText: "Hola, me interesa un panel de gestión similar a FisioApp",
   },
   {
@@ -240,7 +243,8 @@ export const cases = [
     result: "Suite de tres herramientas activas con usuarios recurrentes.",
     image: "img/vokabellab-real.webp",
     ogImage: "https://webfuengirola.com/img/vokabellab-real.webp",
-    ogAlt: "Captura real de la portada de Vokabel Lab, aplicación para practicar vocabulario alemán",
+    ogAlt:
+      "Captura real de la portada de Vokabel Lab, aplicación para practicar vocabulario alemán",
     metaTitle: "Caso: Vokabellab | WF-Studio · Web Fuengirola",
     metaDescription:
       "Plataforma educativa de alemán con herramientas interactivas de vocabulario y IA construidas a medida.",
@@ -256,13 +260,16 @@ export const cases = [
     service: "diseno-web",
     serviceLabel: "Diseño web multidioma",
     headline: "SuVilla: propiedades en la Costa del Sol",
-    summary: "Web inmobiliaria con catálogo de propiedades, búsqueda por zona y contacto directo en español, inglés y finés.",
-    result: "Web disponible con buscador de propiedades y presentación del equipo.",
+    summary:
+      "Web inmobiliaria con catálogo de propiedades, búsqueda por zona y contacto directo en español, inglés y finés.",
+    result:
+      "Web disponible con buscador de propiedades y presentación del equipo.",
     image: "img/suvilla-real.webp",
     ogImage: "https://webfuengirola.com/img/suvilla-real.webp",
     ogAlt: "Captura real de la web de SuVilla Inmobiliaria",
     metaTitle: "SuVilla: web inmobiliaria multidioma | WF-Studio",
-    metaDescription: "Proyecto de diseño web para SuVilla: propiedades en la Costa del Sol, búsqueda por zona y tres idiomas.",
+    metaDescription:
+      "Proyecto de diseño web para SuVilla: propiedades en la Costa del Sol, búsqueda por zona y tres idiomas.",
     whatsappText: "Hola, me interesa una web inmobiliaria como SuVilla",
     bodyHtml: `<section class="section"><div class="container" style="max-width:880px">
       <h2 class="section-title">Una web para encontrar tu próxima propiedad</h2>

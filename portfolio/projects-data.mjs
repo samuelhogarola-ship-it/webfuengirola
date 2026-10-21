@@ -105,6 +105,7 @@ export const productCategories = [
 export const portfolioProjects = [
   {
     slug: "vokabellab",
+    projectType: "case",
     title: "Vokabel Lab",
     client: "Vokabellab",
     brand: "Vokabellab",
@@ -145,6 +146,7 @@ export const portfolioProjects = [
   },
   {
     slug: "samuel-coach-aleman",
+    projectType: "case",
     title: "Samuel Coach de Alemán",
     client: "Samuel Coach de Alemán",
     brand: "Samuel Coach de Alemán",
@@ -183,6 +185,7 @@ export const portfolioProjects = [
   },
   {
     slug: "personal-trainer-fuengirola",
+    projectType: "case",
     title: "Personal Trainer Fuengirola",
     client: "Personal Trainer Fuengirola",
     brand: "Personal Trainer Fuengirola",
@@ -222,6 +225,7 @@ export const portfolioProjects = [
   },
   {
     slug: "im-kontext-vokabellab",
+    projectType: "product",
     title: "ImKontext",
     client: "Vokabellab",
     brand: "Im Kontext",
@@ -261,6 +265,7 @@ export const portfolioProjects = [
   },
   {
     slug: "der-die-das-vokabellab",
+    projectType: "product",
     title: "Der Die Das",
     client: "Vokabellab",
     brand: "Der Die Das",
@@ -302,6 +307,7 @@ export const portfolioProjects = [
   },
   {
     slug: "sport-massage-fuengirola",
+    projectType: "case",
     title: "Sport Massage Fuengirola",
     client: "Sport Massage Fuengirola",
     brand: "Sport Massage Fuengirola",
@@ -341,6 +347,7 @@ export const portfolioProjects = [
   },
   {
     slug: "gimnasio-nuevo-estilo",
+    projectType: "case",
     title: "Gimnasio Nuevo Estilo",
     client: "Gimnasio Nuevo Estilo",
     brand: "Gimnasio Nuevo Estilo",
@@ -381,6 +388,7 @@ export const portfolioProjects = [
   },
   {
     slug: "agama",
+    projectType: "case",
     title: "Agama",
     client: "Agama Pigmentos & Masterbatch",
     brand: "Agama",
@@ -419,14 +427,15 @@ export const portfolioProjects = [
   },
   {
     slug: "fisioapp-panel-clinica",
+    projectType: "crm",
     title: "CRM para clínicas",
-    client: "FisioApp demo comercial",
+    client: "FisioApp · CRM funcional",
     brand: "FisioApp",
     category: "Web app / SaaS",
     description:
       "Panel de gestión clínica para fisioterapia con pacientes, sesiones, facturación y documentos en una interfaz pensada para trabajo diario.",
     longDescription:
-      "FisioApp es una web app de gestión clínica pensada para centralizar operativa real: directorio de pacientes, sesiones, facturación y generación de documentos desde un panel claro y rápido de usar. La demo pública enseña el producto sin tocar el entorno real, pero la propuesta comercial está enfocada a resolver trabajo interno de clínica, no solo a enseñar pantallas.",
+      "FisioApp es un CRM funcional de gestión clínica pensado para centralizar operativa real: directorio de pacientes, sesiones, facturación y generación de documentos desde un panel claro y rápido de usar. El acceso público permite recorrer el producto sin tocar el entorno privado de trabajo.",
     image: "img/clinica-demo-v2.webp",
     ogImage: "https://webfuengirola.com/img/clinica-demo-v2.webp",
     imageWidth: 1600,
@@ -434,20 +443,20 @@ export const portfolioProjects = [
     imageAlt: "Captura del panel administrador de FisioApp",
     ogAlt: "Vista previa del panel de FisioApp",
     url: "https://webfuengirola.com/portfolio/demo.html",
-    urlLabel: "Probar demo",
+    urlLabel: "Abrir CRM",
     tech: ["Node.js", "Express", "React", "Render"],
     services: [
       "Panel administrativo",
       "Gestión de pacientes",
       "Facturación clínica",
-      "Separación demo / producción",
+      "Separación de acceso público y producción",
     ],
     result:
-      "Una demo comercial que deja ver un producto utilitario y serio, orientado a mejorar la gestión diaria de una clínica sin mezclar entorno público y entorno real.",
-    seoTitle: "FisioApp | Caso real de panel SaaS para clínica",
+      "Un CRM funcional orientado a mejorar la gestión diaria de una clínica, con pacientes, sesiones, facturación y documentos centralizados.",
+    seoTitle: "FisioApp | CRM funcional para clínicas",
     seoDescription:
-      "Caso real de FisioApp: panel SaaS para clínica con pacientes, sesiones, facturación y documentos en una experiencia de gestión clara y comercial.",
-    heroLabel: "Caso real · SaaS / producto digital",
+      "CRM funcional FisioApp para clínicas: pacientes, sesiones, facturación y documentos en una experiencia de gestión clara.",
+    heroLabel: "CRM funcional · Gestión clínica",
     portfolioGroup: "apps",
     portfolioOrder: 3,
     productCategorySlug: "mini-saas-personalizado",
@@ -459,6 +468,7 @@ export const portfolioProjects = [
   },
   {
     slug: "hotel-bali-bhuana",
+    projectType: "concept",
     title: "Demo de diseño · Hotel sencillo (concepto Bali Bhuana)",
     client: "Demo de portfolio",
     brand: "Bali Bhuana",
@@ -490,6 +500,7 @@ export const portfolioProjects = [
   },
   {
     slug: "dede-art",
+    projectType: "concept",
     title: "Dede Art",
     client: "Dede Art",
     brand: "Dede Art",
@@ -519,6 +530,7 @@ export const portfolioProjects = [
   },
   {
     slug: "suvilla",
+    projectType: "case",
     title: "SuVilla Inmobiliaria",
     client: "SuVilla",
     brand: "SuVilla",
@@ -549,6 +561,7 @@ export const portfolioProjects = [
   },
   {
     slug: "todoplasticos",
+    projectType: "product",
     title: "TodoPlásticos",
     client: "TodoPlásticos",
     brand: "TodoPlásticos",
@@ -578,6 +591,7 @@ export const portfolioProjects = [
   },
   {
     slug: "superentrenador",
+    projectType: "product",
     title: "Superentrenador",
     client: "Superentrenador",
     brand: "Superentrenador",
@@ -608,6 +622,7 @@ export const portfolioProjects = [
   },
   {
     slug: "crm-inmobiliario",
+    projectType: "concept",
     title: "CRM Inmobiliario",
     client: "Demo de producto inmobiliario",
     brand: "CRM Inmobiliario",
@@ -639,6 +654,7 @@ export const portfolioProjects = [
   },
   {
     slug: "farbentester",
+    projectType: "concept",
     title: "Farbentester",
     client: "Farbentester",
     brand: "Farbentester",

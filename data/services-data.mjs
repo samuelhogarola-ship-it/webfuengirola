@@ -297,7 +297,7 @@ export const services = [
           <a href="../../servicios/#seo-local" class="services-routes__link">SEO local en Fuengirola</a>
           <a href="../../seo-local-malaga/" class="services-routes__link">SEO local en Málaga</a>
           <a href="../../blog/como-salir-en-google-maps-en-fuengirola-y-malaga/" class="services-routes__link">Guía para Google Maps</a>
-          <a href="../../recursos/checklists/" class="services-routes__link">Checklist SEO local</a>
+          <a href="../../auditoria-web-gratis/" class="services-routes__link">Auditoría web gratuita</a>
         </div>
       </div>
     </section>
@@ -337,7 +337,7 @@ export const services = [
               <p class="portfolio-card__desc">Un repaso rápido para ver si ficha, reseñas, NAP y páginas locales están ayudando o frenando tu visibilidad.</p>
             </div>
             <div class="portfolio-card__footer">
-              <a href="../../recursos/checklists/" class="btn btn--outline">Ver checklist →</a>
+              <a href="../../auditoria-web-gratis/" class="btn btn--outline">Solicitar auditoría →</a>
             </div>
           </article>
         </div>

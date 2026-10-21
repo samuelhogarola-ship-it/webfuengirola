@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { cases } from "../data/cases-data.mjs";
 import { demos } from "../data/demos-data.mjs";
+import { renderSiteHeader } from "./site-navigation.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -65,40 +66,6 @@ function renderHead({
 </head>`;
 }
 
-function renderHeader(prefix, activePage) {
-  const navItems = [
-    { href: "index.html", label: "Inicio", key: "home" },
-    { href: "servicios/", label: "Servicios", key: "services" },
-    { href: "casos/", label: "Portfolio", key: "casos" },
-    { href: "blog/", label: "Blog", key: "blog" },
-    { href: "recursos/", label: "Recursos", key: "recursos" },
-    { href: "sobre-nosotros/", label: "Sobre nosotros", key: "sobre" },
-  ];
-
-  return `
-  <header class="header" id="header">
-    <div class="container header__inner">
-      <a href="${prefix}index.html" class="logo" aria-label="WF-Studio · Web Fuengirola">
-        <img src="${prefix}img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="eager"/>
-      </a>
-      <nav class="nav" id="nav" aria-label="Navegación principal">
-        <ul class="nav__list">
-          ${navItems
-            .map(
-              (item) =>
-                `<li><a href="${prefix}${item.href}" class="nav__link${item.key === activePage ? " nav__link--active" : ""}">${item.label}</a></li>`,
-            )
-            .join("\n          ")}
-        </ul>
-      </nav>
-      <a href="https://portal.webfuengirola.com/cliente" class="btn btn--primary header__cta" target="_blank" rel="noopener noreferrer" aria-label="Acceso al área cliente">Área cliente</a>
-      <button type="button" class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>`;
-}
-
 function renderFooter(
   prefix,
   whatsappText = "Hola, me interesa una web para mi negocio",
@@ -129,7 +96,6 @@ function renderFooter(
           <li><a href="${prefix}sobre-nosotros/">Sobre nosotros</a></li>
           <li><a href="${prefix}como-trabajamos/">Cómo trabajamos</a></li>
           <li><a href="${prefix}casos/">Portfolio</a></li>
-          <li><a href="${prefix}recursos/">Recursos</a></li>
         </ul>
       </div>
       <div class="footer__col">
@@ -234,7 +200,9 @@ function buildCasosHub() {
     )
     .join("\n");
 
-  const demoCards = demos.map((demo) => `
+  const demoCards = demos
+    .map(
+      (demo) => `
         <article class="portfolio-card">
           <a class="portfolio-card__img-link" href="${escapeHtml(demo.url)}" target="_blank" rel="noopener noreferrer" aria-label="Ver demo: ${escapeHtml(demo.title)}">
             <img src="${prefix}${escapeHtml(demo.image)}" alt="${escapeHtml(demo.imageAlt)}" class="portfolio-card__img" loading="lazy" width="${demo.imageWidth}" height="${demo.imageHeight}" />
@@ -252,7 +220,9 @@ function buildCasosHub() {
           <div class="portfolio-card__footer">
             <a href="${escapeHtml(demo.url)}" class="btn btn--outline" target="_blank" rel="noopener noreferrer">Ver demo</a>
           </div>
-        </article>`).join("\n");
+        </article>`,
+    )
+    .join("\n");
 
   const html = `<!doctype html>
 <html lang="es">
@@ -270,7 +240,7 @@ ${renderHead({
   jsonLd,
 })}
 <body>
-${renderHeader(prefix, "casos")}
+${renderSiteHeader({ locale: "es", pathname: new URL(canonical).pathname })}
 
   <main>
     <section class="section" style="padding-top: calc(var(--header-h) + 4rem)">
@@ -350,7 +320,7 @@ ${renderHeader(prefix, "casos")}
         <p style="color: var(--color-text-muted); margin: 1rem 0 1rem">Una conversación de 10 minutos es suficiente para saber si podemos ayudarte y cómo.</p>
         <p style="color: var(--color-text-muted); margin: 0 0 2rem">Calcula qué web necesita tu negocio después de ver los casos, o entra directamente por WhatsApp si ya tienes claro el tipo de proyecto.</p>
         <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap">
-          <a href="${prefix}recursos/" class="btn btn--outline">Calcular orientación →</a>
+          <a href="${prefix}auditoria-web-gratis/" class="btn btn--outline">Solicitar auditoría →</a>
           <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20hablar%20sobre%20un%20proyecto%20para%20mi%20negocio" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Hablar con nosotros →</a>
         </div>
       </div>
@@ -471,7 +441,7 @@ ${renderHead({
   jsonLd,
 })}
 <body>
-${renderHeader(prefix, "casos")}
+${renderSiteHeader({ locale: "es", pathname: new URL(canonical).pathname })}
 
   <main>
     <section class="section" style="padding-top: calc(var(--header-h) + 4rem)">

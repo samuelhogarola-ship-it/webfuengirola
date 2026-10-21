@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { services } from "../data/services-data.mjs";
+import { renderSiteHeader } from "./site-navigation.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -69,40 +70,6 @@ function renderHead({
 </head>`;
 }
 
-function renderHeader(prefix, activePage) {
-  const navItems = [
-    { href: "index.html", label: "Inicio", key: "home" },
-    { href: "servicios/", label: "Servicios", key: "services" },
-    { href: "casos/", label: "Portfolio", key: "casos" },
-    { href: "blog/", label: "Blog", key: "blog" },
-    { href: "recursos/", label: "Recursos", key: "recursos" },
-    { href: "sobre-nosotros/", label: "Sobre nosotros", key: "sobre" },
-  ];
-
-  return `
-  <header class="header" id="header">
-    <div class="container header__inner">
-      <a href="${prefix}index.html" class="logo" aria-label="WF-Studio · Web Fuengirola">
-        <img src="${prefix}img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="eager"/>
-      </a>
-      <nav class="nav" id="nav" aria-label="Navegación principal">
-        <ul class="nav__list">
-          ${navItems
-            .map(
-              (item) =>
-                `<li><a href="${prefix}${item.href}" class="nav__link${item.key === activePage ? " nav__link--active" : ""}">${item.label}</a></li>`,
-            )
-            .join("\n          ")}
-        </ul>
-      </nav>
-      <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--primary header__cta" target="_blank" rel="noopener noreferrer">Pedir presupuesto</a>
-      <button type="button" class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>`;
-}
-
 function renderFooter(
   prefix,
   whatsappText = "Hola, me interesa una web para mi negocio",
@@ -134,7 +101,6 @@ function renderFooter(
           <li><a href="${prefix}sobre-nosotros/">Sobre nosotros</a></li>
           <li><a href="${prefix}como-trabajamos/">Cómo trabajamos</a></li>
           <li><a href="${prefix}casos/">Portfolio</a></li>
-          <li><a href="${prefix}recursos/">Recursos</a></li>
         </ul>
       </div>
       <div class="footer__col">
@@ -263,7 +229,7 @@ ${renderHead({
   jsonLd,
 })}
 <body>
-${renderHeader(prefix, "services")}
+${renderSiteHeader({ locale: "es", pathname: new URL(canonical).pathname })}
 
   <main>
     <section class="section" style="padding-top: calc(var(--header-h) + 4rem)">
@@ -432,7 +398,7 @@ ${renderHead({
   jsonLd,
 })}
 <body>
-${renderHeader(prefix, "services")}
+${renderSiteHeader({ locale: "es", pathname: new URL(canonical).pathname })}
 
   <main>
     <section class="section" style="padding-top: calc(var(--header-h) + 4rem)">

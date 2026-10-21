@@ -44,7 +44,6 @@ RUN cp -R \
   /app/publicidad-ia-fuengirola \
   /app/publicidad-ia-malaga \
   /app/precios-diseno-web-fuengirola \
-  /app/recursos \
   /app/seo-local-fuengirola \
   /app/seo-local-malaga \
   /app/servicios \

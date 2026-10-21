@@ -5,6 +5,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import { portfolioProjects } from "../portfolio/projects-data.mjs";
+import { cases } from "../data/cases-data.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -109,4 +110,56 @@ test("Bali Bhuana is presented as a Lite design concept, never as a client", () 
   assert.match(html, /Bali Bhuana/);
   assert.match(html, /demo|concepto/i);
   assert.doesNotMatch(html, /Ver proyecto: Hotel sencillo · Bali Bhuana/);
+});
+
+test("every portfolio card declares an honest type with a matching call to action", () => {
+  const expectedLabels = {
+    case: "Ver caso →",
+    demo: "Ver demo →",
+    concept: "Consultar concepto →",
+    product: "Visitar web →",
+    crm: "Ver CRM →",
+  };
+
+  for (const project of portfolioProjects) {
+    assert.ok(expectedLabels[project.projectType], project.slug);
+  }
+
+  const html = fs.readFileSync(path.join(root, "casos/index.html"), "utf8");
+  for (const project of portfolioProjects) {
+    const label = expectedLabels[project.projectType];
+    assert.match(html, new RegExp(label), `${project.slug}: ${label}`);
+  }
+
+  const fisioApp = portfolioProjects.find(
+    ({ slug }) => slug === "fisioapp-panel-clinica",
+  );
+  assert.equal(fisioApp.projectType, "crm");
+  assert.match(fisioApp.heroLabel, /CRM funcional/i);
+  assert.doesNotMatch(
+    [
+      fisioApp.client,
+      fisioApp.longDescription,
+      fisioApp.result,
+      fisioApp.seoTitle,
+      fisioApp.seoDescription,
+      fisioApp.heroLabel,
+    ].join(" "),
+    /demo/i,
+  );
+
+  const fisioCase = cases.find(({ slug }) => slug === "fisioapp-panel-clinica");
+  assert.ok(fisioCase);
+  assert.doesNotMatch(
+    [
+      fisioCase.client,
+      fisioCase.headline,
+      fisioCase.summary,
+      fisioCase.result,
+      fisioCase.ogAlt,
+      fisioCase.metaTitle,
+      fisioCase.metaDescription,
+    ].join(" "),
+    /demo/i,
+  );
 });

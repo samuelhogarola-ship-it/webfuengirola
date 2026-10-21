@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { getPageGroup } from "../data/commercial-pages-data.mjs";
+import { renderSiteHeader } from "./site-navigation.mjs";
 
 const root = process.cwd();
 const site = "https://webfuengirola.com";
@@ -27,7 +28,6 @@ const ui = {
     services: "Services",
     cases: "Success stories",
     blog: "Blog",
-    calculator: "Price calculator",
     about: "About us",
     cta: "Request a quote",
     read: "Read article",
@@ -69,7 +69,6 @@ const ui = {
     services: "Leistungen",
     cases: "Erfolgsgeschichten",
     blog: "Blog",
-    calculator: "Preisrechner",
     about: "Über uns",
     cta: "Angebot anfragen",
     read: "Artikel lesen",
@@ -111,7 +110,6 @@ const ui = {
     services: "Palvelut",
     cases: "Asiakastarinat",
     blog: "Blogi",
-    calculator: "Hintalaskuri",
     about: "Meistä",
     cta: "Pyydä tarjous",
     read: "Lue artikkeli",
@@ -571,32 +569,6 @@ function languageSwitcher(slug = "", currentLang) {
   </div>`;
 }
 
-function nav(lang, depth = 2) {
-  const prefix = "../".repeat(depth);
-  const copy = ui[lang];
-  const route = (key) => getPageGroup(key).routes[lang];
-  return `<header class="header" id="header">
-    <div class="container header__inner">
-      <a href="${route("home")}" class="logo" aria-label="WF-Studio · Web Fuengirola">
-        <img src="${prefix}img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="eager" />
-      </a>
-      <nav class="nav" id="nav" aria-label="Main navigation">
-        <ul class="nav__list">
-          <li><a href="${route("home")}" class="nav__link">${copy.home}</a></li>
-          <li><a href="${route("design")}" class="nav__link">${copy.services}</a></li>
-          <li><a href="${prefix}casos/" class="nav__link">${copy.cases}</a></li>
-          <li><a href="${localeMeta[lang].blogPath}" class="nav__link nav__link--active">${copy.blog}</a></li>
-          <li><a href="${route("design")}#precios" class="nav__link">${copy.calculator}</a></li>
-        </ul>
-      </nav>
-      <a href="${route("contact")}" class="btn btn--primary header__cta" data-analytics-event="quote_click" data-analytics-locale="${lang}">${copy.cta}</a>
-      <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>`;
-}
-
 function footer(lang, depth = 2) {
   const prefix = "../".repeat(depth);
   const route = (key) => getPageGroup(key).routes[lang];
@@ -686,7 +658,7 @@ function blogIndex(lang, posts) {
 <html lang="${lang}">
 ${head({ lang, title: copy.blogTitle, description: copy.blogDescription, canonical, image: "blog-home-og.webp", type: "blog" })}
 <body class="project-page blog-page">
-  ${nav(lang, 2)}
+  ${renderSiteHeader({ locale: lang, pathname: `/${lang}/blog/` })}
   <main>
     <section class="subpage-hero blog-hero">
       <div class="container blog-hero__inner">
@@ -779,7 +751,7 @@ function articlePage(lang, post, relatedPosts) {
 ${head({ lang, title: p.title, description: p.description, canonical, image: p.image, slug: post.slug })}
 <body class="project-page blog-post-page">
   <script type="application/ld+json">${JSON.stringify(jsonLd, null, 2)}</script>
-  ${nav(lang, 3)}
+  ${renderSiteHeader({ locale: lang, pathname: `/${lang}/blog/${post.slug}/` })}
   <main>
     <article>
       <section class="subpage-hero blog-post-hero">

@@ -37,21 +37,23 @@
   <header class="header" id="header">
     <div class="container header__inner">
       <a href="/de/" class="logo" aria-label="WF-Studio · Web Fuengirola">
-        <img src="../../img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="eager" />
+        <img src="/img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="eager" />
       </a>
-      <nav class="nav" id="nav" aria-label="Main navigation">
+      <nav class="nav" id="nav" aria-label="Hauptnavigation">
         <ul class="nav__list">
           <li><a href="/de/" class="nav__link">Startseite</a></li>
-          <li><a href="/de/webdesign-fuengirola/" class="nav__link">Leistungen</a></li>
-          <li><a href="../../casos/" class="nav__link">Erfolgsgeschichten</a></li>
-          <li><a href="/de/blog/" class="nav__link nav__link--active">Blog</a></li>
-          <li><a href="/de/webdesign-fuengirola/#precios" class="nav__link">Preisrechner</a></li>
+          <li><a href="/de/webdesign-fuengirola/" class="nav__link" data-page-transition="services">Leistungen</a></li>
+          <li><a href="/de/referenzen/" class="nav__link">Referenzen</a></li>
+          <li><a href="/de/blog/" class="nav__link nav__link--active" aria-current="page">Blog</a></li>
+          <li><a href="/web-solidaria/" class="nav__link">Web Solidaria</a></li>
+          <li><a href="https://portal.webfuengirola.com/cliente" class="nav__link nav__link--client" target="_blank" rel="noopener noreferrer">Kundenbereich</a></li>
         </ul>
       </nav>
-      <a href="/de/kontakt/" class="btn btn--primary header__cta" data-analytics-event="quote_click" data-analytics-locale="de">Angebot anfragen</a>
-      <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
-        <span></span><span></span><span></span>
-      </button>
+      <details class="language-menu">
+        <summary aria-label="Sprache ändern: Deutsch"><span aria-hidden="true">DE</span><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12"><path d="m3 4.5 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" /></svg></summary>
+        <div class="language-menu__options"><a href="/" lang="es">Español</a><a href="/en/" lang="en">English</a><a href="/de/" lang="de" aria-current="page">Deutsch <span aria-hidden="true">✓</span></a><a href="/fi/" lang="fi">Suomi</a></div>
+      </details>
+      <button type="button" class="hamburger" id="hamburger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
     </div>
   </header>
   <main>

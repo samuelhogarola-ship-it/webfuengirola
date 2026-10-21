@@ -37,21 +37,23 @@
   <header class="header" id="header">
     <div class="container header__inner">
       <a href="/fi/" class="logo" aria-label="WF-Studio · Web Fuengirola">
-        <img src="../../img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="eager" />
+        <img src="/img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="eager" />
       </a>
-      <nav class="nav" id="nav" aria-label="Main navigation">
+      <nav class="nav" id="nav" aria-label="Päänavigointi">
         <ul class="nav__list">
           <li><a href="/fi/" class="nav__link">Etusivu</a></li>
-          <li><a href="/fi/verkkosivut-fuengirola/" class="nav__link">Palvelut</a></li>
-          <li><a href="../../casos/" class="nav__link">Asiakastarinat</a></li>
-          <li><a href="/fi/blog/" class="nav__link nav__link--active">Blogi</a></li>
-          <li><a href="/fi/verkkosivut-fuengirola/#precios" class="nav__link">Hintalaskuri</a></li>
+          <li><a href="/fi/verkkosivut-fuengirola/" class="nav__link" data-page-transition="services">Palvelut</a></li>
+          <li><a href="/fi/asiakastyot/" class="nav__link">Asiakastyöt</a></li>
+          <li><a href="/fi/blog/" class="nav__link nav__link--active" aria-current="page">Blogi</a></li>
+          <li><a href="/web-solidaria/" class="nav__link">Web Solidaria</a></li>
+          <li><a href="https://portal.webfuengirola.com/cliente" class="nav__link nav__link--client" target="_blank" rel="noopener noreferrer">Asiakasalue</a></li>
         </ul>
       </nav>
-      <a href="/fi/yhteystiedot/" class="btn btn--primary header__cta" data-analytics-event="quote_click" data-analytics-locale="fi">Pyydä tarjous</a>
-      <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
-        <span></span><span></span><span></span>
-      </button>
+      <details class="language-menu">
+        <summary aria-label="Vaihda kieli: Suomi"><span aria-hidden="true">FI</span><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12"><path d="m3 4.5 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" /></svg></summary>
+        <div class="language-menu__options"><a href="/" lang="es">Español</a><a href="/en/" lang="en">English</a><a href="/de/" lang="de">Deutsch</a><a href="/fi/" lang="fi" aria-current="page">Suomi <span aria-hidden="true">✓</span></a></div>
+      </details>
+      <button type="button" class="hamburger" id="hamburger" aria-label="Avaa valikko" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
     </div>
   </header>
   <main>
