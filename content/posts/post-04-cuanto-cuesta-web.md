@@ -18,7 +18,7 @@ No hay cuotas mensuales obligatorias. No hay sorpresas. Hosting desde 30€/año
 
 ¿La diferencia? Una web bien hecha no es cara. Cara es perder clientes cada día porque tu negocio no se ve en Google.
 
-¿Quieres saber qué plan te encaja? Entra en nuestra calculadora de precios (link en bio) o escríbenos directamente.
+¿Quieres saber qué plan te encaja? Consulta nuestros servicios y precios (link en bio) o escríbenos directamente.
 
 ## Prompt para generar la foto
 

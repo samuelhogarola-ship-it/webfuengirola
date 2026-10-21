@@ -11,7 +11,7 @@
     "build:navigation": "node scripts/site-navigation.mjs",
     "build:sitemap": "node scripts/build-sitemap.mjs",
     "build:brand-visuals": "node scripts/generate-brand-visuals.mjs",
-    "build:all": "npm run build:services && npm run build:casos && npm run build:portfolio && npm run build:blog && npm run build:commercial && npm run build:navigation && npm run build:sitemap",
+    "build:all": "npm run build:services && npm run build:casos && npm run build:portfolio && npm run build:blog && npm run build:commercial && npm run build:sitemap",
     "content:social": "node scripts/prepare-social-campaign.mjs",
     "test": "playwright test",
     "test:unit": "node --test tests/*.test.mjs",

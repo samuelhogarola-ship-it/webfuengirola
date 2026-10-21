@@ -85,43 +85,6 @@ function assetHref(prefix, href) {
 }
 
 /**
- * Renders the shared site header for generated pages.
- * @param {string} prefix
- * @param {string} activePage
- * @returns {string}
- */
-function renderHeader(prefix, activePage) {
-  const navItems = [
-    { href: "index.html", label: "Inicio", key: "home" },
-    { href: "servicios/", label: "Servicios", key: "services" },
-    { href: "casos/", label: "Portfolio", key: "casos" },
-    { href: "blog/", label: "Blog", key: "blog" },
-    { href: "sobre-nosotros/", label: "Sobre nosotros", key: "sobre" },
-  ];
-
-  return `
-  <header class="header" id="header">
-    <div class="container header__inner">
-      <a href="${navHref(prefix, "index.html")}" class="logo" aria-label="WF-Studio · Web Fuengirola">
-        <img src="${assetHref(prefix, "img/logo-wf.webp")}" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="eager"/>
-      </a>
-
-      <nav class="nav" id="nav" aria-label="Navegación principal">
-        <ul class="nav__list">
-          ${navItems.map((item) => `<li><a href="${navHref(prefix, item.href)}" class="nav__link${item.key === activePage ? " nav__link--active" : ""}">${item.label}</a></li>`).join("\n          ")}
-        </ul>
-      </nav>
-
-      <a href="https://wa.me/34622923988?text=Hola%2C%20me%20interesa%20una%20web%20para%20mi%20negocio" class="btn btn--primary header__cta" target="_blank" rel="noopener noreferrer">Pedir presupuesto</a>
-
-      <button type="button" class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>`;
-}
-
-/**
  * Renders the shared site footer and floating WhatsApp CTA.
  * @param {string} prefix
  * @param {string} [whatsappText='Hola, me interesa una web para mi negocio']

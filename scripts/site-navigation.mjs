@@ -84,7 +84,18 @@ function activeKey(pathname, locale) {
   }
   if (
     pathname.startsWith("/servicios/") ||
-    /web-design|webdesign|verkkosivut/.test(pathname)
+    /^\/(?:aplicaciones-web|auditoria-web-gratis|diseno-web|seo-local|web-multidioma|web-para-)/.test(
+      pathname,
+    ) ||
+    /^\/en\/(?:free-website-audit|multilingual-websites|web-applications|web-design|websites-for-)/.test(
+      pathname,
+    ) ||
+    /^\/de\/(?:kostenlose-website-analyse|mehrsprachige-websites|web-anwendungen|webdesign|websites-fuer-)/.test(
+      pathname,
+    ) ||
+    /^\/fi\/(?:maksuton-verkkosivuanalyysi|monikieliset-verkkosivut|verkkosivut|verkkosovellukset)/.test(
+      pathname,
+    )
   ) {
     return "services";
   }

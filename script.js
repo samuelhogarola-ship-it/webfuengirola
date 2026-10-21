@@ -17,7 +17,6 @@
       navServices: "Servicios",
       navCases: "Portfolio",
       navBlog: "Blog",
-      navResources: "Calculadora de precios",
       navAbout: "Sobre nosotros",
       navClientAccess: "Área cliente",
       navProcess: "FAQ",
@@ -202,17 +201,6 @@
       maintenance3Feature2: "Nuevas páginas y funcionalidades",
       maintenance3Feature3: "Respuesta en el mismo día",
       maintenance3Feature4: "Seguimiento SEO y analítica",
-      calcLabel: "Calculadora de precios",
-      calcTitle: "Elige la forma más fácil<br>de dar el siguiente paso",
-      calcSub:
-        "Si quieres una recomendación orientativa, responde 4 preguntas. Si ya lo tienes claro, entra por la ruta directa y no pierdas tiempo.",
-      calcBaseLabel: "Servicios",
-      calcPickHint: "Puedes combinar varias opciones",
-      calcEstimateLabel: "Estimación actual",
-      calcEstimateNote: "Precio orientativo antes de cerrar alcance final.",
-      calcWhatsapp: "Pedir este presupuesto",
-      calcEmail: "Enviar por email",
-      calcEmpty: "Selecciona uno o varios servicios para ver tu estimación.",
       ctaTitle: "¿Tienes un negocio local<br>y necesitas una web clara?",
       ctaSub:
         "Cuéntanos qué haces y te diremos por dónde empezar, sin tecnicismos y sin obligarte a pedir una web grande desde el principio.",
@@ -239,7 +227,6 @@
       navServices: "Services",
       navCases: "Case studies",
       navBlog: "Blog",
-      navResources: "Resources",
       navAbout: "About us",
       navClientAccess: "Client area",
       navProcess: "FAQ",
@@ -424,17 +411,6 @@
       maintenance3Feature2: "New pages and features",
       maintenance3Feature3: "Same-day response",
       maintenance3Feature4: "SEO and analytics monitoring",
-      calcLabel: "Price calculator",
-      calcTitle: "Find the website setup that fits<br>your business best",
-      calcSub:
-        "Answer 4 questions and you will get a practical recommendation for the website structure and level of support that make sense for your case.",
-      calcBaseLabel: "Services",
-      calcPickHint: "You can combine multiple options",
-      calcEstimateLabel: "Current estimate",
-      calcEstimateNote: "Indicative price before the final scope is closed.",
-      calcWhatsapp: "Request this quote",
-      calcEmail: "Send by email",
-      calcEmpty: "Select one or more services to see your estimate.",
       ctaTitle: "Do you run a local business<br>and need a clear website?",
       ctaSub:
         "Tell us what you do and we will explain where to start. No obligation, no jargon, no pressure to begin with a huge website.",
@@ -461,7 +437,6 @@
       navServices: "Leistungen",
       navCases: "Fallstudien",
       navBlog: "Blog",
-      navResources: "Ressourcen",
       navAbout: "Über uns",
       navClientAccess: "Kundenbereich",
       navProcess: "FAQ",
@@ -648,20 +623,6 @@
       maintenance3Feature2: "Neue Seiten und Funktionen",
       maintenance3Feature3: "Antwort am selben Tag",
       maintenance3Feature4: "SEO- und Analyse-Monitoring",
-      calcLabel: "Preisrechner",
-      calcTitle:
-        "Finden Sie heraus, welche Website<br>am besten zu Ihrem Unternehmen passt",
-      calcSub:
-        "Beantworten Sie 4 Fragen und Sie erhalten eine praxisnahe Empfehlung zur Webstruktur und zum passenden Betreuungsniveau.",
-      calcBaseLabel: "Leistungen",
-      calcPickHint: "Mehrere Optionen sind kombinierbar",
-      calcEstimateLabel: "Aktuelle Schätzung",
-      calcEstimateNote:
-        "Unverbindlicher Richtpreis vor dem finalen Leistungsumfang.",
-      calcWhatsapp: "Dieses Angebot anfragen",
-      calcEmail: "Per E-Mail senden",
-      calcEmpty:
-        "Wählen Sie eine oder mehrere Leistungen, um die Schätzung zu sehen.",
       ctaTitle:
         "Haben Sie ein lokales Unternehmen<br>und brauchen eine klare Webseite?",
       ctaSub:
@@ -690,7 +651,6 @@
       navServices: "Palvelut",
       navCases: "Case-esimerkit",
       navBlog: "Blogi",
-      navResources: "Resurssit",
       navAbout: "Meistä",
       navClientAccess: "Asiakasalue",
       navProcess: "FAQ",
@@ -874,19 +834,6 @@
       maintenance3Feature2: "Uusia sivuja ja toimintoja",
       maintenance3Feature3: "Vastaus saman päivän aikana",
       maintenance3Feature4: "SEO- ja analytiikkaseuranta",
-      calcLabel: "Hintalaskuri",
-      calcTitle:
-        "Selvitä, millainen verkkosivu<br>sopii yrityksellesi parhaiten",
-      calcSub:
-        "Vastaa 4 kysymykseen ja saat käytännöllisen suosituksen sivuston rakenteesta ja sopivasta tuen tasosta.",
-      calcBaseLabel: "Palvelut",
-      calcPickHint: "Voit yhdistää useita vaihtoehtoja",
-      calcEstimateLabel: "Nykyinen arvio",
-      calcEstimateNote:
-        "Suuntaa-antava hinta ennen lopullisen laajuuden vahvistusta.",
-      calcWhatsapp: "Pyydä tämä tarjous",
-      calcEmail: "Lähetä sähköpostilla",
-      calcEmpty: "Valitse yksi tai useampi palvelu nähdäksesi arvion.",
       ctaTitle:
         "Onko sinulla paikallinen yritys<br>ja tarvitset selkeät verkkosivut?",
       ctaSub:
@@ -1327,42 +1274,46 @@
       });
     });
 
-    document.querySelectorAll(".portfolio__grid:not(.commercial-portfolio)").forEach(function (grid) {
-      var cards = Array.prototype.slice.call(
-        grid.querySelectorAll(":scope > .portfolio-card"),
-      );
-      if (cards.length < 4) return;
-
-      var imageCards = cards.filter(function (card) {
-        return card.querySelector(
-          ".portfolio-card__img, .portfolio-card__img-link",
+    document
+      .querySelectorAll(".portfolio__grid:not(.commercial-portfolio)")
+      .forEach(function (grid) {
+        var cards = Array.prototype.slice.call(
+          grid.querySelectorAll(":scope > .portfolio-card"),
         );
-      });
-      if (imageCards.length < 3) return;
+        if (cards.length < 4) return;
 
-      grid.classList.add("portfolio__grid--deck-stack");
-      cards.forEach(function (card, index) {
-        var tailIndex = Math.max(0, index - 4);
-        var centerOffset = index - (cards.length - 1) / 2;
+        var imageCards = cards.filter(function (card) {
+          return card.querySelector(
+            ".portfolio-card__img, .portfolio-card__img-link",
+          );
+        });
+        if (imageCards.length < 3) return;
 
-        card.style.setProperty("--deck-index", index);
-        card.style.setProperty("--deck-count", cards.length);
-        card.style.setProperty("--deck-y", index % 2 ? "18px" : "0px");
-        card.style.setProperty(
-          "--deck-rotate",
-          (centerOffset * -1.8).toFixed(2) + "deg",
-        );
-        card.style.setProperty("--deck-tail-x", tailIndex * 18 + "px");
-        card.style.setProperty("--deck-tail-y", 28 + tailIndex * 8 + "px");
-        card.style.setProperty("--deck-tail-rotate", tailIndex * 2 + "deg");
+        grid.classList.add("portfolio__grid--deck-stack");
+        cards.forEach(function (card, index) {
+          var tailIndex = Math.max(0, index - 4);
+          var centerOffset = index - (cards.length - 1) / 2;
+
+          card.style.setProperty("--deck-index", index);
+          card.style.setProperty("--deck-count", cards.length);
+          card.style.setProperty("--deck-y", index % 2 ? "18px" : "0px");
+          card.style.setProperty(
+            "--deck-rotate",
+            (centerOffset * -1.8).toFixed(2) + "deg",
+          );
+          card.style.setProperty("--deck-tail-x", tailIndex * 18 + "px");
+          card.style.setProperty("--deck-tail-y", 28 + tailIndex * 8 + "px");
+          card.style.setProperty("--deck-tail-rotate", tailIndex * 2 + "deg");
+        });
       });
-    });
   }
 
   /* ---- Portfolio hover popup ---- */
   function initPortfolioPopup() {
     var cards = Array.prototype.slice.call(
-      document.querySelectorAll(".portfolio-card:not(.commercial-portfolio .portfolio-card)"),
+      document.querySelectorAll(
+        ".portfolio-card:not(.commercial-portfolio .portfolio-card)",
+      ),
     );
     if (
       !cards.length ||
@@ -1422,667 +1373,6 @@
       iframe.style.transform = "scale(" + scale + ")";
       wrapper.style.height = Math.round(wrapper.offsetWidth * 0.75) + "px";
     });
-  }
-
-  function initServiceEstimator() {
-    var roots = Array.prototype.slice.call(
-      document.querySelectorAll("[data-estimator]"),
-    );
-    if (!roots.length) return;
-
-    roots.forEach(function (root) {
-      initEstimatorRoot(root);
-    });
-  }
-
-  function initEstimatorRoot(root) {
-    if (!root || root.getAttribute("data-estimator-ready") === "true") return;
-    root.setAttribute("data-estimator-ready", "true");
-
-    var WA_BASE = "https://wa.me/34622923988?text=";
-    var EMAIL = "info@webfuengirola.com";
-    var stepOrder = ["pages", "blog", "changes", "tracking", "summary"];
-    var stepLabels = {
-      pages: "1 de 4 · Páginas",
-      blog: "2 de 4 · Blog",
-      changes: "3 de 4 · Actualizaciones",
-      tracking: "4 de 4 · Seguimiento",
-      summary: "Recomendación",
-    };
-
-    var services = {
-      lite: {
-        title: "Web Lite",
-        basePrice: 200,
-        priceLabel: "200€ + IVA",
-        summaryPrice: "200€ + IVA",
-        infraOneTime: 50,
-        infraLabel: "Hosting 35€/año + dominio 15€/año",
-        renewalLabel: "Hosting 35€/año + dominio 15€/año",
-        renewalSidePrice: "50€/año entre hosting y dominio",
-        renewalCopy:
-          "La estimación incluye la puesta online inicial. Después, la renovación prevista para Lite es 35€/año de hosting y 15€/año de dominio.",
-        bullets: [
-          "Landing page monopágina con hasta 5 secciones.",
-          "Diseño responsive, legal básico y contacto visible.",
-          "SEO inicial para indexación y buenas prácticas.",
-        ],
-      },
-      express: {
-        title: "Web Express",
-        basePrice: 350,
-        priceLabel: "350€ + IVA",
-        summaryPrice: "350€ + IVA",
-        infraOneTime: 50,
-        infraLabel: "Hosting 35€/año + dominio 15€/año",
-        renewalLabel: "Hosting 35€/año + dominio 15€/año",
-        renewalSidePrice: "50€/año entre hosting y dominio",
-        renewalCopy:
-          "La estimación incluye la puesta online inicial. Después, la renovación prevista para Express es 35€/año de hosting y 15€/año de dominio.",
-        bullets: [
-          "Hasta 5 páginas más blog.",
-          "SEO medio inicial orientado a estructura e indexación.",
-          "WhatsApp, email y formulario básico sin base de datos.",
-        ],
-      },
-      pro: {
-        title: "Web Pro",
-        basePrice: 600,
-        priceLabel: "600€ + IVA",
-        summaryPrice: "600€ + IVA",
-        infraOneTime: 0,
-        infraLabel: "",
-        renewalLabel:
-          "Renovación anual: hosting 60€ IVA incl. + dominio 15€ IVA incl.",
-        renewalSidePrice: "Primer año incluido",
-        renewalCopy:
-          "Después del primer año, la renovación prevista es de 60€ IVA incluido de hosting y 15€ IVA incluido de dominio.",
-        bullets: [
-          "Todo lo incluido en Web Express, hasta 10 páginas y SEO avanzado inicial.",
-          "Formulario con almacenamiento de contactos y registro básico de oportunidades.",
-          "Panel básico para noticias, eventos, promociones o casos de éxito.",
-        ],
-      },
-      custom: {
-        title: "Web Personalizada",
-        basePrice: 600,
-        priceLabel: "Desde 600€ + IVA",
-        summaryPrice: "Desde 600€ + IVA",
-        infraOneTime: 0,
-        infraLabel: "",
-        renewalLabel:
-          "Renovación anual orientativa: hosting 80€ IVA incl. + dominio 15€ IVA incl.",
-        renewalSidePrice: "Primer año incluido",
-        renewalCopy:
-          "Pensada para proyectos con funcionalidades específicas, integraciones o procesos a medida. El precio final depende del alcance real.",
-        bullets: [
-          "Reservas, áreas privadas, automatizaciones o integraciones según necesidad.",
-          "Desarrollo definido caso a caso, sin venderlo como una simple web más grande.",
-          "Base preparada para procesos internos o herramientas propias del negocio.",
-        ],
-      },
-    };
-
-    var supportPlans = {
-      none: {
-        title: "Sin mantenimiento",
-        type: "none",
-        oneTime: 0,
-        monthly: 0,
-        label: "Sin cuota fija",
-        summary:
-          "Publicamos la web y dejamos el seguimiento para más adelante.",
-      },
-      marketing: {
-        title: "Marketing y Presencia Digital",
-        type: "monthly",
-        oneTime: 0,
-        monthly: 300,
-        label: "300€/mes",
-        summary:
-          "Presencia digital activa, reseñas, publicaciones y seguimiento SEO local.",
-      },
-      carefree: {
-        title: "Cero Preocupaciones",
-        type: "monthly",
-        oneTime: 0,
-        monthly: 400,
-        label: "400€/mes",
-        summary:
-          "Delegación más completa con actualizaciones web, supervisión técnica y soporte prioritario.",
-      },
-      flex: {
-        title: "Bono Flexible",
-        type: "pack",
-        oneTime: 400,
-        monthly: 0,
-        label: "400€ · 10 horas",
-        summary:
-          "Bolsa de horas para acciones concretas con flexibilidad y seguimiento.",
-      },
-      priority: {
-        title: "Bono Prioritario",
-        type: "pack",
-        oneTime: 550,
-        monthly: 0,
-        label: "550€ · 10 horas",
-        summary:
-          "Bolsa prioritaria para actuar más rápido cuando el negocio lo necesita.",
-      },
-    };
-
-    var extras = {
-      analytics: {
-        title: "Umami y Search Console",
-        price: 50,
-        label: "50€ + IVA",
-        summary:
-          "Configuración inicial, verificación de dominio y conexión con la web.",
-      },
-    };
-
-    var changesPlans = {
-      rarely: {
-        title: "Mantenimiento mínimo",
-        oneTime: 50,
-        label: "+50€",
-        summary: "Incluye 1 hora flexible al año para algún cambio puntual.",
-      },
-      light: {
-        title: "Mantenimiento básico",
-        oneTime: 150,
-        label: "+150€",
-        summary:
-          "Incluye 1 a 3 cambios por semana y 2 a 3 publicaciones mensuales como pack base de mantenimiento.",
-      },
-      sometimes: {
-        title: "Actualizaciones ocasionales",
-        oneTime: 0,
-        label: "A medida",
-        summary:
-          "La web queda preparada para cambios puntuales, pero el ritmo real se valora aparte según volumen.",
-      },
-      often: {
-        title: "Bono flexible",
-        oneTime: 0,
-        label: "A medida",
-        summary:
-          "Pensado para negocios que algunas semanas necesitan muchos cambios y en otras muy pocos, con una bolsa flexible en lugar de una cuota fija.",
-      },
-    };
-
-    var state = {
-      pages: null,
-      blog: null,
-      changes: null,
-      tracking: null,
-    };
-
-    var activeStep = "pages";
-    var steps = {};
-    Array.prototype.slice
-      .call(root.querySelectorAll("[data-estimator-step]"))
-      .forEach(function (el) {
-        steps[el.getAttribute("data-estimator-step")] = el;
-      });
-
-    var dots = Array.prototype.slice.call(
-      root.querySelectorAll("[data-estimator-dot]"),
-    );
-    var stepLabelEl = root.querySelector("[data-estimator-step-label]");
-    var barStepEl = root.querySelector("[data-estimator-bar-step]");
-    var barOnceEl = root.querySelector("[data-estimator-bar-once]");
-    var barEl = root.querySelector("[data-estimator-bar]");
-    var summaryEl = root.querySelector("[data-estimator-summary]");
-    var totalOnceEl = root.querySelector("[data-estimator-total-once]");
-    var totalRecurringEl = root.querySelector(
-      "[data-estimator-total-recurring]",
-    );
-    var backBtn = root.querySelector("[data-estimator-back]");
-    var nextBtn = root.querySelector("[data-estimator-next]");
-    var restartBtn = root.querySelector("[data-estimator-restart]");
-    var whatsappBtn = root.querySelector("[data-estimator-wa]");
-    var emailBtn = root.querySelector("[data-estimator-email]");
-    var shareBtns = Array.prototype.slice.call(
-      root.querySelectorAll("[data-estimator-share]"),
-    );
-    var autoAdvanceTimer;
-    var shareFeedbackTimer;
-
-    function trackEstimator(eventName, details) {
-      if (!window.WFAnalytics || !window.WFAnalytics.trackEvent) return;
-      var payload = details || {};
-      payload.locale = document.documentElement.lang || "es";
-      payload.sector = document.body.dataset.sector || "resources";
-      window.WFAnalytics.trackEvent(eventName, payload);
-    }
-
-    function formatOneTime(amount, isFrom) {
-      return (isFrom ? "Desde " : "") + amount + "€ + IVA";
-    }
-
-    function deriveRecommendation() {
-      var pages = state.pages || "one";
-      var blog = state.blog || "no";
-      var changes = state.changes || "rarely";
-      var tracking = state.tracking || "basic";
-      var changesPlan = changesPlans[changes] ? changes : "rarely";
-
-      var serviceKey;
-      if (pages === "one") serviceKey = "lite";
-      else if (pages === "few") serviceKey = "express";
-      else if (pages === "many") serviceKey = "pro";
-      else serviceKey = "custom";
-
-      if (blog === "yes" && serviceKey === "lite") serviceKey = "express";
-
-      var supportKey;
-      if (tracking === "full") {
-        supportKey = "carefree";
-      } else if (tracking === "monitoring") {
-        supportKey = changes === "rarely" ? "flex" : "marketing";
-      } else {
-        supportKey =
-          changes === "rarely" || changes === "light" ? "none" : "flex";
-      }
-
-      var includeAnalytics =
-        (serviceKey === "pro" || serviceKey === "custom") &&
-        (tracking === "monitoring" || tracking === "full");
-
-      return {
-        service: serviceKey,
-        support: supportKey,
-        analytics: includeAnalytics,
-        changesPlan: changesPlan,
-      };
-    }
-
-    function computeTotals(rec) {
-      var service = services[rec.service];
-      var support = supportPlans[rec.support];
-      var changesPlan = changesPlans[rec.changesPlan];
-      return {
-        once:
-          service.basePrice +
-          (service.infraOneTime || 0) +
-          changesPlan.oneTime +
-          support.oneTime +
-          (rec.analytics ? extras.analytics.price : 0),
-        monthly: support.monthly,
-        hasFromPrefix: rec.service === "custom",
-      };
-    }
-
-    function getCurrentEstimate() {
-      return computeTotals(deriveRecommendation());
-    }
-
-    function syncSelections() {
-      ["pages", "blog", "changes", "tracking"].forEach(function (field) {
-        Array.prototype.slice
-          .call(
-            root.querySelectorAll('[data-estimator-choice="' + field + '"]'),
-          )
-          .forEach(function (btn) {
-            btn.classList.toggle(
-              "is-selected",
-              btn.getAttribute("data-key") === state[field],
-            );
-          });
-      });
-    }
-
-    function updateSummary() {
-      var rec = deriveRecommendation();
-      var totals = computeTotals(rec);
-      var service = services[rec.service];
-      var support = supportPlans[rec.support];
-      var changesPlan = changesPlans[rec.changesPlan];
-      var once = totals.once;
-      var hasFromPrefix = totals.hasFromPrefix;
-
-      var bulletsHtml = service.bullets
-        .map(function (b) {
-          return '<div class="estimator-summary__bullet">' + b + "</div>";
-        })
-        .join("");
-
-      var extraLine = rec.analytics
-        ? '<div class="estimator-summary__line"><span>' +
-          extras.analytics.title +
-          "</span><strong>" +
-          extras.analytics.label +
-          "</strong></div>"
-        : "";
-
-      var infraLine = service.infraOneTime
-        ? '<div class="estimator-summary__line"><span>Puesta online inicial</span><strong>' +
-          service.infraOneTime +
-          "€ + IVA</strong></div>"
-        : "";
-
-      var changesLine =
-        changesPlan.oneTime || changesPlan.label === "A medida"
-          ? '<div class="estimator-summary__line"><span>' +
-            changesPlan.title +
-            "</span><strong>" +
-            changesPlan.label +
-            "</strong></div>"
-          : "";
-
-      if (summaryEl) {
-        summaryEl.innerHTML =
-          '<div class="estimator-summary__group">' +
-          '<div class="estimator-summary__group-title">Web recomendada</div>' +
-          '<div class="estimator-summary__line"><span>' +
-          service.title +
-          "</span><strong>" +
-          service.summaryPrice +
-          "</strong></div>" +
-          infraLine +
-          extraLine +
-          '<div class="estimator-summary__bullets">' +
-          bulletsHtml +
-          "</div>" +
-          "</div>" +
-          '<div class="estimator-summary__group">' +
-          '<div class="estimator-summary__group-title">Mantenimiento de contenidos</div>' +
-          changesLine +
-          '<div class="estimator-summary__bullets"><div class="estimator-summary__bullet">' +
-          changesPlan.summary +
-          "</div></div>" +
-          "</div>" +
-          '<div class="estimator-summary__group">' +
-          '<div class="estimator-summary__group-title">Seguimiento recomendado</div>' +
-          '<div class="estimator-summary__line"><span>' +
-          support.title +
-          "</span><strong>" +
-          support.label +
-          "</strong></div>" +
-          '<div class="estimator-summary__bullets"><div class="estimator-summary__bullet">' +
-          support.summary +
-          "</div></div>" +
-          "</div>" +
-          '<div class="estimator-summary__group">' +
-          '<div class="estimator-summary__group-title">Renovación orientativa</div>' +
-          '<div class="estimator-summary__line"><span>Costes anuales</span><strong>' +
-          service.renewalLabel +
-          "</strong></div>" +
-          "</div>";
-      }
-
-      if (totalOnceEl)
-        totalOnceEl.textContent = formatOneTime(once, hasFromPrefix);
-      if (totalRecurringEl) {
-        totalRecurringEl.textContent = support.monthly
-          ? support.monthly + "€/mes"
-          : support.type === "pack"
-            ? support.oneTime + "€ en bono"
-            : "Sin cuota mensual";
-      }
-    }
-
-    function buildMessage() {
-      var rec = deriveRecommendation();
-      var totals = computeTotals(rec);
-      var service = services[rec.service];
-      var support = supportPlans[rec.support];
-      var changesPlan = changesPlans[rec.changesPlan];
-      var once = totals.once;
-      var hasFromPrefix = totals.hasFromPrefix;
-
-      var lines = [
-        "Hola, he usado la calculadora de Web Fuengirola y esta es mi recomendación:",
-        "- Web: " + service.title + " (" + service.summaryPrice + ")",
-        "- Mantenimiento de contenidos: " +
-          changesPlan.title +
-          " (" +
-          changesPlan.label +
-          ")",
-        "- Seguimiento: " + support.title + " (" + support.label + ")",
-      ];
-
-      if (rec.analytics) {
-        lines.push(
-          "- Extra: " +
-            extras.analytics.title +
-            " (" +
-            extras.analytics.label +
-            ")",
-        );
-      }
-
-      lines.push(
-        "- Inversión inicial estimada: " + formatOneTime(once, hasFromPrefix),
-      );
-      if (support.monthly)
-        lines.push("- Cuota mensual: " + support.monthly + "€/mes");
-      lines.push("Me gustaría comentar material, plazos y alcance real.");
-      return lines.join("\n");
-    }
-
-    function getShareUrl() {
-      var explicitUrl = root.getAttribute("data-estimator-share-url");
-      if (explicitUrl) return explicitUrl;
-      return window.location.origin + window.location.pathname;
-    }
-
-    function getSharePayload() {
-      var baseText =
-        "He usado la calculadora de precios de Web Fuengirola para orientar qué tipo de web encaja con mi negocio.";
-      var text =
-        activeStep === "summary"
-          ? baseText + "\n\n" + buildMessage()
-          : baseText;
-
-      return {
-        title: "Calculadora de precios web | Web Fuengirola",
-        text: text,
-        url: getShareUrl(),
-      };
-    }
-
-    function setShareButtonText(text) {
-      if (!shareBtns.length) return;
-      shareBtns.forEach(function (btn) {
-        btn.textContent = text;
-      });
-      window.clearTimeout(shareFeedbackTimer);
-      shareFeedbackTimer = window.setTimeout(function () {
-        shareBtns.forEach(function (btn) {
-          btn.textContent = "Compartir calculadora";
-        });
-      }, 2200);
-    }
-
-    function updateLinks() {
-      var message = buildMessage();
-      if (whatsappBtn) whatsappBtn.href = WA_BASE + encodeURIComponent(message);
-      if (emailBtn) {
-        emailBtn.href =
-          "mailto:" +
-          EMAIL +
-          "?subject=" +
-          encodeURIComponent("Estimación web Web Fuengirola") +
-          "&body=" +
-          encodeURIComponent(message);
-      }
-    }
-
-    function canContinue(stepKey) {
-      return stepKey !== "summary" && !!state[stepKey];
-    }
-
-    function updateNav() {
-      var idx = stepOrder.indexOf(activeStep);
-      var isSummary = activeStep === "summary";
-
-      dots.forEach(function (dot) {
-        var dotIdx = stepOrder.indexOf(dot.getAttribute("data-estimator-dot"));
-        dot.classList.toggle("is-active", dotIdx === idx);
-        dot.classList.toggle("is-done", dotIdx < idx);
-      });
-
-      if (stepLabelEl) stepLabelEl.textContent = stepLabels[activeStep];
-
-      root.classList.toggle("is-on-summary", isSummary);
-      if (barEl) barEl.hidden = isSummary;
-
-      if (!isSummary) {
-        var qIdx = ["pages", "blog", "changes", "tracking"].indexOf(activeStep);
-        if (barStepEl)
-          barStepEl.textContent = "Pregunta " + (qIdx + 1) + " de 4";
-        if (barOnceEl) {
-          if (!state.pages) {
-            barOnceEl.textContent = "—";
-          } else {
-            var est = getCurrentEstimate();
-            barOnceEl.textContent = formatOneTime(est.once, est.hasFromPrefix);
-          }
-        }
-      }
-
-      if (backBtn) backBtn.hidden = idx === 0;
-      if (nextBtn) {
-        nextBtn.hidden = isSummary;
-        nextBtn.disabled = !canContinue(activeStep);
-        if (!canContinue(activeStep)) {
-          nextBtn.textContent = "Elige una opción";
-        } else {
-          nextBtn.textContent =
-            activeStep === "tracking" ? "Ver recomendación →" : "Siguiente →";
-        }
-      }
-    }
-
-    function goTo(stepKey) {
-      window.clearTimeout(autoAdvanceTimer);
-      activeStep = stepKey;
-      Object.keys(steps).forEach(function (key) {
-        steps[key].classList.toggle("is-active", key === stepKey);
-      });
-
-      syncSelections();
-      if (stepKey === "summary") {
-        updateSummary();
-        updateLinks();
-        var recommendation = deriveRecommendation();
-        var totals = computeTotals(recommendation);
-        trackEstimator("calculator_result", {
-          service: recommendation.service,
-          support: recommendation.support,
-          analytics: recommendation.analytics ? "yes" : "no",
-          initialTotal: String(totals.once),
-          monthlyTotal: String(totals.monthly),
-        });
-      }
-      updateNav();
-    }
-
-    function queueAutoAdvance(field) {
-      window.clearTimeout(autoAdvanceTimer);
-      autoAdvanceTimer = window.setTimeout(function () {
-        if (activeStep !== field || !canContinue(field)) return;
-        var idx = stepOrder.indexOf(field);
-        if (idx === -1 || idx >= stepOrder.length - 1) return;
-        goTo(stepOrder[idx + 1]);
-      }, 280);
-    }
-
-    ["pages", "blog", "changes", "tracking"].forEach(function (field) {
-      Array.prototype.slice
-        .call(root.querySelectorAll('[data-estimator-choice="' + field + '"]'))
-        .forEach(function (btn) {
-          btn.addEventListener("click", function () {
-            state[field] = btn.getAttribute("data-key");
-            trackEstimator("calculator_choice", {
-              field: field,
-              choice: state[field],
-            });
-            syncSelections();
-            updateNav();
-            queueAutoAdvance(field);
-          });
-        });
-    });
-
-    if (backBtn) {
-      backBtn.addEventListener("click", function () {
-        var idx = stepOrder.indexOf(activeStep);
-        if (idx <= 0) return;
-        goTo(stepOrder[idx - 1]);
-      });
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener("click", function () {
-        var idx = stepOrder.indexOf(activeStep);
-        if (
-          idx === -1 ||
-          idx >= stepOrder.length - 1 ||
-          !canContinue(activeStep)
-        )
-          return;
-        goTo(stepOrder[idx + 1]);
-      });
-    }
-
-    if (restartBtn) {
-      restartBtn.addEventListener("click", function () {
-        state = { pages: null, blog: null, changes: null, tracking: null };
-        goTo("pages");
-      });
-    }
-
-    if (shareBtns.length) {
-      shareBtns.forEach(function (shareBtn) {
-        shareBtn.addEventListener("click", function () {
-          var payload = getSharePayload();
-
-          if (navigator.share) {
-            navigator
-              .share(payload)
-              .then(function () {
-                setShareButtonText("Compartida");
-              })
-              .catch(function (error) {
-                if (error && error.name === "AbortError") return;
-
-                if (navigator.clipboard && window.isSecureContext) {
-                  navigator.clipboard
-                    .writeText(payload.url)
-                    .then(function () {
-                      setShareButtonText("Enlace copiado");
-                    })
-                    .catch(function () {
-                      setShareButtonText("Copia manual");
-                    });
-                } else {
-                  setShareButtonText("Copia manual");
-                }
-              });
-            return;
-          }
-
-          if (navigator.clipboard && window.isSecureContext) {
-            navigator.clipboard
-              .writeText(payload.url)
-              .then(function () {
-                setShareButtonText("Enlace copiado");
-              })
-              .catch(function () {
-                setShareButtonText("Copia manual");
-              });
-            return;
-          }
-
-          setShareButtonText("Copia manual");
-        });
-      });
-    }
-
-    goTo("pages");
   }
 
   function initEditorialServices() {
@@ -2248,7 +1538,11 @@
 
   function initPageTransition() {
     var overlay = document.getElementById("page-transition");
-    if (!overlay || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (
+      !overlay ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
 
     var isLeaving = false;
 
@@ -2274,7 +1568,14 @@
       .querySelectorAll('a[data-page-transition="services"]')
       .forEach(function (link) {
         link.addEventListener("click", function (event) {
-          if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+          if (
+            event.button !== 0 ||
+            event.metaKey ||
+            event.ctrlKey ||
+            event.shiftKey ||
+            event.altKey
+          )
+            return;
           var href = link.getAttribute("href");
           if (!href || href.charAt(0) === "#") return;
           if (link.target === "_blank" || link.hasAttribute("download")) return;
@@ -2419,7 +1720,9 @@
         focusTargets.push(mobileLanguageMenu.querySelector("summary"));
         if (mobileLanguageMenu.open) {
           focusTargets = focusTargets.concat(
-            Array.prototype.slice.call(mobileLanguageMenu.querySelectorAll("a[href]")),
+            Array.prototype.slice.call(
+              mobileLanguageMenu.querySelectorAll("a[href]"),
+            ),
           );
         }
       }
@@ -2429,7 +1732,8 @@
       });
       var activeIndex = focusTargets.indexOf(document.activeElement);
       var direction = event.shiftKey ? -1 : 1;
-      var nextIndex = (activeIndex + direction + focusTargets.length) % focusTargets.length;
+      var nextIndex =
+        (activeIndex + direction + focusTargets.length) % focusTargets.length;
       event.preventDefault();
       focusTargets[nextIndex].focus();
     });
@@ -2437,7 +1741,8 @@
     document.addEventListener("click", function (event) {
       if (!nav.classList.contains("open")) return;
       if (
-        nav.contains(event.target) || hamburger.contains(event.target) ||
+        nav.contains(event.target) ||
+        hamburger.contains(event.target) ||
         (mobileLanguageMenu && mobileLanguageMenu.contains(event.target))
       )
         return;
@@ -2503,10 +1808,9 @@
 
     /* Run directly (not inside requestAnimationFrame): rAF can be throttled
        indefinitely for backgrounded/non-visible tabs, which would silently
-       leave the calculator, services hover, page transitions, and portfolio
-       popup uninitialized with no error. initReveal() has its own internal
+       leave services hover, page transitions, and portfolio popup
+       uninitialized with no error. initReveal() has its own internal
        double-RAF for its specific paint-timing needs. */
-    initServiceEstimator();
     initHeroParallax();
     initEditorialServices();
     initPageTransition();
@@ -2532,8 +1836,6 @@
 
   function inferredEvent(element) {
     var href = element.getAttribute("href") || "";
-    if (element.matches("[data-estimator-share], [data-estimator-email]"))
-      return "calculator_interaction";
     if (element.matches("[hreflang]")) return "language_switch";
     if (href.indexOf("mailto:") === 0) return "email_click";
     if (href.indexOf("tel:") === 0) return "phone_click";
@@ -2553,10 +1855,15 @@
     var eventName = link.dataset.analyticsEvent || inferredEvent(link);
     if (!eventName) return;
     window.WFAnalytics.trackEvent(eventName, {
-      locale: link.dataset.analyticsLocale || document.documentElement.lang || "es",
+      locale:
+        link.dataset.analyticsLocale || document.documentElement.lang || "es",
       tier: link.dataset.analyticsTier || "",
-      sector: link.dataset.analyticsSector || document.body.dataset.sector || "",
-      targetLocale: link.dataset.analyticsTargetLocale || link.getAttribute("hreflang") || "",
+      sector:
+        link.dataset.analyticsSector || document.body.dataset.sector || "",
+      targetLocale:
+        link.dataset.analyticsTargetLocale ||
+        link.getAttribute("hreflang") ||
+        "",
       destination: link.getAttribute("href") || "",
     });
   });

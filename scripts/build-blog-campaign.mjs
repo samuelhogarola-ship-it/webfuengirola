@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { renderSiteHeader } from "./site-navigation.mjs";
 
 const root = process.cwd();
 const blogDir = path.join(root, "blog");
@@ -1141,27 +1142,7 @@ function article(post, relatedPosts) {
   </script>
 </head>
 <body class="project-page blog-page">
-  <header class="header" id="header">
-    <div class="container header__inner">
-      <a href="../../index.html" class="logo" aria-label="WF-Studio · Web Fuengirola">
-        <img src="../../img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="eager" />
-      </a>
-      <nav class="nav" id="nav" aria-label="Navegación principal">
-        <ul class="nav__list">
-          <li><a href="../../index.html" class="nav__link">Inicio</a></li>
-          <li><a href="../../servicios/" class="nav__link">Servicios</a></li>
-          <li><a href="../../casos/" class="nav__link">Casos de éxito</a></li>
-          <li><a href="../../como-trabajamos/" class="nav__link">Proceso</a></li>
-          <li><a href="../" class="nav__link nav__link--active">Blog</a></li>
-          <li><a href="../../contacto/" class="nav__link">Contacto</a></li>
-        </ul>
-      </nav>
-      <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20una%20web%20para%20mi%20negocio" class="btn btn--primary header__cta" target="_blank" rel="noopener noreferrer">Pedir presupuesto</a>
-      <button type="button" class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
+${renderSiteHeader({ locale: "es", pathname: `/blog/${post.slug}/` })}
 
   <main>
     <section class="subpage-hero blog-hero blog-hero--article">
@@ -1390,26 +1371,7 @@ function buildIndex() {
   </script>
 </head>
 <body class="project-page blog-page">
-  <header class="header" id="header">
-    <div class="container header__inner">
-      <a href="../index.html" class="logo" aria-label="WF-Studio · Web Fuengirola">
-        <img src="../img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="eager" />
-      </a>
-      <nav class="nav" id="nav" aria-label="Navegación principal">
-        <ul class="nav__list">
-          <li><a href="../" class="nav__link">Inicio</a></li>
-          <li><a href="../servicios/" class="nav__link">Servicios</a></li>
-          <li><a href="../casos/" class="nav__link">Casos de éxito</a></li>
-          <li><a href="./" class="nav__link nav__link--active">Blog</a></li>
-          <li><a href="../sobre-nosotros/" class="nav__link">Sobre nosotros</a></li>
-        </ul>
-      </nav>
-      <a href="https://wa.me/34622923988?text=Hola%2C%20quiero%20una%20web%20para%20mi%20negocio" class="btn btn--primary header__cta" target="_blank" rel="noopener noreferrer">Pedir presupuesto</a>
-      <button type="button" class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
+${renderSiteHeader({ locale: "es", pathname: "/blog/" })}
 
   <main>
     <section class="subpage-hero blog-hero">
