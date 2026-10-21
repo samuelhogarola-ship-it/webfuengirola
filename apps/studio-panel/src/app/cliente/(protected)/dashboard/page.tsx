@@ -42,6 +42,16 @@ export default async function ClientDashboardPage() {
         <p className="mt-1 text-slate-500">Estado de tus servicios con WF-Studio.</p>
       </div>
 
+      {identity.email.trim().toLowerCase() === 'sportmassagefuengirola@gmail.com' && (
+        <Link href="/cliente/blogger" className="mb-8 flex items-center justify-between rounded-2xl border border-brand/20 bg-brand/5 px-5 py-4 transition hover:bg-brand/10">
+          <div>
+            <p className="font-semibold text-foreground">Blogger</p>
+            <p className="mt-1 text-sm text-slate-600">Open the tool to create and publish website posts.</p>
+          </div>
+          <span className="text-sm font-semibold text-brand">Open →</span>
+        </Link>
+      )}
+
       {/* Alerts */}
       {(pendingInvoices.length > 0 || expiredPacks.length > 0 || pendingItems.length > 0) && (
         <div className="mb-6 grid gap-3">

@@ -29,6 +29,15 @@ function getNavItems(locale: Locale) {
       ),
     },
     {
+      href: '/cliente/blogger',
+      label: 'Blogger',
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4 5h16v14H4z" /><path d="M8 9h8M8 13h5" />
+        </svg>
+      ),
+    },
+    {
       href: '/cliente/pendientes',
       label: t(locale, 'clientNav.pendientes'),
       icon: (
