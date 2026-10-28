@@ -581,6 +581,24 @@ export function renderCommercialPage(group, locale) {
   );
   const showForm = ["audit", "contact"].includes(group.kind);
   const whatsapp = `https://wa.me/${brand.whatsapp}?text=${encodeURIComponent(content.whatsappText)}`;
+  const homeSocialImage = `${brand.site}/img/og-cover.jpg`;
+  const socialImage =
+    group.key === "home" ? homeSocialImage : `${brand.site}/img/og-cover.webp`;
+  const homeSocialAlt = `${brand.displayName}: ${content.h1}`;
+  const openGraphImageDetails =
+    group.key === "home"
+      ? `
+  <meta property="og:image:secure_url" content="${homeSocialImage}" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="${escapeHtml(homeSocialAlt)}" />`
+      : "";
+  const twitterImageDetails =
+    group.key === "home"
+      ? `
+  <meta name="twitter:image:alt" content="${escapeHtml(homeSocialAlt)}" />`
+      : "";
   let html = `<!doctype html>
 <html lang="${locales[locale].htmlLang}">
 <head>
@@ -599,11 +617,11 @@ ${renderHreflang(group.key)}
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="${brand.displayName}" />
   <meta property="og:locale" content="${locales[locale].ogLocale}" />
-  <meta property="og:image" content="${brand.site}/img/og-cover.webp" />
+  <meta property="og:image" content="${socialImage}" />${openGraphImageDetails}
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${escapeHtml(content.title)}" />
   <meta name="twitter:description" content="${escapeHtml(content.description)}" />
-  <meta name="twitter:image" content="${brand.site}/img/og-cover.webp" />
+  <meta name="twitter:image" content="${socialImage}" />${twitterImageDetails}
   <script type="application/ld+json">${renderJsonLd(group, locale)}</script>
   <link rel="stylesheet" href="/style.css?v=15" />
   <link rel="stylesheet" href="/cookie-banner-core.css" />

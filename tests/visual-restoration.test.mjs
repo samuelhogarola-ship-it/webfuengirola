@@ -52,3 +52,20 @@ test("restoration keeps the complete original homepage shell while retaining cur
   assert.ok(html.includes(group.content.es.description));
   assert.match(html, /href="\/servicios\/#seo-local"/);
 });
+
+test("home social previews use complete JPEG metadata for broad crawler support", () => {
+  const html = renderCommercialPage(getPageGroup("home"), "es");
+  const image = "https://webfuengirola.com/img/og-cover.jpg";
+
+  assert.match(html, new RegExp(`property="og:image" content="${image}"`));
+  assert.match(
+    html,
+    new RegExp(`property="og:image:secure_url" content="${image}"`),
+  );
+  assert.match(html, /property="og:image:type" content="image\/jpeg"/);
+  assert.match(html, /property="og:image:width" content="1200"/);
+  assert.match(html, /property="og:image:height" content="630"/);
+  assert.match(html, /property="og:image:alt" content="[^"]+"/);
+  assert.match(html, new RegExp(`name="twitter:image" content="${image}"`));
+  assert.match(html, /name="twitter:image:alt" content="[^"]+"/);
+});
