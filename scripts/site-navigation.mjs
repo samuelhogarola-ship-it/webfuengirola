@@ -63,6 +63,19 @@ const navigation = {
       [clientPortal, "Asiakasalue", "client"],
     ],
   },
+  pt: {
+    ariaLabel: "Navegação principal",
+    openMenu: "Abrir menu",
+    changeLanguage: "Alterar idioma",
+    items: [
+      ["/brasil/", "Início", "home"],
+      ["/brasil/#services", "Serviços", "services"],
+      ["/casos/", "Portfólio", "cases"],
+      ["/brasil/#process", "Como trabalhamos", "process"],
+      ["/brasil/#contact", "Contato", "contact"],
+      [clientPortal, "Área do cliente", "client"],
+    ],
+  },
 };
 
 const languageLabels = {
@@ -70,6 +83,7 @@ const languageLabels = {
   en: "English",
   de: "Deutsch",
   fi: "Suomi",
+  pt: "Português",
 };
 const homeRoutes = { es: "/", en: "/en/", de: "/de/", fi: "/fi/" };
 
@@ -136,6 +150,7 @@ export function renderMarketSelector({ currentMarket, localeCode }) {
       en: "Change market",
       de: "Markt wechseln",
       fi: "Vaihda markkinaa",
+      pt: "Alterar mercado",
     }[language] ?? "Change market";
 
   return `<details class="market-menu">

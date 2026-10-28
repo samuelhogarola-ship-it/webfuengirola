@@ -79,3 +79,79 @@ test("the shared homepage generator writes the four Spain routes", async (t) => 
     /<html lang="de-DE"/,
   );
 });
+
+test("the shared homepage contract publishes all nine market and locale records", () => {
+  assert.deepEqual(
+    Object.fromEntries(
+      Object.entries(homepageRecords).map(([market, records]) => [
+        market,
+        Object.keys(records),
+      ]),
+    ),
+    {
+      spain: ["es-ES", "en-GB", "de-DE", "fi-FI"],
+      mexico: ["es-MX", "en-MX"],
+      usa: ["en-US", "es-US"],
+      brasil: ["pt-BR"],
+    },
+  );
+});
+
+test("Mexico, USA, and Brasil keep their identity inside the reference shell", () => {
+  for (const [marketKey, localeCodes] of Object.entries({
+    mexico: ["es-MX", "en-MX"],
+    usa: ["en-US", "es-US"],
+    brasil: ["pt-BR"],
+  })) {
+    for (const localeCode of localeCodes) {
+      const record = getHomepageRecord(marketKey, localeCode);
+      const html = renderHomepage(record, snapshot);
+      const copy = JSON.stringify(record);
+
+      assert.match(html, /class="hero hero--cinematic"/);
+      assert.match(html, /class="stack-cards-track"/);
+      assert.match(html, new RegExp(`data-market="${marketKey}"`));
+      assert.match(html, new RegExp(`data-locale="${localeCode}"`));
+      assert.match(html, new RegExp(`data-currency="${record.currency}"`));
+      assert.match(html, new RegExp(`data-form-market="${marketKey}"`));
+      assert.match(html, new RegExp(`data-form-locale="${localeCode}"`));
+      assert.match(html, new RegExp(`data-form-currency="${record.currency}"`));
+      assert.match(
+        html,
+        new RegExp(
+          `data-source-route="${record.route.replaceAll("/", "\\/")}"`,
+        ),
+      );
+      assert.match(
+        html,
+        new RegExp(`data-api-base="https:\\/\\/admin\\.webfuengirola\\.com"`),
+      );
+      assert.doesNotMatch(html, /commercial-page--home|commercial-hero/);
+      assert.doesNotMatch(
+        copy,
+        /Fuengirola|\+ IVA|\+ VAT|oficina (?:en|local)|local office|based in (?:Mexico|USA|Brazil)|equipe local/i,
+      );
+    }
+  }
+});
+
+test("regional service cards use current EUR conversions plus five percent", () => {
+  const cases = [
+    ["mexico", "es-MX", "MXN", [4400, 7700, 13100]],
+    ["usa", "en-US", "USD", [235, 410, 705]],
+    ["brasil", "pt-BR", "BRL", [1260, 2200, 3760]],
+  ];
+
+  for (const [marketKey, localeCode, currency, prices] of cases) {
+    const html = renderHomepage(
+      getHomepageRecord(marketKey, localeCode),
+      snapshot,
+    );
+    for (const price of prices) {
+      assert.match(html, new RegExp(`data-tier-price="${price}"`));
+    }
+    assert.match(html, new RegExp(`data-currency="${currency}"`));
+    assert.match(html, /2026-10-27/);
+    assert.doesNotMatch(html, /\+ IVA|\+ VAT/);
+  }
+});

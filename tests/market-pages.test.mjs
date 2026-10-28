@@ -32,6 +32,38 @@ test("Mexico exposes exactly its Spanish and English regional pages", () => {
   );
 });
 
+test("USA and Brasil expose their approved regional locales", () => {
+  assert.deepEqual(Object.keys(marketPages.usa), ["en-US", "es-US"]);
+  assert.deepEqual(Object.keys(marketPages.brasil), ["pt-BR"]);
+  assert.equal(getMarketPage("usa", "en-US").route, "/usa/");
+  assert.equal(getMarketPage("usa", "es-US").route, "/usa/es/");
+  assert.equal(getMarketPage("brasil", "pt-BR").route, "/brasil/");
+});
+
+test("all regional records are complete, original, and free of invented local presence", () => {
+  for (const [marketKey, pages] of Object.entries(marketPages)) {
+    for (const page of Object.values(pages)) {
+      const copy = flattenCopy(page);
+      assert.equal(page.marketKey, marketKey);
+      assert.equal(page.htmlLang, page.localeCode);
+      assert.match(page.title, /WF-Studio/);
+      assert.ok(page.description.length > 80);
+      assert.ok(page.h1.length > 20);
+      assert.ok(page.intro.length > 80);
+      assert.equal(page.problems.length, 3);
+      assert.equal(page.benefits.length, 3);
+      assert.equal(page.tierUses.length, 3);
+      assert.equal(page.process.length, 3);
+      assert.equal(page.faqs.length, 3);
+      assert.ok(page.labels && Object.keys(page.labels).length >= 16);
+      assert.doesNotMatch(
+        copy,
+        /Fuengirola|oficina (?:en|local)|local office|based in (?:Mexico|USA|Brazil)|equipe local|resultado garantizado|guaranteed result/i,
+      );
+    }
+  }
+});
+
 test("each Mexico page satisfies the complete content contract", () => {
   for (const page of Object.values(marketPages.mexico)) {
     assert.equal(page.marketKey, "mexico");

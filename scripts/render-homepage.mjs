@@ -66,35 +66,64 @@ function renderAlternates(record) {
   <link rel="alternate" hreflang="x-default" href="${absolute(market.routes[market.primaryLocale])}" />`;
 }
 
-function displayPrice(record, service, snapshot) {
+function servicePrice(record, service, snapshot) {
   if (record.currency === "EUR") {
-    return `${service.eurPrice.toLocaleString(record.sourceLocale)} €`;
+    return { currency: "EUR", display: service.eurPrice };
   }
-  const price = priceForMarket({
+  return priceForMarket({
     eurAmount: service.eurPrice,
     marketKey: record.marketKey,
     snapshot,
   });
-  return `${price.display.toLocaleString(record.sourceLocale)} ${price.currency}`;
+}
+
+function displayPrice(record, price) {
+  const number = price.display.toLocaleString(record.localeCode, {
+    maximumFractionDigits: 0,
+  });
+  if (price.currency === "EUR") return `${number} €`;
+  if (price.currency === "BRL") return `R$ ${number} BRL`;
+  return `$${number} ${price.currency}`;
 }
 
 function renderServices(record, snapshot) {
   return record.services
-    .map(
-      (
-        service,
-      ) => `<article class="portfolio-card services-home-card services-home-deck__card${service.popular ? " services-home-deck__card--light" : ""}">
+    .map((service) => {
+      const price = servicePrice(record, service, snapshot);
+      return `<article class="portfolio-card services-home-card services-home-deck__card${service.popular ? " services-home-deck__card--light" : ""}">
         <div class="portfolio-card__body">
           <div class="services-home-deck__meta"><span class="services-home-card__tag">${escapeHtml(service.name)}</span></div>
           <h3 class="portfolio-card__title">${escapeHtml(service.name)}</h3>
           <p class="portfolio-card__desc">${escapeHtml(service.description)}</p>
           <ul class="services-home-card__bullets">${service.features.map((feature) => `<li>${escapeHtml(feature)}</li>`).join("")}</ul>
-          <p class="services-home-card__price">${escapeHtml(record.labels.from)} ${escapeHtml(displayPrice(record, service, snapshot))} ${escapeHtml(record.labels.tax)}</p>
+          <p class="services-home-card__price">${escapeHtml(record.labels.from)} <span data-tier-price="${price.display}" data-currency="${price.currency}">${escapeHtml(displayPrice(record, price))}</span>${record.currency === "EUR" ? ` ${escapeHtml(record.labels.tax)}` : ""}</p>
         </div>
         <div class="portfolio-card__footer"><a class="btn btn--outline" href="#contact">${escapeHtml(record.labels.primaryCta)} →</a></div>
-      </article>`,
-    )
+      </article>`;
+    })
     .join("");
+}
+
+function renderContact(record, whatsapp) {
+  if (!record.contactForm) {
+    return `<section class="cta-section" id="contact"><div class="container"><h2>${escapeHtml(record.labels.contactHeading)}</h2><p>${escapeHtml(record.labels.contactText)}</p><a class="btn btn--primary btn--lg" href="${whatsapp}" target="_blank" rel="noopener noreferrer">WhatsApp</a></div></section>`;
+  }
+
+  const form = record.contactForm;
+  return `<section class="section commercial-form-section" id="contact">
+    <div class="container commercial-form-wrap">
+      <div><span class="section-label">${escapeHtml(record.labels.contact)}</span><h2>${escapeHtml(record.labels.contactHeading)}</h2><p>${escapeHtml(record.labels.contactText)}</p><a class="btn btn--outline" href="${whatsapp}" target="_blank" rel="noopener noreferrer">WhatsApp</a></div>
+      <form class="contact-form" data-contact-form data-form-kind="contact" data-form-market="${record.marketKey}" data-form-locale="${record.localeCode}" data-form-currency="${record.currency}" data-market="${record.marketKey}" data-locale="${record.localeCode}" data-currency="${record.currency}" data-source-route="${record.route}" data-api-base="https://admin.webfuengirola.com" novalidate>
+        <div class="contact-form__grid"><div class="contact-field"><label for="market-form-name">${escapeHtml(form.name)}</label><input id="market-form-name" name="name" required /></div><div class="contact-field"><label for="market-form-email">${escapeHtml(form.email)}</label><input id="market-form-email" name="email" type="email" required /></div></div>
+        <div class="contact-field"><label for="market-form-company">${escapeHtml(form.company)}</label><input id="market-form-company" name="company" /></div>
+        <div class="contact-field"><label for="market-form-message">${escapeHtml(form.message)}</label><textarea id="market-form-message" name="message" rows="5" required></textarea></div>
+        <div class="contact-field contact-field--hp" aria-hidden="true"><label for="market-form-website">Website</label><input id="market-form-website" name="website" tabindex="-1" autocomplete="off" /></div>
+        <label class="commercial-consent"><input type="checkbox" name="consent" required /> <span>${escapeHtml(form.legal)}</span></label>
+        <div class="contact-form__turnstile" data-turnstile></div><p class="contact-form__status" data-contact-status aria-live="polite"></p>
+        <button class="btn btn--primary" type="submit" data-contact-submit>${escapeHtml(form.submit)}</button>
+      </form>
+    </div>
+  </section>`;
 }
 
 function renderHeader(record) {
@@ -132,7 +161,9 @@ function renderJsonLd(record) {
         "@type": ["Organization", "ProfessionalService"],
         "@id": `${brand.site}/#organization`,
         name: brand.name,
-        alternateName: brand.localName,
+        ...(record.marketKey === "spain"
+          ? { alternateName: brand.localName }
+          : {}),
         url: brand.site,
         email: brand.email,
         telephone: brand.phone,
@@ -201,7 +232,7 @@ ${renderHeader(record)}
     <div class="container hero__cin-inner">
       <div class="hero__showcase" aria-label="${escapeHtml(record.labels.portfolio)}">
         <div class="hero__showcase-grid" aria-hidden="true"></div>
-        <figure class="hero__site-screen hero__site-screen--rear"><img src="/img/hero-personal-trainer-real-screen.png" alt="Personal Trainer Fuengirola" width="1440" height="900" loading="eager" decoding="async" /></figure>
+        <figure class="hero__site-screen hero__site-screen--rear"><img src="/img/hero-personal-trainer-real-screen.png" alt="Personal trainer website by WF-Studio" width="1440" height="900" loading="eager" decoding="async" /></figure>
         <figure class="hero__site-screen hero__site-screen--front"><img class="hero__site-screen-bg" src="/img/hero-northern-lights-screen-branded.png" alt="WF-Studio website showcase" width="1740" height="904" loading="eager" decoding="async" /></figure>
       </div>
       <div class="hero__cin-content">
@@ -216,6 +247,7 @@ ${renderHeader(record)}
     <section class="services stack-card" id="services"><div class="container">
       <div class="section-header"><span class="section-label">${escapeHtml(record.labels.servicesEyebrow)}</span><h2 class="section-title">${escapeHtml(record.labels.servicesHeading)}</h2></div>
       <div class="services-home-deck">${renderServices(record, snapshot)}</div>
+      ${record.currency === "EUR" ? "" : `<p class="commercial-price-note">${escapeHtml(record.labels.rateNote)}: ${escapeHtml(snapshot.date)} · ${escapeHtml(record.labels.tax)}</p>`}
       <div class="stack-space-lg-center"><a href="/servicios/#seo-local" class="btn btn--outline btn--lg">SEO local →</a></div>
     </div></section>
   </div></div>
@@ -228,13 +260,15 @@ ${renderHeader(record)}
   </div></section>
   <section class="process section" id="process"><div class="container"><span class="section-label">${escapeHtml(record.labels.processEyebrow)}</span><h2 class="section-title">${escapeHtml(record.labels.processHeading)}</h2><div class="process__steps">${record.process.map(({ title, text }, index) => `<article class="process__step"><span>0${index + 1}</span><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p></article>`).join("")}</div></div></section>
   <section class="section" id="faq"><div class="container"><h2 class="section-title">${escapeHtml(record.labels.faqHeading)}</h2><div class="faq-list">${record.faqs.map(({ question, answer }) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join("")}</div></div></section>
-  <section class="cta-section" id="contact"><div class="container"><h2>${escapeHtml(record.labels.contactHeading)}</h2><p>${escapeHtml(record.labels.contactText)}</p><a class="btn btn--primary btn--lg" href="${whatsapp}" target="_blank" rel="noopener noreferrer">WhatsApp</a></div></section>
+  ${renderContact(record, whatsapp)}
 </main>
 <footer class="footer"><div class="container footer__inner"><div class="footer__brand"><a href="${record.route}" class="logo"><img src="/img/logo-wf.webp" alt="WF-Studio" width="36" height="36" /></a><p>${escapeHtml(record.description)}</p></div><div class="footer__col"><h4>${escapeHtml(record.labels.contact)}</h4><ul class="footer__links"><li><a href="mailto:${brand.email}">${brand.email}</a></li><li><a href="${whatsapp}">WhatsApp</a></li></ul></div></div></footer>
 <a href="${whatsapp}" class="whatsapp-fab" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">WhatsApp</a>
 <div class="page-transition" id="page-transition" aria-hidden="true"></div>
 <script src="/cookie-banner-core.js"></script>
 <script src="/umami-analytics-core.js"></script>
+<script src="/contact-form-core.js"></script>
+<script src="/contact-form.js"></script>
 <script src="/script.js?v=13"></script>
 </body>
 </html>`;

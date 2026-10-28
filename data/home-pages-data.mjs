@@ -1,4 +1,5 @@
 import { brand, getPageGroup, tiers } from "./commercial-pages-data.mjs";
+import { marketPages } from "./market-pages-data.mjs";
 import { getMarket } from "./markets-data.mjs";
 
 const spainLocales = {
@@ -240,6 +241,159 @@ function buildSpainRecord(localeCode, localized) {
   });
 }
 
+const portugueseTiers = Object.freeze([
+  Object.freeze({
+    name: "Lite",
+    features: Object.freeze([
+      "Landing page focada",
+      "Design responsivo",
+      "Formulário de contato",
+      "Base técnica para SEO",
+    ]),
+  }),
+  Object.freeze({
+    name: "Express",
+    features: Object.freeze([
+      "Site comercial completo",
+      "Até cinco seções principais",
+      "Integração de contato",
+      "Otimização de desempenho",
+    ]),
+  }),
+  Object.freeze({
+    name: "Professional",
+    features: Object.freeze([
+      "Arquitetura de conteúdo ampliada",
+      "Jornadas de conversão",
+      "Integrações acordadas",
+      "Documentação de entrega",
+    ]),
+  }),
+]);
+
+const sharedRegionalLabels = Object.freeze({
+  es: Object.freeze({
+    home: "Inicio",
+    services: "Servicios",
+    portfolio: "Portfolio",
+    process: "Cómo trabajamos",
+    contact: "Contacto",
+    client: "Área cliente",
+    language: "Cambiar idioma",
+    nav: "Navegación principal",
+    portfolioCta: "Ver portfolio",
+    servicesEyebrow: "Servicios",
+    casesEyebrow: "Trabajo verificable",
+    casesHeading: "Proyectos reales",
+    processEyebrow: "01 · 02 · 03",
+  }),
+  en: Object.freeze({
+    home: "Home",
+    services: "Services",
+    portfolio: "Case studies",
+    process: "How we work",
+    contact: "Contact",
+    client: "Client area",
+    language: "Change language",
+    nav: "Main navigation",
+    portfolioCta: "View case studies",
+    servicesEyebrow: "Services",
+    casesEyebrow: "Verifiable work",
+    casesHeading: "Selected case studies",
+    processEyebrow: "01 · 02 · 03",
+  }),
+  pt: Object.freeze({
+    home: "Início",
+    services: "Serviços",
+    portfolio: "Portfólio",
+    process: "Como trabalhamos",
+    contact: "Contato",
+    client: "Área do cliente",
+    language: "Alterar idioma",
+    nav: "Navegação principal",
+    portfolioCta: "Ver portfólio",
+    servicesEyebrow: "Serviços",
+    casesEyebrow: "Trabalho verificável",
+    casesHeading: "Projetos selecionados",
+    processEyebrow: "01 · 02 · 03",
+  }),
+});
+
+const areaServedByMarket = Object.freeze({
+  mexico: "Mexico",
+  usa: "United States",
+  brasil: "Brazil",
+});
+
+function regionalTierCopy(sourceLocale, tier, index) {
+  if (sourceLocale === "pt") return portugueseTiers[index];
+  return Object.freeze({
+    name: tier.name[sourceLocale],
+    features: Object.freeze(tier.features[sourceLocale]),
+  });
+}
+
+function buildRegionalRecord(page) {
+  const market = getMarket(page.marketKey);
+  const sourceLocale = page.localeCode.split("-")[0];
+  const sharedLabels = sharedRegionalLabels[sourceLocale];
+  return Object.freeze({
+    marketKey: page.marketKey,
+    localeCode: page.localeCode,
+    sourceLocale,
+    route: page.route,
+    htmlLang: page.htmlLang,
+    ogLocale: page.ogLocale,
+    currency: market.currency,
+    areaServed: areaServedByMarket[page.marketKey],
+    title: page.title,
+    description: page.description,
+    hero: Object.freeze({
+      eyebrow: page.labels.heroEyebrow,
+      h1: page.h1,
+      intro: page.intro,
+    }),
+    problems: Object.freeze(page.problems),
+    benefits: Object.freeze(page.benefits),
+    services: Object.freeze(
+      tiers.map((tier, index) => {
+        const localizedTier = regionalTierCopy(sourceLocale, tier, index);
+        return Object.freeze({
+          key: tier.key,
+          eurPrice: tier.price,
+          name: localizedTier.name,
+          description: page.tierUses[index],
+          features: localizedTier.features,
+          popular: Boolean(tier.popular),
+        });
+      }),
+    ),
+    process: Object.freeze(page.process.map((item) => Object.freeze(item))),
+    faqs: Object.freeze(page.faqs.map((item) => Object.freeze(item))),
+    labels: Object.freeze({
+      ...sharedLabels,
+      primaryCta: page.labels.primaryCta,
+      servicesHeading: page.labels.packagesHeading,
+      processHeading: page.labels.processHeading,
+      faqHeading: page.labels.faqHeading,
+      contactHeading: page.labels.contactHeading,
+      contactText: page.labels.contactIntro,
+      from: page.labels.from,
+      tax: page.labels.taxNote,
+      rateNote: page.labels.rateNote,
+    }),
+    contactForm: Object.freeze({
+      name: page.labels.name,
+      email: page.labels.email,
+      company: page.labels.company,
+      message: page.labels.message,
+      submit: page.labels.submit,
+      legal: page.labels.legal,
+    }),
+    whatsappText: page.whatsappText,
+  });
+}
+
 export const homepageRecords = Object.freeze({
   spain: Object.freeze(
     Object.fromEntries(
@@ -248,6 +402,19 @@ export const homepageRecords = Object.freeze({
         buildSpainRecord(localeCode, localized),
       ]),
     ),
+  ),
+  ...Object.fromEntries(
+    Object.entries(marketPages).map(([marketKey, pages]) => [
+      marketKey,
+      Object.freeze(
+        Object.fromEntries(
+          Object.entries(pages).map(([localeCode, page]) => [
+            localeCode,
+            buildRegionalRecord(page),
+          ]),
+        ),
+      ),
+    ]),
   ),
 });
 
