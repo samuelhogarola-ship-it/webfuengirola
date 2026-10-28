@@ -159,7 +159,7 @@ function renderContactForm(page) {
   return `<section class="section commercial-form-section" id="contact">
     <div class="container commercial-form-wrap">
       <div><span class="section-label">${escapeHtml(page.labels.contact)}</span><h2>${escapeHtml(page.labels.contactHeading)}</h2><p>${escapeHtml(page.labels.contactIntro)}</p></div>
-      <form class="contact-form" data-contact-form data-form-kind="contact" data-form-locale="${page.localeCode}" data-market="${page.marketKey}" data-locale="${page.localeCode}" data-currency="MXN" data-source-route="${page.route}" data-api-base="https://admin.webfuengirola.com" novalidate>
+      <form class="contact-form" data-contact-form data-form-kind="contact" data-form-market="${page.marketKey}" data-form-locale="${page.localeCode}" data-form-currency="MXN" data-market="${page.marketKey}" data-locale="${page.localeCode}" data-currency="MXN" data-source-route="${page.route}" data-api-base="https://admin.webfuengirola.com" novalidate>
         <div class="contact-form__grid"><div class="contact-field"><label for="market-form-name">${escapeHtml(page.labels.name)}</label><input id="market-form-name" name="name" required /></div><div class="contact-field"><label for="market-form-email">${escapeHtml(page.labels.email)}</label><input id="market-form-email" name="email" type="email" required /></div></div>
         <div class="contact-field"><label for="market-form-company">${escapeHtml(page.labels.company)}</label><input id="market-form-company" name="company" /></div>
         <div class="contact-field"><label for="market-form-message">${escapeHtml(page.labels.message)}</label><textarea id="market-form-message" name="message" rows="5" required></textarea></div>
@@ -246,7 +246,7 @@ ${renderMarketHreflang(page.marketKey)}
   <link rel="stylesheet" href="/cookie-banner-core.css" />
   <noscript><style>[data-reveal] { opacity: 1; transform: none; }</style></noscript>
 </head>
-<body class="commercial-page commercial-page--market" data-market="${page.marketKey}" data-locale="${page.localeCode}">
+<body class="commercial-page commercial-page--market" data-market="${page.marketKey}" data-locale="${page.localeCode}" data-currency="MXN">
 <a class="skip-link" href="#main-content">${escapeHtml(page.labels.skipLink)}</a>
 ${renderHeader(page)}
 <main id="main-content">

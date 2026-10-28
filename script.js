@@ -1860,10 +1860,15 @@
       tier: link.dataset.analyticsTier || "",
       sector:
         link.dataset.analyticsSector || document.body.dataset.sector || "",
+      market:
+        link.dataset.analyticsMarket || document.body.dataset.market || "",
+      currency:
+        link.dataset.analyticsCurrency || document.body.dataset.currency || "",
       targetLocale:
         link.dataset.analyticsTargetLocale ||
         link.getAttribute("hreflang") ||
         "",
+      targetMarket: link.dataset.analyticsTargetMarket || "",
       destination: link.getAttribute("href") || "",
     });
   });

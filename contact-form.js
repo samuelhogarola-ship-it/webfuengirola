@@ -70,6 +70,14 @@
     if (!core) return;
     var apiBase = form.getAttribute("data-api-base") || DEFAULT_API_BASE;
     var locale = form.getAttribute("data-form-locale") || "es";
+    var market =
+      form.getAttribute("data-form-market") ||
+      document.body.dataset.market ||
+      "";
+    var currency =
+      form.getAttribute("data-form-currency") ||
+      document.body.dataset.currency ||
+      "";
     var formKind = form.getAttribute("data-form-kind") || "contact";
     var query = new URLSearchParams(window.location.search);
     var requestedPlan = query.get("plan") || "";
@@ -91,12 +99,17 @@
 
     function track(stage) {
       if (!window.WFAnalytics || !window.WFAnalytics.trackEvent) return;
-      window.WFAnalytics.trackEvent(core.eventForForm(formKind, stage), {
-        locale: locale,
-        form: formKind,
-        plan: requestedPlan,
-        sector: pageSector,
-      });
+      window.WFAnalytics.trackEvent(
+        core.eventForForm(formKind, stage),
+        core.formAnalyticsData({
+          locale: locale,
+          form: formKind,
+          plan: requestedPlan,
+          sector: pageSector,
+          market: market,
+          currency: currency,
+        }),
+      );
     }
 
     form.addEventListener("focusin", function () {
@@ -156,22 +169,19 @@
         token: String(formData.get("cf-turnstile-response") || "").trim(),
       };
       var fullMessage = core.composeMessage(formValues, formKind);
-      if (requestedPlan) {
-        fullMessage = "[Plan: " + requestedPlan + "] " + fullMessage;
-      }
-      if (requestedSector) {
-        fullMessage = "[Sector: " + requestedSector + "] " + fullMessage;
-      }
       if (interest) fullMessage = "[" + interest + "] " + fullMessage;
-      var payload = {
-        name: formValues.name,
-        email: formValues.email,
-        company: formValues.company,
-        message: fullMessage,
-        website: formValues.website,
-        token: formValues.token,
+      fullMessage = core.composeContextMessage(fullMessage, {
+        market: market,
+        locale: locale,
+        currency: currency,
+        plan: requestedPlan,
+        sector: pageSector,
+      });
+      var payload = core.createContactPayload({
+        formValues: formValues,
+        fullMessage: fullMessage,
         pageUrl: window.location.href,
-      };
+      });
 
       if (honeypot && honeypot.value) {
         setStatus(statusNode, "Gracias. Hemos recibido tu mensaje.", "success");

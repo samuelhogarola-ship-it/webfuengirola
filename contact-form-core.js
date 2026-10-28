@@ -79,7 +79,35 @@
       unavailable:
         "Lomake ei ole juuri nyt käytettävissä. Voit ottaa yhteyttä WhatsAppilla tai sähköpostilla.",
     },
+    pt: {
+      name: "Escreva o seu nome.",
+      email: "Insira um endereço de e-mail válido.",
+      message: "Conte-nos um pouco mais para podermos ajudar.",
+      auditUrl: "Insira o endereço completo do site.",
+      sector: "Indique o setor da empresa.",
+      location: "Indique a localização da empresa.",
+      consent: "Aceite o uso dos dados para que possamos responder.",
+      token: "Conclua primeiro a verificação antispam.",
+      sending: "Enviando...",
+      success: "Mensagem enviada. Responderemos em até 24 horas.",
+      auditSuccess:
+        "Auditoria solicitada. Analisaremos o site e responderemos em até 24 horas.",
+      error:
+        "Não foi possível enviar o formulário. Entre em contato por WhatsApp ou e-mail.",
+      unavailable:
+        "O formulário está temporariamente indisponível. Entre em contato por WhatsApp ou e-mail.",
+    },
   };
+
+  function baseLocale(locale) {
+    var language = String(locale || "")
+      .trim()
+      .toLowerCase()
+      .split("-")[0];
+    return ["es", "en", "de", "fi", "pt"].indexOf(language) >= 0
+      ? language
+      : "es";
+  }
 
   function isEmail(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || ""));
@@ -95,7 +123,7 @@
   }
 
   function localeMessages(locale) {
-    return messages[locale] || messages.es;
+    return messages[baseLocale(locale)] || messages.es;
   }
 
   function validate(data, kind, locale, options) {
@@ -134,6 +162,67 @@
     );
   }
 
+  function safeToken(value, pattern) {
+    var token = String(value || "").trim();
+    return pattern.test(token) ? token : "";
+  }
+
+  function contactContext(context) {
+    var source = context || {};
+    return {
+      market: safeToken(source.market, /^[a-z][a-z0-9-]{0,39}$/),
+      locale: safeToken(source.locale, /^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$/),
+      currency: safeToken(source.currency, /^[A-Z]{3}$/),
+      plan: safeToken(source.plan, /^[a-z][a-z0-9-]{0,39}$/),
+      sector: safeToken(source.sector, /^[a-z][a-z0-9-]{0,39}$/),
+    };
+  }
+
+  function composeContextMessage(message, context) {
+    var userMessage = String(message || "").trim();
+    var safe = contactContext(context);
+    if (!safe.market || !safe.locale || !safe.currency) return userMessage;
+    return (
+      "[Market: " +
+      safe.market +
+      "] [Locale: " +
+      safe.locale +
+      "] [Currency: " +
+      safe.currency +
+      "] [Plan: " +
+      safe.plan +
+      "] [Sector: " +
+      safe.sector +
+      "] " +
+      userMessage
+    );
+  }
+
+  function createContactPayload(options) {
+    var formValues = options.formValues;
+    return {
+      name: formValues.name,
+      email: formValues.email,
+      company: formValues.company,
+      message: options.fullMessage,
+      website: formValues.website,
+      token: formValues.token,
+      pageUrl: options.pageUrl,
+    };
+  }
+
+  function formAnalyticsData(context) {
+    var safe = contactContext(context);
+    return {
+      locale: safe.locale || baseLocale(context && context.locale),
+      form: safeToken(context && context.form, /^[a-z][a-z0-9-]{0,39}$/),
+      plan: safe.plan,
+      sector: safe.sector,
+      market: safe.market,
+      currency: safe.currency,
+    };
+  }
+
   function eventForForm(kind, stage) {
     if (stage === "start") return "form_start";
     if (stage === "success")
@@ -142,8 +231,13 @@
   }
 
   return {
+    baseLocale: baseLocale,
+    composeContextMessage: composeContextMessage,
     composeMessage: composeMessage,
+    contactContext: contactContext,
+    createContactPayload: createContactPayload,
     eventForForm: eventForForm,
+    formAnalyticsData: formAnalyticsData,
     isEmail: isEmail,
     messages: messages,
     localeMessages: localeMessages,

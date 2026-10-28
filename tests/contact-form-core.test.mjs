@@ -4,9 +4,11 @@ import test from "node:test";
 
 const require = createRequire(import.meta.url);
 const {
+  baseLocale,
   composeMessage,
   eventForForm,
   isEmail,
+  localeMessages,
   messages,
   validate,
 } = require("../contact-form-core.js");
@@ -33,6 +35,22 @@ test("provides localized validation messages", () => {
   assert.match(messages.en.email, /valid email/i);
   assert.match(messages.de.email, /gültige E-Mail/i);
   assert.match(messages.fi.email, /kelvollinen sähköpostiosoite/i);
+});
+
+test("regional locales inherit the correct base-language messages", () => {
+  assert.equal(baseLocale("es-MX"), "es");
+  assert.equal(baseLocale("en-MX"), "en");
+  assert.equal(baseLocale("pt-BR"), "pt");
+  assert.equal(localeMessages("es-MX"), messages.es);
+  assert.equal(localeMessages("en-MX"), messages.en);
+  assert.equal(localeMessages("pt-BR"), messages.pt);
+});
+
+test("unsupported locales use the documented Spanish fallback", () => {
+  assert.equal(baseLocale("zh-CN"), "es");
+  assert.equal(baseLocale(""), "es");
+  assert.equal(localeMessages("zh-CN"), messages.es);
+  assert.doesNotThrow(() => localeMessages(undefined));
 });
 
 test("an audit requires URL, sector, location, consent and anti-spam token", () => {
