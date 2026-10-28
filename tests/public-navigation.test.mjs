@@ -155,6 +155,7 @@ test("every public page generator renders the shared header directly", () => {
     "scripts/build-blog-campaign.mjs",
     "scripts/build-blog-i18n.mjs",
     "scripts/build-commercial-pages.mjs",
+    "scripts/build-market-pages.mjs",
   ]) {
     const source = fs.readFileSync(path.join(root, file), "utf8");
     assert.match(

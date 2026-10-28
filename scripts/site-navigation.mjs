@@ -2,6 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
+import { getMarket, getPublishedMarkets } from "../data/markets-data.mjs";
+
 const projectRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "..",
@@ -115,30 +117,61 @@ export function renderDefaultLanguageMenu(locale) {
       </details>`;
 }
 
+export function renderMarketSelector({ currentMarket, localeCode }) {
+  const current = getMarket(currentMarket);
+  const language = localeCode?.split("-")[0] ?? "es";
+  const label =
+    {
+      es: "Cambiar mercado",
+      en: "Change market",
+      de: "Markt wechseln",
+      fi: "Vaihda markkinaa",
+    }[language] ?? "Change market";
+
+  return `<details class="market-menu">
+        <summary aria-label="${label}: ${current.label}"><span aria-hidden="true">${current.label}</span><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12"><path d="m3 4.5 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" /></svg></summary>
+        <div class="market-menu__options">${getPublishedMarkets()
+          .map((market) => {
+            const isCurrent = market.key === currentMarket;
+            const href = market.routes[market.primaryLocale];
+            return `<a href="${href}"${isCurrent ? ' aria-current="page"' : ""} data-analytics-event="market_switch" data-analytics-market="${currentMarket}" data-analytics-target-market="${market.key}">${market.label}${isCurrent ? ' <span aria-hidden="true">✓</span>' : ""}</a>`;
+          })
+          .join("")}</div>
+      </details>`;
+}
+
 export function renderSiteHeader({
   locale = "es",
   pathname = "/",
   languageMenu = "",
+  marketMenu = "",
+  items,
+  ariaLabel,
+  homeHref,
+  logoLabel,
+  logoAlt,
 } = {}) {
   const copy = navigation[locale] ?? navigation.es;
   const current = activeKey(pathname, locale);
-  const links = copy.items
+  const navItems = items ?? copy.items;
+  const links = navItems
     .map(([href, label, key]) => {
       const external = href.startsWith("http");
-      const active = key === current;
+      const active = items ? href === pathname : key === current;
       return `<li><a href="${href}" class="nav__link${key === "client" ? " nav__link--client" : ""}${active ? " nav__link--active" : ""}"${key === "services" ? ' data-page-transition="services"' : ""}${active ? ' aria-current="page"' : ""}${external ? ' target="_blank" rel="noopener noreferrer"' : ""}>${label}</a></li>`;
     })
     .join("\n          ");
   return `<header class="header" id="header">
     <div class="container header__inner">
-      <a href="${homeRoutes[locale]}" class="logo" aria-label="WF-Studio · Web Fuengirola">
-        <img src="/img/logo-wf.webp" alt="WF-Studio · Web Fuengirola" class="logo__img" width="36" height="36" loading="eager" />
+      <a href="${homeHref ?? homeRoutes[locale]}" class="logo" aria-label="${logoLabel ?? "WF-Studio · Web Fuengirola"}">
+        <img src="/img/logo-wf.webp" alt="${logoAlt ?? "WF-Studio · Web Fuengirola"}" class="logo__img" width="36" height="36" loading="eager" />
       </a>
-      <nav class="nav" id="nav" aria-label="${copy.ariaLabel}">
+      <nav class="nav" id="nav" aria-label="${ariaLabel ?? copy.ariaLabel}">
         <ul class="nav__list">
           ${links}
         </ul>
       </nav>
+      ${marketMenu}
       ${languageMenu || renderDefaultLanguageMenu(locale)}
       <button type="button" class="hamburger" id="hamburger" aria-label="${copy.openMenu}" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
     </div>
@@ -146,7 +179,10 @@ export function renderSiteHeader({
 }
 
 export function normalizeSiteHeader(html, pathname = "/") {
-  const locale = html.match(/<html\b[^>]*\blang="(es|en|de|fi)"/)?.[1] ?? "es";
+  const locale =
+    html
+      .match(/<html\b[^>]*\blang="(es|en|de|fi)(?:-[a-z]{2})?"/i)?.[1]
+      ?.toLowerCase() ?? "es";
   const existingHeader = html.match(
     /<header class="header" id="header">[\s\S]*?<\/header>/,
   )?.[0];
@@ -157,9 +193,17 @@ export function normalizeSiteHeader(html, pathname = "/") {
   const languageMenu = existingLanguageMenu?.includes("data-analytics-event")
     ? existingLanguageMenu
     : "";
+  const marketMenu = existingHeader.match(
+    /<details class="market-menu">[\s\S]*?<\/details>/,
+  )?.[0];
   return html.replace(
     existingHeader,
-    renderSiteHeader({ locale, pathname, languageMenu }),
+    renderSiteHeader({
+      locale,
+      pathname,
+      languageMenu,
+      marketMenu: marketMenu ?? "",
+    }),
   );
 }
 

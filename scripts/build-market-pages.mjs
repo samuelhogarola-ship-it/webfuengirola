@@ -7,6 +7,7 @@ import { brand, tiers } from "../data/commercial-pages-data.mjs";
 import { getMarketPage, marketPages } from "../data/market-pages-data.mjs";
 import { getMarket, getMarketLocale } from "../data/markets-data.mjs";
 import { priceForMarket } from "../lib/market-pricing.mjs";
+import { renderMarketSelector, renderSiteHeader } from "./site-navigation.mjs";
 
 const projectRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -56,23 +57,26 @@ function renderLanguageMenu(page) {
 }
 
 function renderHeader(page) {
-  return `<header class="header" id="header">
-    <div class="container header__inner">
-      <a href="${page.route}" class="logo" aria-label="WF-Studio · México">
-        <img src="/img/logo-wf.webp" alt="WF-Studio" class="logo__img" width="36" height="36" loading="eager" />
-      </a>
-      <nav class="nav" id="nav" aria-label="${escapeHtml(page.labels.services)}">
-        <ul class="nav__list">
-          <li><a class="nav__link nav__link--active" href="${page.route}" aria-current="page">${escapeHtml(page.labels.home)}</a></li>
-          <li><a class="nav__link" href="#packages">${escapeHtml(page.labels.services)}</a></li>
-          <li><a class="nav__link" href="/casos/">${escapeHtml(page.labels.portfolio)}</a></li>
-          <li><a class="nav__link" href="#contact">${escapeHtml(page.labels.contact)}</a></li>
-        </ul>
-      </nav>
-      ${renderLanguageMenu(page)}
-      <button type="button" class="hamburger" id="hamburger" aria-label="${escapeHtml(page.labels.services)}" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
-    </div>
-  </header>`;
+  const locale = baseLocale(page);
+  return renderSiteHeader({
+    locale,
+    pathname: page.route,
+    languageMenu: renderLanguageMenu(page),
+    marketMenu: renderMarketSelector({
+      currentMarket: page.marketKey,
+      localeCode: page.localeCode,
+    }),
+    items: [
+      [page.route, page.labels.home, "home"],
+      ["#packages", page.labels.services, "market-services"],
+      ["/casos/", page.labels.portfolio, "cases"],
+      ["#contact", page.labels.contact, "contact"],
+    ],
+    ariaLabel: locale === "es" ? "Navegación principal" : "Main navigation",
+    homeHref: page.route,
+    logoLabel: "WF-Studio · México",
+    logoAlt: "WF-Studio México",
+  });
 }
 
 function renderCards(items) {

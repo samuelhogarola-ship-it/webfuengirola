@@ -14,10 +14,20 @@ import {
   pageGroups,
   tiers,
 } from "../data/commercial-pages-data.mjs";
-import { normalizeSiteHeader, renderSiteHeader } from "./site-navigation.mjs";
+import {
+  normalizeSiteHeader,
+  renderMarketSelector,
+  renderSiteHeader,
+} from "./site-navigation.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const localeCodes = Object.keys(locales);
+const spainMarketLocales = {
+  es: "es-ES",
+  en: "en-GB",
+  de: "de-DE",
+  fi: "fi-FI",
+};
 const editorialModified = "2026-10-18";
 const consolidatedServiceAnchors = {
   prices: "precios",
@@ -85,6 +95,10 @@ function renderHeader(group, locale) {
     locale,
     pathname: group.routes[locale],
     languageMenu: renderLanguageSelector(group, locale),
+    marketMenu: renderMarketSelector({
+      currentMarket: "spain",
+      localeCode: spainMarketLocales[locale],
+    }),
   });
 }
 

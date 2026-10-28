@@ -910,7 +910,8 @@ body.is-menu-open {
 }
 
 /* Keep language options clickable above the open mobile navigation panel. */
-body.is-menu-open .header .language-menu {
+body.is-menu-open .header .language-menu,
+body.is-menu-open .header .market-menu {
   z-index: 96;
 }
 
@@ -10833,13 +10834,17 @@ body.is-transitioning {
   display: block;
   white-space: nowrap;
 }
-.language-menu {
+.language-menu,
+.market-menu {
   position: relative;
   flex: 0 0 auto;
-  margin-left: auto;
   color: #222;
 }
-.language-menu summary {
+.language-menu {
+  margin-left: auto;
+}
+.language-menu summary,
+.market-menu summary {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10854,13 +10859,19 @@ body.is-transitioning {
   font-weight: 600;
   list-style: none;
 }
-.language-menu summary::-webkit-details-marker {
+.market-menu summary > span {
+  white-space: nowrap;
+}
+.language-menu summary::-webkit-details-marker,
+.market-menu summary::-webkit-details-marker {
   display: none;
 }
-.language-menu[open] summary svg {
+.language-menu[open] summary svg,
+.market-menu[open] summary svg {
   transform: rotate(180deg);
 }
-.language-menu__options {
+.language-menu__options,
+.market-menu__options {
   position: absolute;
   right: 0;
   top: calc(100% + 10px);
@@ -10871,7 +10882,8 @@ body.is-transitioning {
   border-radius: 14px;
   box-shadow: 0 12px 36px #0002;
 }
-.language-menu__options a {
+.language-menu__options a,
+.market-menu__options a {
   display: flex;
   justify-content: space-between;
   gap: 16px;
@@ -10882,18 +10894,24 @@ body.is-transitioning {
   text-decoration: none;
 }
 .language-menu__options a:hover,
-.language-menu__options a[aria-current] {
+.language-menu__options a[aria-current],
+.market-menu__options a:hover,
+.market-menu__options a[aria-current] {
   background: #f1f1f1;
 }
 .language-menu summary:focus-visible,
-.language-menu__options a:focus-visible {
+.language-menu__options a:focus-visible,
+.market-menu summary:focus-visible,
+.market-menu__options a:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 3px;
 }
-.home-page .language-menu {
+.home-page .language-menu,
+.home-page .market-menu {
   color: #fff;
 }
-.home-page .language-menu summary {
+.home-page .language-menu summary,
+.home-page .market-menu summary {
   border-color: #ffffff40;
   background: #ffffff0a;
 }
@@ -10911,7 +10929,8 @@ body.is-transitioning {
     padding: 10px 9px;
     font-size: 0.82rem;
   }
-  .header .language-menu {
+  .header .language-menu,
+  .header .market-menu {
     margin-left: 0;
   }
 }
@@ -10956,6 +10975,27 @@ body.is-transitioning {
   }
   .home-page .header .nav {
     background: #090909;
+  }
+}
+
+@media (max-width: 520px) {
+  .header .header__inner {
+    gap: 8px;
+  }
+  .header .market-menu summary {
+    min-width: 76px;
+    padding-inline: 10px;
+  }
+  .header .language-menu summary {
+    min-width: 58px;
+    padding-inline: 8px;
+  }
+  .header .hamburger {
+    min-width: 44px;
+    min-height: 44px;
+    margin-left: 0;
+    align-items: center;
+    justify-content: center;
   }
 }
 .solidaria-project {
