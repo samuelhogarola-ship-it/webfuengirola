@@ -40,7 +40,7 @@ export const markets = Object.freeze({
   usa: Object.freeze({
     key: "usa",
     label: "USA",
-    published: false,
+    published: true,
     primaryLocale: "en-US",
     currency: "USD",
     roundingIncrement: 5,
@@ -56,7 +56,7 @@ export const markets = Object.freeze({
   brasil: Object.freeze({
     key: "brasil",
     label: "Brasil",
-    published: false,
+    published: true,
     primaryLocale: "pt-BR",
     currency: "BRL",
     roundingIncrement: 10,

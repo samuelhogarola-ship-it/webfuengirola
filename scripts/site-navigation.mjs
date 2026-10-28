@@ -117,6 +117,16 @@ export function renderDefaultLanguageMenu(locale) {
       </details>`;
 }
 
+export function resolveMarketRoute({ targetMarket, sourceLocale }) {
+  const market = getMarket(targetMarket);
+  const sourceLanguage = sourceLocale?.split("-")[0];
+  const compatibleLocale = Object.keys(market.routes).find(
+    (localeCode) => localeCode.split("-")[0] === sourceLanguage,
+  );
+
+  return market.routes[compatibleLocale ?? market.primaryLocale];
+}
+
 export function renderMarketSelector({ currentMarket, localeCode }) {
   const current = getMarket(currentMarket);
   const language = localeCode?.split("-")[0] ?? "es";
@@ -133,7 +143,10 @@ export function renderMarketSelector({ currentMarket, localeCode }) {
         <div class="market-menu__options">${getPublishedMarkets()
           .map((market) => {
             const isCurrent = market.key === currentMarket;
-            const href = market.routes[market.primaryLocale];
+            const href = resolveMarketRoute({
+              targetMarket: market.key,
+              sourceLocale: localeCode,
+            });
             return `<a href="${href}"${isCurrent ? ' aria-current="page"' : ""} data-analytics-event="market_switch" data-analytics-market="${currentMarket}" data-analytics-target-market="${market.key}">${market.label}${isCurrent ? ' <span aria-hidden="true">✓</span>' : ""}</a>`;
           })
           .join("")}</div>

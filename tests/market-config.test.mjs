@@ -14,14 +14,14 @@ test("the registry exposes every planned market in its public order", () => {
   assert.deepEqual(Object.keys(markets), marketOrder);
 });
 
-test("only Spain and Mexico are publishable in the first phase", () => {
+test("Spain, Mexico, USA and Brasil publish together", () => {
   assert.equal(getMarket("spain").published, true);
   assert.equal(getMarket("mexico").published, true);
-  assert.equal(getMarket("usa").published, false);
-  assert.equal(getMarket("brasil").published, false);
+  assert.equal(getMarket("usa").published, true);
+  assert.equal(getMarket("brasil").published, true);
   assert.deepEqual(
     getPublishedMarkets().map(({ key }) => key),
-    ["spain", "mexico"],
+    ["spain", "mexico", "usa", "brasil"],
   );
 });
 
