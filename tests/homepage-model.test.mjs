@@ -175,8 +175,8 @@ test("localized home actions keep users in a compatible language journey", () =>
     ["spain", "en-GB", "/en/case-studies/", "/en/local-seo-fuengirola/"],
     ["spain", "de-DE", "/de/referenzen/", "/de/lokales-seo-fuengirola/"],
     ["spain", "fi-FI", "/fi/asiakastyot/", "/fi/paikallinen-seo-fuengirola/"],
-    ["mexico", "en-MX", "/en/case-studies/", "/en/local-seo-fuengirola/"],
-    ["usa", "en-US", "/en/case-studies/", "/en/local-seo-fuengirola/"],
+    ["mexico", "en-MX", "/en/case-studies/", "/mexico/en/#services"],
+    ["usa", "en-US", "/en/case-studies/", "/usa/#services"],
     ["brasil", "pt-BR", "/casos/", "/brasil/#services"],
   ];
 

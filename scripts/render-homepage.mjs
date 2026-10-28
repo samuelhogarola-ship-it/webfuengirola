@@ -209,6 +209,13 @@ function footerRoutes(record) {
 }
 
 function relatedService(record) {
+  if (record.marketKey !== "spain") {
+    return {
+      href: `${record.route}#services`,
+      label: record.labels.services,
+    };
+  }
+
   return (
     {
       es: { href: "/servicios/#seo-local", label: "SEO local" },
