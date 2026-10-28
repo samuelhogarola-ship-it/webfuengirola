@@ -19,6 +19,8 @@ import {
   renderMarketSelector,
   renderSiteHeader,
 } from "./site-navigation.mjs";
+import { getHomepageRecord } from "../data/home-pages-data.mjs";
+import { renderHomepage } from "./render-homepage.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const localeCodes = Object.keys(locales);
@@ -584,6 +586,12 @@ function renderConsolidatedRedirect(group, locale) {
 }
 
 export function renderCommercialPage(group, locale) {
+  if (group.key === "home") {
+    return renderHomepage(
+      getHomepageRecord("spain", spainMarketLocales[locale]),
+    );
+  }
+
   if (consolidatedServiceAnchors[group.key]) {
     return renderConsolidatedRedirect(group, locale);
   }

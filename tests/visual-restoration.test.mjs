@@ -10,6 +10,16 @@ test("Spanish home preserves the original Northern Lights showcase after regener
   assert.match(html, /href="\/casos\/"[^>]*>Portfolio/);
 });
 
+test("all Fuengirola languages preserve the reference homepage model", () => {
+  const group = getPageGroup("home");
+  for (const locale of ["es", "en", "de", "fi"]) {
+    const html = renderCommercialPage(group, locale);
+    assert.match(html, /hero--cinematic/, locale);
+    assert.match(html, /hero-northern-lights-screen-branded\.png/, locale);
+    assert.doesNotMatch(html, /commercial-page--home/, locale);
+  }
+});
+
 test("each portfolio project has a linked cover and scroll entrance in every language", () => {
   for (const locale of ["es", "en", "de", "fi"]) {
     const group = getPageGroup("cases");
