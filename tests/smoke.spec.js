@@ -42,7 +42,7 @@ test("landing enlaza versiones equivalentes desde la cabecera", async ({
   );
 
   await page.goto("/en/");
-  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.locator("html")).toHaveAttribute("lang", "en-GB");
   await expect(
     page.getByRole("heading", { name: "We use cookies" }),
   ).toBeVisible();

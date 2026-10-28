@@ -148,14 +148,13 @@ test("the removed calculator leaves no public JavaScript, CSS or translation res
   assert.doesNotMatch(socialPosts, /calculadora de precios/i);
 });
 
-test("every public page generator renders the shared header directly", () => {
+test("every public page generator renders or delegates to the shared header", () => {
   for (const file of [
     "scripts/build-services.mjs",
     "scripts/build-casos.mjs",
     "scripts/build-blog-campaign.mjs",
     "scripts/build-blog-i18n.mjs",
     "scripts/build-commercial-pages.mjs",
-    "scripts/build-market-pages.mjs",
   ]) {
     const source = fs.readFileSync(path.join(root, file), "utf8");
     assert.match(
@@ -166,6 +165,18 @@ test("every public page generator renders the shared header directly", () => {
     assert.match(source, /renderSiteHeader\(\{/, file);
     assert.doesNotMatch(source, /<header class="header" id="header">/, file);
   }
+
+  const marketGenerator = fs.readFileSync(
+    path.join(root, "scripts/build-market-pages.mjs"),
+    "utf8",
+  );
+  assert.match(
+    marketGenerator,
+    /import \{[^}]*generateHomepages[^}]*renderHomepage[^}]*\} from "\.\/render-homepage\.mjs";/s,
+  );
+  assert.match(marketGenerator, /return renderHomepage\(/);
+  assert.match(marketGenerator, /return generateHomepages\(/);
+  assert.doesNotMatch(marketGenerator, /<header class="header" id="header">/);
 
   const packageJson = JSON.parse(
     fs.readFileSync(path.join(root, "package.json"), "utf8"),

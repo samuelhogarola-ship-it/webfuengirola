@@ -7,6 +7,7 @@ export const markets = Object.freeze({
     published: true,
     primaryLocale: "es-ES",
     currency: "EUR",
+    contactPhone: "+34622923988",
     roundingIncrement: 1,
     routes: Object.freeze({
       "es-ES": "/",
@@ -27,6 +28,7 @@ export const markets = Object.freeze({
     published: true,
     primaryLocale: "es-MX",
     currency: "MXN",
+    contactPhone: "+525516529733",
     roundingIncrement: 100,
     routes: Object.freeze({
       "es-MX": "/mexico/",
@@ -43,6 +45,7 @@ export const markets = Object.freeze({
     published: true,
     primaryLocale: "en-US",
     currency: "USD",
+    contactPhone: "+34622923988",
     roundingIncrement: 5,
     routes: Object.freeze({
       "en-US": "/usa/",
@@ -59,6 +62,7 @@ export const markets = Object.freeze({
     published: true,
     primaryLocale: "pt-BR",
     currency: "BRL",
+    contactPhone: "+34622923988",
     roundingIncrement: 10,
     routes: Object.freeze({
       "pt-BR": "/brasil/",

@@ -127,12 +127,23 @@ function renderContact(record, whatsapp) {
 }
 
 function renderHeader(record) {
+  const blogRoutes = {
+    es: "/blog/",
+    en: "/en/blog/",
+    de: "/de/blog/",
+    fi: "/fi/blog/",
+    pt: "/blog/",
+  };
+  const serviceRoute =
+    record.marketKey === "spain" && record.sourceLocale === "es"
+      ? "/servicios/"
+      : footerRoutes(record).service;
   const items = [
     [record.route, record.labels.home, "home"],
-    [`${record.route}#services`, record.labels.services, "services"],
+    [serviceRoute, record.labels.services, "services"],
     ["/casos/", record.labels.portfolio, "portfolio"],
-    [`${record.route}#process`, record.labels.process, "process"],
-    [`${record.route}#contact`, record.labels.contact, "contact"],
+    [blogRoutes[record.sourceLocale], record.labels.blog, "blog"],
+    ["/web-solidaria/", record.labels.solidarity, "solidarity"],
     [
       "https://portal.webfuengirola.com/cliente",
       record.labels.client,
@@ -153,45 +164,97 @@ function renderHeader(record) {
   });
 }
 
+function footerRoutes(record) {
+  if (record.marketKey !== "spain") {
+    return {
+      service: `${record.route}#services`,
+      cases: "/casos/",
+      legal:
+        record.sourceLocale === "en"
+          ? "/en/legal/#privacy"
+          : "/legal.html#privacidad",
+    };
+  }
+
+  return {
+    es: {
+      service: "/diseno-web-fuengirola/",
+      cases: "/casos/",
+      legal: "/legal.html#privacidad",
+    },
+    en: {
+      service: "/en/web-design-fuengirola/",
+      cases: "/en/case-studies/",
+      legal: "/en/legal/#privacy",
+    },
+    de: {
+      service: "/de/webdesign-fuengirola/",
+      cases: "/de/referenzen/",
+      legal: "/de/rechtliches/#datenschutz",
+    },
+    fi: {
+      service: "/fi/verkkosivut-fuengirola/",
+      cases: "/fi/asiakastyot/",
+      legal: "/fi/lakitiedot/#tietosuoja",
+    },
+  }[record.sourceLocale];
+}
+
+function renderFooter(record, whatsapp) {
+  const routes = footerRoutes(record);
+  return `<footer class="footer"><div class="container footer__inner">
+    <div class="footer__brand"><a href="${record.route}" class="logo"><img src="/img/logo-wf.webp" alt="WF-Studio" width="36" height="36" /></a><p>${escapeHtml(record.description)}</p></div>
+    <div class="footer__col"><h4>${escapeHtml(record.labels.services)}</h4><ul class="footer__links"><li><a href="${routes.service}">${escapeHtml(record.labels.services)}</a></li></ul></div>
+    <div class="footer__col"><h4>${escapeHtml(record.labels.portfolio)}</h4><ul class="footer__links"><li><a href="${routes.cases}">${escapeHtml(record.labels.portfolio)}</a></li></ul></div>
+    <div class="footer__col"><h4>Legal</h4><ul class="footer__links"><li><a href="${routes.legal}">Legal</a></li></ul></div>
+    <div class="footer__col"><h4>${escapeHtml(record.labels.contact)}</h4><ul class="footer__links"><li><a href="mailto:${brand.email}">${brand.email}</a></li><li><a href="${whatsapp}">WhatsApp</a></li></ul></div>
+  </div></footer>`;
+}
+
 function renderJsonLd(record) {
-  return JSON.stringify({
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": ["Organization", "ProfessionalService"],
-        "@id": `${brand.site}/#organization`,
-        name: brand.name,
-        ...(record.marketKey === "spain"
-          ? { alternateName: brand.localName }
-          : {}),
-        url: brand.site,
-        email: brand.email,
-        telephone: brand.phone,
-        areaServed: record.areaServed,
-      },
-      {
-        "@type": "WebPage",
-        "@id": `${absolute(record.route)}#page`,
-        url: absolute(record.route),
-        name: record.title,
-        description: record.description,
-        inLanguage: record.localeCode,
-        about: { "@id": `${brand.site}/#organization` },
-      },
-      {
-        "@type": "FAQPage",
-        mainEntity: record.faqs.map(({ question, answer }) => ({
-          "@type": "Question",
-          name: question,
-          acceptedAnswer: { "@type": "Answer", text: answer },
-        })),
-      },
-    ],
-  });
+  return JSON.stringify(
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": ["Organization", "ProfessionalService"],
+          "@id": `${brand.site}/#organization`,
+          name: brand.name,
+          ...(record.marketKey === "spain"
+            ? { alternateName: brand.localName }
+            : {}),
+          url: brand.site,
+          email: brand.email,
+          telephone: record.contactPhone,
+          areaServed: record.areaServed,
+        },
+        {
+          "@type": "WebPage",
+          "@id": `${absolute(record.route)}#page`,
+          url: absolute(record.route),
+          name: record.title,
+          description: record.description,
+          inLanguage: record.localeCode,
+          about: { "@id": `${brand.site}/#organization` },
+        },
+        {
+          "@type": "FAQPage",
+          mainEntity: record.faqs.map(({ question, answer }) => ({
+            "@type": "Question",
+            name: question,
+            acceptedAnswer: { "@type": "Answer", text: answer },
+          })),
+        },
+      ],
+    },
+    null,
+    2,
+  );
 }
 
 export function renderHomepage(record, snapshot = defaultSnapshot) {
-  const whatsapp = `https://wa.me/${brand.whatsapp}?text=${encodeURIComponent(record.whatsappText)}`;
+  const whatsappNumber = record.contactPhone.replace(/\D/g, "");
+  const whatsapp = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(record.whatsappText)}`;
   return `<!doctype html>
 <html lang="${record.htmlLang}">
 <head>
@@ -251,18 +314,18 @@ ${record.currency === "EUR" ? "" : `      <p class="commercial-price-note">${esc
       <div class="stack-space-lg-center"><a href="/servicios/#seo-local" class="btn btn--outline btn--lg">SEO local →</a></div>
     </div></section>
   </div></div>
-  <section class="case-showcase section" id="portfolio"><div class="container">
+  <section class="section" id="portfolio"><div class="container"><div class="case-showcase">
     <div class="case-showcase__intro"><span class="section-label">${escapeHtml(record.labels.casesEyebrow)}</span><h2 class="case-showcase__title">${escapeHtml(record.labels.casesHeading)}</h2></div>
     <div class="case-showcase__stack">
       <a href="/casos/sport-massage-fuengirola/" class="case-showcase__item"><div class="case-showcase__copy"><span class="case-showcase__number">01</span><h3>Sport Massage Fuengirola</h3></div><div class="case-showcase__media"><img src="/img/sport-massage-fuengirola.webp" alt="Sport Massage Fuengirola" width="1600" height="900" loading="lazy" /></div></a>
       <a href="/casos/agama/" class="case-showcase__item"><div class="case-showcase__copy"><span class="case-showcase__number">02</span><h3>Agama</h3></div><div class="case-showcase__media"><img src="/img/agama-tienda-online.png" alt="Agama" width="1672" height="941" loading="lazy" /></div></a>
     </div>
-  </div></section>
+  </div></div></section>
   <section class="process section" id="process"><div class="container"><span class="section-label">${escapeHtml(record.labels.processEyebrow)}</span><h2 class="section-title">${escapeHtml(record.labels.processHeading)}</h2><div class="process__steps">${record.process.map(({ title, text }, index) => `<article class="process__step"><span>0${index + 1}</span><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p></article>`).join("")}</div></div></section>
   <section class="section" id="faq"><div class="container"><h2 class="section-title">${escapeHtml(record.labels.faqHeading)}</h2><div class="faq-list">${record.faqs.map(({ question, answer }) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join("")}</div></div></section>
   ${renderContact(record, whatsapp)}
 </main>
-<footer class="footer"><div class="container footer__inner"><div class="footer__brand"><a href="${record.route}" class="logo"><img src="/img/logo-wf.webp" alt="WF-Studio" width="36" height="36" /></a><p>${escapeHtml(record.description)}</p></div><div class="footer__col"><h4>${escapeHtml(record.labels.contact)}</h4><ul class="footer__links"><li><a href="mailto:${brand.email}">${brand.email}</a></li><li><a href="${whatsapp}">WhatsApp</a></li></ul></div></div></footer>
+${renderFooter(record, whatsapp)}
 <a href="${whatsapp}" class="whatsapp-fab" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">WhatsApp</a>
 <div class="page-transition" id="page-transition" aria-hidden="true"></div>
 <script src="/cookie-banner-core.js"></script>

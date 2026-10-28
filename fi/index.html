@@ -29,7 +29,64 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://webfuengirola.com/img/og-cover.jpg" />
   <meta name="twitter:image:alt" content="Verkkosivusto, jonka yrityksesi ansaitsee." />
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["Organization","ProfessionalService"],"@id":"https://webfuengirola.com/#organization","name":"WF-Studio","alternateName":"Web Fuengirola","url":"https://webfuengirola.com","email":"info@webfuengirola.com","telephone":"+34622923988","areaServed":"Fuengirola, Costa del Sol, Málaga"},{"@type":"WebPage","@id":"https://webfuengirola.com/fi/#page","url":"https://webfuengirola.com/fi/","name":"WF-Studio: verkkosivut Fuengirolassa | WF-Studio","description":"WF-Studio: verkkosivut Fuengirolassa. WF-Studion Lite-, Express- ja Professional-verkkosivut selkeällä laajuudella ja suoralla palvelulla.","inLanguage":"fi-FI","about":{"@id":"https://webfuengirola.com/#organization"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Mitä hyötyä tästä ratkaisusta on?","acceptedAnswer":{"@type":"Answer","text":"Sivusto esittelee tarjonnan selkeästi, vahvistaa luottamusta ja helpottaa yhteydenottoa. Tavoite: muuttaa käynnit yhteydenotoiksi."}},{"@type":"Question","name":"Mikä paketti sopii tähän projektiin?","acceptedAnswer":{"@type":"Answer","text":"Lite kattaa yhden selkeän polun, Express erottaa tärkeimmät sisällöt ja Ammattitaso tukee useampia hakuja, palveluja ja yhteydenottopisteitä."}},{"@type":"Question","name":"Mitkä lisäpalvelut ovat hyödyllisiä?","acceptedAnswer":{"@type":"Answer","text":"Blogi, kielet, lomakkeet, integraatiot tai ylläpito lisätään vain, kun ne tukevat konkreettista liiketoimintatavoitetta."}}]}]}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "Organization",
+        "ProfessionalService"
+      ],
+      "@id": "https://webfuengirola.com/#organization",
+      "name": "WF-Studio",
+      "alternateName": "Web Fuengirola",
+      "url": "https://webfuengirola.com",
+      "email": "info@webfuengirola.com",
+      "telephone": "+34622923988",
+      "areaServed": "Fuengirola, Costa del Sol, Málaga"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://webfuengirola.com/fi/#page",
+      "url": "https://webfuengirola.com/fi/",
+      "name": "WF-Studio: verkkosivut Fuengirolassa | WF-Studio",
+      "description": "WF-Studio: verkkosivut Fuengirolassa. WF-Studion Lite-, Express- ja Professional-verkkosivut selkeällä laajuudella ja suoralla palvelulla.",
+      "inLanguage": "fi-FI",
+      "about": {
+        "@id": "https://webfuengirola.com/#organization"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Mitä hyötyä tästä ratkaisusta on?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sivusto esittelee tarjonnan selkeästi, vahvistaa luottamusta ja helpottaa yhteydenottoa. Tavoite: muuttaa käynnit yhteydenotoiksi."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Mikä paketti sopii tähän projektiin?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Lite kattaa yhden selkeän polun, Express erottaa tärkeimmät sisällöt ja Ammattitaso tukee useampia hakuja, palveluja ja yhteydenottopisteitä."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Mitkä lisäpalvelut ovat hyödyllisiä?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Blogi, kielet, lomakkeet, integraatiot tai ylläpito lisätään vain, kun ne tukevat konkreettista liiketoimintatavoitetta."
+          }
+        }
+      ]
+    }
+  ]
+}</script>
   <link rel="stylesheet" href="/style.css?v=15" />
   <link rel="stylesheet" href="/cookie-banner-core.css" />
   <noscript><style>[data-reveal] { opacity: 1; transform: none; }</style></noscript>
@@ -43,10 +100,10 @@
       <nav class="nav" id="nav" aria-label="Päänavigaatio">
         <ul class="nav__list">
           <li><a href="/fi/" class="nav__link nav__link--active" aria-current="page">Etusivu</a></li>
-          <li><a href="/fi/#services" class="nav__link" data-page-transition="services">Palvelut</a></li>
+          <li><a href="/fi/verkkosivut-fuengirola/" class="nav__link" data-page-transition="services">Palvelut</a></li>
           <li><a href="/casos/" class="nav__link">Asiakastyöt</a></li>
-          <li><a href="/fi/#process" class="nav__link">Näin työskentelemme</a></li>
-          <li><a href="/fi/#contact" class="nav__link">Yhteystiedot</a></li>
+          <li><a href="/fi/blog/" class="nav__link">Blogi</a></li>
+          <li><a href="/web-solidaria/" class="nav__link">Web Solidaria</a></li>
           <li><a href="https://portal.webfuengirola.com/cliente" class="nav__link nav__link--client" target="_blank" rel="noopener noreferrer">Asiakasalue</a></li>
         </ul>
       </nav>
@@ -113,18 +170,24 @@
       <div class="stack-space-lg-center"><a href="/servicios/#seo-local" class="btn btn--outline btn--lg">SEO local →</a></div>
     </div></section>
   </div></div>
-  <section class="case-showcase section" id="portfolio"><div class="container">
+  <section class="section" id="portfolio"><div class="container"><div class="case-showcase">
     <div class="case-showcase__intro"><span class="section-label">Viimeisimmät projektit</span><h2 class="case-showcase__title">Valittuja asiakastöitä</h2></div>
     <div class="case-showcase__stack">
       <a href="/casos/sport-massage-fuengirola/" class="case-showcase__item"><div class="case-showcase__copy"><span class="case-showcase__number">01</span><h3>Sport Massage Fuengirola</h3></div><div class="case-showcase__media"><img src="/img/sport-massage-fuengirola.webp" alt="Sport Massage Fuengirola" width="1600" height="900" loading="lazy" /></div></a>
       <a href="/casos/agama/" class="case-showcase__item"><div class="case-showcase__copy"><span class="case-showcase__number">02</span><h3>Agama</h3></div><div class="case-showcase__media"><img src="/img/agama-tienda-online.png" alt="Agama" width="1672" height="941" loading="lazy" /></div></a>
     </div>
-  </div></section>
+  </div></div></section>
   <section class="process section" id="process"><div class="container"><span class="section-label">01 · 02 · 03</span><h2 class="section-title">Ideasta julkaistuksi verkkosivustoksi</h2><div class="process__steps"><article class="process__step"><span>01</span><h3>Kartoitus</h3><p>Käymme läpi yrityksen, yleisön, materiaalit ja tavoitteen.</p></article><article class="process__step"><span>02</span><h3>Ehdotus</h3><p>Sovimme laajuuden, aikataulun, hinnan ja toimitukset etukäteen.</p></article><article class="process__step"><span>03</span><h3>Tuotanto ja julkaisu</h3><p>Suunnittelemme, rakennamme, tarkistamme ja julkaisemme.</p></article></div></div></section>
   <section class="section" id="faq"><div class="container"><h2 class="section-title">Usein kysytyt kysymykset</h2><div class="faq-list"><details><summary>Mitä hyötyä tästä ratkaisusta on?</summary><p>Sivusto esittelee tarjonnan selkeästi, vahvistaa luottamusta ja helpottaa yhteydenottoa. Tavoite: muuttaa käynnit yhteydenotoiksi.</p></details><details><summary>Mikä paketti sopii tähän projektiin?</summary><p>Lite kattaa yhden selkeän polun, Express erottaa tärkeimmät sisällöt ja Ammattitaso tukee useampia hakuja, palveluja ja yhteydenottopisteitä.</p></details><details><summary>Mitkä lisäpalvelut ovat hyödyllisiä?</summary><p>Blogi, kielet, lomakkeet, integraatiot tai ylläpito lisätään vain, kun ne tukevat konkreettista liiketoimintatavoitetta.</p></details></div></div></section>
   <section class="cta-section" id="contact"><div class="container"><h2>Kerro, mitä tarvitset</h2><p>Vastaamme projektillesi hyödyllisimmällä seuraavalla askeleella.</p><a class="btn btn--primary btn--lg" href="https://wa.me/34622923988?text=Hei%2C%20olen%20kiinnostunut%20palvelusta%3A%20WF-Studio%3A%20verkkosivut%20Fuengirolassa" target="_blank" rel="noopener noreferrer">WhatsApp</a></div></section>
 </main>
-<footer class="footer"><div class="container footer__inner"><div class="footer__brand"><a href="/fi/" class="logo"><img src="/img/logo-wf.webp" alt="WF-Studio" width="36" height="36" /></a><p>WF-Studio: verkkosivut Fuengirolassa. WF-Studion Lite-, Express- ja Professional-verkkosivut selkeällä laajuudella ja suoralla palvelulla.</p></div><div class="footer__col"><h4>Yhteystiedot</h4><ul class="footer__links"><li><a href="mailto:info@webfuengirola.com">info@webfuengirola.com</a></li><li><a href="https://wa.me/34622923988?text=Hei%2C%20olen%20kiinnostunut%20palvelusta%3A%20WF-Studio%3A%20verkkosivut%20Fuengirolassa">WhatsApp</a></li></ul></div></div></footer>
+<footer class="footer"><div class="container footer__inner">
+    <div class="footer__brand"><a href="/fi/" class="logo"><img src="/img/logo-wf.webp" alt="WF-Studio" width="36" height="36" /></a><p>WF-Studio: verkkosivut Fuengirolassa. WF-Studion Lite-, Express- ja Professional-verkkosivut selkeällä laajuudella ja suoralla palvelulla.</p></div>
+    <div class="footer__col"><h4>Palvelut</h4><ul class="footer__links"><li><a href="/fi/verkkosivut-fuengirola/">Palvelut</a></li></ul></div>
+    <div class="footer__col"><h4>Asiakastyöt</h4><ul class="footer__links"><li><a href="/fi/asiakastyot/">Asiakastyöt</a></li></ul></div>
+    <div class="footer__col"><h4>Legal</h4><ul class="footer__links"><li><a href="/fi/lakitiedot/#tietosuoja">Legal</a></li></ul></div>
+    <div class="footer__col"><h4>Yhteystiedot</h4><ul class="footer__links"><li><a href="mailto:info@webfuengirola.com">info@webfuengirola.com</a></li><li><a href="https://wa.me/34622923988?text=Hei%2C%20olen%20kiinnostunut%20palvelusta%3A%20WF-Studio%3A%20verkkosivut%20Fuengirolassa">WhatsApp</a></li></ul></div>
+  </div></footer>
 <a href="https://wa.me/34622923988?text=Hei%2C%20olen%20kiinnostunut%20palvelusta%3A%20WF-Studio%3A%20verkkosivut%20Fuengirolassa" class="whatsapp-fab" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">WhatsApp</a>
 <div class="page-transition" id="page-transition" aria-hidden="true"></div>
 <script src="/cookie-banner-core.js"></script>

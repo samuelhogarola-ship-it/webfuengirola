@@ -6,17 +6,17 @@ const mexicoSpanish = {
   ogLocale: "es_MX",
   title: "Diseño web para empresas en México | WF-Studio",
   description:
-    "Diseño y desarrollo web para empresas en México, con atención remota desde Europa, precios claros en pesos mexicanos y un portfolio verificable.",
-  h1: "Sitios web para empresas en México con estándares europeos",
+    "Diseño web para empresas en México desde nuestra sede en Europa, con servidores europeos y precios claros en pesos mexicanos.",
+  h1: "Sitios web para empresas en México",
   intro:
-    "Diseñamos desde Europa sitios claros, rápidos y orientados a generar conversaciones comerciales en México. Combinamos una forma de trabajo estructurada con precios públicos en pesos mexicanos y ejemplos reales que puedes revisar antes de decidir.",
+    "Diseñamos webs para empresas en México desde nuestra sede en Europa, con servidores europeos y un proceso claro.",
   problems: [
     "Tu sitio no transmite con claridad el valor, la experiencia o la calidad de tu empresa.",
     "Las visitas móviles no encuentran un camino directo para escribir por WhatsApp o solicitar una propuesta.",
     "La estructura actual no está preparada para crecer con nuevos servicios, contenidos o posicionamiento orgánico.",
   ],
   benefits: [
-    "Diseño y desarrollo con criterios europeos de claridad, accesibilidad, rendimiento y mantenimiento.",
+    "Diseño y desarrollo centrados en claridad, accesibilidad, rendimiento y mantenimiento.",
     "Portfolio verificable y alcance definido antes de empezar, sin promesas comerciales imposibles de comprobar.",
     "Proceso remoto ordenado, con comunicación directa, entregas concretas y documentación del proyecto.",
   ],
@@ -99,17 +99,17 @@ const mexicoEnglish = {
   ogLocale: "en_MX",
   title: "Web design for companies in Mexico | WF-Studio",
   description:
-    "Web design and development for companies in Mexico, delivered remotely from Europe with clear MXN pricing and a portfolio you can verify.",
-  h1: "Websites for companies in Mexico, built to European standards",
+    "Web design for companies in Mexico from our European headquarters, with European servers and clear MXN pricing.",
+  h1: "Websites for companies in Mexico",
   intro:
-    "We design clear, fast websites from Europe for businesses that want better commercial conversations in Mexico. You get a structured process, public reference prices in Mexican pesos, and real work to review before making a decision.",
+    "We design websites for companies in Mexico from our European headquarters, with European servers and a clear process.",
   problems: [
     "Your current website does not make the company's value, experience, or quality easy to understand.",
     "Mobile visitors cannot find a direct route to WhatsApp or a useful project enquiry.",
     "The existing structure cannot grow cleanly with new services, content, or organic search work.",
   ],
   benefits: [
-    "Design and development guided by European standards for clarity, accessibility, performance, and maintenance.",
+    "Design and development focused on clarity, accessibility, performance, and maintenance.",
     "A verifiable portfolio and a defined scope before work begins, without claims that cannot be supported.",
     "An organised remote process with direct communication, concrete deliveries, and project documentation.",
   ],
@@ -192,17 +192,17 @@ const usaEnglish = {
   ogLocale: "en_US",
   title: "Web design for businesses in the United States | WF-Studio",
   description:
-    "Web design and development for businesses in the United States, delivered remotely from Europe with clear USD reference pricing and verifiable work.",
-  h1: "Websites for US businesses, delivered with European craft",
+    "Web design for US businesses from our European headquarters, with European servers and clear USD pricing.",
+  h1: "Websites for US businesses",
   intro:
-    "We build clear, fast commercial websites from Europe for businesses serving customers across the United States. Every project begins with a defined scope, transparent USD reference pricing, and real work you can review before committing.",
+    "We build websites for US businesses from our European headquarters, with European servers and a clear process.",
   problems: [
     "Your website looks generic and does not explain why a customer should choose your business.",
     "Mobile visitors cannot move quickly from interest to a useful enquiry or scheduled conversation.",
     "The current platform is difficult to maintain, measure, or expand as new offers and markets appear.",
   ],
   benefits: [
-    "European design and development standards focused on clarity, accessibility, performance, and maintainability.",
+    "Design and development focused on clarity, accessibility, performance, and maintainability.",
     "A verifiable portfolio, a written scope, and reviewable milestones instead of unsupported promises.",
     "A structured remote workflow with direct communication and handover documentation for your team.",
   ],
@@ -285,17 +285,17 @@ const usaSpanish = {
   ogLocale: "es_US",
   title: "Diseño web para empresas en Estados Unidos | WF-Studio",
   description:
-    "Diseño y desarrollo web para empresas en Estados Unidos, realizado a distancia desde Europa con precios de referencia en USD y trabajo verificable.",
-  h1: "Webs para empresas en Estados Unidos con criterio europeo",
+    "Diseño web para empresas en Estados Unidos desde nuestra sede en Europa, con servidores europeos y precios claros en dólares.",
+  h1: "Webs para empresas en Estados Unidos",
   intro:
-    "Creamos desde Europa sitios comerciales claros y rápidos para empresas que trabajan con clientes en Estados Unidos. Cada proyecto parte de un alcance definido, precios de referencia transparentes en dólares y trabajos reales que puedes revisar.",
+    "Creamos webs para empresas en Estados Unidos desde nuestra sede en Europa, con servidores europeos y un proceso claro.",
   problems: [
     "Tu web parece genérica y no explica por qué un cliente debería elegir tu negocio.",
     "Quien visita desde el móvil no encuentra un camino rápido para consultar o concertar una conversación.",
     "La plataforma actual resulta difícil de mantener, medir o ampliar cuando aparecen nuevas ofertas y mercados.",
   ],
   benefits: [
-    "Diseño y desarrollo con estándares europeos de claridad, accesibilidad, rendimiento y mantenimiento.",
+    "Diseño y desarrollo centrados en claridad, accesibilidad, rendimiento y mantenimiento.",
     "Portfolio verificable, alcance por escrito e hitos revisables en lugar de promesas sin respaldo.",
     "Flujo remoto estructurado, comunicación directa y documentación de entrega para tu equipo.",
   ],
@@ -380,17 +380,17 @@ const brasilPortuguese = {
   ogLocale: "pt_BR",
   title: "Criação de sites para empresas no Brasil | WF-Studio",
   description:
-    "Criação e desenvolvimento de sites para empresas no Brasil, com atendimento remoto desde a Europa, preços de referência em reais e trabalhos verificáveis.",
-  h1: "Sites para empresas brasileiras com padrão europeu",
+    "Criação de sites para empresas no Brasil a partir da nossa sede na Europa, com servidores europeus e preços claros em reais.",
+  h1: "Sites para empresas no Brasil",
   intro:
-    "Criamos desde a Europa sites comerciais claros, rápidos e preparados para gerar conversas no Brasil. O projeto começa com escopo definido, preços de referência transparentes em reais e exemplos reais para você avaliar.",
+    "Criamos sites para empresas no Brasil a partir da nossa sede na Europa, com servidores europeus e um processo claro.",
   problems: [
     "O site atual não comunica com clareza o valor, a experiência ou a qualidade da empresa.",
     "No celular, o visitante não encontra um caminho direto para conversar ou solicitar uma proposta.",
     "A estrutura existente dificulta a inclusão de novos serviços, conteúdos e ações de busca orgânica.",
   ],
   benefits: [
-    "Design e desenvolvimento com critérios europeus de clareza, acessibilidade, desempenho e manutenção.",
+    "Design e desenvolvimento focados em clareza, acessibilidade, desempenho e manutenção.",
     "Portfólio verificável, escopo por escrito e etapas revisáveis, sem promessas que não possam ser comprovadas.",
     "Processo remoto organizado, comunicação direta e documentação para a entrega do projeto.",
   ],

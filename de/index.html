@@ -29,7 +29,64 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://webfuengirola.com/img/og-cover.jpg" />
   <meta name="twitter:image:alt" content="Die Website, die Ihr Unternehmen verdient." />
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["Organization","ProfessionalService"],"@id":"https://webfuengirola.com/#organization","name":"WF-Studio","alternateName":"Web Fuengirola","url":"https://webfuengirola.com","email":"info@webfuengirola.com","telephone":"+34622923988","areaServed":"Fuengirola, Costa del Sol, Málaga"},{"@type":"WebPage","@id":"https://webfuengirola.com/de/#page","url":"https://webfuengirola.com/de/","name":"WF-Studio: Webdesign in Fuengirola | WF-Studio","description":"WF-Studio: Webdesign in Fuengirola. Websites von WF-Studio in Lite, Express oder Professional – mit klarem Umfang und direktem Kontakt.","inLanguage":"de-DE","about":{"@id":"https://webfuengirola.com/#organization"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Was leistet diese Lösung konkret?","acceptedAnswer":{"@type":"Answer","text":"Die Website macht das Angebot verständlich, schafft Vertrauen und erleichtert den nächsten Schritt. Ziel: Besuche in Anfragen verwandeln."}},{"@type":"Question","name":"Welches Paket passt zu diesem Projekt?","acceptedAnswer":{"@type":"Answer","text":"Lite deckt einen klaren Weg ab, Express trennt die wichtigsten Inhalte und Professional ermöglicht mehr Suchthemen, Leistungen und Kontaktpunkte."}},{"@type":"Question","name":"Welche Extras sind hier sinnvoll?","acceptedAnswer":{"@type":"Answer","text":"Blog, Sprachen, Formulare, Integrationen oder Wartung kommen nur hinzu, wenn sie ein konkretes Geschäftsziel unterstützen."}}]}]}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "Organization",
+        "ProfessionalService"
+      ],
+      "@id": "https://webfuengirola.com/#organization",
+      "name": "WF-Studio",
+      "alternateName": "Web Fuengirola",
+      "url": "https://webfuengirola.com",
+      "email": "info@webfuengirola.com",
+      "telephone": "+34622923988",
+      "areaServed": "Fuengirola, Costa del Sol, Málaga"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://webfuengirola.com/de/#page",
+      "url": "https://webfuengirola.com/de/",
+      "name": "WF-Studio: Webdesign in Fuengirola | WF-Studio",
+      "description": "WF-Studio: Webdesign in Fuengirola. Websites von WF-Studio in Lite, Express oder Professional – mit klarem Umfang und direktem Kontakt.",
+      "inLanguage": "de-DE",
+      "about": {
+        "@id": "https://webfuengirola.com/#organization"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Was leistet diese Lösung konkret?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Die Website macht das Angebot verständlich, schafft Vertrauen und erleichtert den nächsten Schritt. Ziel: Besuche in Anfragen verwandeln."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Welches Paket passt zu diesem Projekt?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Lite deckt einen klaren Weg ab, Express trennt die wichtigsten Inhalte und Professional ermöglicht mehr Suchthemen, Leistungen und Kontaktpunkte."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Welche Extras sind hier sinnvoll?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Blog, Sprachen, Formulare, Integrationen oder Wartung kommen nur hinzu, wenn sie ein konkretes Geschäftsziel unterstützen."
+          }
+        }
+      ]
+    }
+  ]
+}</script>
   <link rel="stylesheet" href="/style.css?v=15" />
   <link rel="stylesheet" href="/cookie-banner-core.css" />
   <noscript><style>[data-reveal] { opacity: 1; transform: none; }</style></noscript>
@@ -43,10 +100,10 @@
       <nav class="nav" id="nav" aria-label="Hauptnavigation">
         <ul class="nav__list">
           <li><a href="/de/" class="nav__link nav__link--active" aria-current="page">Startseite</a></li>
-          <li><a href="/de/#services" class="nav__link" data-page-transition="services">Leistungen</a></li>
+          <li><a href="/de/webdesign-fuengirola/" class="nav__link" data-page-transition="services">Leistungen</a></li>
           <li><a href="/casos/" class="nav__link">Referenzen</a></li>
-          <li><a href="/de/#process" class="nav__link">So arbeiten wir</a></li>
-          <li><a href="/de/#contact" class="nav__link">Kontakt</a></li>
+          <li><a href="/de/blog/" class="nav__link">Blog</a></li>
+          <li><a href="/web-solidaria/" class="nav__link">Web Solidaria</a></li>
           <li><a href="https://portal.webfuengirola.com/cliente" class="nav__link nav__link--client" target="_blank" rel="noopener noreferrer">Kundenbereich</a></li>
         </ul>
       </nav>
@@ -113,18 +170,24 @@
       <div class="stack-space-lg-center"><a href="/servicios/#seo-local" class="btn btn--outline btn--lg">SEO local →</a></div>
     </div></section>
   </div></div>
-  <section class="case-showcase section" id="portfolio"><div class="container">
+  <section class="section" id="portfolio"><div class="container"><div class="case-showcase">
     <div class="case-showcase__intro"><span class="section-label">Aktuelle Projekte</span><h2 class="case-showcase__title">Ausgewählte Referenzen</h2></div>
     <div class="case-showcase__stack">
       <a href="/casos/sport-massage-fuengirola/" class="case-showcase__item"><div class="case-showcase__copy"><span class="case-showcase__number">01</span><h3>Sport Massage Fuengirola</h3></div><div class="case-showcase__media"><img src="/img/sport-massage-fuengirola.webp" alt="Sport Massage Fuengirola" width="1600" height="900" loading="lazy" /></div></a>
       <a href="/casos/agama/" class="case-showcase__item"><div class="case-showcase__copy"><span class="case-showcase__number">02</span><h3>Agama</h3></div><div class="case-showcase__media"><img src="/img/agama-tienda-online.png" alt="Agama" width="1672" height="941" loading="lazy" /></div></a>
     </div>
-  </div></section>
+  </div></div></section>
   <section class="process section" id="process"><div class="container"><span class="section-label">01 · 02 · 03</span><h2 class="section-title">Von der Idee bis zur veröffentlichten Website</h2><div class="process__steps"><article class="process__step"><span>01</span><h3>Analyse</h3><p>Wir prüfen Unternehmen, Zielgruppe, Material und Geschäftsziel.</p></article><article class="process__step"><span>02</span><h3>Angebot</h3><p>Wir definieren Umfang, Zeitplan, Preis und Leistungen vor dem Start.</p></article><article class="process__step"><span>03</span><h3>Umsetzung</h3><p>Wir gestalten, entwickeln, prüfen gemeinsam und veröffentlichen.</p></article></div></div></section>
   <section class="section" id="faq"><div class="container"><h2 class="section-title">Häufige Fragen</h2><div class="faq-list"><details><summary>Was leistet diese Lösung konkret?</summary><p>Die Website macht das Angebot verständlich, schafft Vertrauen und erleichtert den nächsten Schritt. Ziel: Besuche in Anfragen verwandeln.</p></details><details><summary>Welches Paket passt zu diesem Projekt?</summary><p>Lite deckt einen klaren Weg ab, Express trennt die wichtigsten Inhalte und Professional ermöglicht mehr Suchthemen, Leistungen und Kontaktpunkte.</p></details><details><summary>Welche Extras sind hier sinnvoll?</summary><p>Blog, Sprachen, Formulare, Integrationen oder Wartung kommen nur hinzu, wenn sie ein konkretes Geschäftsziel unterstützen.</p></details></div></div></section>
   <section class="cta-section" id="contact"><div class="container"><h2>Erzählen Sie uns von Ihrem Projekt</h2><p>Wir antworten mit dem sinnvollsten nächsten Schritt.</p><a class="btn btn--primary btn--lg" href="https://wa.me/34622923988?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20WF-Studio%3A%20Webdesign%20in%20Fuengirola" target="_blank" rel="noopener noreferrer">WhatsApp</a></div></section>
 </main>
-<footer class="footer"><div class="container footer__inner"><div class="footer__brand"><a href="/de/" class="logo"><img src="/img/logo-wf.webp" alt="WF-Studio" width="36" height="36" /></a><p>WF-Studio: Webdesign in Fuengirola. Websites von WF-Studio in Lite, Express oder Professional – mit klarem Umfang und direktem Kontakt.</p></div><div class="footer__col"><h4>Kontakt</h4><ul class="footer__links"><li><a href="mailto:info@webfuengirola.com">info@webfuengirola.com</a></li><li><a href="https://wa.me/34622923988?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20WF-Studio%3A%20Webdesign%20in%20Fuengirola">WhatsApp</a></li></ul></div></div></footer>
+<footer class="footer"><div class="container footer__inner">
+    <div class="footer__brand"><a href="/de/" class="logo"><img src="/img/logo-wf.webp" alt="WF-Studio" width="36" height="36" /></a><p>WF-Studio: Webdesign in Fuengirola. Websites von WF-Studio in Lite, Express oder Professional – mit klarem Umfang und direktem Kontakt.</p></div>
+    <div class="footer__col"><h4>Leistungen</h4><ul class="footer__links"><li><a href="/de/webdesign-fuengirola/">Leistungen</a></li></ul></div>
+    <div class="footer__col"><h4>Referenzen</h4><ul class="footer__links"><li><a href="/de/referenzen/">Referenzen</a></li></ul></div>
+    <div class="footer__col"><h4>Legal</h4><ul class="footer__links"><li><a href="/de/rechtliches/#datenschutz">Legal</a></li></ul></div>
+    <div class="footer__col"><h4>Kontakt</h4><ul class="footer__links"><li><a href="mailto:info@webfuengirola.com">info@webfuengirola.com</a></li><li><a href="https://wa.me/34622923988?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20WF-Studio%3A%20Webdesign%20in%20Fuengirola">WhatsApp</a></li></ul></div>
+  </div></footer>
 <a href="https://wa.me/34622923988?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20WF-Studio%3A%20Webdesign%20in%20Fuengirola" class="whatsapp-fab" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">WhatsApp</a>
 <div class="page-transition" id="page-transition" aria-hidden="true"></div>
 <script src="/cookie-banner-core.js"></script>

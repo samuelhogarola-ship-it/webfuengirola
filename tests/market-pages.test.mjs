@@ -99,6 +99,29 @@ test("Mexico copy presents a European studio without inventing local claims", ()
   }
 });
 
+test("regional heroes stay concise and reserve Europe claims for the description", () => {
+  for (const pages of Object.values(marketPages)) {
+    for (const page of Object.values(pages)) {
+      assert.ok(
+        page.intro.length <= 140,
+        `${page.localeCode} hero intro should stay concise`,
+      );
+      assert.doesNotMatch(
+        page.h1,
+        /estándares europeos|European standards|European craft|criterio europeo|padrão europeu/i,
+      );
+      assert.match(
+        `${page.description} ${page.intro}`,
+        /sede en Europa|European headquarters|sede na Europa/i,
+      );
+      assert.match(
+        `${page.description} ${page.intro}`,
+        /servidores europeos|European servers|servidores europeus/i,
+      );
+    }
+  }
+});
+
 test("Spanish and English are independently localized rather than duplicated", () => {
   const spanish = getMarketPage("mexico", "es-MX");
   const english = getMarketPage("mexico", "en-MX");
@@ -158,7 +181,7 @@ test("each rendered Mexico page carries regional SEO, market data, and safe clai
       html,
       /<body[^>]*data-market="mexico"[^>]*data-locale="(?:es|en)-MX"/,
     );
-    assert.match(html, /"areaServed":"Mexico"/);
+    assert.match(html, /"areaServed"\s*:\s*"Mexico"/);
     assert.match(html, /data-market="mexico"/);
     assert.match(html, new RegExp(`data-locale="${page.localeCode}"`));
     assert.match(html, /data-currency="MXN"/);
@@ -171,6 +194,19 @@ test("each rendered Mexico page carries regional SEO, market data, and safe clai
       /€|\+ IVA|\+ VAT|oficina en México|Mexico office|based in Mexico|street address/i,
     );
   }
+});
+
+test("Mexico contact links use its own phone number without changing other markets", () => {
+  const mexicoHtml = renderMarketPage(
+    getMarketPage("mexico", "es-MX"),
+    snapshot,
+  );
+  const usaHtml = renderMarketPage(getMarketPage("usa", "en-US"), snapshot);
+
+  assert.match(mexicoHtml, /https:\/\/wa\.me\/525516529733/);
+  assert.match(mexicoHtml, /"telephone": "\+525516529733"/);
+  assert.doesNotMatch(mexicoHtml, /wa\.me\/34622923988/);
+  assert.match(usaHtml, /https:\/\/wa\.me\/34622923988/);
 });
 
 test("the generator writes both Mexico locale routes from the source records", async (t) => {
