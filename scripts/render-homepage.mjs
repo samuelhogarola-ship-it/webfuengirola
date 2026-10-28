@@ -247,7 +247,7 @@ ${renderHeader(record)}
     <section class="services stack-card" id="services"><div class="container">
       <div class="section-header"><span class="section-label">${escapeHtml(record.labels.servicesEyebrow)}</span><h2 class="section-title">${escapeHtml(record.labels.servicesHeading)}</h2></div>
       <div class="services-home-deck">${renderServices(record, snapshot)}</div>
-      ${record.currency === "EUR" ? "" : `<p class="commercial-price-note">${escapeHtml(record.labels.rateNote)}: ${escapeHtml(snapshot.date)} · ${escapeHtml(record.labels.tax)}</p>`}
+${record.currency === "EUR" ? "" : `      <p class="commercial-price-note">${escapeHtml(record.labels.rateNote)}: ${escapeHtml(snapshot.date)} · ${escapeHtml(record.labels.tax)}</p>`}
       <div class="stack-space-lg-center"><a href="/servicios/#seo-local" class="btn btn--outline btn--lg">SEO local →</a></div>
     </div></section>
   </div></div>

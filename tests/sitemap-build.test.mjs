@@ -111,7 +111,7 @@ test("the project sitemap advances only pages whose content changed", () => {
   );
 });
 
-test("the production build publishes exactly the two Mexico market routes", () => {
+test("the production build publishes the nine unified market home routes", () => {
   const packageJson = JSON.parse(
     fs.readFileSync(path.join(root, "package.json"), "utf8"),
   );
@@ -131,19 +131,70 @@ test("the production build publishes exactly the two Mexico market routes", () =
   );
 
   const dockerfile = fs.readFileSync(path.join(root, "Dockerfile.web"), "utf8");
-  assert.match(dockerfile, /\/app\/mexico\s*\\/);
+  for (const marketRoot of ["mexico", "usa", "brasil"]) {
+    assert.match(dockerfile, new RegExp(`/app/${marketRoot}\\s*\\\\`));
+  }
 
-  assert.equal(fs.existsSync(path.join(root, "mexico/index.html")), true);
-  assert.equal(fs.existsSync(path.join(root, "mexico/en/index.html")), true);
+  const routes = [
+    ["index.html", "https://webfuengirola.com/"],
+    ["en/index.html", "https://webfuengirola.com/en/"],
+    ["de/index.html", "https://webfuengirola.com/de/"],
+    ["fi/index.html", "https://webfuengirola.com/fi/"],
+    ["mexico/index.html", "https://webfuengirola.com/mexico/"],
+    ["mexico/en/index.html", "https://webfuengirola.com/mexico/en/"],
+    ["usa/index.html", "https://webfuengirola.com/usa/"],
+    ["usa/es/index.html", "https://webfuengirola.com/usa/es/"],
+    ["brasil/index.html", "https://webfuengirola.com/brasil/"],
+  ];
+  for (const [file, canonical] of routes) {
+    const html = fs.readFileSync(path.join(root, file), "utf8");
+    assert.match(html, /<body class="home-page"/);
+    assert.match(html, /class="hero hero--cinematic"/);
+    assert.match(
+      html,
+      new RegExp(`rel="canonical" href="${canonical.replaceAll("/", "\\/")}"`),
+    );
+  }
 
   const sitemap = fs.readFileSync(path.join(root, "sitemap.xml"), "utf8");
-  const mexicoUrls = [
-    ...sitemap.matchAll(/<loc>([^<]*\/mexico\/[^<]*)<\/loc>/g),
-  ]
-    .map((match) => match[1])
-    .sort();
-  assert.deepEqual(mexicoUrls, [
-    "https://webfuengirola.com/mexico/",
-    "https://webfuengirola.com/mexico/en/",
-  ]);
+  for (const [, canonical] of routes) {
+    assert.match(
+      sitemap,
+      new RegExp(`<loc>${canonical.replaceAll("/", "\\/")}<\\/loc>`),
+    );
+  }
+});
+
+test("each homepage hreflang group stays inside its own market", () => {
+  const groups = [
+    [
+      ["index.html", "en/index.html", "de/index.html", "fi/index.html"],
+      ["/", "/en/", "/de/", "/fi/"],
+    ],
+    [
+      ["mexico/index.html", "mexico/en/index.html"],
+      ["/mexico/", "/mexico/en/"],
+    ],
+    [
+      ["usa/index.html", "usa/es/index.html"],
+      ["/usa/", "/usa/es/"],
+    ],
+    [["brasil/index.html"], ["/brasil/"]],
+  ];
+
+  for (const [files, expectedRoutes] of groups) {
+    for (const file of files) {
+      const html = fs.readFileSync(path.join(root, file), "utf8");
+      const alternates = [
+        ...html.matchAll(
+          /rel="alternate" hreflang="[^"]+" href="https:\/\/webfuengirola\.com([^"]+)"/g,
+        ),
+      ].map((match) => match[1]);
+      assert.deepEqual(
+        [...new Set(alternates)].sort(),
+        [...expectedRoutes].sort(),
+        file,
+      );
+    }
+  }
 });

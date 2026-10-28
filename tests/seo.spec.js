@@ -137,7 +137,7 @@ test("la imagen Docker copia las rutas publicadas en sitemap", () => {
   }
 });
 
-test("México publica únicamente sus dos rutas canónicas regionales", () => {
+test("México, USA y Brasil publican únicamente sus rutas canónicas regionales", () => {
   const sitemap = fs.readFileSync(path.join(root, "sitemap.xml"), "utf8");
   const mexicoUrls = [
     ...sitemap.matchAll(/<loc>([^<]*\/mexico\/[^<]*)<\/loc>/g),
@@ -149,4 +149,17 @@ test("México publica únicamente sus dos rutas canónicas regionales", () => {
     "https://webfuengirola.com/mexico/",
     "https://webfuengirola.com/mexico/en/",
   ]);
+
+  const usaUrls = [...sitemap.matchAll(/<loc>([^<]*\/usa\/[^<]*)<\/loc>/g)]
+    .map((match) => match[1])
+    .sort();
+  expect(usaUrls).toEqual([
+    "https://webfuengirola.com/usa/",
+    "https://webfuengirola.com/usa/es/",
+  ]);
+
+  const brasilUrls = [
+    ...sitemap.matchAll(/<loc>([^<]*\/brasil\/[^<]*)<\/loc>/g),
+  ].map((match) => match[1]);
+  expect(brasilUrls).toEqual(["https://webfuengirola.com/brasil/"]);
 });

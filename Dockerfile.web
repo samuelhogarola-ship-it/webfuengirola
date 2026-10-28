@@ -38,6 +38,8 @@ RUN cp -R \
   /app/fi \
   /app/img \
   /app/mexico \
+  /app/usa \
+  /app/brasil \
   /app/portfolio \
   /app/portfolio.html \
   /app/productos \
