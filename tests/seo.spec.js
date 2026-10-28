@@ -136,3 +136,17 @@ test("la imagen Docker copia las rutas publicadas en sitemap", () => {
     ).toBe(true);
   }
 });
+
+test("México publica únicamente sus dos rutas canónicas regionales", () => {
+  const sitemap = fs.readFileSync(path.join(root, "sitemap.xml"), "utf8");
+  const mexicoUrls = [
+    ...sitemap.matchAll(/<loc>([^<]*\/mexico\/[^<]*)<\/loc>/g),
+  ]
+    .map((match) => match[1])
+    .sort();
+
+  expect(mexicoUrls).toEqual([
+    "https://webfuengirola.com/mexico/",
+    "https://webfuengirola.com/mexico/en/",
+  ]);
+});

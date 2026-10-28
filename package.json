@@ -12,7 +12,7 @@
     "build:navigation": "node scripts/site-navigation.mjs",
     "build:sitemap": "node scripts/build-sitemap.mjs",
     "build:brand-visuals": "node scripts/generate-brand-visuals.mjs",
-    "build:all": "npm run build:services && npm run build:casos && npm run build:portfolio && npm run build:blog && npm run build:commercial && npm run build:sitemap",
+    "build:all": "npm run build:services && npm run build:casos && npm run build:portfolio && npm run build:blog && npm run build:commercial && npm run build:markets && npm run build:sitemap",
     "content:social": "node scripts/prepare-social-campaign.mjs",
     "rates:update": "node scripts/update-exchange-rates.mjs",
     "test": "playwright test",

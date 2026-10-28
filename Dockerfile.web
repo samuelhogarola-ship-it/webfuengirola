@@ -37,6 +37,7 @@ RUN cp -R \
   /app/en \
   /app/fi \
   /app/img \
+  /app/mexico \
   /app/portfolio \
   /app/portfolio.html \
   /app/productos \

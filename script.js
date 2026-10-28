@@ -1028,7 +1028,10 @@
   function applyTranslations(lang) {
     var dictionary = translations[lang] || translations[defaultLang];
 
-    document.documentElement.lang = lang;
+    var documentLang = document.documentElement.lang || "";
+    if (!documentLang.includes("-") || documentLang.split("-")[0] !== lang) {
+      document.documentElement.lang = lang;
+    }
 
     document.querySelectorAll("[data-i18n]").forEach(function (element) {
       var key = element.getAttribute("data-i18n");

@@ -110,3 +110,40 @@ test("the project sitemap advances only pages whose content changed", () => {
     /<loc>https:\/\/webfuengirola\.com\/<\/loc>\s*<lastmod>2026-10-16<\/lastmod>/,
   );
 });
+
+test("the production build publishes exactly the two Mexico market routes", () => {
+  const packageJson = JSON.parse(
+    fs.readFileSync(path.join(root, "package.json"), "utf8"),
+  );
+  const buildAll = packageJson.scripts["build:all"];
+  const marketBuildIndex = buildAll.indexOf("build:markets");
+  const sitemapBuildIndex = buildAll.indexOf("build:sitemap");
+
+  assert.ok(marketBuildIndex >= 0, "build:all must run build:markets");
+  assert.ok(
+    marketBuildIndex < sitemapBuildIndex,
+    "market pages must exist before the sitemap is generated",
+  );
+  assert.match(packageJson.scripts.check, /scripts\/build-market-pages\.mjs/);
+  assert.match(
+    packageJson.scripts.check,
+    /scripts\/update-exchange-rates\.mjs/,
+  );
+
+  const dockerfile = fs.readFileSync(path.join(root, "Dockerfile.web"), "utf8");
+  assert.match(dockerfile, /\/app\/mexico\s*\\/);
+
+  assert.equal(fs.existsSync(path.join(root, "mexico/index.html")), true);
+  assert.equal(fs.existsSync(path.join(root, "mexico/en/index.html")), true);
+
+  const sitemap = fs.readFileSync(path.join(root, "sitemap.xml"), "utf8");
+  const mexicoUrls = [
+    ...sitemap.matchAll(/<loc>([^<]*\/mexico\/[^<]*)<\/loc>/g),
+  ]
+    .map((match) => match[1])
+    .sort();
+  assert.deepEqual(mexicoUrls, [
+    "https://webfuengirola.com/mexico/",
+    "https://webfuengirola.com/mexico/en/",
+  ]);
+});
