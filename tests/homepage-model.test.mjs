@@ -155,3 +155,52 @@ test("regional service cards use current EUR conversions plus five percent", () 
     assert.doesNotMatch(html, /\+ IVA|\+ VAT/);
   }
 });
+
+test("service package links preserve the selected plan for the contact form", () => {
+  const record = getHomepageRecord("mexico", "es-MX");
+  const html = renderHomepage(record, snapshot);
+
+  for (const plan of ["lite", "express", "professional"]) {
+    assert.match(
+      html,
+      new RegExp(
+        `href="/mexico/\\?plan=${plan}#contact"[^>]*data-analytics-event="tier_select"[^>]*data-analytics-tier="${plan}"`,
+      ),
+    );
+  }
+});
+
+test("localized home actions keep users in a compatible language journey", () => {
+  const cases = [
+    ["spain", "en-GB", "/en/case-studies/", "/en/local-seo-fuengirola/"],
+    ["spain", "de-DE", "/de/referenzen/", "/de/lokales-seo-fuengirola/"],
+    ["spain", "fi-FI", "/fi/asiakastyot/", "/fi/paikallinen-seo-fuengirola/"],
+    ["mexico", "en-MX", "/en/case-studies/", "/en/local-seo-fuengirola/"],
+    ["usa", "en-US", "/en/case-studies/", "/en/local-seo-fuengirola/"],
+    ["brasil", "pt-BR", "/casos/", "/brasil/#services"],
+  ];
+
+  for (const [market, locale, portfolioRoute, relatedServiceRoute] of cases) {
+    const html = renderHomepage(getHomepageRecord(market, locale), snapshot);
+    assert.match(html, new RegExp(`href="${portfolioRoute}"`));
+    assert.match(html, new RegExp(`href="${relatedServiceRoute}"`));
+  }
+});
+
+test("regional homepages use neutral WF-Studio branding and market-safe cases", () => {
+  for (const [market, locale] of [
+    ["mexico", "es-MX"],
+    ["mexico", "en-MX"],
+    ["usa", "en-US"],
+    ["usa", "es-US"],
+    ["brasil", "pt-BR"],
+  ]) {
+    const html = renderHomepage(getHomepageRecord(market, locale), snapshot);
+
+    assert.match(html, /property="og:site_name" content="WF-Studio"/);
+    assert.match(html, /class="logo" aria-label="WF-Studio"/);
+    assert.doesNotMatch(html, /Sport Massage Fuengirola/);
+    assert.match(html, />Agama</);
+    assert.match(html, />Vokabellab</);
+  }
+});

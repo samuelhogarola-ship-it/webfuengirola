@@ -98,7 +98,7 @@ function renderServices(record, snapshot) {
           <ul class="services-home-card__bullets">${service.features.map((feature) => `<li>${escapeHtml(feature)}</li>`).join("")}</ul>
           <p class="services-home-card__price">${escapeHtml(record.labels.from)} <span data-tier-price="${price.display}" data-currency="${price.currency}">${escapeHtml(displayPrice(record, price))}</span>${record.currency === "EUR" ? ` ${escapeHtml(record.labels.tax)}` : ""}</p>
         </div>
-        <div class="portfolio-card__footer"><a class="btn btn--outline" href="#contact">${escapeHtml(record.labels.primaryCta)} →</a></div>
+        <div class="portfolio-card__footer"><a class="btn btn--outline" href="${record.route}?plan=${service.key}#contact" data-analytics-event="tier_select" data-analytics-market="${record.marketKey}" data-analytics-locale="${record.localeCode}" data-analytics-tier="${service.key}">${escapeHtml(record.labels.primaryCta)} →</a></div>
       </article>`;
     })
     .join("");
@@ -138,10 +138,11 @@ function renderHeader(record) {
     record.marketKey === "spain" && record.sourceLocale === "es"
       ? "/servicios/"
       : footerRoutes(record).service;
+  const portfolioRoute = footerRoutes(record).cases;
   const items = [
     [record.route, record.labels.home, "home"],
     [serviceRoute, record.labels.services, "services"],
-    ["/casos/", record.labels.portfolio, "portfolio"],
+    [portfolioRoute, record.labels.portfolio, "portfolio"],
     [blogRoutes[record.sourceLocale], record.labels.blog, "blog"],
     ["/web-solidaria/", record.labels.solidarity, "solidarity"],
     [
@@ -161,6 +162,8 @@ function renderHeader(record) {
       currentMarket: record.marketKey,
       localeCode: record.localeCode,
     }),
+    logoLabel: record.marketKey === "spain" ? brand.displayName : brand.name,
+    logoAlt: record.marketKey === "spain" ? brand.displayName : brand.name,
   });
 }
 
@@ -168,7 +171,12 @@ function footerRoutes(record) {
   if (record.marketKey !== "spain") {
     return {
       service: `${record.route}#services`,
-      cases: "/casos/",
+      cases:
+        {
+          en: "/en/case-studies/",
+          de: "/de/referenzen/",
+          fi: "/fi/asiakastyot/",
+        }[record.sourceLocale] ?? "/casos/",
       legal:
         record.sourceLocale === "en"
           ? "/en/legal/#privacy"
@@ -198,6 +206,69 @@ function footerRoutes(record) {
       legal: "/fi/lakitiedot/#tietosuoja",
     },
   }[record.sourceLocale];
+}
+
+function relatedService(record) {
+  return (
+    {
+      es: { href: "/servicios/#seo-local", label: "SEO local" },
+      en: { href: "/en/local-seo-fuengirola/", label: "Local SEO" },
+      de: { href: "/de/lokales-seo-fuengirola/", label: "Lokales SEO" },
+      fi: {
+        href: "/fi/paikallinen-seo-fuengirola/",
+        label: "Paikallinen SEO",
+      },
+      pt: { href: `${record.route}#services`, label: record.labels.services },
+    }[record.sourceLocale] ?? {
+      href: `${record.route}#services`,
+      label: record.labels.services,
+    }
+  );
+}
+
+function renderCaseShowcase(record) {
+  const casesRoute = footerRoutes(record).cases;
+  const cases =
+    record.marketKey === "spain"
+      ? [
+          {
+            href: "/casos/sport-massage-fuengirola/",
+            title: "Sport Massage Fuengirola",
+            image: "/img/sport-massage-fuengirola.webp",
+            width: 1600,
+            height: 900,
+          },
+          {
+            href: "/casos/agama/",
+            title: "Agama",
+            image: "/img/agama-tienda-online.png",
+            width: 1672,
+            height: 941,
+          },
+        ]
+      : [
+          {
+            href: casesRoute,
+            title: "Agama",
+            image: "/img/agama-tienda-online.png",
+            width: 1672,
+            height: 941,
+          },
+          {
+            href: casesRoute,
+            title: "Vokabellab",
+            image: "/img/vokabellab-real.webp",
+            width: 1440,
+            height: 1000,
+          },
+        ];
+
+  return cases
+    .map(
+      ({ href, title, image, width, height }, index) =>
+        `<a href="${href}" class="case-showcase__item"><div class="case-showcase__copy"><span class="case-showcase__number">0${index + 1}</span><h3>${escapeHtml(title)}</h3></div><div class="case-showcase__media"><img src="${image}" alt="${escapeHtml(title)}" width="${width}" height="${height}" loading="lazy" /></div></a>`,
+    )
+    .join("");
 }
 
 function renderFooter(record, whatsapp) {
@@ -255,6 +326,10 @@ function renderJsonLd(record) {
 export function renderHomepage(record, snapshot = defaultSnapshot) {
   const whatsappNumber = record.contactPhone.replace(/\D/g, "");
   const whatsapp = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(record.whatsappText)}`;
+  const routes = footerRoutes(record);
+  const related = relatedService(record);
+  const publicBrand =
+    record.marketKey === "spain" ? brand.displayName : brand.name;
   return `<!doctype html>
 <html lang="${record.htmlLang}">
 <head>
@@ -271,7 +346,7 @@ ${renderAlternates(record)}
   <meta property="og:description" content="${escapeHtml(record.description)}" />
   <meta property="og:url" content="${absolute(record.route)}" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="${escapeHtml(brand.displayName)}" />
+  <meta property="og:site_name" content="${escapeHtml(publicBrand)}" />
   <meta property="og:locale" content="${record.ogLocale}" />
   <meta property="og:image" content="${brand.site}/img/og-cover.jpg" />
   <meta property="og:image:secure_url" content="${brand.site}/img/og-cover.jpg" />
@@ -302,7 +377,7 @@ ${renderHeader(record)}
         <span class="hero__cin-label">${escapeHtml(record.hero.eyebrow)}</span>
         <h1 class="hero__cin-title">${escapeHtml(record.hero.h1)}</h1>
         <p class="hero__cin-sub">${escapeHtml(record.hero.intro)}</p>
-        <div class="hero__actions hero__cin-actions"><a href="#contact" class="btn btn--primary btn--lg">${escapeHtml(record.labels.primaryCta)}</a><a href="/casos/" class="btn btn--outline-light btn--lg">${escapeHtml(record.labels.portfolioCta)}</a></div>
+        <div class="hero__actions hero__cin-actions"><a href="#contact" class="btn btn--primary btn--lg">${escapeHtml(record.labels.primaryCta)}</a><a href="${routes.cases}" class="btn btn--outline-light btn--lg">${escapeHtml(record.labels.portfolioCta)}</a></div>
       </div>
     </div>
   </section>
@@ -311,14 +386,13 @@ ${renderHeader(record)}
       <div class="section-header"><span class="section-label">${escapeHtml(record.labels.servicesEyebrow)}</span><h2 class="section-title">${escapeHtml(record.labels.servicesHeading)}</h2></div>
       <div class="services-home-deck">${renderServices(record, snapshot)}</div>
 ${record.currency === "EUR" ? "" : `      <p class="commercial-price-note">${escapeHtml(record.labels.rateNote)}: ${escapeHtml(snapshot.date)} · ${escapeHtml(record.labels.tax)}</p>`}
-      <div class="stack-space-lg-center"><a href="/servicios/#seo-local" class="btn btn--outline btn--lg">SEO local →</a></div>
+      <div class="stack-space-lg-center"><a href="${related.href}" class="btn btn--outline btn--lg">${escapeHtml(related.label)} →</a></div>
     </div></section>
   </div></div>
   <section class="section" id="portfolio"><div class="container"><div class="case-showcase">
     <div class="case-showcase__intro"><span class="section-label">${escapeHtml(record.labels.casesEyebrow)}</span><h2 class="case-showcase__title">${escapeHtml(record.labels.casesHeading)}</h2></div>
     <div class="case-showcase__stack">
-      <a href="/casos/sport-massage-fuengirola/" class="case-showcase__item"><div class="case-showcase__copy"><span class="case-showcase__number">01</span><h3>Sport Massage Fuengirola</h3></div><div class="case-showcase__media"><img src="/img/sport-massage-fuengirola.webp" alt="Sport Massage Fuengirola" width="1600" height="900" loading="lazy" /></div></a>
-      <a href="/casos/agama/" class="case-showcase__item"><div class="case-showcase__copy"><span class="case-showcase__number">02</span><h3>Agama</h3></div><div class="case-showcase__media"><img src="/img/agama-tienda-online.png" alt="Agama" width="1672" height="941" loading="lazy" /></div></a>
+      ${renderCaseShowcase(record)}
     </div>
   </div></div></section>
   <section class="process section" id="process"><div class="container"><span class="section-label">${escapeHtml(record.labels.processEyebrow)}</span><h2 class="section-title">${escapeHtml(record.labels.processHeading)}</h2><div class="process__steps">${record.process.map(({ title, text }, index) => `<article class="process__step"><span>0${index + 1}</span><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p></article>`).join("")}</div></div></section>

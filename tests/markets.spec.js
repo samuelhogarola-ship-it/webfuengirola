@@ -237,6 +237,23 @@ test("regional prices and contact forms carry market context", async ({
   }
 });
 
+test("regional package selection reaches contact with its plan intact", async ({
+  page,
+}) => {
+  await page.goto("/mexico/");
+  const professional = page.locator(
+    '[data-analytics-event="tier_select"][data-analytics-tier="professional"]',
+  );
+
+  await expect(professional).toHaveAttribute(
+    "href",
+    "/mexico/?plan=professional#contact",
+  );
+  await professional.click();
+  await expect(page).toHaveURL(/\/mexico\/\?plan=professional#contact$/);
+  await expect(page.locator("form[data-contact-form]")).toBeVisible();
+});
+
 for (const width of [390, 1440]) {
   test(`all market homepages fit and keep both selectors usable at ${width}px`, async ({
     page,
