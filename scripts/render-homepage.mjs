@@ -234,48 +234,150 @@ function relatedService(record) {
 }
 
 function renderCaseShowcase(record) {
-  const casesRoute = footerRoutes(record).cases;
-  const cases =
-    record.marketKey === "spain"
-      ? [
+  const spainLabels =
+    {
+      es: {
+        health: "Salud",
+        industry: "Industria",
+        realEstate: "Inmobiliaria",
+        education: "Educación",
+        view: "Ver caso →",
+      },
+      en: {
+        health: "Health",
+        industry: "Industry",
+        realEstate: "Real estate",
+        education: "Education",
+        view: "View case →",
+      },
+      de: {
+        health: "Gesundheit",
+        industry: "Industrie",
+        realEstate: "Immobilien",
+        education: "Bildung",
+        view: "Referenz ansehen →",
+      },
+      fi: {
+        health: "Hyvinvointi",
+        industry: "Teollisuus",
+        realEstate: "Kiinteistöt",
+        education: "Koulutus",
+        view: "Katso työ →",
+      },
+      pt: {
+        health: "Saúde",
+        industry: "Indústria",
+        realEstate: "Imobiliário",
+        education: "Educação",
+        view: "Ver projeto →",
+      },
+    }[record.sourceLocale] ?? {
+      health: "Health",
+      industry: "Industry",
+      realEstate: "Real estate",
+      education: "Education",
+      view: "View case →",
+    };
+  const cases = [
           {
             href: "/casos/sport-massage-fuengirola/",
+            category: spainLabels.health,
             title: "Sport Massage Fuengirola",
-            image: "/img/sport-massage-fuengirola.webp",
-            width: 1600,
-            height: 900,
+            image: "/img/sport-massage-landing.png",
+            width: 1179,
+            height: 1941,
+            mediaClass: "case-showcase__media--screen",
           },
           {
             href: "/casos/agama/",
+            category: spainLabels.industry,
             title: "Agama",
             image: "/img/agama-tienda-online.png",
             width: 1672,
             height: 941,
-          },
-        ]
-      : [
-          {
-            href: casesRoute,
-            title: "Agama",
-            image: "/img/agama-tienda-online.png",
-            width: 1672,
-            height: 941,
+            mediaClass:
+              "case-showcase__media--screen case-showcase__media--agama-main",
           },
           {
-            href: casesRoute,
+            href: "/casos/suvilla/",
+            category: spainLabels.realEstate,
+            title: "SuVilla Inmobiliaria",
+            image: "/img/suvilla-real.webp",
+            width: 1440,
+            height: 1000,
+            mediaClass: "case-showcase__media--screen",
+          },
+          {
+            href: "/casos/samuel-coach-aleman/",
+            category: spainLabels.education,
+            title: "Samuel Coach Alemán",
+            image: "/img/samuel-coach.webp",
+            width: 800,
+            height: 400,
+            mediaClass: "case-showcase__media--screen",
+          },
+          {
+            href: "/casos/vokabellab/",
+            category: "EdTech",
             title: "Vokabellab",
             image: "/img/vokabellab-real.webp",
             width: 1440,
             height: 1000,
+            mediaClass: "case-showcase__media--screen",
           },
         ];
 
   return cases
     .map(
-      ({ href, title, image, width, height }, index) =>
-        `<a href="${href}" class="case-showcase__item"><div class="case-showcase__copy"><span class="case-showcase__number">0${index + 1}</span><h3>${escapeHtml(title)}</h3></div><div class="case-showcase__media"><img src="${image}" alt="${escapeHtml(title)}" width="${width}" height="${height}" loading="lazy" /></div></a>`,
+      ({ href, category, title, image, width, height, mediaClass }) =>
+        `<a href="${href}" class="case-showcase__item"><div class="case-showcase__copy"><span class="case-showcase__number">${escapeHtml(category)}</span><h3>${escapeHtml(title)}</h3><span class="case-showcase__link">${escapeHtml(spainLabels.view)}</span></div><div class="case-showcase__media${mediaClass ? ` ${mediaClass}` : ""}"><img src="${image}" alt="${escapeHtml(title)}" width="${width}" height="${height}" loading="lazy" decoding="async" /></div></a>`,
     )
     .join("");
+}
+
+function renderPortfolioIntro(record, casesRoute) {
+  const extra =
+      {
+          es: [
+            "Proyectos reales, adaptados a cada negocio.",
+            "Ver todos los proyectos →",
+          ],
+          en: ["Real projects built around each business.", "View all projects →"],
+          de: [
+            "Echte Projekte, passend zum jeweiligen Unternehmen.",
+            "Alle Referenzen ansehen →",
+          ],
+          fi: [
+            "Aitoja projekteja yrityksen tarpeisiin.",
+            "Katso kaikki asiakastyöt →",
+          ],
+          pt: [
+            "Projetos reais, adaptados a cada negócio.",
+            "Ver todos os projetos →",
+          ],
+        }[record.sourceLocale] ?? [
+          "Real projects built around each business.",
+          "View all projects →",
+        ];
+
+  return `<div class="case-showcase__intro"><span class="section-label">${escapeHtml(record.labels.casesEyebrow)}</span><h2 class="case-showcase__title">${escapeHtml(record.labels.casesHeading)}</h2>${extra ? `<p class="case-showcase__sub">${escapeHtml(extra[0])}</p><a href="${casesRoute}" class="btn btn--outline-light btn--sm">${escapeHtml(extra[1])}</a>` : ""}</div>`;
+}
+
+function renderProcessSection() {
+  return "";
+}
+
+function renderFaqSection(record) {
+  const heading =
+    {
+      es: "Todas tus dudas resueltas",
+      en: "Your questions answered",
+      de: "Antworten auf Ihre Fragen",
+      fi: "Vastaukset yleisiin kysymyksiin",
+      pt: "Todas as suas dúvidas respondidas",
+    }[record.sourceLocale] ?? record.labels.faqHeading;
+
+  return `<section class="faq-home" id="faq" aria-labelledby="faq-home-title"><div class="container"><div class="section-header"><span class="section-label">${escapeHtml(record.labels.faqHeading)}</span><h2 class="section-title" id="faq-home-title">${escapeHtml(heading)}</h2></div><div class="faq-home__list">${record.faqs.map(({ question, answer }, index) => `<details class="faq-home__item"${index === 0 ? " open" : ""}><summary class="faq-home__question">${escapeHtml(question)}</summary><p class="faq-home__answer">${escapeHtml(answer)}</p></details>`).join("")}</div></div></section>`;
 }
 
 function renderFooter(record, whatsapp) {
@@ -397,17 +499,17 @@ ${record.currency === "EUR" ? "" : `      <p class="commercial-price-note">${esc
     </div></section>
   </div></div>
   <section class="section" id="portfolio"><div class="container"><div class="case-showcase">
-    <div class="case-showcase__intro"><span class="section-label">${escapeHtml(record.labels.casesEyebrow)}</span><h2 class="case-showcase__title">${escapeHtml(record.labels.casesHeading)}</h2></div>
+    ${renderPortfolioIntro(record, routes.cases)}
     <div class="case-showcase__stack">
       ${renderCaseShowcase(record)}
     </div>
   </div></div></section>
-  <section class="process section" id="process"><div class="container"><span class="section-label">${escapeHtml(record.labels.processEyebrow)}</span><h2 class="section-title">${escapeHtml(record.labels.processHeading)}</h2><div class="process__steps">${record.process.map(({ title, text }, index) => `<article class="process__step"><span>0${index + 1}</span><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p></article>`).join("")}</div></div></section>
-  <section class="section" id="faq"><div class="container"><h2 class="section-title">${escapeHtml(record.labels.faqHeading)}</h2><div class="faq-list">${record.faqs.map(({ question, answer }) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join("")}</div></div></section>
+${renderProcessSection(record)}
+  ${renderFaqSection(record)}
   ${renderContact(record, whatsapp)}
 </main>
 ${renderFooter(record, whatsapp)}
-<a href="${whatsapp}" class="whatsapp-fab" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">WhatsApp</a>
+<a href="${whatsapp}" class="whatsapp-fab" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(record.sourceLocale === "es" ? "Contactar por WhatsApp" : "WhatsApp")}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.52 3.48A11.94 11.94 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.17 1.6 5.99L0 24l6.18-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52ZM12 22c-1.85 0-3.67-.5-5.25-1.44l-.38-.22-3.67.96.98-3.58-.24-.38A9.94 9.94 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10Zm5.48-7.48c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"/></svg></a>
 <div class="page-transition" id="page-transition" aria-hidden="true"></div>
 <script src="/cookie-banner-core.js"></script>
 <script src="/umami-analytics-core.js"></script>

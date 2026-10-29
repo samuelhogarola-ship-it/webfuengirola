@@ -13,9 +13,17 @@ test("el blog carga y enlaza al artículo principal", async ({ page }) => {
   );
   await expect(
     page.getByRole("heading", {
-      name: /ideas claras para que tu negocio venda mejor online/i,
+      name: /web, seo y captación para negocios locales/i,
     }),
   ).toBeVisible();
+  await expect(page.locator(".blog-hero--index")).toHaveCSS(
+    "background-color",
+    "rgb(255, 255, 255)",
+  );
+  await expect(page.locator(".blog-hero--index h1")).toHaveCSS(
+    "color",
+    "rgb(75, 85, 99)",
+  );
   await expect(page.locator(".blog-card__image").first()).toBeVisible();
   await expect(
     page.locator('a[href="./por-que-crear-una-web-en-2026/"]').first(),
@@ -32,6 +40,31 @@ test("el blog carga y enlaza al artículo principal", async ({ page }) => {
     "hreflang",
     "fi",
   );
+});
+
+test("el buscador del hero filtra los artículos del blog", async ({ page }) => {
+  await page.goto("/blog/");
+
+  const search = page.getByRole("searchbox", { name: /buscar/i });
+  const searchForm = page.locator("[data-blog-search]");
+  const restingBorder = await searchForm.evaluate(
+    (node) => getComputedStyle(node).borderColor,
+  );
+  await search.focus();
+  await expect
+    .poll(() =>
+      searchForm.evaluate((node) => getComputedStyle(node).borderColor),
+    )
+    .not.toBe(restingBorder);
+  await search.fill("WhatsApp");
+
+  const visibleCards = page.locator(".blog-card:not([hidden])");
+  await expect(visibleCards).toHaveCount(1);
+  await expect(visibleCards.first()).toContainText(/WhatsApp/i);
+
+  await search.fill("tema que no existe en el blog");
+  await expect(visibleCards).toHaveCount(0);
+  await expect(page.locator("[data-blog-search-empty]")).toBeVisible();
 });
 
 test("el post principal tiene SEO completo y enlaces internos clave", async ({
@@ -93,6 +126,7 @@ test("el post principal tiene SEO completo y enlaces internos clave", async ({
 test("el blog existe en los idiomas disponibles y declara hreflang", async ({
   page,
 }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
   for (const lang of ["en", "de", "fi"]) {
     await page.goto(`/${lang}/blog/`);
     await expect(page.locator("html")).toHaveAttribute("lang", lang);
@@ -116,7 +150,11 @@ test("el blog existe en los idiomas disponibles y declara hreflang", async ({
       "href",
       "https://webfuengirola.com/fi/blog/",
     );
-    await expect(page.locator(".blog-card")).toHaveCount(21);
+    await expect(page.locator(".blog-card")).toHaveCount(24);
+    const hamburger = page.locator("#hamburger");
+    await hamburger.click();
+    await expect(hamburger).toHaveAttribute("aria-expanded", "true");
+    await expect(page.locator("#nav")).toHaveClass(/\bopen\b/);
   }
 
   await page.goto("/en/blog/diseno-web-para-negocio-local-en-fuengirola/");
@@ -125,7 +163,10 @@ test("el blog existe en los idiomas disponibles y declara hreflang", async ({
     "https://webfuengirola.com/en/blog/diseno-web-para-negocio-local-en-fuengirola/",
   );
   await expect(
-    page.getByRole("heading", { name: /web design for local businesses/i }),
+    page.getByRole("heading", {
+      level: 1,
+      name: /web design for local businesses/i,
+    }),
   ).toBeVisible();
   await expect
     .poll(async () =>

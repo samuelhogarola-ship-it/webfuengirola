@@ -1,12 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
+import { withBlogCover } from "../data/blog-cover-data.mjs";
 import { renderSiteHeader } from "./site-navigation.mjs";
+import { renderBlogIndexMain } from "./render-blog-index.mjs";
 
 const root = process.cwd();
 const blogDir = path.join(root, "blog");
 const additionalPosts = JSON.parse(
   fs.readFileSync(path.join(root, "data/blog-guides-20261006.json"), "utf8"),
-);
+).map(withBlogCover);
 
 const existingPosts = [
   {
@@ -16,7 +18,7 @@ const existingPosts = [
       "Qué puede cambiar antes, qué suele tardar más y cómo distinguir entre un problema de visibilidad y una base todavía mal preparada.",
     dateLabel: "12 julio 2026",
     minutes: "6 min",
-    image: "blog-home-og.webp",
+    image: "blog-seo-plazos.webp",
     tag: "Nuevo",
     tagClass: "tag--orange",
   },
@@ -27,7 +29,7 @@ const existingPosts = [
       "Cuándo las redes ayudan, cuándo se quedan cortas y por qué una web suele ser la base que mejor convierte la atención en contacto real.",
     dateLabel: "12 julio 2026",
     minutes: "6 min",
-    image: "blog-home-og.webp",
+    image: "blog-web-redes-sociales.webp",
     tag: "Nuevo",
     tagClass: "tag--blue",
   },
@@ -60,7 +62,7 @@ const existingPosts = [
       "Qué conviene separar por ciudad, cuándo tiene sentido crear landings locales y cómo encaja la IA en la captación.",
     dateLabel: "5 julio 2026",
     minutes: "5 min",
-    image: "blog-home-og.webp",
+    image: "blog-seo-ciudades-ia.webp",
     tag: "Nuevo",
     tagClass: "tag--blue",
   },
@@ -71,7 +73,7 @@ const existingPosts = [
       "Qué influye de verdad en el precio, cuándo conviene una web sencilla y por qué no siempre tiene sentido comparar solo la cifra final.",
     dateLabel: "5 julio 2026",
     minutes: "5 min",
-    image: "blog-home-og.webp",
+    image: "blog-precio-web-local.webp",
     tag: "Nuevo",
     tagClass: "tag--green",
   },
@@ -82,11 +84,11 @@ const existingPosts = [
       "Ficha, reseñas, señales locales y página web: lo que más suele mover la aguja para Maps y búsquedas cercanas.",
     dateLabel: "5 julio 2026",
     minutes: "5 min",
-    image: "blog-home-og.webp",
+    image: "blog-google-maps-local.webp",
     tag: "Nuevo",
     tagClass: "tag--orange",
   },
-];
+].map(withBlogCover);
 
 const posts = [
   {
@@ -963,7 +965,7 @@ const posts = [
       ],
     ],
   },
-];
+].map(withBlogCover);
 
 // The campaign is published as a real one-post-per-day sequence ending today.
 const campaignEnd = new Date("2026-07-18T12:00:00Z");
@@ -1330,6 +1332,28 @@ function buildIndex() {
         `<li><a href="./${post.slug}/">${escapeHtml(post.title)}</a></li>`,
     )
     .join("\n          ");
+  const main = renderBlogIndexMain({
+    homeHref: "../index.html",
+    homeLabel: "Inicio",
+    blogLabel: "Blog",
+    languageSwitcher: `<div class="lang-switcher" aria-label="Idioma del blog">
+          <a class="lang-switcher__btn is-active" href="./" hreflang="es">Español</a>
+          <a class="lang-switcher__btn" href="../en/blog/" hreflang="en">English</a>
+          <a class="lang-switcher__btn" href="../de/blog/" hreflang="de">Deutsch</a>
+          <a class="lang-switcher__btn" href="../fi/blog/" hreflang="fi">Suomi</a>
+        </div>`,
+    badge: "Guías para negocio local",
+    title: "Web, SEO y captación para negocios locales",
+    description:
+      "Guías prácticas para mejorar tu web, aparecer con más claridad y convertir visitas en contactos reales.",
+    searchLabel: "Buscar artículos",
+    searchPlaceholder: "Buscar por tema, servicio o problema",
+    searchButton: "Buscar",
+    emptyMessage: "No hay artículos que coincidan con esa búsqueda.",
+    listingLabel: "Todos los artículos",
+    listingTitle: "Encuentra la guía que necesitas",
+    cards: allCards,
+  });
 
   return `<!DOCTYPE html>
 <html lang="es">
@@ -1373,72 +1397,7 @@ function buildIndex() {
 <body class="project-page blog-page">
 ${renderSiteHeader({ locale: "es", pathname: "/blog/" })}
 
-  <main>
-    <section class="subpage-hero blog-hero">
-      <div class="container blog-hero__inner">
-        <nav class="project-breadcrumb" aria-label="Breadcrumb">
-          <a href="../index.html">Inicio</a>
-          <span>/</span>
-          <span>Blog</span>
-        </nav>
-        <div class="lang-switcher" aria-label="Idioma del blog">
-          <a class="lang-switcher__btn is-active" href="./" hreflang="es">Español</a>
-          <a class="lang-switcher__btn" href="../en/blog/" hreflang="en">English</a>
-          <a class="lang-switcher__btn" href="../de/blog/" hreflang="de">Deutsch</a>
-          <a class="lang-switcher__btn" href="../fi/blog/" hreflang="fi">Suomi</a>
-        </div>
-        <span class="badge">Blog para negocio local</span>
-        <h1 class="subpage-hero__title">Ideas claras para que tu negocio venda mejor online</h1>
-        <p class="subpage-hero__sub">Artículos breves, directos y pensados para negocios locales que quieren entender qué les conviene de verdad entre web, Google, redes sociales e IA.</p>
-        <div class="subpage-hero__highlights">
-          <div class="subpage-hero__highlight"><strong>Sin humo</strong><span>Explicamos lo útil y también lo que no compensa.</span></div>
-          <div class="subpage-hero__highlight"><strong>Enfoque local</strong><span>Contenido pensado para captar clientes reales, no solo visitas.</span></div>
-          <div class="subpage-hero__highlight"><strong>Orientado a decisión</strong><span>Contenido pensado para ayudarte a decidir qué conviene hacer antes.</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="service-detail blog-listing">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label">Plan editorial</span>
-          <p class="section-sub">Una tanda publicada artículo a artículo para responder búsquedas concretas y conectar cada tema con una decisión real del negocio.</p>
-        </div>
-
-        <div class="blog-grid">
-${allCards}
-        </div>
-
-        <section class="service-detail" style="margin-top:3rem">
-          <div class="section-header" style="max-width:820px">
-            <span class="section-label">Rutas útiles</span>
-            <h2 class="section-title">Si has venido al blog para tomar una decisión, aquí tienes el salto corto</h2>
-            <p class="section-sub">Estas son las páginas que más suelen ayudar cuando ya estás comparando formato web, SEO local o ciudad concreta y no quieres seguir leyendo contenido más general.</p>
-          </div>
-          <div class="services-routes__grid" style="justify-content:flex-start; margin-top:2rem">
-            <a href="../servicios/diseno-web/" class="services-routes__link">Servicio de diseño web</a>
-            <a href="../servicios/seo-local/" class="services-routes__link">Servicio de SEO local</a>
-            <a href="../diseno-web-fuengirola/" class="services-routes__link">Diseño web en Fuengirola</a>
-            <a href="../servicios/#seo-local" class="services-routes__link">SEO local en Fuengirola</a>
-            <a href="../diseno-web-malaga/" class="services-routes__link">Diseño web en Málaga</a>
-            <a href="../seo-local-malaga/" class="services-routes__link">SEO local en Málaga</a>
-          </div>
-        </section>
-
-        <section class="project-detail__cta blog-home-cta">
-          <div class="project-detail__cta-copy">
-            <span class="section-label">Para empezar rápido</span>
-            <h2 class="section-title">Si quieres salir ya, no hace falta complicarlo</h2>
-            <p class="project-detail__copy">Una web sencilla bien pensada suele rendir mejor que depender solo de Instagram o Facebook. Si quieres una base clara para empezar, mira estas dos opciones.</p>
-          </div>
-          <div class="project-detail__cta-actions">
-            <a href="../servicios/diseno-web/" class="btn btn--primary btn--lg">Ver Diseño Web</a>
-            <a href="../servicios/" class="btn btn--outline btn--lg">Ver todos los servicios</a>
-          </div>
-        </section>
-      </div>
-    </section>
-  </main>
+  ${main}
 
   <footer class="footer">
     <div class="container footer__inner">
@@ -1481,6 +1440,7 @@ ${allCards}
 
   <script src="../umami-analytics-core.js"></script>
   <script src="../script.js"></script>
+  <script src="../blog-search.js"></script>
 </body>
 </html>`;
 }

@@ -20,18 +20,33 @@ test("all Fuengirola languages preserve the reference homepage model", () => {
   }
 });
 
-test("each portfolio project has a linked cover and scroll entrance in every language", () => {
+test("each portfolio project has a linked cover that is visible without scroll animation", () => {
   for (const locale of ["es", "en", "de", "fi"]) {
     const group = getPageGroup("cases");
     const html = renderCommercialPage(group, locale);
     for (const slug of group.cases) {
-      assert.match(
+      assert.match(html, new RegExp('<article[^>]*id="' + slug + '"'));
+      assert.doesNotMatch(
         html,
         new RegExp('<article[^>]*id="' + slug + '"[^>]*data-reveal'),
       );
+      const caseHref =
+        locale === "es"
+          ? `/casos/${slug}/`
+          : html.match(
+              new RegExp(
+                `<article[^>]*id="${slug}"[\\s\\S]*?<a[^>]*href="([^"]+)"`,
+              ),
+            )?.[1];
+      assert.ok(caseHref, `${locale}:${slug}`);
+      if (locale !== "es") {
+        assert.match(caseHref, /^https:\/\//, `${locale}:${slug}`);
+      }
       assert.match(
         html,
-        new RegExp('href="/casos/' + slug + '/"[^>]*>[\\s\\S]*?<img'),
+        new RegExp(
+          'href="' + caseHref.replaceAll("/", "\\/") + '"[^>]*>[\\s\\S]*?<img',
+        ),
       );
     }
   }

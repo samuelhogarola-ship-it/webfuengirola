@@ -62,17 +62,19 @@ test("new guides have consistent editorial metadata, sources and discovery paths
   }
 });
 
-test("new ES guides never become fallback translations or shift old publication dates", () => {
+test("new guides publish explicit translations without shifting old publication dates", () => {
   for (const lang of ["en", "de", "fi"]) {
     const index = fs.readFileSync(`${lang}/blog/index.html`, "utf8");
     for (const slug of slugs) {
-      assert.ok(!fs.existsSync(`${lang}/blog/${slug}/index.html`));
-      assert.ok(!index.includes(slug));
+      const translatedPath = `${lang}/blog/${slug}/index.html`;
+      assert.ok(fs.existsSync(translatedPath), translatedPath);
+      assert.ok(index.includes(slug));
       assert.ok(
-        !fs
+        fs
           .readFileSync(`blog/${slug}/index.html`, "utf8")
           .includes(`hreflang="${lang}"`),
       );
+      assert.match(fs.readFileSync(translatedPath, "utf8"), new RegExp(`<html lang="${lang}">`));
     }
   }
   for (const [slug, date] of [

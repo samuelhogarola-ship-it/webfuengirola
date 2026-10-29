@@ -57,7 +57,7 @@
     </div>
   </header>
   <main>
-    <section class="subpage-hero blog-hero">
+    <section class="subpage-hero blog-hero blog-hero--index">
       <div class="container blog-hero__inner">
         <nav class="project-breadcrumb" aria-label="Breadcrumb"><a href="/en/">Home</a><span>/</span><span>Blog</span></nav>
         <div class="lang-switcher" aria-label="Article language selector">
@@ -66,20 +66,54 @@
     <a class="lang-switcher__btn" href="https://webfuengirola.com/de/blog/" hreflang="de">Deutsch</a>
     <a class="lang-switcher__btn" href="https://webfuengirola.com/fi/blog/" hreflang="fi">Suomi</a>
   </div>
-        <span class="badge">Editorial plan</span>
-        <h1 class="subpage-hero__title">Clear ideas to help your local business sell better online</h1>
-        <p class="subpage-hero__sub">Practical articles for local businesses that want to understand what really matters across websites, Google, social media and AI.</p>
+        <span class="badge">Local business guides</span>
+        <h1 class="subpage-hero__title">Websites, SEO and acquisition for local businesses</h1>
+        <p class="subpage-hero__sub">Practical guides to improve your website, become easier to find and turn visits into real enquiries.</p>
+        <form class="blog-search" role="search" data-blog-search>
+          <label class="sr-only" for="blog-search-input">Search articles</label>
+          <input id="blog-search-input" type="search" placeholder="Search by topic, service or problem" autocomplete="off" data-blog-search-input />
+          <button type="submit" class="btn btn--primary">Search</button>
+        </form>
       </div>
     </section>
     <section class="service-detail blog-listing">
       <div class="container">
-        <div class="section-header">
-          <span class="section-label">Editorial plan</span>
-          <h2 class="section-title">Web design blog in Fuengirola | WF-Studio · Web Fuengirola</h2>
-          <p class="section-sub">Clear articles about websites, local SEO, Google, social media and AI for local businesses that want better online enquiries.</p>
+        <div class="section-header blog-listing__header">
+          <span class="section-label">All articles</span>
+          <h2 class="section-title">Find the guide you need</h2>
         </div>
-        <div class="blog-grid">
+        <div class="blog-grid" data-blog-grid>
           <article class="blog-card">
+        <a href="./como-medir-contactos-web-negocio-local/" class="blog-card__media" aria-label="Read article: How to measure enquiries from a local business website">
+          <img src="../../img/blog-medir-contactos.webp" alt="How to measure enquiries from a local business website" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
+        </a>
+        <span class="tag tag--blue">Medición de contactos</span>
+        <h3 class="blog-card__title"><a href="./como-medir-contactos-web-negocio-local/">How to measure enquiries from a local business website</a></h3>
+        <p class="blog-card__excerpt">Separate visits, clicks, enquiries and appointments, then use a simple record to see which channels bring useful contacts.</p>
+        <div class="blog-card__meta"><span>6 de octubre de 2026</span><span>6 min</span></div>
+        <a href="./como-medir-contactos-web-negocio-local/" class="btn btn--ghost btn--sm">Read article</a>
+      </article>
+<article class="blog-card">
+        <a href="./contenidos-locales-utiles-sin-duplicar-paginas/" class="blog-card__media" aria-label="Read article: Useful local content without duplicating pages">
+          <img src="../../img/blog-contenido-local.webp" alt="Useful local content without duplicating pages" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
+        </a>
+        <span class="tag tag--blue">Contenido local útil</span>
+        <h3 class="blog-card__title"><a href="./contenidos-locales-utiles-sin-duplicar-paginas/">Useful local content without duplicating pages</a></h3>
+        <p class="blog-card__excerpt">Create local pages only when they answer a distinct need with specific information instead of repeating the same copy by location.</p>
+        <div class="blog-card__meta"><span>6 de octubre de 2026</span><span>6 min</span></div>
+        <a href="./contenidos-locales-utiles-sin-duplicar-paginas/" class="btn btn--ghost btn--sm">Read article</a>
+      </article>
+<article class="blog-card">
+        <a href="./web-para-entrenador-personal-contenidos-contacto/" class="blog-card__media" aria-label="Read article: Personal trainer website: from service to first enquiry">
+          <img src="../../img/blog-entrenador-personal.webp" alt="Personal trainer website: from service to first enquiry" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
+        </a>
+        <span class="tag tag--blue">Web para entrenadores</span>
+        <h3 class="blog-card__title"><a href="./web-para-entrenador-personal-contenidos-contacto/">Personal trainer website: from service to first enquiry</a></h3>
+        <p class="blog-card__excerpt">What to include on a personal trainer website: options, service area, process, trust and a simple first enquiry.</p>
+        <div class="blog-card__meta"><span>6 de octubre de 2026</span><span>6 min</span></div>
+        <a href="./web-para-entrenador-personal-contenidos-contacto/" class="btn btn--ghost btn--sm">Read article</a>
+      </article>
+<article class="blog-card">
         <a href="./dominio-hosting-y-correo-para-negocio-local/" class="blog-card__media" aria-label="Read article: Domain, hosting and email for a local business">
           <img src="../../img/blog-dominio-hosting-correo.webp" alt="Domain, hosting and email for a local business" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
         </a>
@@ -141,7 +175,7 @@
       </article>
 <article class="blog-card">
         <a href="./cuanto-tarda-el-seo-local/" class="blog-card__media" aria-label="Read article: How long local SEO takes to show results">
-          <img src="../../img/blog-home-og.webp" alt="How long local SEO takes to show results" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
+          <img src="../../img/blog-seo-plazos.webp" alt="How long local SEO takes to show results" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
         </a>
         <span class="tag tag--blue">Expectativas reales</span>
         <h3 class="blog-card__title"><a href="./cuanto-tarda-el-seo-local/">How long local SEO takes to show results</a></h3>
@@ -151,7 +185,7 @@
       </article>
 <article class="blog-card">
         <a href="./web-vs-redes-sociales-para-negocio-local/" class="blog-card__media" aria-label="Read article: Website vs social media for a local business">
-          <img src="../../img/blog-home-og.webp" alt="Website vs social media for a local business" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
+          <img src="../../img/blog-web-redes-sociales.webp" alt="Website vs social media for a local business" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
         </a>
         <span class="tag tag--blue">Decisión comercial</span>
         <h3 class="blog-card__title"><a href="./web-vs-redes-sociales-para-negocio-local/">Website vs social media for a local business</a></h3>
@@ -231,7 +265,7 @@
       </article>
 <article class="blog-card">
         <a href="./como-salir-en-google-maps-en-fuengirola-y-malaga/" class="blog-card__media" aria-label="Read article: How to appear on Google Maps in Fuengirola and Malaga">
-          <img src="../../img/blog-home-og.webp" alt="How to appear on Google Maps in Fuengirola and Malaga" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
+          <img src="../../img/blog-google-maps-local.webp" alt="How to appear on Google Maps in Fuengirola and Malaga" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
         </a>
         <span class="tag tag--blue">SEO local</span>
         <h3 class="blog-card__title"><a href="./como-salir-en-google-maps-en-fuengirola-y-malaga/">How to appear on Google Maps in Fuengirola and Malaga</a></h3>
@@ -241,7 +275,7 @@
       </article>
 <article class="blog-card">
         <a href="./cuanto-cuesta-una-pagina-web-en-fuengirola-y-malaga/" class="blog-card__media" aria-label="Read article: How much a website costs in Fuengirola and Malaga">
-          <img src="../../img/blog-home-og.webp" alt="How much a website costs in Fuengirola and Malaga" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
+          <img src="../../img/blog-precio-web-local.webp" alt="How much a website costs in Fuengirola and Malaga" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
         </a>
         <span class="tag tag--blue">Precios y alcance</span>
         <h3 class="blog-card__title"><a href="./cuanto-cuesta-una-pagina-web-en-fuengirola-y-malaga/">How much a website costs in Fuengirola and Malaga</a></h3>
@@ -261,7 +295,7 @@
       </article>
 <article class="blog-card">
         <a href="./seo-local-fuengirola-malaga-y-publicidad-con-ia/" class="blog-card__media" aria-label="Read article: Local SEO in Fuengirola and Malaga with advertising and AI support">
-          <img src="../../img/blog-home-og.webp" alt="Local SEO in Fuengirola and Malaga with advertising and AI support" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
+          <img src="../../img/blog-seo-ciudades-ia.webp" alt="Local SEO in Fuengirola and Malaga with advertising and AI support" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
         </a>
         <span class="tag tag--blue">SEO local e IA</span>
         <h3 class="blog-card__title"><a href="./seo-local-fuengirola-malaga-y-publicidad-con-ia/">Local SEO in Fuengirola and Malaga with advertising and AI support</a></h3>
@@ -290,6 +324,7 @@
         <a href="./sabias-que-cada-vez-mas-gente-usa-ia-para-encontrar-un-servicio/" class="btn btn--ghost btn--sm">Read article</a>
       </article>
         </div>
+        <p class="blog-search__empty" data-blog-search-empty hidden>No articles match that search.</p>
       </div>
     </section>
   </main>
@@ -311,5 +346,7 @@
       </nav>
     </div>
   </footer>
+  <script src="../../script.js"></script>
+  <script src="../../blog-search.js"></script>
 </body>
 </html>
