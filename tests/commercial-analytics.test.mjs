@@ -6,11 +6,14 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
-test("commercial conversion links are sent to the existing analytics adapter", () => {
+test("commercial conversion links are delegated to the common analytics runtime", () => {
   const script = fs.readFileSync(path.join(root, "script.js"), "utf8");
-  assert.match(script, /data-analytics-event/);
-  assert.match(script, /WFAnalytics\.trackEvent/);
-  assert.match(script, /analyticsLocale/);
+  assert.match(script, /analyticsEvent/);
+  assert.match(script, /UmamiAnalyticsCore\.bindAutoEvents/);
+  assert.match(script, /inferAnalyticsEvent/);
+  assert.match(script, /function fetchAnalyticsConfig/);
+  assert.match(script, /fetchAnalyticsConfig\("\/umami-config\.json"\)/);
+  assert.match(script, /fetchAnalyticsConfig\("\/analytics-profile\.json"\)/);
   assert.match(script, /analyticsTier/);
   assert.match(script, /analyticsTargetLocale/);
   assert.match(script, /analyticsMarket/);
@@ -19,6 +22,8 @@ test("commercial conversion links are sent to the existing analytics adapter", (
   assert.match(script, /document\.body\.dataset\.currency/);
   assert.match(script, /document\.body\.dataset\.sector/);
   assert.match(script, /blog_to_landing/);
+  assert.match(script, /plan: element\.dataset\.analyticsTier/);
+  assert.doesNotMatch(script, /destination:/);
   assert.doesNotMatch(script, /calculator_interaction/);
   assert.doesNotMatch(script, /calculator_choice/);
   assert.doesNotMatch(script, /calculator_result/);
@@ -36,4 +41,8 @@ test("commercial conversion links are sent to the existing analytics adapter", (
   assert.match(formScript, /composeContextMessage/);
   assert.match(formScript, /createContactPayload/);
   assert.match(formScript, /formAnalyticsData/);
+  assert.doesNotMatch(
+    formScript,
+    /trackEvent\([^)]*(?:name|email|phone|message)/s,
+  );
 });

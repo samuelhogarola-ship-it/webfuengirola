@@ -165,3 +165,23 @@ test("documenta Web Fuengirola como modelo canonico de Umami extrapolable", () =
 
   assert.doesNotMatch(guide, /UMAMI_(?:PERSONAL|AGAMA)_PASSWORD=\S+/);
 });
+
+test("the public configuration stays separate from the reusable analytics profile", () => {
+  const profile = JSON.parse(
+    readFileSync(path.join(repositoryRoot, "analytics-profile.json"), "utf8"),
+  );
+  assert.equal(profile.schemaVersion, 1);
+  assert.deepEqual(
+    profile.languages.map(({ key }) => key),
+    ["es", "en", "de", "fi"],
+  );
+  assert.deepEqual(
+    profile.sections.map(({ key }) => key),
+    ["home", "services", "portfolio", "blog", "solidarity"],
+  );
+  assert.equal(JSON.stringify(profile).includes("websiteId"), false);
+  assert.equal(JSON.stringify(profile).includes("password"), false);
+  assert.deepEqual(profile.excludedDestinations, [
+    "https://portal.webfuengirola.com",
+  ]);
+});
