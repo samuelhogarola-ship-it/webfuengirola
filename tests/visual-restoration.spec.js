@@ -49,7 +49,7 @@ for (const width of [360, 390, 768, 1440]) {
     await expect(page).toHaveURL(/\/casos\/$/);
     await expect(page.locator("h1")).toHaveText("Portfolio");
     const cards = page.locator(".commercial-portfolio .portfolio-card");
-    await expect(cards).toHaveCount(16);
+    await expect(cards).toHaveCount(17);
     const firstBox = await cards.nth(0).boundingBox();
     const secondBox = await cards.nth(1).boundingBox();
     if (width <= 640)

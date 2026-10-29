@@ -1,6 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
+import { blogCoverBySlug } from "../data/blog-cover-data.mjs";
+import { localizedArticleContent } from "../data/blog-localized-content.mjs";
 import { getPageGroup } from "../data/commercial-pages-data.mjs";
+import { renderBlogIndexMain } from "./render-blog-index.mjs";
 import { renderSiteHeader } from "./site-navigation.mjs";
 
 const root = process.cwd();
@@ -20,10 +23,16 @@ const ui = {
     blogTitle: "Web design blog in Fuengirola | WF-Studio · Web Fuengirola",
     blogDescription:
       "Clear articles about websites, local SEO, Google, social media and AI for local businesses that want better online enquiries.",
-    eyebrow: "Editorial plan",
-    hero: "Clear ideas to help your local business sell better online",
+    indexBadge: "Local business guides",
+    hero: "Websites, SEO and acquisition for local businesses",
     heroSub:
-      "Practical articles for local businesses that want to understand what really matters across websites, Google, social media and AI.",
+      "Practical guides to improve your website, become easier to find and turn visits into real enquiries.",
+    searchLabel: "Search articles",
+    searchPlaceholder: "Search by topic, service or problem",
+    searchButton: "Search",
+    searchEmpty: "No articles match that search.",
+    listingLabel: "All articles",
+    listingTitle: "Find the guide you need",
     home: "Home",
     services: "Services",
     cases: "Success stories",
@@ -34,37 +43,25 @@ const ui = {
     minutes: "min",
     articleBadge: "Local business guide",
     author: "By Samuel, WF-Studio · Web Fuengirola",
-    keyIdeas: "Key ideas",
     faqTitle: "Frequently asked questions",
     related: "Related articles",
     footer:
       "Websites, local SEO and automation for local businesses on the Costa del Sol.",
-    intro:
-      "This guide is written for local businesses that need practical decisions, not digital noise. The goal is to understand what to improve first and how a website can support real enquiries.",
-    section1: "Why this matters for local businesses",
-    section2: "What to review before investing more",
-    section3: "How to turn it into contacts",
-    paragraph1:
-      "A local customer usually wants clarity: what you do, where you work, whether they can trust you and how quickly they can contact you.",
-    paragraph2:
-      "Good digital work does not start with more tools. It starts with a clear structure, useful content and a path that makes the next step obvious.",
-    paragraph3:
-      "When your website, Google profile and contact channels tell the same story, visitors feel safer and are more likely to call, write or book.",
-    q1: "Do local businesses still need a website?",
-    a1: "Yes. Social networks and Google profiles help, but a website gives you a stable base where you control the message, structure and conversion path.",
-    q2: "Can this help with local SEO?",
-    a2: "Yes, especially when the page answers real search intent, uses clear local signals and links naturally to services and contact options.",
-    q3: "What should I improve first?",
-    a3: "Start with clarity, mobile speed, visible contact options and content that explains your services in the language customers use.",
   },
   de: {
     blogTitle: "Blog über Webdesign in Fuengirola | WF-Studio · Web Fuengirola",
     blogDescription:
       "Klare Artikel über Websites, lokales SEO, Google, soziale Netzwerke und KI für lokale Unternehmen mit mehr echten Anfragen.",
-    eyebrow: "Redaktionsplan",
-    hero: "Klare Ideen, damit dein lokales Unternehmen online besser verkauft",
+    indexBadge: "Ratgeber für lokale Unternehmen",
+    hero: "Websites, SEO und Kundengewinnung für lokale Unternehmen",
     heroSub:
-      "Praktische Artikel für lokale Unternehmen, die verstehen wollen, was bei Website, Google, sozialen Netzwerken und KI wirklich sinnvoll ist.",
+      "Praktische Ratgeber, um die Website zu verbessern, besser gefunden zu werden und Besuche in echte Anfragen zu verwandeln.",
+    searchLabel: "Artikel suchen",
+    searchPlaceholder: "Nach Thema, Leistung oder Problem suchen",
+    searchButton: "Suchen",
+    searchEmpty: "Zu dieser Suche wurden keine Artikel gefunden.",
+    listingLabel: "Alle Artikel",
+    listingTitle: "Finde den passenden Ratgeber",
     home: "Startseite",
     services: "Leistungen",
     cases: "Erfolgsgeschichten",
@@ -75,37 +72,25 @@ const ui = {
     minutes: "Min.",
     articleBadge: "Ratgeber für lokale Unternehmen",
     author: "Von Samuel, WF-Studio · Web Fuengirola",
-    keyIdeas: "Wichtige Punkte",
     faqTitle: "Häufige Fragen",
     related: "Ähnliche Artikel",
     footer:
       "Websites, lokales SEO und Automatisierung für lokale Unternehmen an der Costa del Sol.",
-    intro:
-      "Dieser Ratgeber ist für lokale Unternehmen geschrieben, die praktische Entscheidungen brauchen, nicht mehr digitalen Lärm. Ziel ist zu verstehen, was zuerst verbessert werden sollte und wie die Website echte Anfragen unterstützt.",
-    section1: "Warum das für lokale Unternehmen wichtig ist",
-    section2: "Was du prüfen solltest, bevor du mehr investierst",
-    section3: "Wie daraus echte Kontakte entstehen",
-    paragraph1:
-      "Ein lokaler Kunde sucht vor allem Klarheit: was du anbietest, wo du arbeitest, ob er dir vertrauen kann und wie einfach er dich erreicht.",
-    paragraph2:
-      "Gute digitale Arbeit beginnt nicht mit noch mehr Tools. Sie beginnt mit klarer Struktur, nützlichen Inhalten und einem nächsten Schritt, der offensichtlich ist.",
-    paragraph3:
-      "Wenn Website, Google-Profil und Kontaktwege dieselbe Geschichte erzählen, wirkt dein Angebot sicherer und Besucher fragen eher an.",
-    q1: "Brauchen lokale Unternehmen noch eine Website?",
-    a1: "Ja. Soziale Netzwerke und Google-Profile helfen, aber eine Website ist die stabile Basis, auf der du Botschaft, Struktur und Kontaktweg kontrollierst.",
-    q2: "Hilft das beim lokalen SEO?",
-    a2: "Ja, besonders wenn die Seite echte Suchabsichten beantwortet, klare lokale Signale nutzt und sinnvoll auf Leistungen und Kontakt verweist.",
-    q3: "Was sollte ich zuerst verbessern?",
-    a3: "Beginne mit Klarheit, mobiler Ladezeit, sichtbaren Kontaktmöglichkeiten und Inhalten, die deine Leistungen in der Sprache der Kunden erklären.",
   },
   fi: {
     blogTitle: "Verkkosivublogi Fuengirolassa | WF-Studio · Web Fuengirola",
     blogDescription:
       "Selkeitä artikkeleita verkkosivuista, paikallisesta SEO:sta, Googlesta, somesta ja tekoälystä paikallisille yrityksille.",
-    eyebrow: "Julkaisusuunnitelma",
-    hero: "Selkeitä ideoita, joiden avulla paikallinen yritys myy paremmin verkossa",
+    indexBadge: "Oppaat paikallisille yrityksille",
+    hero: "Verkkosivut, SEO ja asiakashankinta paikallisille yrityksille",
     heroSub:
-      "Käytännön artikkeleita paikallisille yrityksille, jotka haluavat ymmärtää, mikä verkkosivuissa, Googlessa, somessa ja tekoälyssä oikeasti kannattaa.",
+      "Käytännön oppaita verkkosivun parantamiseen, löydettävyyteen ja kävijöiden muuttamiseen oikeiksi yhteydenotoiksi.",
+    searchLabel: "Hae artikkeleita",
+    searchPlaceholder: "Hae aiheen, palvelun tai ongelman mukaan",
+    searchButton: "Hae",
+    searchEmpty: "Haulla ei löytynyt artikkeleita.",
+    listingLabel: "Kaikki artikkelit",
+    listingTitle: "Löydä tarvitsemasi opas",
     home: "Etusivu",
     services: "Palvelut",
     cases: "Asiakastarinat",
@@ -116,28 +101,10 @@ const ui = {
     minutes: "min",
     articleBadge: "Opas paikalliselle yritykselle",
     author: "Samuel, WF-Studio · Web Fuengirola",
-    keyIdeas: "Tärkeimmät ajatukset",
     faqTitle: "Usein kysytyt kysymykset",
     related: "Aiheeseen liittyvät artikkelit",
     footer:
       "Verkkosivut, paikallinen SEO ja automaatio paikallisille yrityksille Costa del Solilla.",
-    intro:
-      "Tämä opas on kirjoitettu paikallisille yrityksille, jotka tarvitsevat käytännöllisiä päätöksiä, eivät lisää digitaalista hälyä. Tavoitteena on ymmärtää, mitä kannattaa parantaa ensin ja miten verkkosivu voi tuoda oikeita yhteydenottoja.",
-    section1: "Miksi tämä on tärkeää paikalliselle yritykselle",
-    section2: "Mitä kannattaa tarkistaa ennen lisäinvestointeja",
-    section3: "Miten tästä syntyy yhteydenottoja",
-    paragraph1:
-      "Paikallinen asiakas haluaa yleensä selkeyttä: mitä teet, missä toimit, voiko sinuun luottaa ja miten helposti sinuun saa yhteyden.",
-    paragraph2:
-      "Hyvä digitaalinen tekeminen ei ala uusista työkaluista. Se alkaa selkeästä rakenteesta, hyödyllisestä sisällöstä ja näkyvästä seuraavasta askeleesta.",
-    paragraph3:
-      "Kun verkkosivu, Google-profiili ja yhteydenottokanavat kertovat samaa tarinaa, kävijä luottaa helpommin ja ottaa todennäköisemmin yhteyttä.",
-    q1: "Tarvitseeko paikallinen yritys edelleen verkkosivun?",
-    a1: "Kyllä. Sosiaalinen media ja Google-profiili auttavat, mutta verkkosivu on vakaa perusta, jossa hallitset viestiä, rakennetta ja yhteydenoton polkua.",
-    q2: "Auttaako tämä paikallisessa SEO:ssa?",
-    a2: "Kyllä, etenkin kun sivu vastaa todelliseen hakutarkoitukseen, käyttää selkeitä paikallisia signaaleja ja ohjaa luontevasti palveluihin ja yhteydenottoon.",
-    q3: "Mitä kannattaa parantaa ensin?",
-    a3: "Aloita selkeydestä, mobiilinopeudesta, näkyvistä yhteydenottotavoista ja sisällöstä, joka selittää palvelusi asiakkaan kielellä.",
   },
 };
 
@@ -436,6 +403,48 @@ const postTranslations = {
       "Miten WhatsAppia käytetään ilman, että sivu täyttyy painikkeista ja häiriöistä.",
     ],
   },
+  "web-para-entrenador-personal-contenidos-contacto": {
+    en: [
+      "Personal trainer website: from service to first enquiry",
+      "What to include on a personal trainer website: options, service area, process, trust and a simple first enquiry.",
+    ],
+    de: [
+      "Website für Personal Trainer: vom Angebot zur ersten Anfrage",
+      "Was auf die Website eines Personal Trainers gehört: Angebote, Gebiet, Ablauf, Vertrauen und eine einfache erste Anfrage.",
+    ],
+    fi: [
+      "Personal trainerin verkkosivu: palvelusta ensimmäiseen yhteydenottoon",
+      "Mitä personal trainerin verkkosivulle kuuluu: vaihtoehdot, alue, prosessi, luottamus ja helppo ensimmäinen yhteydenotto.",
+    ],
+  },
+  "como-medir-contactos-web-negocio-local": {
+    en: [
+      "How to measure enquiries from a local business website",
+      "Separate visits, clicks, enquiries and appointments, then use a simple record to see which channels bring useful contacts.",
+    ],
+    de: [
+      "So misst du Anfragen über die Website eines lokalen Unternehmens",
+      "Unterscheide Besuche, Klicks, Anfragen und Termine und erfasse, welche Kanäle wirklich nützliche Kontakte bringen.",
+    ],
+    fi: [
+      "Miten paikallisen yrityksen verkkosivun yhteydenottoja mitataan",
+      "Erota käynnit, klikkaukset, yhteydenotot ja tapaamiset ja seuraa yksinkertaisesti, mitkä kanavat tuovat hyödyllisiä kontakteja.",
+    ],
+  },
+  "contenidos-locales-utiles-sin-duplicar-paginas": {
+    en: [
+      "Useful local content without duplicating pages",
+      "Create local pages only when they answer a distinct need with specific information instead of repeating the same copy by location.",
+    ],
+    de: [
+      "Nützliche lokale Inhalte ohne doppelte Seiten",
+      "Erstelle lokale Seiten nur für eigene Fragen und konkrete Informationen, statt denselben Text für jeden Ort zu wiederholen.",
+    ],
+    fi: [
+      "Hyödyllistä paikallista sisältöä ilman sivujen kopiointia",
+      "Luo paikallinen sivu vain, kun se vastaa omaan tarpeeseen konkreettisella tiedolla eikä toista samaa tekstiä eri paikkakunnille.",
+    ],
+  },
 };
 
 function escapeHtml(value = "") {
@@ -478,9 +487,11 @@ function extractSpanishPosts() {
       }).format(new Date(date));
     const minutes = html.match(/<span>(\d+\s*min)<\/span>/i)?.[1] || "6 min";
     const image =
+      blogCoverBySlug[slug] ||
       html.match(
         /<meta property="og:image" content="https:\/\/webfuengirola\.com\/img\/([^"]+)"/,
-      )?.[1] || "blog-home-og.webp";
+      )?.[1] ||
+      "blog-home-og.webp";
     const tag =
       html.match(/<span class="badge">([^<]+)<\/span>/)?.[1] || "Blog";
     posts.push({
@@ -653,36 +664,32 @@ function blogIndex(lang, posts) {
       </article>`;
     })
     .join("\n");
+  const main = renderBlogIndexMain({
+    homeHref: getPageGroup("home").routes[lang],
+    homeLabel: copy.home,
+    blogLabel: copy.blog,
+    languageSwitcher: languageSwitcher("", lang),
+    badge: copy.indexBadge,
+    title: copy.hero,
+    description: copy.heroSub,
+    searchLabel: copy.searchLabel,
+    searchPlaceholder: copy.searchPlaceholder,
+    searchButton: copy.searchButton,
+    emptyMessage: copy.searchEmpty,
+    listingLabel: copy.listingLabel,
+    listingTitle: copy.listingTitle,
+    cards,
+  });
 
   return `<!DOCTYPE html>
 <html lang="${lang}">
 ${head({ lang, title: copy.blogTitle, description: copy.blogDescription, canonical, image: "blog-home-og.webp", type: "blog" })}
 <body class="project-page blog-page">
   ${renderSiteHeader({ locale: lang, pathname: `/${lang}/blog/` })}
-  <main>
-    <section class="subpage-hero blog-hero">
-      <div class="container blog-hero__inner">
-        <nav class="project-breadcrumb" aria-label="Breadcrumb"><a href="${getPageGroup("home").routes[lang]}">${copy.home}</a><span>/</span><span>${copy.blog}</span></nav>
-        ${languageSwitcher("", lang)}
-        <span class="badge">${copy.eyebrow}</span>
-        <h1 class="subpage-hero__title">${copy.hero}</h1>
-        <p class="subpage-hero__sub">${copy.heroSub}</p>
-      </div>
-    </section>
-    <section class="service-detail blog-listing">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label">${copy.eyebrow}</span>
-          <h2 class="section-title">${copy.blogTitle}</h2>
-          <p class="section-sub">${copy.blogDescription}</p>
-        </div>
-        <div class="blog-grid">
-          ${cards}
-        </div>
-      </div>
-    </section>
-  </main>
+  ${main}
   ${footer(lang, 2)}
+  <script src="../../script.js"></script>
+  <script src="../../blog-search.js"></script>
 </body>
 </html>
 `;
@@ -690,6 +697,10 @@ ${head({ lang, title: copy.blogTitle, description: copy.blogDescription, canonic
 
 function articlePage(lang, post, relatedPosts) {
   const copy = ui[lang];
+  const articleContent = localizedArticleContent[post.slug]?.[lang];
+  if (!articleContent) {
+    throw new Error(`Missing localized article content for ${lang}:${post.slug}`);
+  }
   const p = localizedPost(post, lang);
   const canonical = `${site}/${lang}/blog/${post.slug}/`;
   const jsonLd = {
@@ -745,6 +756,20 @@ function articlePage(lang, post, relatedPosts) {
       return `<a href="../${r.slug}/">${escapeHtml(r.title)}</a>`;
     })
     .join("");
+  const editorialSections = articleContent.sections
+    .map(
+      ({ heading, paragraphs }) =>
+        `<section class="blog-post-section"><h2>${escapeHtml(heading)}</h2>${paragraphs
+          .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
+          .join("")}</section>`,
+    )
+    .join("");
+  const editorialFaqs = articleContent.faqs
+    .map(
+      ({ question, answer }) =>
+        `<h3>${escapeHtml(question)}</h3><p>${escapeHtml(answer)}</p>`,
+    )
+    .join("");
 
   return `<!DOCTYPE html>
 <html lang="${lang}">
@@ -767,35 +792,17 @@ ${head({ lang, title: p.title, description: p.description, canonical, image: p.i
       <section class="service-detail">
         <div class="container">
           <div class="blog-post-layout">
-            <div class="blog-post-content">
+            <div class="blog-post-content" data-localized-article-body>
               <figure class="blog-post-featured">
                 <img src="../../../img/${p.image}" alt="${escapeHtml(p.title)}" width="1200" height="630" loading="eager" decoding="async" />
               </figure>
-              <p>${escapeHtml(copy.intro)}</p>
-              <h2>${escapeHtml(copy.section1)}</h2>
-              <p>${escapeHtml(copy.paragraph1)}</p>
-              <p>${escapeHtml(p.description)}</p>
-              <h2>${escapeHtml(copy.section2)}</h2>
-              <p>${escapeHtml(copy.paragraph2)}</p>
-              <ul>
-                <li>${escapeHtml(copy.q3)}</li>
-                <li>${escapeHtml(copy.a2)}</li>
-                <li>${escapeHtml(copy.a3)}</li>
-              </ul>
-              <h2>${escapeHtml(copy.section3)}</h2>
-              <p>${escapeHtml(copy.paragraph3)}</p>
+              ${editorialSections}
               <div class="blog-post-faq" id="faq">
                 <h2>${escapeHtml(copy.faqTitle)}</h2>
-                <h3>${escapeHtml(copy.q1)}</h3>
-                <p>${escapeHtml(copy.a1)}</p>
-                <h3>${escapeHtml(copy.q2)}</h3>
-                <p>${escapeHtml(copy.a2)}</p>
-                <h3>${escapeHtml(copy.q3)}</h3>
-                <p>${escapeHtml(copy.a3)}</p>
+                ${editorialFaqs}
               </div>
               <div class="blog-post-cta">
                 <h2>${escapeHtml(copy.cta)}</h2>
-                <p>${escapeHtml(copy.footer)}</p>
                 <a href="${getPageGroup("contact").routes[lang]}" class="btn btn--primary" data-analytics-event="quote_click" data-analytics-locale="${lang}">${escapeHtml(copy.cta)}</a>
               </div>
             </div>
@@ -811,6 +818,7 @@ ${head({ lang, title: p.title, description: p.description, canonical, image: p.i
     </article>
   </main>
   ${footer(lang, 3)}
+  <script src="../../../script.js"></script>
 </body>
 </html>
 `;

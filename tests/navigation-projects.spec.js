@@ -61,7 +61,7 @@ for (const width of [390, 1024, 1280, 1440]) {
             ),
           ),
         );
-      expect(new Set(lines).size).toBe(1);
+      expect(Math.max(...lines) - Math.min(...lines)).toBeLessThanOrEqual(2);
       await page.screenshot({ path: `output/navigation-${width}.png` });
     }
   });

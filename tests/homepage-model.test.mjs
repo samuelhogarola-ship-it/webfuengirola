@@ -35,7 +35,7 @@ test("Spain exposes four Fuengirola homepage records from one contract", () => {
     assert.ok(record.hero.h1.length > 20);
     assert.equal(record.services.length, 3);
     assert.equal(record.process.length, 3);
-    assert.equal(record.faqs.length, 3);
+    assert.equal(record.faqs.length, localeCode === "es-ES" ? 10 : 3);
   }
 });
 
@@ -51,7 +51,7 @@ test("every Spain locale renders the Spanish reference homepage shell", () => {
     assert.match(html, /hero-northern-lights-screen-branded\.png/);
     assert.match(html, /class="stack-cards-track"/);
     assert.match(html, /class="case-showcase/);
-    assert.match(html, /class="process/);
+    assert.doesNotMatch(html, /class="process/);
     assert.match(html, /class="whatsapp-fab"/);
     assert.match(html, /id="page-transition"/);
     assert.match(html, /class="market-menu"/);
@@ -59,6 +59,62 @@ test("every Spain locale renders the Spanish reference homepage shell", () => {
     assert.doesNotMatch(html, /commercial-page--home|commercial-hero/);
     assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
   }
+});
+
+test("Spain restores five real homepage cases without decorative numbering or cropped previews", () => {
+  const html = renderHomepage(getHomepageRecord("spain", "es-ES"), snapshot);
+
+  for (const slug of [
+    "sport-massage-fuengirola",
+    "agama",
+    "suvilla",
+    "samuel-coach-aleman",
+    "vokabellab",
+  ]) {
+    assert.match(html, new RegExp(`href="/casos/${slug}/"`));
+  }
+
+  assert.equal((html.match(/class="case-showcase__item"/g) ?? []).length, 5);
+  assert.doesNotMatch(html, /case-showcase__number">0[1-9]</);
+  assert.match(html, /case-showcase__media--screen[^>]*>[\s\S]*sport-massage-landing\.png/);
+  assert.match(html, /case-showcase__media--agama-main[^>]*>[\s\S]*agama-tienda-online\.png/);
+  assert.match(html, /case-showcase__media--screen[^>]*>[\s\S]*suvilla-real\.webp/);
+  assert.match(html, /href="\/casos\/"[^>]*>Ver todos los proyectos/);
+});
+
+test("every market homepage reuses the five-case reference layout and original WhatsApp icon", () => {
+  for (const [marketKey, locale] of [
+    ["spain", "es-ES"],
+    ["mexico", "es-MX"],
+    ["mexico", "en-MX"],
+    ["usa", "en-US"],
+    ["usa", "es-US"],
+    ["brasil", "pt-BR"],
+  ]) {
+    const html = renderHomepage(getHomepageRecord(marketKey, locale), snapshot);
+    assert.equal(
+      (html.match(/class="case-showcase__item"/g) ?? []).length,
+      5,
+      `${marketKey}/${locale}`,
+    );
+    assert.doesNotMatch(html, /case-showcase__number">0[1-9]</);
+    assert.match(html, /class="whatsapp-fab"[^>]*>[\s\S]*?<svg/);
+    assert.doesNotMatch(html, />undefined</);
+    assert.doesNotMatch(html, /<section class="process section"/);
+    assert.match(html, /<section class="faq-home"/);
+  }
+});
+
+test("Spain restores the original homepage FAQ treatment and removes the generic process block", () => {
+  const record = getHomepageRecord("spain", "es-ES");
+  const html = renderHomepage(record, snapshot);
+
+  assert.equal(record.faqs.length, 10);
+  assert.match(html, /<section class="faq-home"/);
+  assert.match(html, /Todas tus dudas resueltas/);
+  assert.equal((html.match(/class="faq-home__item"/g) ?? []).length, 10);
+  assert.doesNotMatch(html, /<section class="process section"/);
+  assert.doesNotMatch(html, /<div class="faq-list"/);
 });
 
 test("the shared homepage generator writes the four Spain routes", async (t) => {
@@ -187,7 +243,7 @@ test("localized home actions keep users in a compatible language journey", () =>
   }
 });
 
-test("regional homepages use neutral WF-Studio branding and market-safe cases", () => {
+test("regional homepages use neutral WF-Studio branding and the shared real-case catalogue", () => {
   for (const [market, locale] of [
     ["mexico", "es-MX"],
     ["mexico", "en-MX"],
@@ -199,8 +255,10 @@ test("regional homepages use neutral WF-Studio branding and market-safe cases", 
 
     assert.match(html, /property="og:site_name" content="WF-Studio"/);
     assert.match(html, /class="logo" aria-label="WF-Studio"/);
-    assert.doesNotMatch(html, /Sport Massage Fuengirola/);
+    assert.match(html, /Sport Massage Fuengirola/);
     assert.match(html, />Agama</);
+    assert.match(html, /SuVilla Inmobiliaria/);
+    assert.match(html, /Samuel Coach Alemán/);
     assert.match(html, />Vokabellab</);
   }
 });

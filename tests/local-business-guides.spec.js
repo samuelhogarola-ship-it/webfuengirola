@@ -17,7 +17,7 @@ for (const width of [1440, 390]) {
         )
         .toBeTruthy();
       await expect(page.locator('link[rel="alternate"][hreflang]')).toHaveCount(
-        0,
+        5,
       );
       const question = page.locator(".blog-faq__item").first();
       await question.locator("summary").click();

@@ -161,58 +161,149 @@ function renderCases(group, locale) {
     const hub = getPageGroup("cases").routes[locale];
     return `<div class="commercial-case-links">${group.cases.map((slug) => `<a href="${locale === "es" ? `/casos/${slug}/` : `${hub}#${slug}`}">${escapeHtml(cases.find((item) => item.slug === slug)?.title || slug)} →</a>`).join("")}</div>`;
   }
-  if (locale === "es") return renderGroupedPortfolio();
-  const labels = {
+  return renderGroupedPortfolio(locale);
+}
+
+function renderGroupedPortfolio(locale) {
+  const copy = {
+    es: {
+      portfolio: "Portfolio",
+      liveCaseCta: "Ver web publicada →",
+      types: {
+        case: ["Caso", "Ver caso →"],
+        demo: ["Demo", "Ver demo →"],
+        concept: ["Concepto", "Consultar concepto →"],
+        product: ["Producto", "Visitar web →"],
+        crm: ["CRM funcional", "Ver CRM →"],
+      },
+      groups: [
+        ["lite", "Lite", "Webs sencillas y claras para presentar un negocio."],
+        ["express", "Express", "Webs con más estructura y recorrido comercial."],
+        ["pro", "Pro", "Proyectos de mayor alcance y soluciones profesionales a medida."],
+        ["apps", "Web apps y funcionalidades", "Productos digitales, CRM y herramientas especializadas."],
+      ],
+    },
+    en: {
+      portfolio: "Portfolio",
+      liveCaseCta: "Visit live website →",
+      types: {
+        case: ["Case study", "View case →"],
+        demo: ["Demo", "View demo →"],
+        concept: ["Concept", "View concept →"],
+        product: ["Product", "Visit website →"],
+        crm: ["Working CRM", "View CRM →"],
+      },
+      groups: [
+        ["lite", "Lite", "Simple, clear websites built to present a business."],
+        ["express", "Express", "Websites with more structure and a stronger commercial journey."],
+        ["pro", "Pro", "Larger projects and tailored professional solutions."],
+        ["apps", "Web apps and features", "Digital products, CRMs and specialised tools."],
+      ],
+    },
+    de: {
+      portfolio: "Referenzen",
+      liveCaseCta: "Live-Website besuchen →",
+      types: {
+        case: ["Referenz", "Referenz ansehen →"],
+        demo: ["Demo", "Demo ansehen →"],
+        concept: ["Konzept", "Konzept ansehen →"],
+        product: ["Produkt", "Website besuchen →"],
+        crm: ["Funktionierendes CRM", "CRM ansehen →"],
+      },
+      groups: [
+        ["lite", "Lite", "Einfache, klare Websites zur Präsentation eines Unternehmens."],
+        ["express", "Express", "Websites mit mehr Struktur und einer stärkeren Customer Journey."],
+        ["pro", "Pro", "Umfangreichere Projekte und maßgeschneiderte professionelle Lösungen."],
+        ["apps", "Web-Apps und Funktionen", "Digitale Produkte, CRM-Systeme und spezialisierte Tools."],
+      ],
+    },
+    fi: {
+      portfolio: "Asiakastyöt",
+      liveCaseCta: "Avaa julkaistu sivusto →",
+      types: {
+        case: ["Asiakastyö", "Katso työ →"],
+        demo: ["Demo", "Katso demo →"],
+        concept: ["Konsepti", "Katso konsepti →"],
+        product: ["Tuote", "Avaa sivusto →"],
+        crm: ["Toimiva CRM", "Katso CRM →"],
+      },
+      groups: [
+        ["lite", "Lite", "Selkeitä ja yksinkertaisia verkkosivuja yrityksen esittelyyn."],
+        ["express", "Express", "Laajempia verkkosivuja vahvemmalla myyntipolulla."],
+        ["pro", "Pro", "Laajoja projekteja ja räätälöityjä ammattilaisratkaisuja."],
+        ["apps", "Verkkosovellukset ja ominaisuudet", "Digitaalisia tuotteita, CRM-ratkaisuja ja erikoistyökaluja."],
+      ],
+    },
+  }[locale];
+  const projectTypeLabels = Object.fromEntries(
+    Object.entries(copy.types).map(([key, [badge, cta]]) => [key, { badge, cta }]),
+  );
+  const groups = copy.groups;
+  const localizedProjectCopy = {
+    en: {
+      vokabellab: ["A German vocabulary learning platform with a clear, fast interface designed for frictionless practice.", "Screenshot of Vokabellab, a platform for practising German vocabulary"],
+      "samuel-coach-aleman": ["A lead-generation website for German coaching with a clear proposition, an SEO structure and several conversion points.", "Screenshot of the Samuel German Coach landing page"],
+      "personal-trainer-fuengirola": ["A local landing page for a personal trainer in Fuengirola, focused on services, trust and direct WhatsApp contact.", "Real screenshot of the Personal Trainer Fuengirola website"],
+      "im-kontext-vokabellab": ["A tool for learning German in context through real sentences and a lightweight interface built for focus and continuity.", "Screenshot of the Im Kontext learning tool"],
+      "der-die-das-vokabellab": ["A focused tool for practising German articles through a quick, visual and repeatable experience.", "Screenshot of Der Die Das, a tool for practising German articles"],
+      "sport-massage-fuengirola": ["A local landing page that explains services, builds trust and turns visits into booking enquiries.", "Real screenshot of the Sport Massage Fuengirola landing page"],
+      "gimnasio-nuevo-estilo": ["A local website presenting the gym, distinguishing its Fuengirola and Arroyo de la Miel locations and enabling direct mobile contact.", "Screenshot of the Gimnasio Nuevo Estilo local website"],
+      agama: ["A corporate product website for pigments, masterbatch and additives, focused on commercial presentation and catalogue clarity.", "Real screenshot of the Agama corporate website"],
+      "fisioapp-panel-clinica": ["A physiotherapy clinic management panel for patients, sessions, billing and documents, designed for daily work.", "Screenshot of the FisioApp administration panel"],
+      "hotel-bali-bhuana": ["A conceptual lightweight website demo for rooms, services, location and direct contact; it was not commissioned by the property.", "Concept Web Lite demo inspired by Bali Bhuana, not a client project"],
+      "dede-art": ["A visual portfolio for presenting artwork with simple navigation and strong emphasis on imagery.", "Concept cover for the Dede Art portfolio"],
+      "horses-of-gili": ["A solidarity website explaining the protection and welfare work for horses on the Gili Islands and how to support it.", "Real screenshot of the Horses of Gili website"],
+      suvilla: ["A real-estate website with listings, area search, team information and contact in three languages.", "Full screenshot of the SuVilla real-estate website"],
+      todoplasticos: ["A professional marketplace for plastic-industry companies, products and listings.", "Cover of the TodoPlásticos marketplace"],
+      superentrenador: ["A platform presenting trainers, services and digital tools from the fitness ecosystem.", "Real screenshot of the Superentrenador platform"],
+      "crm-inmobiliario": ["A dashboard for centralising properties, contacts, follow-ups and commercial tasks.", "Concept cover for the real-estate CRM"],
+      farbentester: ["A visual tool for testing ranges, comparing shades and making colour decisions.", "Concept cover for Farbentester with colour samples"],
+    },
+    de: {
+      vokabellab: ["Eine Plattform zum Deutschwortschatzlernen mit einer klaren, schnellen Oberfläche für reibungsloses Üben.", "Screenshot von Vokabellab, einer Plattform zum Üben des deutschen Wortschatzes"],
+      "samuel-coach-aleman": ["Eine Website zur Kundengewinnung für Deutsch-Coaching mit klarem Angebot, SEO-Struktur und mehreren Kontaktpunkten.", "Screenshot der Landingpage von Samuel Deutsch Coach"],
+      "personal-trainer-fuengirola": ["Eine lokale Landingpage für einen Personal Trainer in Fuengirola mit Fokus auf Leistungen, Vertrauen und direkten WhatsApp-Kontakt.", "Echter Screenshot der Website Personal Trainer Fuengirola"],
+      "im-kontext-vokabellab": ["Ein Tool zum Deutschlernen im Kontext mit echten Sätzen und einer leichten Oberfläche für konzentriertes, kontinuierliches Lernen.", "Screenshot des Lerntools Im Kontext"],
+      "der-die-das-vokabellab": ["Ein gezieltes Tool zum Üben deutscher Artikel mit einer schnellen, visuellen und wiederholbaren Erfahrung.", "Screenshot von Der Die Das, einem Tool zum Üben deutscher Artikel"],
+      "sport-massage-fuengirola": ["Eine lokale Landingpage, die Leistungen erklärt, Vertrauen schafft und Besuche in Buchungsanfragen verwandelt.", "Echter Screenshot der Landingpage Sport Massage Fuengirola"],
+      "gimnasio-nuevo-estilo": ["Eine lokale Website für das Fitnessstudio mit getrennten Standorten in Fuengirola und Arroyo de la Miel sowie direktem Mobilkontakt.", "Screenshot der lokalen Website von Gimnasio Nuevo Estilo"],
+      agama: ["Eine Unternehmenswebsite für Pigmente, Masterbatch und Additive mit Fokus auf Vertrieb und eine klare Produktübersicht.", "Echter Screenshot der Unternehmenswebsite Agama"],
+      "fisioapp-panel-clinica": ["Ein Praxisverwaltungssystem für Physiotherapie mit Patienten, Sitzungen, Abrechnung und Dokumenten für den täglichen Einsatz.", "Screenshot des FisioApp-Verwaltungsbereichs"],
+      "hotel-bali-bhuana": ["Eine konzeptionelle leichte Website-Demo für Zimmer, Leistungen, Lage und Direktkontakt; kein Auftrag des Betriebs.", "Konzeptionelle Web-Lite-Demo nach dem Vorbild von Bali Bhuana, kein Kundenprojekt"],
+      "dede-art": ["Ein visuelles Portfolio zur Präsentation von Kunstwerken mit einfacher Navigation und starken Bildern.", "Konzeptionelles Titelbild des Dede-Art-Portfolios"],
+      "horses-of-gili": ["Eine gemeinnützige Website über Schutz und Wohlergehen der Pferde auf den Gili-Inseln und Möglichkeiten zur Unterstützung.", "Echter Screenshot der Website Horses of Gili"],
+      suvilla: ["Eine Immobilienwebsite mit Angeboten, Gebietssuche, Team und Kontakt in drei Sprachen.", "Vollständiger Screenshot der Immobilienwebsite SuVilla"],
+      todoplasticos: ["Ein professioneller Marktplatz für Unternehmen, Produkte und Anzeigen der Kunststoffbranche.", "Titelbild des Marktplatzes TodoPlásticos"],
+      superentrenador: ["Eine Plattform für Trainer, Leistungen und digitale Werkzeuge aus dem Fitnessbereich.", "Echter Screenshot der Plattform Superentrenador"],
+      "crm-inmobiliario": ["Ein Dashboard zur zentralen Verwaltung von Immobilien, Kontakten, Nachfassaktionen und Vertriebsaufgaben.", "Konzeptionelles Titelbild des Immobilien-CRM"],
+      farbentester: ["Ein visuelles Werkzeug zum Testen von Farbreihen, Vergleichen von Tönen und Treffen von Farbentscheidungen.", "Konzeptionelles Farbentester-Titelbild mit Farbmustern"],
+    },
+    fi: {
+      vokabellab: ["Saksan sanaston oppimisalusta, jonka selkeä ja nopea käyttöliittymä tekee harjoittelusta sujuvaa.", "Kuvakaappaus Vokabellabista, saksan sanaston harjoittelualustasta"],
+      "samuel-coach-aleman": ["Saksan valmennuspalvelun yhteydenottoihin suunnattu sivusto, jossa on selkeä lupaus, SEO-rakenne ja useita toimintakehotuksia.", "Kuvakaappaus Samuel-saksanvalmentajan laskeutumissivusta"],
+      "personal-trainer-fuengirola": ["Fuengirolalaisen personal trainerin paikallinen laskeutumissivu, joka painottaa palveluja, luottamusta ja suoraa WhatsApp-yhteyttä.", "Aito kuvakaappaus Personal Trainer Fuengirola -sivustosta"],
+      "im-kontext-vokabellab": ["Työkalu saksan oppimiseen asiayhteydessä aitojen lauseiden ja keskittymistä tukevan kevyen käyttöliittymän avulla.", "Kuvakaappaus Im Kontext -oppimistyökalusta"],
+      "der-die-das-vokabellab": ["Saksan artikkeleiden harjoitteluun tarkoitettu nopea, visuaalinen ja helposti toistettava työkalu.", "Kuvakaappaus Der Die Das -työkalusta"],
+      "sport-massage-fuengirola": ["Paikallinen laskeutumissivu, joka esittelee palvelut, rakentaa luottamusta ja ohjaa kävijät varauskyselyihin.", "Aito kuvakaappaus Sport Massage Fuengirola -laskeutumissivusta"],
+      "gimnasio-nuevo-estilo": ["Paikallinen kuntosalisivusto, joka erottaa Fuengirolan ja Arroyo de la Mielin toimipisteet ja helpottaa yhteydenottoa mobiilissa.", "Kuvakaappaus Gimnasio Nuevo Estilon paikallisesta sivustosta"],
+      agama: ["Pigmenttien, masterbatchien ja lisäaineiden yrityssivusto, jossa korostuvat kaupallinen esittely ja selkeä tuotevalikoima.", "Aito kuvakaappaus Agaman yrityssivustosta"],
+      "fisioapp-panel-clinica": ["Fysioterapiaklinikan hallintapaneeli potilaille, käynneille, laskutukselle ja asiakirjoille päivittäiseen käyttöön.", "Kuvakaappaus FisioAppin hallintapaneelista"],
+      "hotel-bali-bhuana": ["Kevyen sivuston konseptidemo huoneiden, palvelujen, sijainnin ja suoran yhteydenoton esittelyyn; majoitusyritys ei tilannut sitä.", "Bali Bhuanasta inspiroitu Web Lite -konseptidemo, ei asiakasprojekti"],
+      "dede-art": ["Visuaalinen portfolio taideteosten esittelyyn yksinkertaisella navigoinnilla ja vahvalla kuvapainotuksella.", "Dede Art -portfolion konseptikansi"],
+      "horses-of-gili": ["Hyväntekeväisyyssivusto Gili-saarten hevosten suojelu- ja hyvinvointityöstä sekä hankkeen tukemisesta.", "Aito kuvakaappaus Horses of Gili -sivustosta"],
+      suvilla: ["Kiinteistösivusto, jossa on kohteet, aluehaku, tiimi ja yhteydenotto kolmella kielellä.", "Koko sivun kuvakaappaus SuVilla-kiinteistösivustosta"],
+      todoplasticos: ["Ammattimainen markkinapaikka muovialan yrityksille, tuotteille ja ilmoituksille.", "TodoPlásticos-markkinapaikan kansikuva"],
+      superentrenador: ["Alusta valmentajien, palvelujen ja fitness-ekosysteemin digitaalisten työkalujen esittelyyn.", "Aito kuvakaappaus Superentrenador-alustasta"],
+      "crm-inmobiliario": ["Hallintapaneeli kiinteistöjen, yhteystietojen, seurannan ja myyntitehtävien keskittämiseen.", "Kiinteistö-CRM:n konseptikansi"],
+      farbentester: ["Visuaalinen työkalu värisarjojen kokeiluun, sävyjen vertailuun ja väripäätösten tekemiseen.", "Farbentesterin konseptikansi värinäytteineen"],
+    },
+  };
+  const localizedProjectAria = {
     es: "Ver proyecto",
     en: "View project",
     de: "Projekt ansehen",
     fi: "Katso projekti",
-  };
-  return `<div class="portfolio__grid commercial-portfolio">${group.cases
-    .map((slug) => {
-      const project = cases.find((item) => item.slug === slug);
-      if (!project) throw new Error(`Missing portfolio project: ${slug}`);
-      return `<article class="portfolio-card" id="${slug}" data-reveal="portfolio">
-      <a class="portfolio-card__cover" href="/casos/${slug}/" aria-label="${escapeHtml(labels[locale])}: ${escapeHtml(project.title)}">
-        <img src="/${project.portfolioImage || project.image}" alt="${escapeHtml(project.title)}" class="portfolio-card__img" loading="lazy" width="800" height="500" />
-      </a>
-      <div class="portfolio-card__body"><h2 class="portfolio-card__title"><a href="/casos/${slug}/">${escapeHtml(project.title)}</a></h2>
-      <a class="btn btn--outline" href="/casos/${slug}/">${labels[locale]} →</a></div>
-    </article>`;
-    })
-    .join("")}</div>`;
-}
-
-function renderGroupedPortfolio() {
-  const projectTypeLabels = {
-    case: { badge: "Caso", cta: "Ver caso →" },
-    demo: { badge: "Demo", cta: "Ver demo →" },
-    concept: { badge: "Concepto", cta: "Consultar concepto →" },
-    product: { badge: "Producto", cta: "Visitar web →" },
-    crm: { badge: "CRM funcional", cta: "Ver CRM →" },
-  };
-  const groups = [
-    [
-      "lite",
-      "Lite",
-      "Webs sencillas, claras y preparadas para presentar un negocio sin complejidad innecesaria.",
-    ],
-    [
-      "express",
-      "Express",
-      "Webs con más estructura, contenido y recorrido comercial para negocios que necesitan crecer.",
-    ],
-    [
-      "pro",
-      "Pro",
-      "Proyectos de mayor alcance con identidad, contenido y soluciones profesionales a medida.",
-    ],
-    [
-      "apps",
-      "Web apps y funcionalidades",
-      "Productos digitales, CRM y herramientas enfocadas en resolver una tarea concreta.",
-    ],
-  ];
+  }[locale];
 
   return groups
     .map(([key, label, description]) => {
@@ -228,24 +319,36 @@ function renderGroupedPortfolio() {
             throw new Error(`Unknown portfolio project type: ${project.slug}`);
           }
           const internalCase = cases.find((item) => item.slug === project.slug);
-          const href = internalCase ? `/casos/${project.slug}/` : project.url;
+          const localizedContact = getPageGroup("contact").routes[locale];
+          const href = internalCase
+            ? locale === "es"
+              ? `/casos/${project.slug}/`
+              : project.url
+            : project.url.startsWith("/contacto/")
+              ? `${localizedContact}?project=${encodeURIComponent(project.slug)}`
+              : project.url;
           const target = href.startsWith("http")
             ? ' target="_blank" rel="noopener noreferrer"'
             : "";
-          return `<article class="portfolio-card" id="${escapeHtml(project.slug)}" data-reveal="portfolio">
-      <a class="portfolio-card__cover portfolio-card__cover--contain" href="${escapeHtml(href)}"${target} aria-label="Ver proyecto: ${escapeHtml(project.title)}">
-        <img src="/${escapeHtml(project.image)}" alt="${escapeHtml(project.imageAlt)}" class="portfolio-card__img portfolio-card__img--contain" loading="lazy" width="${project.imageWidth}" height="${project.imageHeight}" />
+          const [description, imageAlt] =
+            localizedProjectCopy[locale]?.[project.slug] ?? [
+              project.description,
+              project.imageAlt,
+            ];
+          return `<article class="portfolio-card" id="${escapeHtml(project.slug)}">
+      <a class="portfolio-card__cover portfolio-card__cover--contain" href="${escapeHtml(href)}"${target} aria-label="${localizedProjectAria}: ${escapeHtml(project.title)}">
+        <img src="/${escapeHtml(project.image)}" alt="${escapeHtml(imageAlt)}" class="portfolio-card__img portfolio-card__img--contain" loading="lazy" width="${project.imageWidth}" height="${project.imageHeight}" />
       </a>
       <div class="portfolio-card__body"><span class="portfolio-card__type">${typeCopy.badge}</span><h3 class="portfolio-card__title"><a href="${escapeHtml(href)}"${target}>${escapeHtml(project.title)}</a></h3>
-      <p class="portfolio-card__desc">${escapeHtml(project.description)}</p>
-      <a class="btn btn--outline" href="${escapeHtml(href)}"${target}>${typeCopy.cta}</a></div>
+      <p class="portfolio-card__desc">${escapeHtml(description)}</p>
+      <a class="btn btn--outline" href="${escapeHtml(href)}"${target}>${internalCase && locale !== "es" ? copy.liveCaseCta : typeCopy.cta}</a></div>
     </article>`;
         })
         .join("");
-      return `<section class="portfolio-category" id="portfolio-${key}" aria-labelledby="portfolio-${key}-title">
-      <div class="portfolio-category__header"><span class="section-label">Portfolio</span><h2 id="portfolio-${key}-title">${label}</h2><p>${description}</p></div>
+      return `<details class="portfolio-category" id="portfolio-${key}" aria-labelledby="portfolio-${key}-title" open>
+      <summary class="portfolio-category__header"><span class="section-label">${escapeHtml(copy.portfolio)}</span><span class="portfolio-category__title" id="portfolio-${key}-title">${escapeHtml(label)}</span><span class="portfolio-category__description">${escapeHtml(description)}</span><span class="portfolio-category__toggle" aria-hidden="true">+</span></summary>
       <div class="portfolio__grid commercial-portfolio">${cards}</div>
-    </section>`;
+    </details>`;
     })
     .join("");
 }

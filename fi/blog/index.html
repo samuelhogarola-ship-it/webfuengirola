@@ -57,7 +57,7 @@
     </div>
   </header>
   <main>
-    <section class="subpage-hero blog-hero">
+    <section class="subpage-hero blog-hero blog-hero--index">
       <div class="container blog-hero__inner">
         <nav class="project-breadcrumb" aria-label="Breadcrumb"><a href="/fi/">Etusivu</a><span>/</span><span>Blogi</span></nav>
         <div class="lang-switcher" aria-label="Article language selector">
@@ -66,20 +66,54 @@
     <a class="lang-switcher__btn" href="https://webfuengirola.com/de/blog/" hreflang="de">Deutsch</a>
     <a class="lang-switcher__btn is-active" href="https://webfuengirola.com/fi/blog/" hreflang="fi">Suomi</a>
   </div>
-        <span class="badge">Julkaisusuunnitelma</span>
-        <h1 class="subpage-hero__title">Selkeitä ideoita, joiden avulla paikallinen yritys myy paremmin verkossa</h1>
-        <p class="subpage-hero__sub">Käytännön artikkeleita paikallisille yrityksille, jotka haluavat ymmärtää, mikä verkkosivuissa, Googlessa, somessa ja tekoälyssä oikeasti kannattaa.</p>
+        <span class="badge">Oppaat paikallisille yrityksille</span>
+        <h1 class="subpage-hero__title">Verkkosivut, SEO ja asiakashankinta paikallisille yrityksille</h1>
+        <p class="subpage-hero__sub">Käytännön oppaita verkkosivun parantamiseen, löydettävyyteen ja kävijöiden muuttamiseen oikeiksi yhteydenotoiksi.</p>
+        <form class="blog-search" role="search" data-blog-search>
+          <label class="sr-only" for="blog-search-input">Hae artikkeleita</label>
+          <input id="blog-search-input" type="search" placeholder="Hae aiheen, palvelun tai ongelman mukaan" autocomplete="off" data-blog-search-input />
+          <button type="submit" class="btn btn--primary">Hae</button>
+        </form>
       </div>
     </section>
     <section class="service-detail blog-listing">
       <div class="container">
-        <div class="section-header">
-          <span class="section-label">Julkaisusuunnitelma</span>
-          <h2 class="section-title">Verkkosivublogi Fuengirolassa | WF-Studio · Web Fuengirola</h2>
-          <p class="section-sub">Selkeitä artikkeleita verkkosivuista, paikallisesta SEO:sta, Googlesta, somesta ja tekoälystä paikallisille yrityksille.</p>
+        <div class="section-header blog-listing__header">
+          <span class="section-label">Kaikki artikkelit</span>
+          <h2 class="section-title">Löydä tarvitsemasi opas</h2>
         </div>
-        <div class="blog-grid">
+        <div class="blog-grid" data-blog-grid>
           <article class="blog-card">
+        <a href="./como-medir-contactos-web-negocio-local/" class="blog-card__media" aria-label="Lue artikkeli: Miten paikallisen yrityksen verkkosivun yhteydenottoja mitataan">
+          <img src="../../img/blog-medir-contactos.webp" alt="Miten paikallisen yrityksen verkkosivun yhteydenottoja mitataan" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
+        </a>
+        <span class="tag tag--blue">Medición de contactos</span>
+        <h3 class="blog-card__title"><a href="./como-medir-contactos-web-negocio-local/">Miten paikallisen yrityksen verkkosivun yhteydenottoja mitataan</a></h3>
+        <p class="blog-card__excerpt">Erota käynnit, klikkaukset, yhteydenotot ja tapaamiset ja seuraa yksinkertaisesti, mitkä kanavat tuovat hyödyllisiä kontakteja.</p>
+        <div class="blog-card__meta"><span>6 de octubre de 2026</span><span>6 min</span></div>
+        <a href="./como-medir-contactos-web-negocio-local/" class="btn btn--ghost btn--sm">Lue artikkeli</a>
+      </article>
+<article class="blog-card">
+        <a href="./contenidos-locales-utiles-sin-duplicar-paginas/" class="blog-card__media" aria-label="Lue artikkeli: Hyödyllistä paikallista sisältöä ilman sivujen kopiointia">
+          <img src="../../img/blog-contenido-local.webp" alt="Hyödyllistä paikallista sisältöä ilman sivujen kopiointia" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
+        </a>
+        <span class="tag tag--blue">Contenido local útil</span>
+        <h3 class="blog-card__title"><a href="./contenidos-locales-utiles-sin-duplicar-paginas/">Hyödyllistä paikallista sisältöä ilman sivujen kopiointia</a></h3>
+        <p class="blog-card__excerpt">Luo paikallinen sivu vain, kun se vastaa omaan tarpeeseen konkreettisella tiedolla eikä toista samaa tekstiä eri paikkakunnille.</p>
+        <div class="blog-card__meta"><span>6 de octubre de 2026</span><span>6 min</span></div>
+        <a href="./contenidos-locales-utiles-sin-duplicar-paginas/" class="btn btn--ghost btn--sm">Lue artikkeli</a>
+      </article>
+<article class="blog-card">
+        <a href="./web-para-entrenador-personal-contenidos-contacto/" class="blog-card__media" aria-label="Lue artikkeli: Personal trainerin verkkosivu: palvelusta ensimmäiseen yhteydenottoon">
+          <img src="../../img/blog-entrenador-personal.webp" alt="Personal trainerin verkkosivu: palvelusta ensimmäiseen yhteydenottoon" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
+        </a>
+        <span class="tag tag--blue">Web para entrenadores</span>
+        <h3 class="blog-card__title"><a href="./web-para-entrenador-personal-contenidos-contacto/">Personal trainerin verkkosivu: palvelusta ensimmäiseen yhteydenottoon</a></h3>
+        <p class="blog-card__excerpt">Mitä personal trainerin verkkosivulle kuuluu: vaihtoehdot, alue, prosessi, luottamus ja helppo ensimmäinen yhteydenotto.</p>
+        <div class="blog-card__meta"><span>6 de octubre de 2026</span><span>6 min</span></div>
+        <a href="./web-para-entrenador-personal-contenidos-contacto/" class="btn btn--ghost btn--sm">Lue artikkeli</a>
+      </article>
+<article class="blog-card">
         <a href="./dominio-hosting-y-correo-para-negocio-local/" class="blog-card__media" aria-label="Lue artikkeli: Verkkotunnus, hosting ja sähköposti paikalliselle yritykselle">
           <img src="../../img/blog-dominio-hosting-correo.webp" alt="Verkkotunnus, hosting ja sähköposti paikalliselle yritykselle" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
         </a>
@@ -141,7 +175,7 @@
       </article>
 <article class="blog-card">
         <a href="./cuanto-tarda-el-seo-local/" class="blog-card__media" aria-label="Lue artikkeli: Kuinka kauan paikallinen SEO kestää">
-          <img src="../../img/blog-home-og.webp" alt="Kuinka kauan paikallinen SEO kestää" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
+          <img src="../../img/blog-seo-plazos.webp" alt="Kuinka kauan paikallinen SEO kestää" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
         </a>
         <span class="tag tag--blue">Expectativas reales</span>
         <h3 class="blog-card__title"><a href="./cuanto-tarda-el-seo-local/">Kuinka kauan paikallinen SEO kestää</a></h3>
@@ -151,7 +185,7 @@
       </article>
 <article class="blog-card">
         <a href="./web-vs-redes-sociales-para-negocio-local/" class="blog-card__media" aria-label="Lue artikkeli: Verkkosivu vai some paikalliselle yritykselle">
-          <img src="../../img/blog-home-og.webp" alt="Verkkosivu vai some paikalliselle yritykselle" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
+          <img src="../../img/blog-web-redes-sociales.webp" alt="Verkkosivu vai some paikalliselle yritykselle" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
         </a>
         <span class="tag tag--blue">Decisión comercial</span>
         <h3 class="blog-card__title"><a href="./web-vs-redes-sociales-para-negocio-local/">Verkkosivu vai some paikalliselle yritykselle</a></h3>
@@ -231,7 +265,7 @@
       </article>
 <article class="blog-card">
         <a href="./como-salir-en-google-maps-en-fuengirola-y-malaga/" class="blog-card__media" aria-label="Lue artikkeli: Miten näkyä Google Mapsissa Fuengirolassa ja Malagassa">
-          <img src="../../img/blog-home-og.webp" alt="Miten näkyä Google Mapsissa Fuengirolassa ja Malagassa" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
+          <img src="../../img/blog-google-maps-local.webp" alt="Miten näkyä Google Mapsissa Fuengirolassa ja Malagassa" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
         </a>
         <span class="tag tag--blue">SEO local</span>
         <h3 class="blog-card__title"><a href="./como-salir-en-google-maps-en-fuengirola-y-malaga/">Miten näkyä Google Mapsissa Fuengirolassa ja Malagassa</a></h3>
@@ -241,7 +275,7 @@
       </article>
 <article class="blog-card">
         <a href="./cuanto-cuesta-una-pagina-web-en-fuengirola-y-malaga/" class="blog-card__media" aria-label="Lue artikkeli: Mitä verkkosivu maksaa Fuengirolassa ja Malagassa">
-          <img src="../../img/blog-home-og.webp" alt="Mitä verkkosivu maksaa Fuengirolassa ja Malagassa" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
+          <img src="../../img/blog-precio-web-local.webp" alt="Mitä verkkosivu maksaa Fuengirolassa ja Malagassa" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
         </a>
         <span class="tag tag--blue">Precios y alcance</span>
         <h3 class="blog-card__title"><a href="./cuanto-cuesta-una-pagina-web-en-fuengirola-y-malaga/">Mitä verkkosivu maksaa Fuengirolassa ja Malagassa</a></h3>
@@ -261,7 +295,7 @@
       </article>
 <article class="blog-card">
         <a href="./seo-local-fuengirola-malaga-y-publicidad-con-ia/" class="blog-card__media" aria-label="Lue artikkeli: Paikallinen SEO Fuengirolassa ja Malagassa mainonnan ja tekoälyn tuella">
-          <img src="../../img/blog-home-og.webp" alt="Paikallinen SEO Fuengirolassa ja Malagassa mainonnan ja tekoälyn tuella" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
+          <img src="../../img/blog-seo-ciudades-ia.webp" alt="Paikallinen SEO Fuengirolassa ja Malagassa mainonnan ja tekoälyn tuella" class="blog-card__image" width="1200" height="630" loading="lazy" decoding="async" />
         </a>
         <span class="tag tag--blue">SEO local e IA</span>
         <h3 class="blog-card__title"><a href="./seo-local-fuengirola-malaga-y-publicidad-con-ia/">Paikallinen SEO Fuengirolassa ja Malagassa mainonnan ja tekoälyn tuella</a></h3>
@@ -290,6 +324,7 @@
         <a href="./sabias-que-cada-vez-mas-gente-usa-ia-para-encontrar-un-servicio/" class="btn btn--ghost btn--sm">Lue artikkeli</a>
       </article>
         </div>
+        <p class="blog-search__empty" data-blog-search-empty hidden>Haulla ei löytynyt artikkeleita.</p>
       </div>
     </section>
   </main>
@@ -311,5 +346,7 @@
       </nav>
     </div>
   </footer>
+  <script src="../../script.js"></script>
+  <script src="../../blog-search.js"></script>
 </body>
 </html>

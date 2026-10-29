@@ -52,6 +52,48 @@ const spainLocales = {
         "Diseñamos, desarrollamos, revisamos contigo y publicamos.",
       ],
     ],
+    faqs: [
+      [
+        "¿Necesito empezar con una web grande desde el principio?",
+        "No. Muchas veces basta una estructura simple y clara. Si luego hace falta crecer, la base ya queda preparada sin rehacer todo.",
+      ],
+      [
+        "¿Y si no tengo todavía todos los textos o las fotos?",
+        "No hace falta llegar con todo resuelto. Se ordena el mensaje, se pide solo lo necesario y se publica sin eternizar el proceso.",
+      ],
+      [
+        "¿Qué diferencia hay entre tener web y trabajar el SEO local?",
+        "La web es la base. El SEO local es el trabajo para que esa base aparezca mejor cuando alguien busca tu servicio en Google o en Maps. Una cosa sin la otra suele quedarse corta.",
+      ],
+      [
+        "¿Después de publicar me quedo solo con la web?",
+        "Puede quedarse publicada sin más, llevar mantenimiento puntual o entrar en seguimiento solo si compensa de verdad para el negocio.",
+      ],
+      [
+        "¿Cuánto voy a tardar en tener algo útil?",
+        "La primera conversación sirve para aterrizar alcance y siguiente paso. No para dejarte semanas esperando sin saber qué encaja.",
+      ],
+      [
+        "¿Qué es publicidad para la IA?",
+        "Es preparar contenido claro sobre tu negocio para que buscadores y herramientas de inteligencia artificial entiendan mejor qué haces, dónde trabajas y por qué pueden recomendarte cuando alguien pregunta por un servicio como el tuyo.",
+      ],
+      [
+        "¿Necesito comprar un bono muchas veces?",
+        "No. Los bonos son para empresas que necesitan mucho contenido o mejoras constantes, sobre todo cuando tienen mucha competencia y quieren impulsar el negocio con más fuerza. Las empresas pequeñas con algunos cambios mensuales pueden usar un pack, horas sueltas o mantenimiento puntual.",
+      ],
+      [
+        "¿Qué es el SEO?",
+        "El SEO es el trabajo para que tu web aparezca mejor cuando alguien busca tus servicios en Google. Incluye estructura, textos, velocidad, contenido útil y señales que ayudan a que la página se entienda y compita mejor.",
+      ],
+      [
+        "¿Qué es SEO local?",
+        "Es SEO enfocado a búsquedas con zona: por ejemplo, diseño web en Fuengirola, entrenador personal en Mijas o gimnasio en Los Boliches. Sirve para captar clientes cerca de tu negocio o en las zonas donde quieres trabajar.",
+      ],
+      [
+        "¿Cuánto me cuesta el hosting y el dominio?",
+        "El dominio suele pagarse una vez al año y el hosting depende de lo que necesite la web. Para una web sencilla, el coste puede ser bajo; si necesitas más rendimiento, correo, mantenimiento o soporte, se calcula aparte para que no pagues de más.",
+      ],
+    ],
   },
   "en-GB": {
     sourceLocale: "en",
@@ -240,7 +282,7 @@ function buildSpainRecord(localeCode, localized) {
       localized.process.map(([title, text]) => Object.freeze({ title, text })),
     ),
     faqs: Object.freeze(
-      content.faqs.map(([question, answer]) =>
+      (localized.faqs ?? content.faqs).map(([question, answer]) =>
         Object.freeze({ question, answer }),
       ),
     ),

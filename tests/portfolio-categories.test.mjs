@@ -12,15 +12,18 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const expectedGroups = {
   lite: [
     "Sport Massage Fuengirola",
-    "Demo de diseño · Hotel sencillo (concepto Bali Bhuana)",
+    "Bali Bhuana",
     "Dede Art",
+    "Horses of Gili",
   ],
-  express: [
-    "Personal Trainer Fuengirola",
-    "Gimnasio Nuevo Estilo",
+  express: ["Personal Trainer Fuengirola", "Gimnasio Nuevo Estilo"],
+  pro: [
+    "Samuel Coach de Alemán",
+    "Agama",
     "SuVilla Inmobiliaria",
+    "TodoPlásticos",
+    "Superentrenador",
   ],
-  pro: ["Samuel Coach de Alemán", "Agama", "TodoPlásticos", "Superentrenador"],
   apps: [
     "Vokabel Lab",
     "CRM Inmobiliario",
@@ -67,12 +70,90 @@ test("the generated portfolio exposes four sections and uncropped thumbnails", (
   }
   assert.doesNotMatch(html, /Webs especializadas/i);
   assert.match(html, /portfolio-card__img--contain/);
+  assert.equal((html.match(/<details class="portfolio-category"/g) ?? []).length, 4);
+  assert.equal((html.match(/<summary class="portfolio-category__header"/g) ?? []).length, 4);
+  assert.equal((html.match(/<details class="portfolio-category"[^>]* open>/g) ?? []).length, 4);
   assert.doesNotMatch(html, /href="\/precios-diseno-web-fuengirola\/"/);
   assert.doesNotMatch(html, /href="\/seo-local-fuengirola\/"/);
   assert.doesNotMatch(html, /href="\/automatizacion-ia-fuengirola\/"/);
   assert.match(html, /href="\/servicios\/#precios"/);
   assert.match(html, /href="\/servicios\/#seo-local"/);
   assert.match(html, /href="\/servicios\/#automatizacion-ia"/);
+});
+
+test("real portfolio projects use real screenshots instead of placeholder SVG covers", () => {
+  const expectedScreenshots = {
+    "sport-massage-fuengirola": "img/sport-massage-landing.png",
+    "personal-trainer-fuengirola": "img/hero-personal-trainer-real-screen.png",
+    agama: "img/agama-tienda-online.png",
+    suvilla: "img/suvilla-real.webp",
+    superentrenador: "img/superentrenador-real.png",
+    "horses-of-gili": "img/horses-of-gili-real.webp",
+  };
+
+  for (const [slug, image] of Object.entries(expectedScreenshots)) {
+    const project = portfolioProjects.find((item) => item.slug === slug);
+    assert.ok(project, slug);
+    assert.equal(project.image, image, slug);
+    assert.doesNotMatch(project.image, /portfolio-.*\.svg$/);
+  }
+});
+
+test("all portfolio languages use the same grouped and collapsible project catalogue", () => {
+  for (const route of [
+    "casos/index.html",
+    "en/case-studies/index.html",
+    "de/referenzen/index.html",
+    "fi/asiakastyot/index.html",
+  ]) {
+    const html = fs.readFileSync(path.join(root, route), "utf8");
+    assert.equal((html.match(/<details class="portfolio-category"/g) ?? []).length, 4, route);
+    assert.match(html, /Horses of Gili/, route);
+    assert.match(html, /SuVilla Inmobiliaria/, route);
+    assert.match(html, /superentrenador-real\.png/, route);
+  }
+});
+
+test("localized portfolios keep their copy and internal journeys in the active language", () => {
+  const localizedRoutes = [
+    {
+      file: "en/case-studies/index.html",
+      caseHref: "https://www.sportmassagefuengirola.com",
+      liveCta: "Visit live website →",
+      contact: "/en/contact/?project=dede-art",
+      localizedDescription: "A local landing page that explains services",
+      forbiddenDescription: "Landing local enfocada en explicar servicios",
+      aria: "View project: Sport Massage Fuengirola",
+    },
+    {
+      file: "de/referenzen/index.html",
+      caseHref: "https://www.sportmassagefuengirola.com",
+      liveCta: "Live-Website besuchen →",
+      contact: "/de/kontakt/?project=dede-art",
+      localizedDescription: "Eine lokale Landingpage, die Leistungen erklärt",
+      forbiddenDescription: "Landing local enfocada en explicar servicios",
+      aria: "Projekt ansehen: Sport Massage Fuengirola",
+    },
+    {
+      file: "fi/asiakastyot/index.html",
+      caseHref: "https://www.sportmassagefuengirola.com",
+      liveCta: "Avaa julkaistu sivusto →",
+      contact: "/fi/yhteystiedot/?project=dede-art",
+      localizedDescription: "Paikallinen laskeutumissivu, joka esittelee palvelut",
+      forbiddenDescription: "Landing local enfocada en explicar servicios",
+      aria: "Katso projekti: Sport Massage Fuengirola",
+    },
+  ];
+
+  for (const expectation of localizedRoutes) {
+    const html = fs.readFileSync(path.join(root, expectation.file), "utf8");
+    assert.match(html, new RegExp(expectation.localizedDescription), expectation.file);
+    assert.doesNotMatch(html, new RegExp(expectation.forbiddenDescription), expectation.file);
+    assert.match(html, new RegExp(`href="${expectation.caseHref}"[^>]*target="_blank"`), expectation.file);
+    assert.match(html, new RegExp(expectation.liveCta), expectation.file);
+    assert.match(html, new RegExp(`href="${expectation.contact.replace("?", "\\?")}"`), expectation.file);
+    assert.match(html, new RegExp(`aria-label="${expectation.aria}"`), expectation.file);
+  }
 });
 
 test("prices, local SEO and automation are consolidated in Services", () => {
@@ -105,7 +186,7 @@ test("Bali Bhuana is presented as a Lite design concept, never as a client", () 
   assert.ok(project);
   assert.equal(project.portfolioGroup, "lite");
   assert.equal(project.client, "Demo de portfolio");
-  assert.match(project.title, /demo|concepto/i);
+  assert.equal(project.title, "Bali Bhuana");
   assert.match(project.description, /demo|concepto/i);
   assert.match(html, /Bali Bhuana/);
   assert.match(html, /demo|concepto/i);

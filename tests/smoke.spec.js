@@ -667,15 +667,10 @@ test("casos y blog mantienen branding público consistente", async ({
   );
   await expect(
     page.getByRole("heading", {
-      name: /ideas claras para que tu negocio venda mejor online/i,
+      name: /web, seo y captación para negocios locales/i,
     }),
   ).toBeVisible();
-  await expect(page.locator("body")).toContainText(
-    /si has venido al blog para tomar una decisión, aquí tienes el salto corto/i,
-  );
-  await expect(
-    page.locator('a.services-routes__link[href="../diseno-web-fuengirola/"]'),
-  ).toBeVisible();
+  await expect(page.getByRole("searchbox", { name: /buscar artículos/i })).toBeVisible();
   await expect(page.locator("body")).toContainText(
     /web vs redes sociales para negocio local/i,
   );

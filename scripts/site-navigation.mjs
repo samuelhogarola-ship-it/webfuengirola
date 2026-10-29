@@ -199,8 +199,7 @@ export function renderSiteHeader({
           ${links}
         </ul>
       </nav>
-      ${marketMenu}
-      ${languageMenu || renderDefaultLanguageMenu(locale)}
+      ${marketMenu ? `${marketMenu}\n      ` : ""}${languageMenu || renderDefaultLanguageMenu(locale)}
       <button type="button" class="hamburger" id="hamburger" aria-label="${copy.openMenu}" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
     </div>
   </header>`;
