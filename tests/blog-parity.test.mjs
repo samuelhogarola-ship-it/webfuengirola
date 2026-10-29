@@ -17,12 +17,16 @@ function readIndex(locale) {
 }
 
 function cards(locale) {
-  return [...readIndex(locale).matchAll(/<article class="blog-card"[\s\S]*?<\/article>/g)].map(
-    ([html]) => ({
-      slug: html.match(/href="\.\/([^/]+)\//)?.[1],
-      image: html.match(/<img\b[\s\S]*?src="[^"]*\/([^/"?]+)"/)?.[1],
-    }),
-  );
+  return [
+    ...readIndex(locale).matchAll(
+      /<article class="blog-card"[\s\S]*?<\/article>/g,
+    ),
+  ].map(([html]) => ({
+    slug: html.match(/href="\.\/([^/]+)\//)?.[1],
+    image: html.match(/<img\b[\s\S]*?src="[^"]*\/([^/"?]+)"/)?.[1],
+    tag: html.match(/<span class="tag tag--blue">([^<]+)<\/span>/)?.[1],
+    date: html.match(/<div class="blog-card__meta"><span>([^<]+)<\/span>/)?.[1],
+  }));
 }
 
 test("all blog locales publish the same complete article set", () => {
@@ -62,13 +66,72 @@ test("every article has its own cover and translations reuse that cover", () => 
   }
 });
 
+test("localized blog metadata uses each language instead of Spanish", () => {
+  const expected = {
+    en: {
+      date: "6 October 2026",
+      tags: [
+        "Contact tracking",
+        "Useful local content",
+        "Websites for trainers",
+      ],
+    },
+    de: {
+      date: "6. Oktober 2026",
+      tags: [
+        "Kontaktmessung",
+        "Nützliche lokale Inhalte",
+        "Websites für Trainer",
+      ],
+    },
+    fi: {
+      date: "6. lokakuuta 2026",
+      tags: [
+        "Yhteydenottojen seuranta",
+        "Hyödyllinen paikallinen sisältö",
+        "Verkkosivut valmentajille",
+      ],
+    },
+  };
+  const spanishMetadata =
+    /\b\d{1,2} de [a-záéíóú]+ de \d{4}\b|Medición de contactos|Contenido local útil|Web para entrenadores/i;
+
+  for (const locale of ["en", "de", "fi"]) {
+    const localizedCards = cards(locale);
+    assert.equal(localizedCards[0].date, expected[locale].date, locale);
+    assert.deepEqual(
+      localizedCards.slice(0, 3).map(({ tag }) => tag),
+      expected[locale].tags,
+      locale,
+    );
+    assert.doesNotMatch(readIndex(locale), spanishMetadata, locale);
+
+    const article = fs.readFileSync(
+      path.join(root, locale, "blog", localizedCards[0].slug, "index.html"),
+      "utf8",
+    );
+    assert.match(
+      article,
+      new RegExp(`<span>${expected[locale].date}<\\/span>`),
+    );
+    assert.doesNotMatch(
+      article,
+      spanishMetadata,
+      `${locale}:${localizedCards[0].slug}`,
+    );
+  }
+});
+
 test("every blog index uses the shared search-first layout without editorial filler", () => {
   const forbidden =
     /plan editorial|editorial plan|redaktionsplan|julkaisusuunnitelma|una tanda publicada artículo a artículo/i;
 
   for (const locale of Object.keys(indexes)) {
     const html = readIndex(locale);
-    assert.match(html, /<section class="subpage-hero blog-hero blog-hero--index">/);
+    assert.match(
+      html,
+      /<section class="subpage-hero blog-hero blog-hero--index">/,
+    );
     assert.match(html, /<form class="blog-search"[^>]*data-blog-search>/);
     assert.match(html, /<input[^>]*type="search"[^>]*data-blog-search-input/);
     assert.match(html, /<p[^>]*data-blog-search-empty[^>]*hidden/);

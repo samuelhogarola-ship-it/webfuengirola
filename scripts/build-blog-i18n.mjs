@@ -18,6 +18,119 @@ const localeMeta = {
   fi: { label: "Suomi", og: "fi_FI", blogPath: "/fi/blog/" },
 };
 
+const dateLocales = { en: "en-GB", de: "de-DE", fi: "fi-FI" };
+
+const tagTranslations = {
+  "Medición de contactos": {
+    en: "Contact tracking",
+    de: "Kontaktmessung",
+    fi: "Yhteydenottojen seuranta",
+  },
+  "SEO local": { en: "Local SEO", de: "Lokales SEO", fi: "Paikallinen SEO" },
+  "Contenido local útil": {
+    en: "Useful local content",
+    de: "Nützliche lokale Inhalte",
+    fi: "Hyödyllinen paikallinen sisältö",
+  },
+  "Web sencilla": {
+    en: "Simple website",
+    de: "Einfache Website",
+    fi: "Yksinkertainen verkkosivu",
+  },
+  "Precios y alcance": {
+    en: "Pricing and scope",
+    de: "Preise und Umfang",
+    fi: "Hinta ja laajuus",
+  },
+  "Expectativas reales": {
+    en: "Realistic expectations",
+    de: "Realistische Erwartungen",
+    fi: "Realistiset odotukset",
+  },
+  "Diseño web local": {
+    en: "Local web design",
+    de: "Lokales Webdesign",
+    fi: "Paikallinen verkkosuunnittelu",
+  },
+  "Dominio y hosting": {
+    en: "Domain and hosting",
+    de: "Domain und Hosting",
+    fi: "Verkkotunnus ja hosting",
+  },
+  "Errores web": {
+    en: "Website mistakes",
+    de: "Website-Fehler",
+    fi: "Verkkosivujen virheet",
+  },
+  "Google Business": {
+    en: "Google Business",
+    de: "Google Business",
+    fi: "Google Business",
+  },
+  "Búsqueda con IA": {
+    en: "AI search",
+    de: "KI-Suche",
+    fi: "Tekoälyhaku",
+  },
+  "Landing pages": {
+    en: "Landing pages",
+    de: "Landingpages",
+    fi: "Laskeutumissivut",
+  },
+  Mantenimiento: {
+    en: "Maintenance",
+    de: "Wartung",
+    fi: "Ylläpito",
+  },
+  "Negocio local": {
+    en: "Local business",
+    de: "Lokales Unternehmen",
+    fi: "Paikallinen yritys",
+  },
+  Reseñas: { en: "Reviews", de: "Bewertungen", fi: "Arvostelut" },
+  "IA y visibilidad": {
+    en: "AI and visibility",
+    de: "KI und Sichtbarkeit",
+    fi: "Tekoäly ja näkyvyys",
+  },
+  "SEO local e IA": {
+    en: "Local SEO and AI",
+    de: "Lokales SEO und KI",
+    fi: "Paikallinen SEO ja tekoäly",
+  },
+  "Servicios a domicilio": {
+    en: "Home services",
+    de: "Dienstleistungen vor Ort",
+    fi: "Kotipalvelut",
+  },
+  "Velocidad móvil": {
+    en: "Mobile speed",
+    de: "Mobile Geschwindigkeit",
+    fi: "Mobiilinopeus",
+  },
+  "Salud local": {
+    en: "Local healthcare",
+    de: "Lokale Gesundheitsangebote",
+    fi: "Paikalliset terveyspalvelut",
+  },
+  "Web para entrenadores": {
+    en: "Websites for trainers",
+    de: "Websites für Trainer",
+    fi: "Verkkosivut valmentajille",
+  },
+  Restaurantes: {
+    en: "Restaurants",
+    de: "Restaurants",
+    fi: "Ravintolat",
+  },
+  "Decisión comercial": {
+    en: "Business decision",
+    de: "Geschäftliche Entscheidung",
+    fi: "Liiketoimintapäätös",
+  },
+  WhatsApp: { en: "WhatsApp", de: "WhatsApp", fi: "WhatsApp" },
+};
+
 const ui = {
   en: {
     blogTitle: "Web design blog in Fuengirola | WF-Studio · Web Fuengirola",
@@ -517,7 +630,14 @@ function localizedPost(post, lang) {
     title,
     description,
     excerpt: description,
+    dateLabel: new Intl.DateTimeFormat(dateLocales[lang], {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timeZone: "UTC",
+    }).format(new Date(post.date)),
     minutes: post.minutes.replace("min", ui[lang].minutes),
+    tag: tagTranslations[post.tag]?.[lang] || post.tag,
   };
 }
 
@@ -699,7 +819,9 @@ function articlePage(lang, post, relatedPosts) {
   const copy = ui[lang];
   const articleContent = localizedArticleContent[post.slug]?.[lang];
   if (!articleContent) {
-    throw new Error(`Missing localized article content for ${lang}:${post.slug}`);
+    throw new Error(
+      `Missing localized article content for ${lang}:${post.slug}`,
+    );
   }
   const p = localizedPost(post, lang);
   const canonical = `${site}/${lang}/blog/${post.slug}/`;
