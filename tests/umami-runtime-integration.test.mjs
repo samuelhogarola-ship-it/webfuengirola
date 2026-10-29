@@ -83,6 +83,11 @@ function initialize(pathname) {
 }
 
 test("the profile classifies representative content languages and business sections", () => {
+  const spanish = analyticsProfile.languages.find(({ key }) => key === "es");
+  const english = analyticsProfile.languages.find(({ key }) => key === "en");
+  assert.equal(spanish.routes.prefixes.includes("/mexico/"), false);
+  assert.equal(english.routes.prefixes.includes("/usa/"), false);
+
   const cases = [
     ["/", "es", "home"],
     ["/en/blog/example/", "en", "blog"],
@@ -91,6 +96,8 @@ test("the profile classifies representative content languages and business secti
     ["/fi/blog/artikkeli/", "fi", "blog"],
     ["/fi/verkkosivut-klinikoille-fuengirola/", "fi", "services"],
     ["/web-solidaria/", "es", "solidarity"],
+    ["/mexico/en", "en", "home"],
+    ["/usa/es", "es", "home"],
   ];
 
   for (const [pathname, contentLanguage, section] of cases) {

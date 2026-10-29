@@ -31,7 +31,6 @@
           "/contacto/",
           "/sobre-nosotros/",
           "/como-trabajamos/",
-          "/mexico/",
           "/usa/es/"
         ]
       }
@@ -41,7 +40,7 @@
       "label": "English",
       "routes": {
         "exact": ["/en", "/mexico/en", "/usa"],
-        "prefixes": ["/en/", "/mexico/en/", "/usa/"]
+        "prefixes": ["/en/", "/mexico/en/"]
       }
     },
     {
