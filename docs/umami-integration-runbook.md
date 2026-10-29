@@ -21,8 +21,11 @@ Studio.
 
 Archivos necesarios:
 
-- `umami-analytics-core.js`: loader anonimo y cookieless. No carga nada si falta
-  `websiteId`.
+- `umami-analytics-core.js`: runtime canónico anónimo y cookieless de
+  `core-general`. Publica `UmamiAnalyticsCore` y el alias compatible
+  `WFAnalytics`; no carga nada si falta `websiteId`.
+- `analytics-profile.json`: contrato público sin secretos que declara idiomas de
+  contenido, secciones, eventos, contexto permitido y destinos excluidos.
 - `config/umami-config.template.json`: plantilla con `scriptSrc`, `hostUrl` y
   `websiteId`.
 - `scripts/render-umami-config.sh`: renderer de entorno a `/umami-config.json`.
@@ -40,6 +43,24 @@ En Coolify/nginx, el entrypoint ejecuta `scripts/render-umami-config.sh` al
 arrancar el contenedor. En Vercel u otro hosting estático, el mismo contrato se
 puede resolver generando el JSON durante build o exponiendo un endpoint/config
 equivalente, siempre con `websiteId` desde variables del proyecto.
+
+### Calidad de la instrumentación
+
+El idioma de contenido se obtiene de rutas controladas y no de
+`navigator.language`. El idioma del navegador continúa siendo una dimensión
+separada de Umami. Las secciones de Web Fuengirola son `home`, `services`,
+`portfolio`, `blog` y `solidarity` en español, inglés, alemán y finlandés.
+
+Los eventos comerciales y de formularios solo admiten campos incluidos en el
+perfil. Nunca se envían nombre, email, teléfono, mensaje ni otros valores
+introducidos por la persona. `portal.webfuengirola.com` está excluido de la
+instrumentación: Área cliente, sus usuarios y sus contraseñas no forman parte de
+este contrato.
+
+Los eventos `engagement_15s`, `engagement_30s`, `engagement_60s` y
+`engagement_120s` cuentan tiempo visible y se emiten una sola vez. Son hitos
+alcanzados, no una duración exacta de salida. Los eventos históricos que nunca
+se enviaron no pueden reconstruirse.
 
 ## WF Studio / Next
 

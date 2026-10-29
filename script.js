@@ -947,15 +947,46 @@
       : "denied";
   }
 
-  function initUmamiAnalytics() {
+  function inferAnalyticsEvent(element) {
+    var href = element.getAttribute("href") || "";
+    var eventName = element.dataset.analyticsEvent || "";
+    if (!eventName && element.matches("[hreflang]"))
+      eventName = "language_switch";
+    if (!eventName && href.indexOf("mailto:") === 0)
+      eventName = "email_click";
+    if (!eventName && href.indexOf("tel:") === 0)
+      eventName = "phone_click";
     if (
-      !window.UmamiAnalyticsCore ||
-      typeof window.UmamiAnalyticsCore.init !== "function"
+      !eventName &&
+      element.closest(".blog-page") &&
+      /(diseno-web|web-design|webdesign|verkkosivut|seo-local|local-seo|lokales-seo|paikallinen-seo|precios|prices|preise|hinnat|auditoria|audit|analyse|analyysi)/i.test(
+        href,
+      )
     )
-      return;
+      eventName = "blog_to_landing";
+    if (!eventName) return null;
+    return {
+      name: eventName,
+      data: {
+        plan: element.dataset.analyticsTier || "",
+        sector:
+          element.dataset.analyticsSector || document.body.dataset.sector || "",
+        market:
+          element.dataset.analyticsMarket || document.body.dataset.market || "",
+        currency:
+          element.dataset.analyticsCurrency || document.body.dataset.currency || "",
+        targetLanguage:
+          element.dataset.analyticsTargetLocale ||
+          element.getAttribute("hreflang") ||
+          "",
+        targetMarket: element.dataset.analyticsTargetMarket || "",
+      },
+    };
+  }
 
-    window
-      .fetch("/umami-config.json", {
+  function fetchAnalyticsConfig(url) {
+    return window
+      .fetch(url, {
         cache: "no-store",
         credentials: "same-origin",
       })
@@ -964,9 +995,27 @@
       })
       .catch(function () {
         return {};
-      })
-      .then(function (config) {
+      });
+  }
+
+  function initUmamiAnalytics() {
+    if (
+      !window.UmamiAnalyticsCore ||
+      typeof window.UmamiAnalyticsCore.init !== "function"
+    )
+      return;
+
+    Promise.all([
+      fetchAnalyticsConfig("/umami-config.json"),
+      fetchAnalyticsConfig("/analytics-profile.json"),
+    ])
+      .then(function (values) {
+        var config = values[0] || {};
+        config.profile = values[1] || {};
         window.UmamiAnalyticsCore.init(config);
+        window.UmamiAnalyticsCore.bindAutoEvents({
+          inferEvent: inferAnalyticsEvent,
+        });
       });
   }
 
@@ -1832,47 +1881,4 @@
   } else {
     initApp();
   }
-})();
-
-(function () {
-  "use strict";
-
-  function inferredEvent(element) {
-    var href = element.getAttribute("href") || "";
-    if (element.matches("[hreflang]")) return "language_switch";
-    if (href.indexOf("mailto:") === 0) return "email_click";
-    if (href.indexOf("tel:") === 0) return "phone_click";
-    if (
-      element.closest(".blog-page") &&
-      /(diseno-web|web-design|webdesign|verkkosivut|seo-local|local-seo|lokales-seo|paikallinen-seo|precios|prices|preise|hinnat|auditoria|audit|analyse|analyysi)/i.test(
-        href,
-      )
-    )
-      return "blog_to_landing";
-    return "";
-  }
-
-  document.addEventListener("click", function (event) {
-    var link = event.target.closest("a, button, [data-analytics-event]");
-    if (!link || !window.WFAnalytics || !window.WFAnalytics.trackEvent) return;
-    var eventName = link.dataset.analyticsEvent || inferredEvent(link);
-    if (!eventName) return;
-    window.WFAnalytics.trackEvent(eventName, {
-      locale:
-        link.dataset.analyticsLocale || document.documentElement.lang || "es",
-      tier: link.dataset.analyticsTier || "",
-      sector:
-        link.dataset.analyticsSector || document.body.dataset.sector || "",
-      market:
-        link.dataset.analyticsMarket || document.body.dataset.market || "",
-      currency:
-        link.dataset.analyticsCurrency || document.body.dataset.currency || "",
-      targetLocale:
-        link.dataset.analyticsTargetLocale ||
-        link.getAttribute("hreflang") ||
-        "",
-      targetMarket: link.dataset.analyticsTargetMarket || "",
-      destination: link.getAttribute("href") || "",
-    });
-  });
 })();

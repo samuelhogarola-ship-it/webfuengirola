@@ -13,7 +13,7 @@ test.describe('Umami cookieless – primera visita', () => {
         body: JSON.stringify({
           scriptSrc: 'https://analytics.187.124.55.36.sslip.io/script.js',
           hostUrl: 'https://analytics.187.124.55.36.sslip.io',
-          websiteId: 'webfuengirola-test-id',
+          websiteId: '00000000-0000-4000-8000-000000000001',
         }),
       });
     });
@@ -34,7 +34,7 @@ test.describe('Umami cookieless – primera visita', () => {
 
     await expect.poll(() => personalScriptRequests.length).toBe(1);
     const tracker = page.locator('script[data-umami-analytics-core]');
-    await expect(tracker).toHaveAttribute('data-website-id', 'webfuengirola-test-id');
+    await expect(tracker).toHaveAttribute('data-website-id', '00000000-0000-4000-8000-000000000001');
 
     await page.locator('[data-cookie-reject]').click();
 
