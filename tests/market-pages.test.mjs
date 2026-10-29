@@ -99,7 +99,33 @@ test("Mexico copy presents a European studio without inventing local claims", ()
   }
 });
 
-test("regional heroes stay concise and reserve Europe claims for the description", () => {
+test("Mexico Spanish uses the approved concise hero message", () => {
+  const page = getMarketPage("mexico", "es-MX");
+
+  assert.equal(page.h1, "Sitios web para empresas en México");
+  assert.equal(
+    page.intro,
+    "Optimiza tu negocio en México con servidores europeos y un proceso claro de principio a fin.",
+  );
+});
+
+test("USA pages contain no references to Europe", () => {
+  for (const page of Object.values(marketPages.usa)) {
+    assert.doesNotMatch(
+      flattenCopy(page),
+      /Europe|European|Europa|europe[oa]s?/i,
+    );
+  }
+});
+
+test("Brasil uses the approved quality and brand hero message", () => {
+  assert.equal(
+    getMarketPage("brasil", "pt-BR").intro,
+    "Criamos sites para empresas no Brasil que querem se destacar pela qualidade e pela força da marca.",
+  );
+});
+
+test("regional heroes stay concise and keep approved Europe claims outside USA", () => {
   for (const pages of Object.values(marketPages)) {
     for (const page of Object.values(pages)) {
       assert.ok(
@@ -110,14 +136,16 @@ test("regional heroes stay concise and reserve Europe claims for the description
         page.h1,
         /estándares europeos|European standards|European craft|criterio europeo|padrão europeu/i,
       );
-      assert.match(
-        `${page.description} ${page.intro}`,
-        /sede en Europa|European headquarters|sede na Europa/i,
-      );
-      assert.match(
-        `${page.description} ${page.intro}`,
-        /servidores europeos|European servers|servidores europeus/i,
-      );
+      if (page.marketKey !== "usa") {
+        assert.match(
+          `${page.description} ${page.intro}`,
+          /sede en Europa|European headquarters|sede na Europa/i,
+        );
+        assert.match(
+          `${page.description} ${page.intro}`,
+          /servidores europeos|European servers|servidores europeus/i,
+        );
+      }
     }
   }
 });

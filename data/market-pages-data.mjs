@@ -9,7 +9,7 @@ const mexicoSpanish = {
     "Diseño web para empresas en México desde nuestra sede en Europa, con servidores europeos y precios claros en pesos mexicanos.",
   h1: "Sitios web para empresas en México",
   intro:
-    "Diseñamos webs para empresas en México desde nuestra sede en Europa, con servidores europeos y un proceso claro.",
+    "Optimiza tu negocio en México con servidores europeos y un proceso claro de principio a fin.",
   problems: [
     "Tu sitio no transmite con claridad el valor, la experiencia o la calidad de tu empresa.",
     "Las visitas móviles no encuentran un camino directo para escribir por WhatsApp o solicitar una propuesta.",
@@ -192,10 +192,10 @@ const usaEnglish = {
   ogLocale: "en_US",
   title: "Web design for businesses in the United States | WF-Studio",
   description:
-    "Web design for US businesses from our European headquarters, with European servers and clear USD pricing.",
+    "Web design for US businesses with a clear remote process, verifiable work, and transparent USD pricing.",
   h1: "Websites for US businesses",
   intro:
-    "We build websites for US businesses from our European headquarters, with European servers and a clear process.",
+    "We build websites for US businesses with a clear remote process from strategy to launch.",
   problems: [
     "Your website looks generic and does not explain why a customer should choose your business.",
     "Mobile visitors cannot move quickly from interest to a useful enquiry or scheduled conversation.",
@@ -234,7 +234,7 @@ const usaEnglish = {
     {
       question: "How do you work with US businesses?",
       answer:
-        "Delivery is remote from Europe, with scheduled calls, written decisions, reviewable milestones, and clear ownership of the final files.",
+        "Delivery is remote, with scheduled calls, written decisions, reviewable milestones, and clear ownership of the final files.",
     },
     {
       question: "Do prices include tax, hosting, or third-party tools?",
@@ -253,7 +253,7 @@ const usaEnglish = {
     primaryCta: "Request a proposal",
     secondaryCta: "View case studies",
     problemsHeading: "What a commercial website needs to solve",
-    benefitsHeading: "A clear remote workflow from Europe",
+    benefitsHeading: "A clear remote workflow",
     packagesHeading: "Website packages for the United States",
     processHeading: "How we work",
     faqHeading: "Frequently asked questions",
@@ -285,10 +285,10 @@ const usaSpanish = {
   ogLocale: "es_US",
   title: "Diseño web para empresas en Estados Unidos | WF-Studio",
   description:
-    "Diseño web para empresas en Estados Unidos desde nuestra sede en Europa, con servidores europeos y precios claros en dólares.",
+    "Diseño web para empresas en Estados Unidos con un proceso remoto claro, trabajo verificable y precios transparentes en dólares.",
   h1: "Webs para empresas en Estados Unidos",
   intro:
-    "Creamos webs para empresas en Estados Unidos desde nuestra sede en Europa, con servidores europeos y un proceso claro.",
+    "Creamos webs para empresas en Estados Unidos con un proceso remoto claro de principio a fin.",
   problems: [
     "Tu web parece genérica y no explica por qué un cliente debería elegir tu negocio.",
     "Quien visita desde el móvil no encuentra un camino rápido para consultar o concertar una conversación.",
@@ -327,7 +327,7 @@ const usaSpanish = {
     {
       question: "¿Cómo trabajan con empresas de Estados Unidos?",
       answer:
-        "La entrega se realiza a distancia desde Europa, con reuniones acordadas, decisiones por escrito, hitos revisables y una entrega clara de archivos.",
+        "La entrega se realiza a distancia, con reuniones acordadas, decisiones por escrito, hitos revisables y una entrega clara de archivos.",
     },
     {
       question:
@@ -347,7 +347,7 @@ const usaSpanish = {
     primaryCta: "Solicitar propuesta",
     secondaryCta: "Ver casos",
     problemsHeading: "Lo que debe resolver una web comercial",
-    benefitsHeading: "Un proceso remoto claro desde Europa",
+    benefitsHeading: "Un proceso remoto claro",
     packagesHeading: "Paquetes web para Estados Unidos",
     processHeading: "Cómo trabajamos",
     faqHeading: "Preguntas frecuentes",
@@ -383,7 +383,7 @@ const brasilPortuguese = {
     "Criação de sites para empresas no Brasil a partir da nossa sede na Europa, com servidores europeus e preços claros em reais.",
   h1: "Sites para empresas no Brasil",
   intro:
-    "Criamos sites para empresas no Brasil a partir da nossa sede na Europa, com servidores europeus e um processo claro.",
+    "Criamos sites para empresas no Brasil que querem se destacar pela qualidade e pela força da marca.",
   problems: [
     "O site atual não comunica com clareza o valor, a experiência ou a qualidade da empresa.",
     "No celular, o visitante não encontra um caminho direto para conversar ou solicitar uma proposta.",
