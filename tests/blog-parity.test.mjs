@@ -139,6 +139,26 @@ test("every blog index uses the shared search-first layout without editorial fil
   }
 });
 
+test("every blog locale uses the approved two-line editorial headline", () => {
+  const headlines = {
+    es: ["Ideas claras", "para vender mejor online"],
+    en: ["Clear ideas", "to sell better online"],
+    de: ["Klare Ideen", "um online besser zu verkaufen"],
+    fi: ["Selkeitä ideoita", "parempaan verkkomyyntiin"],
+  };
+
+  for (const [locale, lines] of Object.entries(headlines)) {
+    const html = readIndex(locale);
+    assert.match(
+      html,
+      new RegExp(
+        `<h1 class="subpage-hero__title"><span>${lines[0]}</span><span>${lines[1]}</span></h1>`,
+      ),
+      locale,
+    );
+  }
+});
+
 test("localized articles do not reuse generic body paragraphs or FAQ questions", () => {
   const forbiddenBoilerplate =
     /full guide|vollständigen Ratgeber|Täysi opas|observable signal|beobachtbares Signal|havaittava signaali|current website, contact path|aktuellen Website, dem Kontaktweg|nykyiseen verkkosivuun, yhteydenottopolkuun/i;

@@ -31,7 +31,7 @@ function primaryNavigation(file) {
     /<nav class="nav" id="nav"[^>]*>([\s\S]*?)<\/nav>/,
   )?.[1];
   assert.ok(nav, `${file} must expose the shared primary navigation`);
-  return [...nav.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g)].map(
+  return [...nav.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a\s*>/g)].map(
     ([, href, label]) => [href, label.trim()],
   );
 }
