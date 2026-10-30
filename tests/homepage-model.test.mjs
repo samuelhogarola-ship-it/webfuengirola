@@ -76,9 +76,18 @@ test("Spain restores five real homepage cases without decorative numbering or cr
 
   assert.equal((html.match(/class="case-showcase__item"/g) ?? []).length, 5);
   assert.doesNotMatch(html, /case-showcase__number">0[1-9]</);
-  assert.match(html, /case-showcase__media--screen[^>]*>[\s\S]*sport-massage-landing\.png/);
-  assert.match(html, /case-showcase__media--agama-main[^>]*>[\s\S]*agama-tienda-online\.png/);
-  assert.match(html, /case-showcase__media--screen[^>]*>[\s\S]*suvilla-real\.webp/);
+  assert.match(
+    html,
+    /case-showcase__media--screen[^>]*>[\s\S]*sport-massage-landing\.png/,
+  );
+  assert.match(
+    html,
+    /case-showcase__media--agama-main[^>]*>[\s\S]*agama-tienda-online\.png/,
+  );
+  assert.match(
+    html,
+    /case-showcase__media--screen[^>]*>[\s\S]*suvilla-real\.webp/,
+  );
   assert.match(html, /href="\/casos\/"[^>]*>Ver todos los proyectos/);
 });
 
@@ -102,6 +111,31 @@ test("every market homepage reuses the five-case reference layout and original W
     assert.doesNotMatch(html, />undefined</);
     assert.doesNotMatch(html, /<section class="process section"/);
     assert.match(html, /<section class="faq-home"/);
+  }
+});
+
+test("non-Spanish homepages open the five published projects without falling back to Spanish case pages", () => {
+  const publishedUrls = [
+    "https://www.sportmassagefuengirola.com",
+    "https://www.agama.com.mx",
+    "https://suvilla-web.vercel.app/es",
+    "https://www.samuelcoachdealeman.com",
+    "https://www.vokabellab.com",
+  ];
+
+  for (const [market, locale] of [
+    ["spain", "en-GB"],
+    ["spain", "de-DE"],
+    ["spain", "fi-FI"],
+    ["mexico", "en-MX"],
+    ["usa", "en-US"],
+    ["brasil", "pt-BR"],
+  ]) {
+    const html = renderHomepage(getHomepageRecord(market, locale), snapshot);
+    for (const url of publishedUrls) {
+      assert.match(html, new RegExp(`href="${url.replaceAll("/", "\\/")}"`));
+    }
+    assert.doesNotMatch(html, /href="\/casos\/[^"#]+\/"/);
   }
 });
 

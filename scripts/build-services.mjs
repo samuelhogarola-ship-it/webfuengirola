@@ -207,7 +207,7 @@ function buildServiceHub() {
             <p class="portfolio-card__price" style="font-weight:600;color:var(--color-accent);margin-top:0.5rem">${escapeHtml(s.price)}</p>
           </div>
           <div class="portfolio-card__footer">
-            <a href="${consolidatedHref[s.slug] ?? `${prefix}servicios/${s.slug}/`}" class="btn btn--outline">Ver servicio →</a>
+            <a href="${consolidatedHref[s.slug] ?? `${prefix}servicios/${s.slug}/`}" class="btn btn--outline service-card__cta">Ver servicio →</a>
           </div>
         </article>`,
     )

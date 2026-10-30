@@ -10,18 +10,12 @@ import { cases } from "../data/cases-data.mjs";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const expectedGroups = {
-  lite: [
-    "Sport Massage Fuengirola",
-    "Bali Bhuana",
-    "Dede Art",
-    "Horses of Gili",
-  ],
+  lite: ["Sport Massage Fuengirola", "Bali Bhuana", "Horses of Gili"],
   express: ["Personal Trainer Fuengirola", "Gimnasio Nuevo Estilo"],
   pro: [
     "Samuel Coach de Alemán",
     "Agama",
     "SuVilla Inmobiliaria",
-    "TodoPlásticos",
     "Superentrenador",
   ],
   apps: [
@@ -30,7 +24,6 @@ const expectedGroups = {
     "CRM para clínicas",
     "Der Die Das",
     "ImKontext",
-    "Farbentester",
   ],
 };
 
@@ -70,9 +63,19 @@ test("the generated portfolio exposes four sections and uncropped thumbnails", (
   }
   assert.doesNotMatch(html, /Webs especializadas/i);
   assert.match(html, /portfolio-card__img--contain/);
-  assert.equal((html.match(/<details class="portfolio-category"/g) ?? []).length, 4);
-  assert.equal((html.match(/<summary class="portfolio-category__header"/g) ?? []).length, 4);
-  assert.equal((html.match(/<details class="portfolio-category"[^>]* open>/g) ?? []).length, 4);
+  assert.equal(
+    (html.match(/<details class="portfolio-category"/g) ?? []).length,
+    4,
+  );
+  assert.equal(
+    (html.match(/<summary class="portfolio-category__header"/g) ?? []).length,
+    4,
+  );
+  assert.equal(
+    (html.match(/<details class="portfolio-category"[^>]* open>/g) ?? [])
+      .length,
+    4,
+  );
   assert.doesNotMatch(html, /href="\/precios-diseno-web-fuengirola\/"/);
   assert.doesNotMatch(html, /href="\/seo-local-fuengirola\/"/);
   assert.doesNotMatch(html, /href="\/automatizacion-ia-fuengirola\/"/);
@@ -89,6 +92,8 @@ test("real portfolio projects use real screenshots instead of placeholder SVG co
     suvilla: "img/suvilla-real.webp",
     superentrenador: "img/superentrenador-real.png",
     "horses-of-gili": "img/horses-of-gili-real.webp",
+    "gimnasio-nuevo-estilo": "img/gimnasio-web-real.png",
+    "crm-inmobiliario": "img/crm-inmobiliario-real.png",
   };
 
   for (const [slug, image] of Object.entries(expectedScreenshots)) {
@@ -96,6 +101,24 @@ test("real portfolio projects use real screenshots instead of placeholder SVG co
     assert.ok(project, slug);
     assert.equal(project.image, image, slug);
     assert.doesNotMatch(project.image, /portfolio-.*\.svg$/);
+  }
+});
+
+test("the public portfolio excludes unverifiable mockups and synthetic covers", () => {
+  const excluded = ["dede-art", "todoplasticos", "farbentester"];
+  const html = fs.readFileSync(path.join(root, "casos/index.html"), "utf8");
+
+  for (const slug of excluded) {
+    assert.equal(
+      portfolioProjects.some((project) => project.slug === slug),
+      false,
+      slug,
+    );
+    assert.doesNotMatch(html, new RegExp(`id="${slug}"`), slug);
+  }
+
+  for (const project of portfolioProjects) {
+    assert.doesNotMatch(project.image, /portfolio-.*\.svg$/, project.slug);
   }
 });
 
@@ -107,7 +130,11 @@ test("all portfolio languages use the same grouped and collapsible project catal
     "fi/asiakastyot/index.html",
   ]) {
     const html = fs.readFileSync(path.join(root, route), "utf8");
-    assert.equal((html.match(/<details class="portfolio-category"/g) ?? []).length, 4, route);
+    assert.equal(
+      (html.match(/<details class="portfolio-category"/g) ?? []).length,
+      4,
+      route,
+    );
     assert.match(html, /Horses of Gili/, route);
     assert.match(html, /SuVilla Inmobiliaria/, route);
     assert.match(html, /superentrenador-real\.png/, route);
@@ -120,39 +147,82 @@ test("localized portfolios keep their copy and internal journeys in the active l
       file: "en/case-studies/index.html",
       caseHref: "https://www.sportmassagefuengirola.com",
       liveCta: "Visit live website →",
-      contact: "/en/contact/?project=dede-art",
+      contact: "/en/contact/?project=crm-inmobiliario",
       localizedDescription: "A local landing page that explains services",
       forbiddenDescription: "Landing local enfocada en explicar servicios",
       aria: "View project: Sport Massage Fuengirola",
+      crmAlt: "Real screenshot of the initial setup for the real-estate CRM",
+      demoCta: "View demo →",
     },
     {
       file: "de/referenzen/index.html",
       caseHref: "https://www.sportmassagefuengirola.com",
       liveCta: "Live-Website besuchen →",
-      contact: "/de/kontakt/?project=dede-art",
+      contact: "/de/kontakt/?project=crm-inmobiliario",
       localizedDescription: "Eine lokale Landingpage, die Leistungen erklärt",
       forbiddenDescription: "Landing local enfocada en explicar servicios",
       aria: "Projekt ansehen: Sport Massage Fuengirola",
+      crmAlt: "Echter Screenshot der Ersteinrichtung des Immobilien-CRM",
+      demoCta: "Demo ansehen →",
     },
     {
       file: "fi/asiakastyot/index.html",
       caseHref: "https://www.sportmassagefuengirola.com",
       liveCta: "Avaa julkaistu sivusto →",
-      contact: "/fi/yhteystiedot/?project=dede-art",
-      localizedDescription: "Paikallinen laskeutumissivu, joka esittelee palvelut",
+      contact: "/fi/yhteystiedot/?project=crm-inmobiliario",
+      localizedDescription:
+        "Paikallinen laskeutumissivu, joka esittelee palvelut",
       forbiddenDescription: "Landing local enfocada en explicar servicios",
       aria: "Katso projekti: Sport Massage Fuengirola",
+      crmAlt: "Aito kuvakaappaus kiinteistö-CRM:n alkuasetuksista",
+      demoCta: "Katso demo →",
     },
   ];
 
   for (const expectation of localizedRoutes) {
     const html = fs.readFileSync(path.join(root, expectation.file), "utf8");
-    assert.match(html, new RegExp(expectation.localizedDescription), expectation.file);
-    assert.doesNotMatch(html, new RegExp(expectation.forbiddenDescription), expectation.file);
-    assert.match(html, new RegExp(`href="${expectation.caseHref}"[^>]*target="_blank"`), expectation.file);
+    assert.match(
+      html,
+      new RegExp(expectation.localizedDescription),
+      expectation.file,
+    );
+    assert.doesNotMatch(
+      html,
+      new RegExp(expectation.forbiddenDescription),
+      expectation.file,
+    );
+    assert.match(
+      html,
+      new RegExp(`href="${expectation.caseHref}"[^>]*target="_blank"`),
+      expectation.file,
+    );
     assert.match(html, new RegExp(expectation.liveCta), expectation.file);
-    assert.match(html, new RegExp(`href="${expectation.contact.replace("?", "\\?")}"`), expectation.file);
-    assert.match(html, new RegExp(`aria-label="${expectation.aria}"`), expectation.file);
+    assert.match(
+      html,
+      new RegExp(`href="${expectation.contact.replace("?", "\\?")}"`),
+      expectation.file,
+    );
+    assert.match(
+      html,
+      new RegExp(`aria-label="${expectation.aria}"`),
+      expectation.file,
+    );
+    assert.match(
+      html,
+      new RegExp(`id="crm-inmobiliario"[\\s\\S]*?alt="${expectation.crmAlt}"`),
+      expectation.file,
+    );
+    assert.match(
+      html,
+      new RegExp(
+        `id="fisioapp-panel-clinica"[\\s\\S]*?>${expectation.demoCta}`,
+      ),
+      expectation.file,
+    );
+    assert.doesNotMatch(
+      html,
+      /Concept cover|Konzeptionelles Titelbild|konseptikansi/,
+    );
   }
 });
 
@@ -215,9 +285,9 @@ test("every portfolio card declares an honest type with a matching call to actio
   const fisioApp = portfolioProjects.find(
     ({ slug }) => slug === "fisioapp-panel-clinica",
   );
-  assert.equal(fisioApp.projectType, "crm");
-  assert.match(fisioApp.heroLabel, /CRM funcional/i);
-  assert.doesNotMatch(
+  assert.equal(fisioApp.projectType, "demo");
+  assert.match(fisioApp.heroLabel, /Demo funcional/i);
+  assert.match(
     [
       fisioApp.client,
       fisioApp.longDescription,
@@ -231,7 +301,7 @@ test("every portfolio card declares an honest type with a matching call to actio
 
   const fisioCase = cases.find(({ slug }) => slug === "fisioapp-panel-clinica");
   assert.ok(fisioCase);
-  assert.doesNotMatch(
+  assert.match(
     [
       fisioCase.client,
       fisioCase.headline,

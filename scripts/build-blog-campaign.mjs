@@ -1343,7 +1343,8 @@ function buildIndex() {
           <a class="lang-switcher__btn" href="../fi/blog/" hreflang="fi">Suomi</a>
         </div>`,
     badge: "Guías para negocio local",
-    title: "Web, SEO y captación para negocios locales",
+    title: "Ideas claras para vender mejor online",
+    titleLines: ["Ideas claras", "para vender mejor online"],
     description:
       "Guías prácticas para mejorar tu web, aparecer con más claridad y convertir visitas en contactos reales.",
     searchLabel: "Buscar artículos",

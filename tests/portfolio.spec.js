@@ -202,11 +202,11 @@ test("la ficha de FisioApp expone imagen indexable y CTA de servicio", async ({
   );
   await expect(
     page.locator(
-      'main img[alt="FisioApp Panel Clínica — CRM funcional de WF-Studio · Web Fuengirola"]',
+      'main img[alt="FisioApp Panel Clínica — demo funcional de WF-Studio · Web Fuengirola"]',
     ),
   ).toHaveAttribute(
     "alt",
-    "FisioApp Panel Clínica — CRM funcional de WF-Studio · Web Fuengirola",
+    "FisioApp Panel Clínica — demo funcional de WF-Studio · Web Fuengirola",
   );
   await expect(
     page.getByRole("link", { name: /ver servicio/i }),

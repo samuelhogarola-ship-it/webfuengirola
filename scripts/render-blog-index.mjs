@@ -13,6 +13,7 @@ export function renderBlogIndexMain({
   languageSwitcher,
   badge,
   title,
+  titleLines,
   description,
   searchLabel,
   searchPlaceholder,
@@ -28,7 +29,7 @@ export function renderBlogIndexMain({
         <nav class="project-breadcrumb" aria-label="Breadcrumb"><a href="${homeHref}">${escapeHtml(homeLabel)}</a><span>/</span><span>${escapeHtml(blogLabel)}</span></nav>
         ${languageSwitcher}
         <span class="badge">${escapeHtml(badge)}</span>
-        <h1 class="subpage-hero__title">${escapeHtml(title)}</h1>
+        <h1 class="subpage-hero__title">${titleLines?.length ? titleLines.map((line) => `<span>${escapeHtml(line)}</span>`).join("") : escapeHtml(title)}</h1>
         <p class="subpage-hero__sub">${escapeHtml(description)}</p>
         <form class="blog-search" role="search" data-blog-search>
           <label class="sr-only" for="blog-search-input">${escapeHtml(searchLabel)}</label>

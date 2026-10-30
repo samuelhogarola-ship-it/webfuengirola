@@ -137,7 +137,8 @@ const ui = {
     blogDescription:
       "Clear articles about websites, local SEO, Google, social media and AI for local businesses that want better online enquiries.",
     indexBadge: "Local business guides",
-    hero: "Websites, SEO and acquisition for local businesses",
+    hero: "Clear ideas to sell better online",
+    heroLines: ["Clear ideas", "to sell better online"],
     heroSub:
       "Practical guides to improve your website, become easier to find and turn visits into real enquiries.",
     searchLabel: "Search articles",
@@ -166,7 +167,8 @@ const ui = {
     blogDescription:
       "Klare Artikel über Websites, lokales SEO, Google, soziale Netzwerke und KI für lokale Unternehmen mit mehr echten Anfragen.",
     indexBadge: "Ratgeber für lokale Unternehmen",
-    hero: "Websites, SEO und Kundengewinnung für lokale Unternehmen",
+    hero: "Klare Ideen, um online besser zu verkaufen",
+    heroLines: ["Klare Ideen", "um online besser zu verkaufen"],
     heroSub:
       "Praktische Ratgeber, um die Website zu verbessern, besser gefunden zu werden und Besuche in echte Anfragen zu verwandeln.",
     searchLabel: "Artikel suchen",
@@ -195,7 +197,8 @@ const ui = {
     blogDescription:
       "Selkeitä artikkeleita verkkosivuista, paikallisesta SEO:sta, Googlesta, somesta ja tekoälystä paikallisille yrityksille.",
     indexBadge: "Oppaat paikallisille yrityksille",
-    hero: "Verkkosivut, SEO ja asiakashankinta paikallisille yrityksille",
+    hero: "Selkeitä ideoita parempaan verkkomyyntiin",
+    heroLines: ["Selkeitä ideoita", "parempaan verkkomyyntiin"],
     heroSub:
       "Käytännön oppaita verkkosivun parantamiseen, löydettävyyteen ja kävijöiden muuttamiseen oikeiksi yhteydenotoiksi.",
     searchLabel: "Hae artikkeleita",
@@ -791,6 +794,7 @@ function blogIndex(lang, posts) {
     languageSwitcher: languageSwitcher("", lang),
     badge: copy.indexBadge,
     title: copy.hero,
+    titleLines: copy.heroLines,
     description: copy.heroSub,
     searchLabel: copy.searchLabel,
     searchPlaceholder: copy.searchPlaceholder,

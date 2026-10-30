@@ -13,7 +13,7 @@ test("el blog carga y enlaza al artículo principal", async ({ page }) => {
   );
   await expect(
     page.getByRole("heading", {
-      name: /web, seo y captación para negocios locales/i,
+      name: /ideas claras para vender mejor online/i,
     }),
   ).toBeVisible();
   await expect(page.locator(".blog-hero--index")).toHaveCSS(

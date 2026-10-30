@@ -667,10 +667,12 @@ test("casos y blog mantienen branding público consistente", async ({
   );
   await expect(
     page.getByRole("heading", {
-      name: /web, seo y captación para negocios locales/i,
+      name: /ideas claras para vender mejor online/i,
     }),
   ).toBeVisible();
-  await expect(page.getByRole("searchbox", { name: /buscar artículos/i })).toBeVisible();
+  await expect(
+    page.getByRole("searchbox", { name: /buscar artículos/i }),
+  ).toBeVisible();
   await expect(page.locator("body")).toContainText(
     /web vs redes sociales para negocio local/i,
   );

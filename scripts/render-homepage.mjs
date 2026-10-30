@@ -234,131 +234,149 @@ function relatedService(record) {
 }
 
 function renderCaseShowcase(record) {
-  const spainLabels =
-    {
-      es: {
-        health: "Salud",
-        industry: "Industria",
-        realEstate: "Inmobiliaria",
-        education: "Educación",
-        view: "Ver caso →",
-      },
-      en: {
-        health: "Health",
-        industry: "Industry",
-        realEstate: "Real estate",
-        education: "Education",
-        view: "View case →",
-      },
-      de: {
-        health: "Gesundheit",
-        industry: "Industrie",
-        realEstate: "Immobilien",
-        education: "Bildung",
-        view: "Referenz ansehen →",
-      },
-      fi: {
-        health: "Hyvinvointi",
-        industry: "Teollisuus",
-        realEstate: "Kiinteistöt",
-        education: "Koulutus",
-        view: "Katso työ →",
-      },
-      pt: {
-        health: "Saúde",
-        industry: "Indústria",
-        realEstate: "Imobiliário",
-        education: "Educação",
-        view: "Ver projeto →",
-      },
-    }[record.sourceLocale] ?? {
+  const spainLabels = {
+    es: {
+      health: "Salud",
+      industry: "Industria",
+      realEstate: "Inmobiliaria",
+      education: "Educación",
+      view: "Ver caso →",
+    },
+    en: {
       health: "Health",
       industry: "Industry",
       realEstate: "Real estate",
       education: "Education",
       view: "View case →",
-    };
+    },
+    de: {
+      health: "Gesundheit",
+      industry: "Industrie",
+      realEstate: "Immobilien",
+      education: "Bildung",
+      view: "Referenz ansehen →",
+    },
+    fi: {
+      health: "Hyvinvointi",
+      industry: "Teollisuus",
+      realEstate: "Kiinteistöt",
+      education: "Koulutus",
+      view: "Katso työ →",
+    },
+    pt: {
+      health: "Saúde",
+      industry: "Indústria",
+      realEstate: "Imobiliário",
+      education: "Educação",
+      view: "Ver projeto →",
+    },
+  }[record.sourceLocale] ?? {
+    health: "Health",
+    industry: "Industry",
+    realEstate: "Real estate",
+    education: "Education",
+    view: "View case →",
+  };
   const cases = [
-          {
-            href: "/casos/sport-massage-fuengirola/",
-            category: spainLabels.health,
-            title: "Sport Massage Fuengirola",
-            image: "/img/sport-massage-landing.png",
-            width: 1179,
-            height: 1941,
-            mediaClass: "case-showcase__media--screen",
-          },
-          {
-            href: "/casos/agama/",
-            category: spainLabels.industry,
-            title: "Agama",
-            image: "/img/agama-tienda-online.png",
-            width: 1672,
-            height: 941,
-            mediaClass:
-              "case-showcase__media--screen case-showcase__media--agama-main",
-          },
-          {
-            href: "/casos/suvilla/",
-            category: spainLabels.realEstate,
-            title: "SuVilla Inmobiliaria",
-            image: "/img/suvilla-real.webp",
-            width: 1440,
-            height: 1000,
-            mediaClass: "case-showcase__media--screen",
-          },
-          {
-            href: "/casos/samuel-coach-aleman/",
-            category: spainLabels.education,
-            title: "Samuel Coach Alemán",
-            image: "/img/samuel-coach.webp",
-            width: 800,
-            height: 400,
-            mediaClass: "case-showcase__media--screen",
-          },
-          {
-            href: "/casos/vokabellab/",
-            category: "EdTech",
-            title: "Vokabellab",
-            image: "/img/vokabellab-real.webp",
-            width: 1440,
-            height: 1000,
-            mediaClass: "case-showcase__media--screen",
-          },
-        ];
+    {
+      href: "/casos/sport-massage-fuengirola/",
+      publicHref: "https://www.sportmassagefuengirola.com",
+      category: spainLabels.health,
+      title: "Sport Massage Fuengirola",
+      image: "/img/sport-massage-landing.png",
+      width: 1179,
+      height: 1941,
+      mediaClass: "case-showcase__media--screen",
+    },
+    {
+      href: "/casos/agama/",
+      publicHref: "https://www.agama.com.mx",
+      category: spainLabels.industry,
+      title: "Agama",
+      image: "/img/agama-tienda-online.png",
+      width: 1672,
+      height: 941,
+      mediaClass:
+        "case-showcase__media--screen case-showcase__media--agama-main",
+    },
+    {
+      href: "/casos/suvilla/",
+      publicHref: "https://suvilla-web.vercel.app/es",
+      category: spainLabels.realEstate,
+      title: "SuVilla Inmobiliaria",
+      image: "/img/suvilla-real.webp",
+      width: 1440,
+      height: 1000,
+      mediaClass: "case-showcase__media--screen",
+    },
+    {
+      href: "/casos/samuel-coach-aleman/",
+      publicHref: "https://www.samuelcoachdealeman.com",
+      category: spainLabels.education,
+      title: "Samuel Coach Alemán",
+      image: "/img/samuel-coach.webp",
+      width: 800,
+      height: 400,
+      mediaClass: "case-showcase__media--screen",
+    },
+    {
+      href: "/casos/vokabellab/",
+      publicHref: "https://www.vokabellab.com",
+      category: "EdTech",
+      title: "Vokabellab",
+      image: "/img/vokabellab-real.webp",
+      width: 1440,
+      height: 1000,
+      mediaClass: "case-showcase__media--screen",
+    },
+  ];
 
   return cases
     .map(
-      ({ href, category, title, image, width, height, mediaClass }) =>
-        `<a href="${href}" class="case-showcase__item"><div class="case-showcase__copy"><span class="case-showcase__number">${escapeHtml(category)}</span><h3>${escapeHtml(title)}</h3><span class="case-showcase__link">${escapeHtml(spainLabels.view)}</span></div><div class="case-showcase__media${mediaClass ? ` ${mediaClass}` : ""}"><img src="${image}" alt="${escapeHtml(title)}" width="${width}" height="${height}" loading="lazy" decoding="async" /></div></a>`,
+      ({
+        href,
+        publicHref,
+        category,
+        title,
+        image,
+        width,
+        height,
+        mediaClass,
+      }) => {
+        const targetHref = record.sourceLocale === "es" ? href : publicHref;
+        const externalAttributes =
+          record.sourceLocale === "es"
+            ? ""
+            : ' target="_blank" rel="noopener noreferrer"';
+        return `<a href="${targetHref}" class="case-showcase__item"${externalAttributes}><div class="case-showcase__copy"><span class="case-showcase__number">${escapeHtml(category)}</span><h3>${escapeHtml(title)}</h3><span class="case-showcase__link">${escapeHtml(spainLabels.view)}</span></div><div class="case-showcase__media${mediaClass ? ` ${mediaClass}` : ""}"><img src="${image}" alt="${escapeHtml(title)}" width="${width}" height="${height}" loading="lazy" decoding="async" /></div></a>`;
+      },
     )
     .join("");
 }
 
 function renderPortfolioIntro(record, casesRoute) {
-  const extra =
-      {
-          es: [
-            "Proyectos reales, adaptados a cada negocio.",
-            "Ver todos los proyectos →",
-          ],
-          en: ["Real projects built around each business.", "View all projects →"],
-          de: [
-            "Echte Projekte, passend zum jeweiligen Unternehmen.",
-            "Alle Referenzen ansehen →",
-          ],
-          fi: [
-            "Aitoja projekteja yrityksen tarpeisiin.",
-            "Katso kaikki asiakastyöt →",
-          ],
-          pt: [
-            "Projetos reais, adaptados a cada negócio.",
-            "Ver todos os projetos →",
-          ],
-        }[record.sourceLocale] ?? [
-          "Real projects built around each business.",
-          "View all projects →",
-        ];
+  const extra = {
+    es: [
+      "Proyectos reales, adaptados a cada negocio.",
+      "Ver todos los proyectos →",
+    ],
+    en: ["Real projects built around each business.", "View all projects →"],
+    de: [
+      "Echte Projekte, passend zum jeweiligen Unternehmen.",
+      "Alle Referenzen ansehen →",
+    ],
+    fi: [
+      "Aitoja projekteja yrityksen tarpeisiin.",
+      "Katso kaikki asiakastyöt →",
+    ],
+    pt: [
+      "Projetos reais, adaptados a cada negócio.",
+      "Ver todos os projetos →",
+    ],
+  }[record.sourceLocale] ?? [
+    "Real projects built around each business.",
+    "View all projects →",
+  ];
 
   return `<div class="case-showcase__intro"><span class="section-label">${escapeHtml(record.labels.casesEyebrow)}</span><h2 class="case-showcase__title">${escapeHtml(record.labels.casesHeading)}</h2>${extra ? `<p class="case-showcase__sub">${escapeHtml(extra[0])}</p><a href="${casesRoute}" class="btn btn--outline-light btn--sm">${escapeHtml(extra[1])}</a>` : ""}</div>`;
 }
